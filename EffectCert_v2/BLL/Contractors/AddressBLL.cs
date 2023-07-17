@@ -1,14 +1,15 @@
 ﻿using EffectCert.DAL.Entities.Contractors;
 using EffectCert.DAL.Implementations.Contractors;
 using EffectCert.BLL;
+using Microsoft.IdentityModel.Tokens;
 
 namespace EffectCert.BLL.Contractors
 {
-    public class AttestateBLL : ICommonBLL<Address>
+    public class AddressBLL : ICommonBLL<Address>
     {
         private readonly AddressRepo addressDAL;
 
-        public AttestateBLL(AddressRepo addressDAL)
+        public AddressBLL(AddressRepo addressDAL)
         {
             this.addressDAL = addressDAL;
         }
@@ -27,7 +28,20 @@ namespace EffectCert.BLL.Contractors
 
         public async Task<IEnumerable<Address>> Find(string searchStr)
         {
+            if (searchStr.IsNullOrEmpty())
+                return await FindAll();
+
             return await addressDAL.Find(searchStr);
+        }
+
+        public async Task<IEnumerable<Address>> FindAll()
+        {
+            return await addressDAL.GetAll();
+        }
+
+        public async Task<int> Delete(int id)
+        {
+            return await addressDAL.Delete(id);
         }
     }
 }

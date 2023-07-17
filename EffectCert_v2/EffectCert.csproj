@@ -13,4 +13,16 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\Documents\" />
+    <Folder Include="Controllers\Main\" />
+    <Folder Include="Controllers\Others\" />
+    <Folder Include="ViewMappers\Documents\" />
+    <Folder Include="ViewMappers\Main\" />
+    <Folder Include="ViewMappers\Others\" />
+    <Folder Include="ViewModels\Documents\" />
+    <Folder Include="ViewModels\Main\" />
+    <Folder Include="ViewModels\Others\" />
+  </ItemGroup>
+
 </Project>

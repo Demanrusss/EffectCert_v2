@@ -1,6 +1,9 @@
 ﻿using EffectCert.DAL.Entities.Others;
 using EffectCert.DAL.Implementations.Others;
 using EffectCert.BLL;
+using EffectCert.BLL.Contractors;
+using EffectCert.DAL.Entities.Contractors;
+using Microsoft.IdentityModel.Tokens;
 
 namespace EffectCert.BLL.Others
 {
@@ -27,7 +30,20 @@ namespace EffectCert.BLL.Others
 
         public async Task<IEnumerable<Schema>> Find(string searchStr)
         {
+            if (searchStr.IsNullOrEmpty())
+                return await FindAll();
+
             return await schemaDAL.Find(searchStr);
+        }
+
+        public async Task<IEnumerable<Schema>> FindAll()
+        {
+            return await schemaDAL.GetAll();
+        }
+
+        public async Task<int> Delete(int id)
+        {
+            return await schemaDAL.Delete(id);
         }
     }
 }

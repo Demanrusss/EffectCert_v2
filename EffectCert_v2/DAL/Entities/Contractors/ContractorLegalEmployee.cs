@@ -7,6 +7,5 @@
         public int ContractorLegalId { get; set; }
         public string Position { get; set; } = null!;
         public bool IsManager { get; set; } = false;
-        
     }
 }

@@ -1,6 +1,9 @@
 ﻿using EffectCert.DAL.Entities.Main;
 using EffectCert.DAL.Implementations.Main;
 using EffectCert.BLL;
+using EffectCert.BLL.Contractors;
+using EffectCert.DAL.Entities.Contractors;
+using Microsoft.IdentityModel.Tokens;
 
 namespace EffectCert.BLL.Main
 {
@@ -27,7 +30,20 @@ namespace EffectCert.BLL.Main
 
         public async Task<IEnumerable<AppDecision>> Find(string searchStr)
         {
+            if (searchStr.IsNullOrEmpty())
+                return await FindAll();
+
             return await appDecisionDAL.Find(searchStr);
+        }
+
+        public async Task<IEnumerable<AppDecision>> FindAll()
+        {
+            return await appDecisionDAL.GetAll();
+        }
+
+        public async Task<int> Delete(int id)
+        {
+            return await appDecisionDAL.Delete(id);
         }
     }
 }
