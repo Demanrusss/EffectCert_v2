@@ -1,6 +1,6 @@
 ﻿namespace EffectCert.DAL.Entities.Contractors
 {
-    public class Address
+    public class Address : IEntity
     {
         public int Id { get; set; }
         public string Country { get; set; } = null!;

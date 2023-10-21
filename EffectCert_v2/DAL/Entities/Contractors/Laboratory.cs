@@ -1,11 +1,15 @@
-﻿namespace EffectCert.DAL.Entities.Contractors
+﻿using EffectCert.DAL.Entities.Documents;
+
+namespace EffectCert.DAL.Entities.Contractors
 {
-    public class Laboratory
+    public class Laboratory : IEntity
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;
         public string ShortName { get; set; } = null!;
-        public int ContractorLegalId { get; set; }
-        public int? AttestateId { get; set; }
+        private int ContractorLegalId { get; set; }
+        public ContractorLegal ContractorLegal { get; set; } = null!;
+        private int? AttestateId { get; set; }
+        public Attestate? Attestate { get; set; }
     }
 }

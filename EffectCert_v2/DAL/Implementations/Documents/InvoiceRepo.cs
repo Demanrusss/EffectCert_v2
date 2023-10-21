@@ -14,7 +14,7 @@ namespace EffectCert.DAL.Implementations.Documents
             this.appDBContext = appDBContext;
         }
 
-        public async Task<IEnumerable<Invoice>> GetAll()
+        public async Task<ICollection<Invoice>> GetAll()
         {
             return await appDBContext.Invoices.ToListAsync();
         }
@@ -24,7 +24,7 @@ namespace EffectCert.DAL.Implementations.Documents
             return await appDBContext.Invoices.FirstOrDefaultAsync(a => a.Id == id) ?? new Invoice();
         }
 
-        public async Task<IEnumerable<Invoice>> Find(string searchStr = "")
+        public async Task<ICollection<Invoice>> Find(string searchStr = "")
         {
             var result = appDBContext.Invoices.Where(c => c.Number.Contains(searchStr)
                                                           || c.Name.Contains(searchStr)

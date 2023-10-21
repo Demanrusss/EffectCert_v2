@@ -14,7 +14,7 @@ namespace EffectCert.DAL.Implementations.Main
             this.appDBContext = appDBContext;
         }
 
-        public async Task<IEnumerable<ActionPlan>> GetAll()
+        public async Task<ICollection<ActionPlan>> GetAll()
         {
             return await appDBContext.ActionPlans.ToListAsync();
         }
@@ -24,7 +24,7 @@ namespace EffectCert.DAL.Implementations.Main
             return await appDBContext.ActionPlans.FirstOrDefaultAsync(a => a.Id == id) ?? new ActionPlan();
         }
 
-        public async Task<IEnumerable<ActionPlan>> Find(string searchStr = "")
+        public async Task<ICollection<ActionPlan>> Find(string searchStr = "")
         {
             var result = appDBContext.ActionPlans.Where(c => c.Number.Contains(searchStr));
             return await result.ToListAsync();

@@ -1,6 +1,6 @@
 ﻿namespace EffectCert.DAL.Entities.Contractors
 {
-    public class ContractorLegal
+    public class ContractorLegal : IEntity
     {
         public int Id { get; set; }
         public string FullName { get; set; } = null!;

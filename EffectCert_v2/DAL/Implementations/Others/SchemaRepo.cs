@@ -14,7 +14,7 @@ namespace EffectCert.DAL.Implementations.Others
             this.appDBContext = appDBContext;
         }
 
-        public async Task<IEnumerable<Schema>> GetAll()
+        public async Task<ICollection<Schema>> GetAll()
         {
             return await appDBContext.Schemas.ToListAsync();
         }
@@ -24,7 +24,7 @@ namespace EffectCert.DAL.Implementations.Others
             return await appDBContext.Schemas.FirstOrDefaultAsync(a => a.Id == id) ?? new Schema();
         }
 
-        public async Task<IEnumerable<Schema>> Find(string searchStr = "")
+        public async Task<ICollection<Schema>> Find(string searchStr = "")
         {
             var result = appDBContext.Schemas.Where(c => c.Name.Contains(searchStr));
             return await result.ToListAsync();

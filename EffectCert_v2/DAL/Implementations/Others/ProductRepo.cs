@@ -14,7 +14,7 @@ namespace EffectCert.DAL.Implementations.Others
             this.appDBContext = appDBContext;
         }
 
-        public async Task<IEnumerable<Product>> GetAll()
+        public async Task<ICollection<Product>> GetAll()
         {
             return await appDBContext.Products.ToListAsync();
         }
@@ -24,31 +24,31 @@ namespace EffectCert.DAL.Implementations.Others
             return await appDBContext.Products.FirstOrDefaultAsync(a => a.Id == id) ?? new Product();
         }
 
-        public async Task<IEnumerable<Product>> Find(string searchStr = "")
+        public async Task<ICollection<Product>> Find(string searchStr = "")
         {
             var result = appDBContext.Products.Where(c => c.Name.Contains(searchStr));
             return await result.ToListAsync();
         }
 
-        public async Task<IEnumerable<Product>> FindByGroupName(string searchStr = "")
+        public async Task<ICollection<Product>> FindByGroupName(string searchStr = "")
         {
             var result = appDBContext.Products.Where(c => c.GroupName != null ? c.GroupName.Contains(searchStr) : false);
             return await result.ToListAsync();
         }
 
-        public async Task<IEnumerable<Product>> FindByType(string searchStr = "")
+        public async Task<ICollection<Product>> FindByType(string searchStr = "")
         {
             var result = appDBContext.Products.Where(c => c.Type != null ? c.Type.Contains(searchStr) : false);
             return await result.ToListAsync();
         }
 
-        public async Task<IEnumerable<Product>> FindByModel(string searchStr = "")
+        public async Task<ICollection<Product>> FindByModel(string searchStr = "")
         {
             var result = appDBContext.Products.Where(c => c.Model != null ? c.Model.Contains(searchStr) : false);
             return await result.ToListAsync();
         }
 
-        public async Task<IEnumerable<Product>> FindByTradeMark(string searchStr = "")
+        public async Task<ICollection<Product>> FindByTradeMark(string searchStr = "")
         {
             var result = appDBContext.Products.Where(c => c.TradeMark != null ? c.TradeMark.Contains(searchStr) : false);
             return await result.ToListAsync();

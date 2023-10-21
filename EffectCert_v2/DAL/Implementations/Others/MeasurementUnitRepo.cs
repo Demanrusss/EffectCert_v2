@@ -14,7 +14,7 @@ namespace EffectCert.DAL.Implementations.Others
             this.appDBContext = appDBContext;
         }
 
-        public async Task<IEnumerable<MeasurementUnit>> GetAll()
+        public async Task<ICollection<MeasurementUnit>> GetAll()
         {
             return await appDBContext.MeasurementUnits.ToListAsync();
         }
@@ -24,7 +24,7 @@ namespace EffectCert.DAL.Implementations.Others
             return await appDBContext.MeasurementUnits.FirstOrDefaultAsync(a => a.Id == id) ?? new MeasurementUnit();
         }
 
-        public async Task<IEnumerable<MeasurementUnit>> Find(string searchStr = "")
+        public async Task<ICollection<MeasurementUnit>> Find(string searchStr = "")
         {
             var result = appDBContext.MeasurementUnits.Where(c => c.FullName.Contains(searchStr) 
                                                                   || c.ShortName.Contains(searchStr));

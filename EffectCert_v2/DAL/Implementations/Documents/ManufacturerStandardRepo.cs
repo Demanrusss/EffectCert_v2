@@ -14,7 +14,7 @@ namespace EffectCert.DAL.Implementations.Documents
             this.appDBContext = appDBContext;
         }
 
-        public async Task<IEnumerable<ManufacturerStandard>> GetAll()
+        public async Task<ICollection<ManufacturerStandard>> GetAll()
         {
             return await appDBContext.ManufacturerStandards.ToListAsync();
         }
@@ -24,7 +24,7 @@ namespace EffectCert.DAL.Implementations.Documents
             return await appDBContext.ManufacturerStandards.FirstOrDefaultAsync(a => a.Id == id) ?? new ManufacturerStandard();
         }
 
-        public async Task<IEnumerable<ManufacturerStandard>> Find(string searchStr = "")
+        public async Task<ICollection<ManufacturerStandard>> Find(string searchStr = "")
         {
             var result = appDBContext.ManufacturerStandards.Where(c => c.Number.Contains(searchStr)
                                                                        || c.Name.Contains(searchStr));

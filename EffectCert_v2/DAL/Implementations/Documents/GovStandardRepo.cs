@@ -14,7 +14,7 @@ namespace EffectCert.DAL.Implementations.Documents
             this.appDBContext = appDBContext;
         }
 
-        public async Task<IEnumerable<GovStandard>> GetAll()
+        public async Task<ICollection<GovStandard>> GetAll()
         {
             return await appDBContext.GovStandards.ToListAsync();
         }
@@ -24,7 +24,7 @@ namespace EffectCert.DAL.Implementations.Documents
             return await appDBContext.GovStandards.FirstOrDefaultAsync(a => a.Id == id) ?? new GovStandard();
         }
 
-        public async Task<IEnumerable<GovStandard>> Find(string searchStr = "")
+        public async Task<ICollection<GovStandard>> Find(string searchStr = "")
         {
             var result = appDBContext.GovStandards.Where(c => c.Number.Contains(searchStr) 
                                                            || c.Name.Contains(searchStr));

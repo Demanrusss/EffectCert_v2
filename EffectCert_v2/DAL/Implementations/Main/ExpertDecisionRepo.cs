@@ -14,7 +14,7 @@ namespace EffectCert.DAL.Implementations.Main
             this.appDBContext = appDBContext;
         }
 
-        public async Task<IEnumerable<ExpertDecision>> GetAll()
+        public async Task<ICollection<ExpertDecision>> GetAll()
         {
             return await appDBContext.ExpertDecisions.ToListAsync();
         }
@@ -24,7 +24,7 @@ namespace EffectCert.DAL.Implementations.Main
             return await appDBContext.ExpertDecisions.FirstOrDefaultAsync(a => a.Id == id) ?? new ExpertDecision();
         }
 
-        public async Task<IEnumerable<ExpertDecision>> Find(string searchStr = "")
+        public async Task<ICollection<ExpertDecision>> Find(string searchStr = "")
         {
             var result = appDBContext.ExpertDecisions.Where(c => c.Number.Contains(searchStr));
 

@@ -14,7 +14,7 @@ namespace EffectCert.DAL.Implementations.Documents
             this.appDBContext = appDBContext;
         }
 
-        public async Task<IEnumerable<TechReg>> GetAll()
+        public async Task<ICollection<TechReg>> GetAll()
         {
             return await appDBContext.TechRegs.ToListAsync();
         }
@@ -24,7 +24,7 @@ namespace EffectCert.DAL.Implementations.Documents
             return await appDBContext.TechRegs.FirstOrDefaultAsync(a => a.Id == id) ?? new TechReg();
         }
 
-        public async Task<IEnumerable<TechReg>> Find(string searchStr = "")
+        public async Task<ICollection<TechReg>> Find(string searchStr = "")
         {
             var result = appDBContext.TechRegs.Where(c => c.Number.Contains(searchStr)
                                                           || c.Name.Contains(searchStr)

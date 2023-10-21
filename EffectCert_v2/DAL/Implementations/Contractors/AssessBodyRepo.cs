@@ -14,7 +14,7 @@ namespace EffectCert.DAL.Implementations.Contractors
             this.appDBContext = appDBContext;
         }
 
-        public async Task<IEnumerable<AssessBody>> GetAll()
+        public async Task<ICollection<AssessBody>> GetAll()
         {
             return await appDBContext.AssessBodies.ToListAsync();
         }
@@ -24,7 +24,7 @@ namespace EffectCert.DAL.Implementations.Contractors
             return await appDBContext.AssessBodies.FirstOrDefaultAsync(a => a.Id == id) ?? new AssessBody();
         }
 
-        public async Task<IEnumerable<AssessBody>> Find(string searchStr = "")
+        public async Task<ICollection<AssessBody>> Find(string searchStr = "")
         {
             var result = appDBContext.AssessBodies.Where(c => c.Name.Contains(searchStr));
             return await result.ToListAsync();

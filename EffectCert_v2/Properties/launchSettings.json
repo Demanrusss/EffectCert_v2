@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "WebApplication1": {
+    "EffectCert": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

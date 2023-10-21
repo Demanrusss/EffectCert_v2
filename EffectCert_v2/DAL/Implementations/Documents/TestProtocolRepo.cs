@@ -14,7 +14,7 @@ namespace EffectCert.DAL.Implementations.Documents
             this.appDBContext = appDBContext;
         }
 
-        public async Task<IEnumerable<TestProtocol>> GetAll()
+        public async Task<ICollection<TestProtocol>> GetAll()
         {
             return await appDBContext.TestProtocols.ToListAsync();
         }
@@ -24,7 +24,7 @@ namespace EffectCert.DAL.Implementations.Documents
             return await appDBContext.TestProtocols.FirstOrDefaultAsync(a => a.Id == id) ?? new TestProtocol();
         }
 
-        public async Task<IEnumerable<TestProtocol>> Find(string searchStr = "")
+        public async Task<ICollection<TestProtocol>> Find(string searchStr = "")
         {
             var result = appDBContext.TestProtocols.Where(c => c.Number.Contains(searchStr));
             return await result.ToListAsync();

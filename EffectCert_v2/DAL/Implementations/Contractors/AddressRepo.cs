@@ -14,7 +14,7 @@ namespace EffectCert.DAL.Implementations.Contractors
             this.appDBContext = appDBContext;
         }
 
-        public async Task<IEnumerable<Address>> GetAll()
+        public async Task<ICollection<Address>> GetAll()
         {
             return await appDBContext.Addresses.ToListAsync();
         }
@@ -24,16 +24,22 @@ namespace EffectCert.DAL.Implementations.Contractors
             return await appDBContext.Addresses.FirstOrDefaultAsync(a => a.Id == id) ?? new Address();
         }
 
-        public async Task<IEnumerable<Address>> Find(string searchStr = "")
+        public async Task<ICollection<Address>> Find(string searchStr)
         {
-            var result = appDBContext.Addresses.Where(c => c.AddressLine != null ? c.AddressLine.Contains(searchStr) : c.Country.Contains(searchStr));
-            return await result.ToListAsync();
+            if (searchStr == null)
+                return await GetAll();
+
+            return await appDBContext.Addresses
+                .Where(c => c.AddressLine != null 
+                    ? c.AddressLine.Contains(searchStr) 
+                    : c.Country.Contains(searchStr))
+                .ToListAsync();
         }
 
         public async Task<int> Create(Address address)
         {
             if (address == null)
-                throw new ArgumentNullException();
+                return 0;
 
             appDBContext.Addresses.Add(address);
             return await appDBContext.SaveChangesAsync();
@@ -55,7 +61,6 @@ namespace EffectCert.DAL.Implementations.Contractors
                 return 0;
 
             appDBContext.Addresses.Remove(address);
-
             return await appDBContext.SaveChangesAsync();
         }
     }

@@ -14,7 +14,7 @@ namespace EffectCert.DAL.Implementations.Others
             this.appDBContext = appDBContext;
         }
 
-        public async Task<IEnumerable<Requirement>> GetAll()
+        public async Task<ICollection<Requirement>> GetAll()
         {
             return await appDBContext.Requirements.ToListAsync();
         }
@@ -24,7 +24,7 @@ namespace EffectCert.DAL.Implementations.Others
             return await appDBContext.Requirements.FirstOrDefaultAsync(a => a.Id == id) ?? new Requirement();
         }
 
-        public async Task<IEnumerable<Requirement>> Find(string searchStr = "")
+        public async Task<ICollection<Requirement>> Find(string searchStr = "")
         {
             var result = appDBContext.Requirements.Where(c => c.Name.Contains(searchStr));
             return await result.ToListAsync();

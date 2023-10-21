@@ -14,7 +14,7 @@ namespace EffectCert.DAL.Implementations.Contractors
             this.appDBContext = appDBContext;
         }
 
-        public async Task<IEnumerable<Laboratory>> GetAll()
+        public async Task<ICollection<Laboratory>> GetAll()
         {
             return await appDBContext.Laboratories.ToListAsync();
         }
@@ -24,7 +24,7 @@ namespace EffectCert.DAL.Implementations.Contractors
             return await appDBContext.Laboratories.FirstOrDefaultAsync(a => a.Id == id) ?? new Laboratory();
         }
 
-        public async Task<IEnumerable<Laboratory>> Find(string searchStr = "")
+        public async Task<ICollection<Laboratory>> Find(string searchStr = "")
         {
             var result = appDBContext.Laboratories.Where(c => c.Name.Contains(searchStr) || c.ShortName.Contains(searchStr));
             return await result.ToListAsync();

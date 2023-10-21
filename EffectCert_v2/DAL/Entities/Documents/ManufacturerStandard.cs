@@ -1,6 +1,6 @@
 ﻿namespace EffectCert.DAL.Entities.Documents
 {
-    public class ManufacturerStandard
+    public class ManufacturerStandard : IEntity, IDocument
     {
         public int Id { get; set; }
         public string Number { get; set; } = null!;

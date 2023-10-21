@@ -14,7 +14,7 @@ namespace EffectCert.DAL.Implementations.Contractors
             this.appDBContext = appDBContext;
         }
 
-        public async Task<IEnumerable<LaboratoryEmployee>> GetAll()
+        public async Task<ICollection<LaboratoryEmployee>> GetAll()
         {
             return await appDBContext.LaboratoryEmployees.ToListAsync();
         }
@@ -24,17 +24,17 @@ namespace EffectCert.DAL.Implementations.Contractors
             return await appDBContext.LaboratoryEmployees.FirstOrDefaultAsync(a => a.Id == id) ?? new LaboratoryEmployee();
         }
 
-        public async Task<IEnumerable<LaboratoryEmployee>> Find(string searchStr = "")
+        public async Task<ICollection<LaboratoryEmployee>> Find(string searchStr = "")
         {
             var result = from le in appDBContext.LaboratoryEmployees
-                         join cle in appDBContext.ContractorLegalEmployees on le.ContractorLegalEmployeeId equals cle.Id
-                         join ci in appDBContext.ContractorIndividuals on cle.ContractorIndividualId equals ci.Id
+                         join cle in appDBContext.ContractorLegalEmployees on le.ContractorLegalEmployee.Id equals cle.Id
+                         join ci in appDBContext.ContractorIndividuals on cle.ContractorIndividual.Id equals ci.Id
                          where ci.FirstName.Contains(searchStr) || ci.LastName.Contains(searchStr)
                          select le;
             return await result.ToListAsync();
         }
 
-        public async Task<IEnumerable<LaboratoryEmployee>> FindByPosition(string searchStr = "")
+        public async Task<ICollection<LaboratoryEmployee>> FindByPosition(string searchStr = "")
         {
             var result = appDBContext.LaboratoryEmployees.Where(c => c.Position.Contains(searchStr));
             return await result.ToListAsync();

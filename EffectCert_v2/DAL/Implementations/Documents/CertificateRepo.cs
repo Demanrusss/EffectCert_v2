@@ -14,7 +14,7 @@ namespace EffectCert.DAL.Implementations.Documents
             this.appDBContext = appDBContext;
         }
 
-        public async Task<IEnumerable<Certificate>> GetAll()
+        public async Task<ICollection<Certificate>> GetAll()
         {
             return await appDBContext.Certificates.ToListAsync();
         }
@@ -24,7 +24,7 @@ namespace EffectCert.DAL.Implementations.Documents
             return await appDBContext.Certificates.FirstOrDefaultAsync(a => a.Id == id) ?? new Certificate();
         }
 
-        public async Task<IEnumerable<Certificate>> Find(string searchStr = "")
+        public async Task<ICollection<Certificate>> Find(string searchStr = "")
         {
             var result = appDBContext.Certificates.Where(c => c.Number.Contains(searchStr));
             return await result.ToListAsync();

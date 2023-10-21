@@ -14,7 +14,7 @@ namespace EffectCert.DAL.Implementations.Contractors
             this.appDBContext = appDBContext;
         }
 
-        public async Task<IEnumerable<ContractorLegalEmployee>> GetAll()
+        public async Task<ICollection<ContractorLegalEmployee>> GetAll()
         {
             return await appDBContext.ContractorLegalEmployees.ToListAsync();
         }
@@ -24,16 +24,16 @@ namespace EffectCert.DAL.Implementations.Contractors
             return await appDBContext.ContractorLegalEmployees.FirstOrDefaultAsync(a => a.Id == id) ?? new ContractorLegalEmployee();
         }
 
-        public async Task<IEnumerable<ContractorLegalEmployee>> Find(string searchStr = "")
+        public async Task<ICollection<ContractorLegalEmployee>> Find(string searchStr = "")
         {
             var result = from cle in appDBContext.ContractorLegalEmployees
-                         join ci in appDBContext.ContractorIndividuals on cle.ContractorIndividualId equals ci.Id
+                         join ci in appDBContext.ContractorIndividuals on cle.ContractorIndividual.Id equals ci.Id
                          where ci.FirstName.Contains(searchStr) || ci.LastName.Contains(searchStr)
                          select cle;
             return await result.ToListAsync();
         }
 
-        public async Task<IEnumerable<ContractorLegalEmployee>> FindByPosition(string searchStr = "")
+        public async Task<ICollection<ContractorLegalEmployee>> FindByPosition(string searchStr = "")
         {
             var result = appDBContext.ContractorLegalEmployees.Where(c => c.Position.Contains(searchStr));
             return await result.ToListAsync();

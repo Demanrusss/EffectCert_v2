@@ -14,7 +14,7 @@ namespace EffectCert.DAL.Implementations.Others
             this.appDBContext = appDBContext;
         }
 
-        public async Task<IEnumerable<SelectedSampleQuantity>> GetAll()
+        public async Task<ICollection<SelectedSampleQuantity>> GetAll()
         {
             return await appDBContext.SelectedSampleQuantities.ToListAsync();
         }
@@ -24,12 +24,12 @@ namespace EffectCert.DAL.Implementations.Others
             return await appDBContext.SelectedSampleQuantities.FirstOrDefaultAsync(a => a.Id == id) ?? new SelectedSampleQuantity();
         }
 
-        public async Task<IEnumerable<SelectedSampleQuantity>> Find(string searchStr = "")
+        public async Task<ICollection<SelectedSampleQuantity>> Find(string searchStr = "")
         {
-            var item2 = appDBContext.SelectedSampleQuantities.First().ProductId;
+            var item2 = appDBContext.SelectedSampleQuantities.First().Product.Id;
 
             var result = from ssq in appDBContext.SelectedSampleQuantities
-                         join p in appDBContext.Products on ssq.ProductId equals p.Id
+                         join p in appDBContext.Products on ssq.Product.Id equals p.Id
                          where p.Name.Contains(searchStr)
                          select ssq;
             return await result.ToListAsync();

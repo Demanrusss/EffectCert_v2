@@ -14,7 +14,7 @@ namespace EffectCert.DAL.Implementations.Documents
             this.appDBContext = appDBContext;
         }
 
-        public async Task<IEnumerable<GTD>> GetAll()
+        public async Task<ICollection<GTD>> GetAll()
         {
             return await appDBContext.GTDs.ToListAsync();
         }
@@ -24,7 +24,7 @@ namespace EffectCert.DAL.Implementations.Documents
             return await appDBContext.GTDs.FirstOrDefaultAsync(a => a.Id == id) ?? new GTD();
         }
 
-        public async Task<IEnumerable<GTD>> Find(string searchStr = "")
+        public async Task<ICollection<GTD>> Find(string searchStr = "")
         {
             var result = appDBContext.GTDs.Where(c => c.Number.Contains(searchStr));
             return await result.ToListAsync();

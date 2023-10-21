@@ -14,7 +14,7 @@ namespace EffectCert.DAL.Implementations.Others
             this.appDBContext = appDBContext;
         }
 
-        public async Task<IEnumerable<Inconsistence>> GetAll()
+        public async Task<ICollection<Inconsistence>> GetAll()
         {
             return await appDBContext.Inconsistences.ToListAsync();
         }
@@ -24,7 +24,7 @@ namespace EffectCert.DAL.Implementations.Others
             return await appDBContext.Inconsistences.FirstOrDefaultAsync(a => a.Id == id) ?? new Inconsistence();
         }
 
-        public async Task<IEnumerable<Inconsistence>> Find(string searchStr = "")
+        public async Task<ICollection<Inconsistence>> Find(string searchStr = "")
         {
             var result = appDBContext.Inconsistences.Where(c => c.Name.Contains(searchStr));
             return await result.ToListAsync();

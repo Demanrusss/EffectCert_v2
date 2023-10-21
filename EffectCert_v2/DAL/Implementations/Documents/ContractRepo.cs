@@ -14,7 +14,7 @@ namespace EffectCert.DAL.Implementations.Documents
             this.appDBContext = appDBContext;
         }
 
-        public async Task<IEnumerable<Contract>> GetAll()
+        public async Task<ICollection<Contract>> GetAll()
         {
             return await appDBContext.Contracts.ToListAsync();
         }
@@ -24,7 +24,7 @@ namespace EffectCert.DAL.Implementations.Documents
             return await appDBContext.Contracts.FirstOrDefaultAsync(a => a.Id == id) ?? new Contract();
         }
 
-        public async Task<IEnumerable<Contract>> Find(string searchStr = "")
+        public async Task<ICollection<Contract>> Find(string searchStr = "")
         {
             var result = appDBContext.Contracts.Where(c => c.Number.Contains(searchStr) 
                                                            || c.Name.Contains(searchStr) 
