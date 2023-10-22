@@ -13,5 +13,6 @@ namespace EffectCert.DAL.Entities.Contractors
         public ContractorLegal ContractorLegal { get; set; } = null!;
         private int AttestateId { get; set; }
         public Attestate Attestate { get; set; } = null!;
+        public ICollection<AssessBodyEmployee> AssessBodyEmployees { get; set;} = new List<AssessBodyEmployee>();
     }
 }

@@ -8,5 +8,6 @@
         public double Quantity { get; set; }
         private int MeasurementUnitId { get; set; }
         public MeasurementUnit MeasurementUnit { get; set; } = null!;
+        public DateTime MadeDate { get; set; }
     }
 }

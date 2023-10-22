@@ -9,5 +9,6 @@
         public int RegAddressId { get; set; }
         public int? FactAddressId { get; set; }
         public int? BankAccountId { get; set; }
+        public ICollection<ContractorLegalEmployee> Employees { get; set; } = new List<ContractorLegalEmployee>();
     }
 }

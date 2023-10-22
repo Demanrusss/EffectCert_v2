@@ -14,6 +14,5 @@ namespace EffectCert.DAL.Entities.Others
         private int ManufacturerId { get; set; }
         public ContractorLegal Manufacturer { get; set; } = null!;
         public string TNVED { get; set; } = null!;
-        public DateTime? MadeDate { get; set; }
     }
 }

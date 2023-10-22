@@ -1,4 +1,5 @@
 ﻿using EffectCert.DAL.Entities.Contractors;
+using EffectCert.DAL.Entities.Others;
 
 namespace EffectCert.DAL.Entities.Main
 {
@@ -19,5 +20,6 @@ namespace EffectCert.DAL.Entities.Main
         public string PackageType { get; set; } = null!;
         public int ControlSamplesStorageTime { get; set; }
         public string ControlSamplesQuantity { get; set; } = null!;
+        public ICollection<SelectedSampleQuantity> Products { get; set; } = new List<SelectedSampleQuantity>();
     }
 }
