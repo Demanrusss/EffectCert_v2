@@ -28,7 +28,7 @@ namespace EffectCert.BLL.Documents
                 : await certificateDAL.Update(certificate);
         }
 
-        public async Task<IEnumerable<Certificate>> Find(string searchStr)
+        public async Task<ICollection<Certificate>> Find(string searchStr)
         {
             if (searchStr.IsNullOrEmpty())
                 return await FindAll();
@@ -36,7 +36,7 @@ namespace EffectCert.BLL.Documents
             return await certificateDAL.Find(searchStr);
         }
 
-        public async Task<IEnumerable<Certificate>> FindAll()
+        public async Task<ICollection<Certificate>> FindAll()
         {
             return await certificateDAL.GetAll();
         }

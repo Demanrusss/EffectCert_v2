@@ -28,7 +28,7 @@ namespace EffectCert.BLL.Documents
                 : await testProtocolDAL.Update(testProtocol);
         }
 
-        public async Task<IEnumerable<TestProtocol>> Find(string searchStr)
+        public async Task<ICollection<TestProtocol>> Find(string searchStr)
         {
             if (searchStr.IsNullOrEmpty())
                 return await FindAll();
@@ -36,7 +36,7 @@ namespace EffectCert.BLL.Documents
             return await testProtocolDAL.Find(searchStr);
         }
 
-        public async Task<IEnumerable<TestProtocol>> FindAll()
+        public async Task<ICollection<TestProtocol>> FindAll()
         {
             return await testProtocolDAL.GetAll();
         }

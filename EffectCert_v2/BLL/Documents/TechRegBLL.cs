@@ -28,7 +28,7 @@ namespace EffectCert.BLL.Documents
                 : await techRegDAL.Update(techReg);
         }
 
-        public async Task<IEnumerable<TechReg>> Find(string searchStr)
+        public async Task<ICollection<TechReg>> Find(string searchStr)
         {
             if (searchStr.IsNullOrEmpty())
                 return await FindAll();
@@ -36,7 +36,7 @@ namespace EffectCert.BLL.Documents
             return await techRegDAL.Find(searchStr);
         }
 
-        public async Task<IEnumerable<TechReg>> FindAll()
+        public async Task<ICollection<TechReg>> FindAll()
         {
             return await techRegDAL.GetAll();
         }

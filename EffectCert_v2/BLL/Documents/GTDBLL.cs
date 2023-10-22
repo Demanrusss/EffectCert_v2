@@ -28,7 +28,7 @@ namespace EffectCert.BLL.Documents
                 : await gTDDAL.Update(gTD);
         }
 
-        public async Task<IEnumerable<GTD>> Find(string searchStr)
+        public async Task<ICollection<GTD>> Find(string searchStr)
         {
             if (searchStr.IsNullOrEmpty())
                 return await FindAll();
@@ -36,7 +36,7 @@ namespace EffectCert.BLL.Documents
             return await gTDDAL.Find(searchStr);
         }
 
-        public async Task<IEnumerable<GTD>> FindAll()
+        public async Task<ICollection<GTD>> FindAll()
         {
             return await gTDDAL.GetAll();
         }

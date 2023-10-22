@@ -28,7 +28,7 @@ namespace EffectCert.BLL.Main
                 : await recommendationDAL.Update(recommendation);
         }
 
-        public async Task<IEnumerable<Recommendation>> Find(string searchStr)
+        public async Task<ICollection<Recommendation>> Find(string searchStr)
         {
             if (searchStr.IsNullOrEmpty())
                 return await FindAll();
@@ -36,7 +36,7 @@ namespace EffectCert.BLL.Main
             return await recommendationDAL.Find(searchStr);
         }
 
-        public async Task<IEnumerable<Recommendation>> FindAll()
+        public async Task<ICollection<Recommendation>> FindAll()
         {
             return await recommendationDAL.GetAll();
         }

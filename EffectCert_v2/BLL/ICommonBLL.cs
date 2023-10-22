@@ -4,6 +4,6 @@
     {
         Task<T> Get(int id);
         Task<int> UpdateOrCreate(T entity);
-        Task<IEnumerable<T>> Find(string searchStr);
+        Task<ICollection<T>> Find(string searchStr);
     }
 }

@@ -28,7 +28,7 @@ namespace EffectCert.BLL.Others
                 : await measurementUnitDAL.Update(measurementUnit);
         }
 
-        public async Task<IEnumerable<MeasurementUnit>> Find(string searchStr)
+        public async Task<ICollection<MeasurementUnit>> Find(string searchStr)
         {
             if (searchStr.IsNullOrEmpty())
                 return await FindAll();
@@ -36,7 +36,7 @@ namespace EffectCert.BLL.Others
             return await measurementUnitDAL.Find(searchStr);
         }
 
-        public async Task<IEnumerable<MeasurementUnit>> FindAll()
+        public async Task<ICollection<MeasurementUnit>> FindAll()
         {
             return await measurementUnitDAL.GetAll();
         }

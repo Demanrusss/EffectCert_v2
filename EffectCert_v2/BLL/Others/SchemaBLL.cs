@@ -28,7 +28,7 @@ namespace EffectCert.BLL.Others
                 : await schemaDAL.Update(schema);
         }
 
-        public async Task<IEnumerable<Schema>> Find(string searchStr)
+        public async Task<ICollection<Schema>> Find(string searchStr)
         {
             if (searchStr.IsNullOrEmpty())
                 return await FindAll();
@@ -36,7 +36,7 @@ namespace EffectCert.BLL.Others
             return await schemaDAL.Find(searchStr);
         }
 
-        public async Task<IEnumerable<Schema>> FindAll()
+        public async Task<ICollection<Schema>> FindAll()
         {
             return await schemaDAL.GetAll();
         }

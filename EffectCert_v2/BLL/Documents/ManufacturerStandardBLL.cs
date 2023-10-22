@@ -28,7 +28,7 @@ namespace EffectCert.BLL.Documents
                 : await manufacturerStandardDAL.Update(manufacturerStandard);
         }
 
-        public async Task<IEnumerable<ManufacturerStandard>> Find(string searchStr)
+        public async Task<ICollection<ManufacturerStandard>> Find(string searchStr)
         {
             if (searchStr.IsNullOrEmpty())
                 return await FindAll();
@@ -36,7 +36,7 @@ namespace EffectCert.BLL.Documents
             return await manufacturerStandardDAL.Find(searchStr);
         }
 
-        public async Task<IEnumerable<ManufacturerStandard>> FindAll()
+        public async Task<ICollection<ManufacturerStandard>> FindAll()
         {
             return await manufacturerStandardDAL.GetAll();
         }

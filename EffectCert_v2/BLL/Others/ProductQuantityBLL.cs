@@ -28,7 +28,7 @@ namespace EffectCert.BLL.Others
                 : await productQuantityDAL.Update(productQuantity);
         }
 
-        public async Task<IEnumerable<ProductQuantity>> Find(string searchStr)
+        public async Task<ICollection<ProductQuantity>> Find(string searchStr)
         {
             if (searchStr.IsNullOrEmpty())
                 return await FindAll();
@@ -36,7 +36,7 @@ namespace EffectCert.BLL.Others
             return await productQuantityDAL.Find(searchStr);
         }
 
-        public async Task<IEnumerable<ProductQuantity>> FindAll()
+        public async Task<ICollection<ProductQuantity>> FindAll()
         {
             return await productQuantityDAL.GetAll();
         }

@@ -20,7 +20,6 @@
     <Folder Include="ViewMappers\Documents\" />
     <Folder Include="ViewMappers\Main\" />
     <Folder Include="ViewMappers\Others\" />
-    <Folder Include="ViewModels\Documents\" />
     <Folder Include="ViewModels\Main\" />
     <Folder Include="ViewModels\Others\" />
     <Folder Include="Views\NewFolder\" />

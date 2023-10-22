@@ -28,7 +28,7 @@ namespace EffectCert.BLL.Documents
                 : await govStandardDAL.Update(govStandard);
         }
 
-        public async Task<IEnumerable<GovStandard>> Find(string searchStr)
+        public async Task<ICollection<GovStandard>> Find(string searchStr)
         {
             if (searchStr.IsNullOrEmpty())
                 return await FindAll();
@@ -36,7 +36,7 @@ namespace EffectCert.BLL.Documents
             return await govStandardDAL.Find(searchStr);
         }
 
-        public async Task<IEnumerable<GovStandard>> FindAll()
+        public async Task<ICollection<GovStandard>> FindAll()
         {
             return await govStandardDAL.GetAll();
         }

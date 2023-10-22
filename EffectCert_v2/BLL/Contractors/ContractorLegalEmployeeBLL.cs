@@ -26,7 +26,7 @@ namespace EffectCert.BLL.Contractors
                 : await contractorLegalEmployeeDAL.Update(contractorLegalEmployee);
         }
 
-        public async Task<IEnumerable<ContractorLegalEmployee>> Find(string searchStr)
+        public async Task<ICollection<ContractorLegalEmployee>> Find(string searchStr)
         {
             if (searchStr.IsNullOrEmpty())
                 return await FindAll();
@@ -34,7 +34,7 @@ namespace EffectCert.BLL.Contractors
             return await contractorLegalEmployeeDAL.Find(searchStr);
         }
 
-        public async Task<IEnumerable<ContractorLegalEmployee>> FindAll()
+        public async Task<ICollection<ContractorLegalEmployee>> FindAll()
         {
             return await contractorLegalEmployeeDAL.GetAll();
         }

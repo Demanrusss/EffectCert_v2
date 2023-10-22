@@ -26,7 +26,7 @@ namespace EffectCert.BLL.Contractors
                 : await bankAccountDAL.Update(bankAccount);
         }
 
-        public async Task<IEnumerable<BankAccount>> Find(string searchStr)
+        public async Task<ICollection<BankAccount>> Find(string searchStr)
         {
             if (searchStr.IsNullOrEmpty())
                 return await FindAll();
@@ -34,7 +34,7 @@ namespace EffectCert.BLL.Contractors
             return await bankAccountDAL.Find(searchStr);
         }
 
-        public async Task<IEnumerable<BankAccount>> FindAll()
+        public async Task<ICollection<BankAccount>> FindAll()
         {
             return await bankAccountDAL.GetAll();
         }

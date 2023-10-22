@@ -27,7 +27,7 @@ namespace EffectCert.BLL.Others
                 : await selectedSampleQuantityDAL.Update(selectedSampleQuantity);
         }
 
-        public async Task<IEnumerable<SelectedSampleQuantity>> Find(string searchStr)
+        public async Task<ICollection<SelectedSampleQuantity>> Find(string searchStr)
         {
             if (searchStr.IsNormalized())
                 return await FindAll();
@@ -35,7 +35,7 @@ namespace EffectCert.BLL.Others
             return await selectedSampleQuantityDAL.Find(searchStr);
         }
 
-        public async Task<IEnumerable<SelectedSampleQuantity>> FindAll()
+        public async Task<ICollection<SelectedSampleQuantity>> FindAll()
         {
             return await selectedSampleQuantityDAL.GetAll();
         }

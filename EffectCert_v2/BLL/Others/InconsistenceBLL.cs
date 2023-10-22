@@ -28,7 +28,7 @@ namespace EffectCert.BLL.Others
                 : await inconsistenceDAL.Update(inconsistence);
         }
 
-        public async Task<IEnumerable<Inconsistence>> Find(string searchStr)
+        public async Task<ICollection<Inconsistence>> Find(string searchStr)
         {
             if (searchStr.IsNullOrEmpty())
                 return await FindAll();
@@ -36,7 +36,7 @@ namespace EffectCert.BLL.Others
             return await inconsistenceDAL.Find(searchStr);
         }
 
-        public async Task<IEnumerable<Inconsistence>> FindAll()
+        public async Task<ICollection<Inconsistence>> FindAll()
         {
             return await inconsistenceDAL.GetAll();
         }
