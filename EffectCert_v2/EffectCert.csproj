@@ -22,7 +22,6 @@
     <Folder Include="ViewMappers\Others\" />
     <Folder Include="ViewModels\Main\" />
     <Folder Include="ViewModels\Others\" />
-    <Folder Include="Views\NewFolder\" />
   </ItemGroup>
 
 </Project>

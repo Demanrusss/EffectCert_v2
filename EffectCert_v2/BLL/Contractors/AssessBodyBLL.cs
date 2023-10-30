@@ -1,7 +1,6 @@
 ﻿using EffectCert.DAL.Entities.Contractors;
 using EffectCert.DAL.Implementations.Contractors;
 using EffectCert.BLL;
-using Microsoft.IdentityModel.Tokens;
 
 namespace EffectCert.BLL.Contractors
 {
@@ -28,7 +27,7 @@ namespace EffectCert.BLL.Contractors
 
         public async Task<ICollection<AssessBody>> Find(string searchStr)
         {
-            if (searchStr.IsNullOrEmpty())
+            if (String.IsNullOrWhiteSpace(searchStr))
                 return await FindAll();
 
             return await assessBodyDAL.Find(searchStr);

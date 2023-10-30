@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using EffectCert.Configuration;
 using EffectCert.DAL.DBContext;
+using EffectCert.BLL.Contractors;
+using EffectCert.DAL.Implementations.Contractors;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,8 @@ builder.Configuration.Bind("EffectCertProject", new Configuration());
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<AddressBLL, AddressBLL>();
+builder.Services.AddScoped<AddressRepo, AddressRepo>();
 builder.Services.AddDbContext<AppDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
 
 var app = builder.Build();

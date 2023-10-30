@@ -21,9 +21,9 @@ namespace EffectCert.Controllers.Contractors
         {
             ViewData["Title"] = "Адреса";
 
-            var allAddresses = await addressBLL.FindAll();
+            var addresses = await addressBLL.FindAll();
 
-            return View(allAddresses);
+            return View("~/Views/Catalogues/Contractors/Address/Index.cshtml", addresses);
         }
 
         // GET: AddressController/Details/5
@@ -35,7 +35,7 @@ namespace EffectCert.Controllers.Contractors
             if (address.Id == 0)
                 return NotFound();
 
-            return View(address);
+            return View("~/Views/Catalogues/Contractors/Address/Details.cshtml", address);
         }
 
         // GET: AddressController/Create
@@ -43,22 +43,21 @@ namespace EffectCert.Controllers.Contractors
         {
             ViewData["Title"] = "Создание адреса";
 
-            return View();
+            return View("~/Views/Catalogues/Contractors/Address/Create.cshtml");
         }
 
         // POST: AddressController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(AddressViewModel addressViewModel)
+        public async Task<IActionResult> Create(AddressViewModel address)
         {
             if (ModelState.IsValid)
             {
-                Address address = AddressMapper.MapAddressViewModelToAddress(addressViewModel);
                 await addressBLL.UpdateOrCreate(address);
                 return RedirectToAction(nameof(Index));
             }
             
-            return View(addressViewModel);
+            return View("~/Views/Catalogues/Contractors/Address/Create.cshtml", address);
         }
 
         // GET: AddressController/Edit/5
@@ -66,30 +65,28 @@ namespace EffectCert.Controllers.Contractors
         {
             ViewData["Title"] = "Внесение изменений в адрес";
 
-            Address address = await addressBLL.Get(id);
+            var address = await addressBLL.Get(id);
             if (address.Id == 0)
                 return NotFound();
 
-            AddressViewModel addressViewModel = AddressMapper.MapAddressToAddressViewModel(address);
-            return View(addressViewModel);
+            return View("~/Views/Catalogues/Contractors/Address/Edit.cshtml", address);
         }
 
         // POST: AddressController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, AddressViewModel addressViewModel)
+        public async Task<IActionResult> Edit(int id, AddressViewModel address)
         {
-            if (id != addressViewModel.Id)
+            if (id != address.Id)
                 return NotFound();
 
             if (ModelState.IsValid)
             {
-                Address address = AddressMapper.MapAddressViewModelToAddress(addressViewModel);
                 await addressBLL.UpdateOrCreate(address);
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(addressViewModel);
+            return View("~/Views/Catalogues/Contractors/Address/Edit.cshtml", address);
         }
 
         // GET: AddressController/Delete/5
@@ -97,30 +94,28 @@ namespace EffectCert.Controllers.Contractors
         {
             ViewData["Title"] = "Удаление адреса";
 
-            Address address = await addressBLL.Get(id);
+            var address = await addressBLL.Get(id);
             if (address.Id == 0)
                 return NotFound();
 
-            AddressViewModel addressViewModel = AddressMapper.MapAddressToAddressViewModel(address);
-            return View(addressViewModel);
+            return View("~/Views/Catalogues/Contractors/Address/Delete.cshtml", address);
         }
 
         // POST: AddressController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id, AddressViewModel addressViewModel)
+        public async Task<IActionResult> Delete(int id, AddressViewModel address)
         {
-            if (id != addressViewModel.Id)
+            if (id != address.Id)
                 return NotFound();
             
             if (ModelState.IsValid)
             {
-                Address address = AddressMapper.MapAddressViewModelToAddress(addressViewModel);
                 await addressBLL.Delete(id);
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(addressViewModel);
+            return View("~/Views/Catalogues/Contractors/Address/Delete.cshtml", address);
         }
     }
 }

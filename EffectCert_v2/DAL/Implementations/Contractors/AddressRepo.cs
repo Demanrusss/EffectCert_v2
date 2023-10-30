@@ -30,8 +30,8 @@ namespace EffectCert.DAL.Implementations.Contractors
                 return await GetAll();
 
             return await appDBContext.Addresses
-                .Where(c => c.AddressLine != null 
-                    ? c.AddressLine.Contains(searchStr) 
+                .Where(c => c.AddressStr != null 
+                    ? c.AddressStr.Contains(searchStr) 
                     : c.Country.Contains(searchStr))
                 .ToListAsync();
         }

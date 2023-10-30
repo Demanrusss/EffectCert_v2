@@ -5,25 +5,25 @@ namespace EffectCert.ViewMappers.Contractors
 {
     public static class AddressMapper
     {
-        public static Address MapAddressViewModelToAddress(AddressViewModel addressViewModel)
+        public static Address MapToModel(AddressViewModel addressViewModel)
         {
             return new Address()
             {
                 Id = addressViewModel.Id,
                 Country = addressViewModel.Country,
                 Index = addressViewModel.Index,
-                AddressLine = addressViewModel.AddressLine
+                AddressStr = addressViewModel.AddressLine
             };
         }
 
-        public static AddressViewModel MapAddressToAddressViewModel(Address address)
+        public static AddressViewModel MapToViewModel(Address address)
         {
             return new AddressViewModel()
             {
                 Id = address.Id,
                 Country = address.Country,
                 Index = address.Index,
-                AddressLine = address.AddressLine
+                AddressLine = address.AddressStr
             };
         }
     }

@@ -1,11 +1,12 @@
 ﻿using EffectCert.DAL.Entities.Contractors;
 using EffectCert.DAL.Implementations.Contractors;
 using EffectCert.BLL;
-using Microsoft.IdentityModel.Tokens;
+using EffectCert.ViewModels.Contractors;
+using EffectCert.ViewMappers.Contractors;
 
 namespace EffectCert.BLL.Contractors
 {
-    public class AddressBLL : ICommonBLL<Address>
+    public class AddressBLL : ICommonBLL<AddressViewModel>
     {
         private readonly AddressRepo addressDAL;
 
@@ -14,34 +15,52 @@ namespace EffectCert.BLL.Contractors
             this.addressDAL = addressDAL;
         }
 
-        public async Task<Address> Get(int id)
+        public async Task<AddressViewModel> Get(int id)
         {
-            return await addressDAL.Get(id);
+            var address = await addressDAL.Get(id);
+
+            return AddressMapper.MapAddressToAddressViewModel(address);
         }
 
-        public async Task<int> UpdateOrCreate(Address address)
+        public async Task<int> UpdateOrCreate(AddressViewModel addressViewModel)
         {
+            var address = AddressMapper.MapAddressViewModelToAddress(addressViewModel);
+
             return address.Id == 0 
                 ? await addressDAL.Create(address) 
                 : await addressDAL.Update(address);
         }
 
-        public async Task<ICollection<Address>> Find(string searchStr)
+        public async Task<ICollection<AddressViewModel>> Find(string searchStr)
         {
-            if (searchStr.IsNullOrEmpty())
+            if (String.IsNullOrWhiteSpace(searchStr))
                 return await FindAll();
 
-            return await addressDAL.Find(searchStr);
+            var addresses = await addressDAL.Find(searchStr);
+
+            return ConvertAddressCollection(addresses);
         }
 
-        public async Task<ICollection<Address>> FindAll()
+        public async Task<ICollection<AddressViewModel>> FindAll()
         {
-            return await addressDAL.GetAll();
+            var addresses = await addressDAL.GetAll();
+
+            return ConvertAddressCollection(addresses);
         }
 
         public async Task<int> Delete(int id)
         {
             return await addressDAL.Delete(id);
+        }
+
+        private ICollection<AddressViewModel> ConvertAddressCollection(ICollection<Address> addresses)
+        {
+            var addressesVM = new List<AddressViewModel>(addresses.Count);
+
+            foreach (var address in addresses)
+                addressesVM.Add(AddressMapper.MapAddressToAddressViewModel(address));
+
+            return addressesVM;
         }
     }
 }
