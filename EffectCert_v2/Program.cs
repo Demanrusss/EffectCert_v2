@@ -13,6 +13,8 @@ builder.Configuration.Bind("EffectCertProject", new Configuration());
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<AddressBLL, AddressBLL>();
 builder.Services.AddScoped<AddressRepo, AddressRepo>();
+builder.Services.AddScoped<AssessBodyBLL, AssessBodyBLL>();
+builder.Services.AddScoped<AssessBodyRepo, AssessBodyRepo>();
 builder.Services.AddDbContext<AppDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
 
 var app = builder.Build();

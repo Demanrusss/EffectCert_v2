@@ -19,12 +19,12 @@ namespace EffectCert.BLL.Contractors
         {
             var address = await addressDAL.Get(id);
 
-            return AddressMapper.MapAddressToAddressViewModel(address);
+            return AddressMapper.MapToViewModel(address);
         }
 
         public async Task<int> UpdateOrCreate(AddressViewModel addressViewModel)
         {
-            var address = AddressMapper.MapAddressViewModelToAddress(addressViewModel);
+            var address = AddressMapper.MapToModel(addressViewModel);
 
             return address.Id == 0 
                 ? await addressDAL.Create(address) 
@@ -58,7 +58,7 @@ namespace EffectCert.BLL.Contractors
             var addressesVM = new List<AddressViewModel>(addresses.Count);
 
             foreach (var address in addresses)
-                addressesVM.Add(AddressMapper.MapAddressToAddressViewModel(address));
+                addressesVM.Add(AddressMapper.MapToViewModel(address));
 
             return addressesVM;
         }

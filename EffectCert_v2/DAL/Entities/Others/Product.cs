@@ -11,7 +11,7 @@ namespace EffectCert.DAL.Entities.Others
         public string? TradeMark { get; set; }
         public string? Model { get; set; }
         public string? Article { get; set; }
-        private int ManufacturerId { get; set; }
+        public int ManufacturerId { get; set; }
         public ContractorLegal Manufacturer { get; set; } = null!;
         public string TNVED { get; set; } = null!;
     }
