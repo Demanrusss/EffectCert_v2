@@ -16,12 +16,22 @@ namespace EffectCert.DAL.Implementations.Contractors
 
         public async Task<ICollection<AssessBody>> GetAll()
         {
-            return await appDBContext.AssessBodies.ToListAsync();
+            return await appDBContext.AssessBodies
+                .Include(ab => ab.Address)
+                .Include(ab => ab.Attestate)
+                .Include(ab => ab.ContractorLegal)
+                    .ThenInclude(cl => cl.BankAccount)
+                .ToListAsync();
         }
 
         public async Task<AssessBody> Get(int id)
         {
-            return await appDBContext.AssessBodies.FirstOrDefaultAsync(a => a.Id == id) ?? new AssessBody();
+            return await appDBContext.AssessBodies
+                .Include(ab => ab.Address)
+                .Include(ab => ab.Attestate)
+                .Include(ab => ab.ContractorLegal)
+                    .ThenInclude(cl => cl.BankAccount)
+                .FirstOrDefaultAsync(a => a.Id == id) ?? new AssessBody();
         }
 
         public async Task<ICollection<AssessBody>> Find(string searchStr = "")

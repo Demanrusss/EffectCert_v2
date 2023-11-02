@@ -16,12 +16,20 @@ namespace EffectCert.DAL.Implementations.Contractors
 
         public async Task<ICollection<ContractorLegal>> GetAll()
         {
-            return await appDBContext.ContractorLegals.ToListAsync();
+            return await appDBContext.ContractorLegals
+                .Include(cl => cl.FactAddress)
+                .Include(cl => cl.RegAddress)
+                .Include(cl => cl.BankAccount)
+                .ToListAsync();
         }
 
         public async Task<ContractorLegal> Get(int id)
         {
-            return await appDBContext.ContractorLegals.FirstOrDefaultAsync(a => a.Id == id) ?? new ContractorLegal();
+            return await appDBContext.ContractorLegals
+                .Include(cl => cl.FactAddress)
+                .Include(cl => cl.RegAddress)
+                .Include(cl => cl.BankAccount)
+                .FirstOrDefaultAsync(a => a.Id == id) ?? new ContractorLegal();
         }
 
         public async Task<ICollection<ContractorLegal>> Find(string searchStr = "")
