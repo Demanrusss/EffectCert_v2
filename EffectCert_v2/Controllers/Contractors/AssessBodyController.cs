@@ -1,19 +1,24 @@
 ﻿using EffectCert.BLL.Contractors;
+using EffectCert.BLL.Documents;
 using EffectCert.DAL.Entities.Contractors;
 using EffectCert.ViewMappers.Contractors;
 using EffectCert.ViewModels.Contractors;
+using EffectCert.ViewModels.Documents;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EffectCert.Controllers.Contractors
 {
     public class AssessBodyController : Controller
     {
         private readonly AssessBodyBLL assessBodyBLL;
+        private readonly AttestateBLL attestateBLL;
 
-        public AssessBodyController(AssessBodyBLL assessBodyBLL)
+        public AssessBodyController(AssessBodyBLL assessBodyBLL, AttestateBLL attestateBLL)
         {
             this.assessBodyBLL = assessBodyBLL;
+            this.attestateBLL = attestateBLL;
         }
 
         public async Task<IActionResult> Index()
@@ -37,9 +42,10 @@ namespace EffectCert.Controllers.Contractors
         }
 
         // GET: AssessBodyController/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             ViewData["Title"] = "Создание ОПС";
+            ViewData["Attestates"] = new SelectList(await attestateBLL.FindAll(), "Id", "Number");
 
             return View("~/Views/Catalogues/Contractors/AssessBody/Create.cshtml");
         }

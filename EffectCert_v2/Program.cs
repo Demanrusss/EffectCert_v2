@@ -3,6 +3,8 @@ using EffectCert.Configuration;
 using EffectCert.DAL.DBContext;
 using EffectCert.BLL.Contractors;
 using EffectCert.DAL.Implementations.Contractors;
+using EffectCert.BLL.Documents;
+using EffectCert.DAL.Implementations.Documents;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,8 @@ builder.Services.AddScoped<AddressBLL, AddressBLL>();
 builder.Services.AddScoped<AddressRepo, AddressRepo>();
 builder.Services.AddScoped<AssessBodyBLL, AssessBodyBLL>();
 builder.Services.AddScoped<AssessBodyRepo, AssessBodyRepo>();
+builder.Services.AddScoped<AttestateBLL, AttestateBLL>();
+builder.Services.AddScoped<AttestateRepo, AttestateRepo>();
 builder.Services.AddDbContext<AppDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
 
 var app = builder.Build();

@@ -30,13 +30,13 @@
                 @Html.DisplayFor(modelItem => item.ShortName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ContractorLegal)
+                @Html.DisplayFor(modelItem => item.ContractorLegal.ShortName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Attestate)
+                @Html.DisplayFor(modelItem => item.Attestate.Number)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Address)
+                @Html.DisplayFor(modelItem => item.Address.AddressLine)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |

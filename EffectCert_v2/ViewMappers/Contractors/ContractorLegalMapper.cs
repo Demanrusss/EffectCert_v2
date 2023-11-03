@@ -12,10 +12,12 @@ namespace EffectCert.ViewMappers.Contractors
             return new ContractorLegal()
             {
                 Id = contractorLegalViewModel.Id,
-                BankAccount = BankAccountMapper.MapToModel(contractorLegalViewModel.BankAccount),
+                BankAccount = contractorLegalViewModel.BankAccount == null 
+                    ? BankAccountMapper.MapToModel(contractorLegalViewModel.BankAccount!)
+                    : null,
                 BIN = contractorLegalViewModel.BIN,
                 Employees = ConvertToModelCollection(contractorLegalViewModel.Employees),
-                FactAddress = AddressMapper.MapToModel(contractorLegalViewModel.FactAddress),
+                FactAddress = AddressMapper.MapToModel(contractorLegalViewModel.FactAddress ?? contractorLegalViewModel.RegAddress),
                 FullName = contractorLegalViewModel.FullName,
                 RegAddress = AddressMapper.MapToModel(contractorLegalViewModel.RegAddress),
                 ShortName = contractorLegalViewModel.ShortName
@@ -27,13 +29,16 @@ namespace EffectCert.ViewMappers.Contractors
             return new ContractorLegalViewModel()
             {
                 Id = contractorLegal.Id,
-                BankAccount = BankAccountMapper.MapToViewModel(contractorLegal.BankAccount),
+                BankAccount = contractorLegal.BankAccount == null 
+                    ? BankAccountMapper.MapToViewModel(contractorLegal.BankAccount!)
+                    : null,
                 BIN = contractorLegal.BIN,
                 Employees = ConvertToViewModelCollection(contractorLegal.Employees),
                 FactAddress = AddressMapper.MapToViewModel(contractorLegal.FactAddress),
                 FullName = contractorLegal.FullName,
                 RegAddress = AddressMapper.MapToViewModel(contractorLegal.RegAddress),
-                ShortName = contractorLegal.ShortName
+                ShortName = contractorLegal.ShortName,
+                IsAddressSame = contractorLegal.RegAddress == contractorLegal.FactAddress
             };
         }
 
