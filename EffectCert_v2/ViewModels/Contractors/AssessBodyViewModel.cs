@@ -22,7 +22,8 @@ namespace EffectCert.ViewModels.Contractors
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Аттестат")]
         public AttestateViewModel Attestate { get; set; } = null!;
+        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Сотрудники органа")]
-        public ICollection<AssessBodyEmployeeViewModel> AssessBodyEmployees { get; set; } = new List<AssessBodyEmployeeViewModel>();
+        public ICollection<AssessBodyEmployeeViewModel> AssessBodyEmployees { get; set; } = new HashSet<AssessBodyEmployeeViewModel>();
     }
 }

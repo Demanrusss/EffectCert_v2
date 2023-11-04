@@ -16,3 +16,6 @@ html {
 body {
   margin-bottom: 60px;
 }
+.text-danger {
+    font-size: small;
+}

@@ -1,8 +1,5 @@
 ﻿using EffectCert.BLL.Contractors;
-using EffectCert.DAL.Entities.Contractors;
-using EffectCert.ViewMappers.Contractors;
 using EffectCert.ViewModels.Contractors;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EffectCert.Controllers.Contractors
