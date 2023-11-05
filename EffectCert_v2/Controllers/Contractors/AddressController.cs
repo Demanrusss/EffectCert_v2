@@ -1,6 +1,7 @@
 ﻿using EffectCert.BLL.Contractors;
 using EffectCert.ViewModels.Contractors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EffectCert.Controllers.Contractors
 {
@@ -113,6 +114,25 @@ namespace EffectCert.Controllers.Contractors
             }
 
             return View("~/Views/Catalogues/Contractors/Address/Delete.cshtml", address);
+        }
+
+        public async Task<JsonResult> GetAddresses(string searchStr)
+        {
+            var addressesList = new List<Dictionary<string, string>>();
+            var allAddresses = await addressBLL.Find(searchStr);
+
+            foreach (var item in allAddresses)
+            {
+                var addressItem = new Dictionary<string, string>
+                {
+                    { "id", item.Id.ToString() },
+                    { "name", item.AddressLine ?? item.Country }
+                };
+
+                addressesList.Add(addressItem);
+            }
+
+            return Json(addressesList);
         }
     }
 }

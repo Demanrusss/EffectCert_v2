@@ -19,13 +19,37 @@
             </div>
             <div class="form-group">
                 <label asp-for="ContractorLegal" class="control-label"></label>
-                <input asp-for="ContractorLegal" class="form-control" required id="contractorlegal" />
-                <span asp-validation-for="ContractorLegal" class="text-danger"></span>
+                <div style="overflow-inline:hidden;">
+                    <div style="width:78%; display:inline-block;">
+                        <select asp-for="ContractorLegal" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
+                            <option value="">Выберите юр.лицо</option>
+                        </select>
+                    </div>
+                    <div style="display:inline-block;">
+                        <a asp-controller="ContractorLegal" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                        <a asp-controller="ContractorLegal" asp-action="Edit" asp-route-id="" id="ContractorLegalEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="ContractorLegal" asp-action="Details" asp-route-id="" id="ContractorLegalDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="ContractorLegal" asp-action="Delete" asp-route-id="" id="ContractorLegalDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                    </div>
+                </div>
+                <span asp-validation-for="Address" class="text-danger" id="AddressIdWarning"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" required id="address" />
-                <span asp-validation-for="Address" class="text-danger"></span>
+                <div style="overflow-inline:hidden;">
+                    <div style="width:78%; display:inline-block;">
+                        <select asp-for="Address" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
+                            <option value="">Выберите адрес</option>
+                        </select>
+                    </div>
+                    <div style="display:inline-block;">
+                        <a asp-controller="Address" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                        <a asp-controller="Address" asp-action="Edit" asp-route-id="" id="AddressEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="Address" asp-action="Details" asp-route-id="" id="AddressDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="Address" asp-action="Delete" asp-route-id="" id="AddressDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                    </div>
+                </div>
+                <span asp-validation-for="Address" class="text-danger" id="AddressIdWarning"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Attestate" class="control-label"></label>
@@ -36,10 +60,10 @@
                         </select>
                     </div>
                     <div style="display:inline-block;">
-                        <a asp-controller="Attestates" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
-                        <a asp-controller="Attestates" asp-action="Edit" asp-route-id="" id="AttestateEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
-                        <a asp-controller="Attestates" asp-action="Details" asp-route-id="" id="AttestateDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
-                        <a asp-controller="Attestates" asp-action="Delete" asp-route-id="" id="AttestateDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                        <a asp-controller="Attestate" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                        <a asp-controller="Attestate" asp-action="Edit" asp-route-id="" id="AttestateEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="Attestate" asp-action="Details" asp-route-id="" id="AttestateDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="Attestate" asp-action="Delete" asp-route-id="" id="AttestateDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
                     </div>
                 </div>
                 <span asp-validation-for="Attestate" class="text-danger" id="AttestateIdWarning"></span>
@@ -77,8 +101,10 @@
     <script>
         $(document).ready(function () {
             let selectElements = [
-                { id: '#Attestate', url: '/AjaxHelper/GetAttestates/', placeholder: 'Выберите аттестат' },
-                { id: '#ContractorLegal', url: '/AjaxHelper/GetContractorLegals/', placeholder: 'Выберите юр.лицо' }
+                { id: '#ContractorLegal', url: '/ContractorLegal/GetContractorLegals/', placeholder: 'Выберите юр.лицо' },
+                { id: '#Address', url: '/Address/GetAddresses/', placeholder: 'Выберите адрес' },
+                { id: '#Attestate', url: '/Attestate/GetAttestates/', placeholder: 'Выберите аттестат' },
+                { id: '#AssessBodyEmployees', url: '/AssessBodyEmployee/GetAssessBodyEmployees/', placeholder: 'Выберите сотрудников' }
             ];
 
             establishSelect2Algorithm(selectElements);
