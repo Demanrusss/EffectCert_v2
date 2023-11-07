@@ -20,7 +20,6 @@ namespace EffectCert.DAL.Implementations.Contractors
                 .Include(ab => ab.Address)
                 .Include(ab => ab.Attestate)
                 .Include(ab => ab.ContractorLegal)
-                    .ThenInclude(cl => cl.BankAccount)
                 .ToListAsync();
         }
 
@@ -30,20 +29,27 @@ namespace EffectCert.DAL.Implementations.Contractors
                 .Include(ab => ab.Address)
                 .Include(ab => ab.Attestate)
                 .Include(ab => ab.ContractorLegal)
-                    .ThenInclude(cl => cl.BankAccount)
                 .FirstOrDefaultAsync(a => a.Id == id) ?? new AssessBody();
         }
 
-        public async Task<ICollection<AssessBody>> Find(string searchStr = "")
+        public async Task<ICollection<AssessBody>> Find(string searchStr)
         {
-            var result = appDBContext.AssessBodies.Where(c => c.Name.Contains(searchStr));
+            if (String.IsNullOrWhiteSpace(searchStr))
+                return await GetAll();
+
+            var result = appDBContext.AssessBodies
+                .Include(ab => ab.Address)
+                .Include(ab => ab.Attestate)
+                .Include(ab => ab.ContractorLegal)
+                .Where(c => c.Name.Contains(searchStr));
+
             return await result.ToListAsync();
         }
 
         public async Task<int> Create(AssessBody assessBody)
         {
             if (assessBody == null)
-                throw new ArgumentNullException();
+                return 0;
 
             appDBContext.AssessBodies.Add(assessBody);
             return await appDBContext.SaveChangesAsync();

@@ -12,7 +12,7 @@ namespace EffectCert.ViewMappers.Contractors
             return new ContractorLegal()
             {
                 Id = contractorLegalViewModel.Id,
-                BankAccount = contractorLegalViewModel.BankAccount == null 
+                BankAccount = contractorLegalViewModel.BankAccount != null 
                     ? BankAccountMapper.MapToModel(contractorLegalViewModel.BankAccount!)
                     : null,
                 BIN = contractorLegalViewModel.BIN,
@@ -29,7 +29,7 @@ namespace EffectCert.ViewMappers.Contractors
             return new ContractorLegalViewModel()
             {
                 Id = contractorLegal.Id,
-                BankAccount = contractorLegal.BankAccount == null 
+                BankAccount = contractorLegal.BankAccount != null 
                     ? BankAccountMapper.MapToViewModel(contractorLegal.BankAccount!)
                     : null,
                 BIN = contractorLegal.BIN,
