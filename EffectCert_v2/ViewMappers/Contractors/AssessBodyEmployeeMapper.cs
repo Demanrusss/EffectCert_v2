@@ -10,7 +10,7 @@ namespace EffectCert.ViewMappers.Contractors
             return new AssessBodyEmployee()
             {
                 Id = assessBodyEmployeeViewModel.Id,
-                ContractorLegalEmployee = ContractorLegalEmployeeMapper.MapToModel(assessBodyEmployeeViewModel.ContractorLegalEmployee),
+                ContractorLegalEmployeeId = assessBodyEmployeeViewModel.ContractorLegalEmployeeId,
                 ExpertAuditorOrientation = assessBodyEmployeeViewModel.ExpertAuditorOrientation,
                 Position = assessBodyEmployeeViewModel.Position
             };
@@ -18,10 +18,15 @@ namespace EffectCert.ViewMappers.Contractors
 
         public static AssessBodyEmployeeViewModel MapToViewModel(AssessBodyEmployee assessBodyEmployee)
         {
+            if (assessBodyEmployee == null)
+                return new AssessBodyEmployeeViewModel();
+
             return new AssessBodyEmployeeViewModel()
             {
                 Id = assessBodyEmployee.Id,
-                ContractorLegalEmployee = ContractorLegalEmployeeMapper.MapToViewModel(assessBodyEmployee.ContractorLegalEmployee),
+                ContractorLegalEmployeeId = assessBodyEmployee.ContractorLegalEmployeeId,
+                ContractorLegalEmployeeFullName = String.Format("{0} {1}", assessBodyEmployee.ContractorLegalEmployee.ContractorIndividual.LastName
+                + assessBodyEmployee.ContractorLegalEmployee.ContractorIndividual.FirstName),
                 ExpertAuditorOrientation = assessBodyEmployee.ExpertAuditorOrientation,
                 Position = assessBodyEmployee.Position
             };

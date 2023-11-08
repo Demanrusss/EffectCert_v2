@@ -20,6 +20,9 @@ namespace EffectCert.ViewMappers.Contractors
 
         public static BankAccountViewModel MapToViewModel(BankAccount bankAccount)
         {
+            if (bankAccount == null)
+                return new BankAccountViewModel();
+
             return new BankAccountViewModel()
             {
                 Id = bankAccount.Id,

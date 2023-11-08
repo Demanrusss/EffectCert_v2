@@ -21,6 +21,9 @@ namespace EffectCert.ViewMappers.Contractors
 
         public static AssessBodyViewModel MapToViewModel(AssessBody assessBody)
         {
+            if (assessBody == null)
+                return new AssessBodyViewModel();
+
             return new AssessBodyViewModel()
             {
                 Id = assessBody.Id,

@@ -21,6 +21,9 @@ namespace EffectCert.ViewMappers.Contractors
 
         public static ContractorIndividualViewModel MapToViewModel(ContractorIndividual contractorIndividual)
         {
+            if (contractorIndividual == null)
+                return new ContractorIndividualViewModel();
+
             return new ContractorIndividualViewModel()
             {
                 Id = contractorIndividual.Id,

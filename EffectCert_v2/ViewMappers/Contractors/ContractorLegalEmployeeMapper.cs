@@ -21,6 +21,9 @@ namespace EffectCert.ViewMappers.Contractors
 
         public static ContractorLegalEmployeeViewModel MapToViewModel(ContractorLegalEmployee contractorLegalEmployee)
         {
+            if (contractorLegalEmployee == null)
+                return new ContractorLegalEmployeeViewModel();
+
             return new ContractorLegalEmployeeViewModel()
             {
                 Id = contractorLegalEmployee.Id,

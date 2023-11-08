@@ -21,25 +21,29 @@
             @Html.DisplayNameFor(model => model.ContractorLegal)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ContractorLegal)
+            @Html.DisplayFor(model => model.ContractorLegal.ShortName)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Attestate)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Attestate)
+            @Html.DisplayNameFor(model => model.Attestate.Number): @Model.Attestate.Number<br>
+            @Html.DisplayNameFor(model => model.Attestate.Date): @Model.Attestate.Date.ToShortDateString()<br>
+            @Html.DisplayNameFor(model => model.Attestate.ValidDate): @Model.Attestate.ValidDate.ToShortDateString()<br>
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Address)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Address)
+            @Html.DisplayNameFor(model => model.Address.Country): @Model.Address.Country<br>
+            @Html.DisplayNameFor(model => model.Address.Index): @Model.Address.Index<br>
+            @Html.DisplayNameFor(model => model.Address.AddressLine): @Model.Address.AddressLine<br>
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.AssessBodyEmployees)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AssessBodyEmployees)
+            @Html.DisplayFor(model => model.AssessBodyEmployees.Count)<br>
         </dd>
     </dl>
 </div>

@@ -20,6 +20,9 @@ namespace EffectCert.ViewMappers.Contractors
 
         public static AttestateViewModel MapToViewModel(Attestate attestate)
         {
+            if (attestate == null)
+                return new AttestateViewModel();
+
             return new AttestateViewModel()
             {
                 Id = attestate.Id,

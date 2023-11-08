@@ -18,6 +18,9 @@ namespace EffectCert.ViewMappers.Contractors
 
         public static AddressViewModel MapToViewModel(Address address)
         {
+            if (address == null)
+                return new AddressViewModel();
+
             return new AddressViewModel()
             {
                 Id = address.Id,

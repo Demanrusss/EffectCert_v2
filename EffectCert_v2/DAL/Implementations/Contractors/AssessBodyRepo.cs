@@ -2,6 +2,7 @@
 using EffectCert.DAL.Entities.Contractors;
 using EffectCert.DAL.Interfaces;
 using EffectCert.DAL.DBContext;
+using EffectCert.DAL.Entities.Documents;
 
 namespace EffectCert.DAL.Implementations.Contractors
 {
@@ -20,6 +21,28 @@ namespace EffectCert.DAL.Implementations.Contractors
                 .Include(ab => ab.Address)
                 .Include(ab => ab.Attestate)
                 .Include(ab => ab.ContractorLegal)
+                .Select(ab => new AssessBody
+                {
+                    Id = ab.Id,
+                    Name = ab.Name,
+                    ShortName = ab.ShortName,
+                    AddressId = ab.AddressId,
+                    AttestateId = ab.AttestateId,
+                    ContractorLegalId = ab.ContractorLegalId,
+                    Address = new Address
+                    {
+                        AddressStr = ab.Address.AddressStr,
+                        Country = ab.Address.Country
+                    },
+                    Attestate = new Attestate
+                    {
+                        Number = ab.Attestate.Number
+                    },
+                    ContractorLegal = new ContractorLegal
+                    {
+                        ShortName = ab.ContractorLegal.ShortName
+                    }
+                })
                 .ToListAsync();
         }
 
