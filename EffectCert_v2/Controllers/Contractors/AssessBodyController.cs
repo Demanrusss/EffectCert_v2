@@ -37,7 +37,6 @@ namespace EffectCert.Controllers.Contractors
             return View("~/Views/Catalogues/Contractors/AssessBody/Details.cshtml", assessBody);
         }
 
-        // GET: AssessBodyController/Create
         public IActionResult Create()
         {
             ViewData["Title"] = "Создание ОПС";
@@ -45,7 +44,6 @@ namespace EffectCert.Controllers.Contractors
             return View("~/Views/Catalogues/Contractors/AssessBody/Create.cshtml");
         }
 
-        // POST: AssessBodyController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AssessBodyViewModel assessBody)
@@ -59,7 +57,6 @@ namespace EffectCert.Controllers.Contractors
             return View("~/Views/Catalogues/Contractors/AssessBody/Create.cshtml", assessBody);
         }
 
-        // GET: AssessBodyController/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
             ViewData["Title"] = "Внесение изменений в данные ОПС";
@@ -71,7 +68,6 @@ namespace EffectCert.Controllers.Contractors
             return View("~/Views/Catalogues/Contractors/AssessBody/Edit.cshtml", assessBody);
         }
 
-        // POST: AssessBodyController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, AssessBodyViewModel assessBody)
@@ -88,7 +84,6 @@ namespace EffectCert.Controllers.Contractors
             return View("~/Views/Catalogues/Contractors/AssessBody/Edit.cshtml", assessBody);
         }
 
-        // GET: AssessBodyController/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
             ViewData["Title"] = "Удаление ОПС";
@@ -100,7 +95,6 @@ namespace EffectCert.Controllers.Contractors
             return View("~/Views/Catalogues/Contractors/AssessBody/Delete.cshtml", assessBody);
         }
 
-        // POST: AssessBodyController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id, AssessBodyViewModel assessBody)
@@ -115,6 +109,25 @@ namespace EffectCert.Controllers.Contractors
             }
 
             return View("~/Views/Catalogues/Contractors/AssessBody/Delete.cshtml", assessBody);
+        }
+
+        public async Task<JsonResult> GetAssessBodies(string searchStr)
+        {
+            var assessBodiesList = new List<Dictionary<string, string>>();
+            var allAssessBodies = await assessBodyBLL.Find(searchStr);
+
+            foreach (var item in allAssessBodies)
+            {
+                var assessBodyItem = new Dictionary<string, string>
+                {
+                    { "id", item.Id.ToString() },
+                    { "name", item.ShortName }
+                };
+
+                assessBodiesList.Add(assessBodyItem);
+            }
+
+            return Json(assessBodiesList);
         }
     }
 }

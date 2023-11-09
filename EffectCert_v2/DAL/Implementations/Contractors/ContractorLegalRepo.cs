@@ -17,9 +17,19 @@ namespace EffectCert.DAL.Implementations.Contractors
         public async Task<ICollection<ContractorLegal>> GetAll()
         {
             return await appDBContext.ContractorLegals
-                .Include(cl => cl.FactAddress)
                 .Include(cl => cl.RegAddress)
-                .Include(cl => cl.BankAccount)
+                .Select(c => new ContractorLegal
+                {
+                    BIN = c.BIN,
+                    Id = c.Id,
+                    ShortName = c.ShortName,
+                    RegAddress = new Address
+                    {
+                        AddressStr = c.RegAddress.AddressStr,
+                        Country = c.RegAddress.Country
+                    },
+                    RegAddressId = c.RegAddressId
+                })
                 .ToListAsync();
         }
 
@@ -32,16 +42,21 @@ namespace EffectCert.DAL.Implementations.Contractors
                 .FirstOrDefaultAsync(a => a.Id == id) ?? new ContractorLegal();
         }
 
-        public async Task<ICollection<ContractorLegal>> Find(string searchStr = "")
+        public async Task<ICollection<ContractorLegal>> Find(string searchStr)
         {
-            var result = appDBContext.ContractorLegals.Where(c => c.ShortName.Contains(searchStr) || c.FullName.Contains(searchStr));
+            if (String.IsNullOrWhiteSpace(searchStr))
+                return await GetAll();
+
+            var result = appDBContext.ContractorLegals
+                .Where(c => c.ShortName.Contains(searchStr) || c.FullName.Contains(searchStr));
+
             return await result.ToListAsync();
         }
 
         public async Task<int> Create(ContractorLegal contractorLegal)
         {
             if (contractorLegal == null)
-                throw new ArgumentNullException();
+                return 0;
 
             appDBContext.ContractorLegals.Add(contractorLegal);
             return await appDBContext.SaveChangesAsync();
@@ -63,7 +78,6 @@ namespace EffectCert.DAL.Implementations.Contractors
                 return 0;
 
             appDBContext.ContractorLegals.Remove(contractorLegal);
-
             return await appDBContext.SaveChangesAsync();
         }
     }

@@ -16,12 +16,15 @@ namespace EffectCert.ViewModels.Contractors
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Адрес")]
         public AddressViewModel Address { get; set; } = null!;
+        public int AddressId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Юридическое лицо")]
         public ContractorLegalViewModel ContractorLegal { get; set; } = null!;
+        public int ContractorLegalId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Аттестат")]
         public AttestateViewModel Attestate { get; set; } = null!;
+        public int AttestateId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Сотрудники органа")]
         public ICollection<AssessBodyEmployeeViewModel> AssessBodyEmployees { get; set; } = new HashSet<AssessBodyEmployeeViewModel>();

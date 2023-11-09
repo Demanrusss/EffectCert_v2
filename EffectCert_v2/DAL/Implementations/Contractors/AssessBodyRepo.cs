@@ -64,7 +64,7 @@ namespace EffectCert.DAL.Implementations.Contractors
                 .Include(ab => ab.Address)
                 .Include(ab => ab.Attestate)
                 .Include(ab => ab.ContractorLegal)
-                .Where(c => c.Name.Contains(searchStr));
+                .Where(c => c.Name.Contains(searchStr) || c.ShortName.Contains(searchStr));
 
             return await result.ToListAsync();
         }

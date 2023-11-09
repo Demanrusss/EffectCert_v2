@@ -44,6 +44,9 @@ namespace EffectCert.DAL.Implementations.Contractors
 
         public async Task<ICollection<AssessBodyEmployee>> Find(string searchStr = "")
         {
+            if (String.IsNullOrWhiteSpace(searchStr))
+                return await GetAll();
+
             var result = from abe in appDBContext.AssessBodyEmployees
                          join cle in appDBContext.ContractorLegalEmployees on abe.ContractorLegalEmployee.Id equals cle.Id
                          join ci in appDBContext.ContractorIndividuals on cle.ContractorIndividual.Id equals ci.Id

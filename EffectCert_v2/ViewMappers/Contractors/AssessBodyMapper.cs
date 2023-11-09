@@ -10,10 +10,10 @@ namespace EffectCert.ViewMappers.Contractors
             return new AssessBody()
             {
                 Id = assessBodyViewModel.Id,
-                Address = AddressMapper.MapToModel(assessBodyViewModel.Address),
+                AddressId = assessBodyViewModel.AddressId,
                 AssessBodyEmployees = ConvertToModelCollection(assessBodyViewModel.AssessBodyEmployees),
-                Attestate = AttestateMapper.MapToModel(assessBodyViewModel.Attestate),
-                ContractorLegal = ContractorLegalMapper.MapToModel(assessBodyViewModel.ContractorLegal),
+                AttestateId = assessBodyViewModel.AttestateId,
+                ContractorLegalId = assessBodyViewModel.ContractorLegalId,
                 Name = assessBodyViewModel.Name,
                 ShortName = assessBodyViewModel.ShortName
             };

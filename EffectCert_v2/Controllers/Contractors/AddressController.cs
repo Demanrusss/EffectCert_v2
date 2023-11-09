@@ -14,7 +14,6 @@ namespace EffectCert.Controllers.Contractors
             this.addressBLL = addressBLL;
         }
 
-        // GET: AddressController
         public async Task<IActionResult> Index()
         {
             ViewData["Title"] = "Адреса";
@@ -24,7 +23,6 @@ namespace EffectCert.Controllers.Contractors
             return View("~/Views/Catalogues/Contractors/Address/Index.cshtml", addresses);
         }
 
-        // GET: AddressController/Details/5
         public async Task<IActionResult> Details(int id)
         {
             ViewData["Title"] = "Полные данные адреса";
@@ -36,7 +34,6 @@ namespace EffectCert.Controllers.Contractors
             return View("~/Views/Catalogues/Contractors/Address/Details.cshtml", address);
         }
 
-        // GET: AddressController/Create
         public IActionResult Create()
         {
             ViewData["Title"] = "Создание адреса";
@@ -44,7 +41,6 @@ namespace EffectCert.Controllers.Contractors
             return View("~/Views/Catalogues/Contractors/Address/Create.cshtml");
         }
 
-        // POST: AddressController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AddressViewModel address)
@@ -58,7 +54,6 @@ namespace EffectCert.Controllers.Contractors
             return View("~/Views/Catalogues/Contractors/Address/Create.cshtml", address);
         }
 
-        // GET: AddressController/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
             ViewData["Title"] = "Внесение изменений в адрес";
@@ -70,7 +65,6 @@ namespace EffectCert.Controllers.Contractors
             return View("~/Views/Catalogues/Contractors/Address/Edit.cshtml", address);
         }
 
-        // POST: AddressController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, AddressViewModel address)
@@ -87,7 +81,6 @@ namespace EffectCert.Controllers.Contractors
             return View("~/Views/Catalogues/Contractors/Address/Edit.cshtml", address);
         }
 
-        // GET: AddressController/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
             ViewData["Title"] = "Удаление адреса";
@@ -99,7 +92,6 @@ namespace EffectCert.Controllers.Contractors
             return View("~/Views/Catalogues/Contractors/Address/Delete.cshtml", address);
         }
 
-        // POST: AddressController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id, AddressViewModel address)

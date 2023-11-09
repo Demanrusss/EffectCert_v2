@@ -1,11 +1,12 @@
 ﻿using EffectCert.DAL.Entities.Contractors;
 using EffectCert.DAL.Implementations.Contractors;
 using EffectCert.BLL;
-using Microsoft.IdentityModel.Tokens;
+using EffectCert.ViewModels.Contractors;
+using EffectCert.ViewMappers.Contractors;
 
 namespace EffectCert.BLL.Contractors
 {
-    public class ContractorLegalBLL : ICommonBLL<ContractorLegal>
+    public class ContractorLegalBLL : ICommonBLL<ContractorLegalViewModel>
     {
         private readonly ContractorLegalRepo contractorLegalDAL;
 
@@ -14,34 +15,51 @@ namespace EffectCert.BLL.Contractors
             this.contractorLegalDAL = contractorLegalDAL;
         }
 
-        public async Task<ContractorLegal> Get(int id)
+        public async Task<ContractorLegalViewModel> Get(int id)
         {
-            return await contractorLegalDAL.Get(id);
+            var contractorLegal = await contractorLegalDAL.Get(id);
+
+            return ContractorLegalMapper.MapToViewModel(contractorLegal);
         }
 
-        public async Task<int> UpdateOrCreate(ContractorLegal contractorLegal)
+        public async Task<int> UpdateOrCreate(ContractorLegalViewModel contractorLegalViewModel)
         {
+            var contractorLegal = ContractorLegalMapper.MapToModel(contractorLegalViewModel);
+
             return contractorLegal.Id == 0 
                 ? await contractorLegalDAL.Create(contractorLegal) 
                 : await contractorLegalDAL.Update(contractorLegal);
         }
 
-        public async Task<ICollection<ContractorLegal>> Find(string searchStr)
+        public async Task<ICollection<ContractorLegalViewModel>> Find(string searchStr)
         {
-            if (searchStr.IsNullOrEmpty())
+            if (String.IsNullOrEmpty(searchStr))
                 return await FindAll();
 
-            return await contractorLegalDAL.Find(searchStr);
+            var contractorLegals = await contractorLegalDAL.Find(searchStr);
+
+            return ConvertAssessBodyCollection(contractorLegals);
         }
 
-        public async Task<ICollection<ContractorLegal>> FindAll()
+        public async Task<ICollection<ContractorLegalViewModel>> FindAll()
         {
-            return await contractorLegalDAL.GetAll();
+            var contractorLegals = await contractorLegalDAL.GetAll();
+            return ConvertAssessBodyCollection(contractorLegals);
         }
 
         public async Task<int> Delete(int id)
         {
             return await contractorLegalDAL.Delete(id);
+        }
+
+        private ICollection<ContractorLegalViewModel> ConvertAssessBodyCollection(ICollection<ContractorLegal> contractorLegals)
+        {
+            var contractorLegalsVM = new List<ContractorLegalViewModel>(contractorLegals.Count);
+
+            foreach (var contractorLegal in contractorLegals)
+                contractorLegalsVM.Add(ContractorLegalMapper.MapToViewModel(contractorLegal));
+
+            return contractorLegalsVM;
         }
     }
 }
