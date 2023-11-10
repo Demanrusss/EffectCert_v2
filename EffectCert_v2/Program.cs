@@ -21,6 +21,10 @@ builder.Services.AddScoped<AttestateBLL, AttestateBLL>();
 builder.Services.AddScoped<AttestateRepo, AttestateRepo>();
 builder.Services.AddScoped<ContractorLegalBLL, ContractorLegalBLL>();
 builder.Services.AddScoped<ContractorLegalRepo, ContractorLegalRepo>();
+builder.Services.AddScoped<AssessBodyEmployeeBLL, AssessBodyEmployeeBLL>();
+builder.Services.AddScoped<AssessBodyEmployeeRepo, AssessBodyEmployeeRepo>();
+builder.Services.AddScoped<ContractorLegalEmployeeBLL, ContractorLegalEmployeeBLL>();
+builder.Services.AddScoped<ContractorLegalEmployeeRepo, ContractorLegalEmployeeRepo>();
 builder.Services.AddDbContext<AppDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
 
 var app = builder.Build();

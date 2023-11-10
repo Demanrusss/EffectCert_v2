@@ -1,5 +1,4 @@
-﻿using EffectCert.Helpers.Constants;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace EffectCert.ViewModels.Contractors
@@ -7,8 +6,9 @@ namespace EffectCert.ViewModels.Contractors
     public class AssessBodyEmployeeViewModel
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Сотрудник юридического лица")]
-        public string ContractorLegalEmployeeFullName { get; set; } = null!;
+        public ContractorLegalEmployeeViewModel ContractorLegalEmployee { get; set; } = null!;
         public int ContractorLegalEmployeeId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Позиция")]

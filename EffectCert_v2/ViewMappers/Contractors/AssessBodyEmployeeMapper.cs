@@ -25,8 +25,7 @@ namespace EffectCert.ViewMappers.Contractors
             {
                 Id = assessBodyEmployee.Id,
                 ContractorLegalEmployeeId = assessBodyEmployee.ContractorLegalEmployeeId,
-                ContractorLegalEmployeeFullName = String.Format("{0} {1}", assessBodyEmployee.ContractorLegalEmployee.ContractorIndividual.LastName
-                + assessBodyEmployee.ContractorLegalEmployee.ContractorIndividual.FirstName),
+                ContractorLegalEmployee = ContractorLegalEmployeeMapper.MapToViewModel(assessBodyEmployee.ContractorLegalEmployee),
                 ExpertAuditorOrientation = assessBodyEmployee.ExpertAuditorOrientation,
                 Position = assessBodyEmployee.Position
             };
