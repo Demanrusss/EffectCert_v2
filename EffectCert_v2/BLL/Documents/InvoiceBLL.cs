@@ -1,13 +1,11 @@
 ﻿using EffectCert.DAL.Entities.Documents;
 using EffectCert.DAL.Implementations.Documents;
-using EffectCert.BLL;
-using EffectCert.BLL.Contractors;
-using EffectCert.DAL.Entities.Contractors;
-using Microsoft.IdentityModel.Tokens;
+using EffectCert.ViewMappers.Documents;
+using EffectCert.ViewModels.Documents;
 
 namespace EffectCert.BLL.Documents
 {
-    public class InvoiceBLL : ICommonBLL<Invoice>
+    public class InvoiceBLL : ICommonBLL<InvoiceViewModel>
     {
         private readonly InvoiceRepo invoiceDAL;
 
@@ -16,34 +14,52 @@ namespace EffectCert.BLL.Documents
             this.invoiceDAL = invoiceDAL;
         }
 
-        public async Task<Invoice> Get(int id)
+        public async Task<InvoiceViewModel> Get(int id)
         {
-            return await invoiceDAL.Get(id);
+            var invoice = await invoiceDAL.Get(id);
+
+            return InvoiceMapper.MapToViewModel(invoice);
         }
 
-        public async Task<int> UpdateOrCreate(Invoice invoice)
+        public async Task<int> UpdateOrCreate(InvoiceViewModel invoiceVM)
         {
+            var invoice = InvoiceMapper.MapToModel(invoiceVM);
+
             return invoice.Id == 0 
                 ? await invoiceDAL.Create(invoice) 
                 : await invoiceDAL.Update(invoice);
         }
 
-        public async Task<ICollection<Invoice>> Find(string searchStr)
+        public async Task<ICollection<InvoiceViewModel>> Find(string searchStr)
         {
-            if (searchStr.IsNullOrEmpty())
+            if (String.IsNullOrWhiteSpace(searchStr))
                 return await FindAll();
 
-            return await invoiceDAL.Find(searchStr);
+            var invoices = await invoiceDAL.Find(searchStr);
+
+            return ConvertCollection(invoices);
         }
 
-        public async Task<ICollection<Invoice>> FindAll()
+        public async Task<ICollection<InvoiceViewModel>> FindAll()
         {
-            return await invoiceDAL.GetAll();
+            var invoices = await invoiceDAL.GetAll();
+
+            return ConvertCollection(invoices);
         }
 
         public async Task<int> Delete(int id)
         {
             return await invoiceDAL.Delete(id);
+        }
+
+        private ICollection<InvoiceViewModel> ConvertCollection(ICollection<Invoice> collection)
+        {
+            var collectionVM = new List<InvoiceViewModel>(collection.Count);
+
+            foreach (var element in collection)
+                collectionVM.Add(InvoiceMapper.MapToViewModel(element));
+
+            return collectionVM;
         }
     }
 }

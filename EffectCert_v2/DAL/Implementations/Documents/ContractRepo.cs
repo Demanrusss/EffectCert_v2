@@ -24,8 +24,11 @@ namespace EffectCert.DAL.Implementations.Documents
             return await appDBContext.Contracts.FirstOrDefaultAsync(a => a.Id == id) ?? new Contract();
         }
 
-        public async Task<ICollection<Contract>> Find(string searchStr = "")
+        public async Task<ICollection<Contract>> Find(string searchStr)
         {
+            if (String.IsNullOrWhiteSpace(searchStr))
+                return await GetAll();
+
             var result = appDBContext.Contracts.Where(c => c.Number.Contains(searchStr) 
                                                            || c.Name.Contains(searchStr) 
                                                            || c.ShortName.Contains(searchStr));

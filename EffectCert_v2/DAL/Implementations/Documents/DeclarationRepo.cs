@@ -24,10 +24,12 @@ namespace EffectCert.DAL.Implementations.Documents
             return await appDBContext.Declarations.FirstOrDefaultAsync(a => a.Id == id) ?? new Declaration();
         }
 
-        public async Task<ICollection<Declaration>> Find(string searchStr = "")
+        public async Task<ICollection<Declaration>> Find(string searchStr)
         {
-            var result = appDBContext.Declarations.Where(c => c.Number.Contains(searchStr) 
-                                                           || c.Name.Contains(searchStr));
+            if (String.IsNullOrWhiteSpace(searchStr))
+                return await GetAll();
+
+            var result = appDBContext.Declarations.Where(c => c.Number.Contains(searchStr));
             return await result.ToListAsync();
         }
 

@@ -24,8 +24,11 @@ namespace EffectCert.DAL.Implementations.Documents
             return await appDBContext.TechRegs.FirstOrDefaultAsync(a => a.Id == id) ?? new TechReg();
         }
 
-        public async Task<ICollection<TechReg>> Find(string searchStr = "")
+        public async Task<ICollection<TechReg>> Find(string searchStr)
         {
+            if (String.IsNullOrWhiteSpace(searchStr))
+                return await GetAll();
+
             var result = appDBContext.TechRegs.Where(c => c.Number.Contains(searchStr)
                                                           || c.Name.Contains(searchStr)
                                                           || c.ShortName.Contains(searchStr));

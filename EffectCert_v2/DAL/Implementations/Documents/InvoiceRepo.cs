@@ -24,8 +24,11 @@ namespace EffectCert.DAL.Implementations.Documents
             return await appDBContext.Invoices.FirstOrDefaultAsync(a => a.Id == id) ?? new Invoice();
         }
 
-        public async Task<ICollection<Invoice>> Find(string searchStr = "")
+        public async Task<ICollection<Invoice>> Find(string searchStr)
         {
+            if (String.IsNullOrWhiteSpace(searchStr))
+                return await GetAll();
+
             var result = appDBContext.Invoices.Where(c => c.Number.Contains(searchStr)
                                                           || c.Name.Contains(searchStr)
                                                           || c.ShortName.Contains(searchStr));

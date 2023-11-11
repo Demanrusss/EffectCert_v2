@@ -24,8 +24,11 @@ namespace EffectCert.DAL.Implementations.Others
             return await appDBContext.SelectedSampleQuantities.FirstOrDefaultAsync(a => a.Id == id) ?? new SelectedSampleQuantity();
         }
 
-        public async Task<ICollection<SelectedSampleQuantity>> Find(string searchStr = "")
+        public async Task<ICollection<SelectedSampleQuantity>> Find(string searchStr)
         {
+            if (String.IsNullOrWhiteSpace(searchStr))
+                return await GetAll();
+
             var item2 = appDBContext.SelectedSampleQuantities.First().Product.Id;
 
             var result = from ssq in appDBContext.SelectedSampleQuantities

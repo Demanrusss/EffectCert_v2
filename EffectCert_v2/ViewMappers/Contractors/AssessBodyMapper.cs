@@ -1,59 +1,60 @@
 ﻿using EffectCert.DAL.Entities.Contractors;
+using EffectCert.ViewMappers.Documents;
 using EffectCert.ViewModels.Contractors;
 
 namespace EffectCert.ViewMappers.Contractors
 {
-    public static class AssessBodyMapper
+    public class AssessBodyMapper
     {
-        public static AssessBody MapToModel(AssessBodyViewModel assessBodyViewModel)
+        public static AssessBody MapToModel(AssessBodyViewModel viewModel)
         {
             return new AssessBody()
             {
-                Id = assessBodyViewModel.Id,
-                AddressId = assessBodyViewModel.AddressId,
-                AssessBodyEmployees = ConvertToModelCollection(assessBodyViewModel.AssessBodyEmployees),
-                AttestateId = assessBodyViewModel.AttestateId,
-                ContractorLegalId = assessBodyViewModel.ContractorLegalId,
-                Name = assessBodyViewModel.Name,
-                ShortName = assessBodyViewModel.ShortName
+                Id = viewModel.Id,
+                AddressId = viewModel.AddressId,
+                AssessBodyEmployees = ConvertCollection(viewModel.AssessBodyEmployees),
+                AttestateId = viewModel.AttestateId,
+                ContractorLegalId = viewModel.ContractorLegalId,
+                Name = viewModel.Name,
+                ShortName = viewModel.ShortName
             };
         }
 
-        public static AssessBodyViewModel MapToViewModel(AssessBody assessBody)
+        public static AssessBodyViewModel MapToViewModel(AssessBody model)
         {
-            if (assessBody == null)
+            if (model == null)
                 return new AssessBodyViewModel();
 
             return new AssessBodyViewModel()
             {
-                Id = assessBody.Id,
-                Address = AddressMapper.MapToViewModel(assessBody.Address),
-                AssessBodyEmployees = ConvertToViewModelCollection(assessBody.AssessBodyEmployees),
-                Attestate = AttestateMapper.MapToViewModel(assessBody.Attestate),
-                ContractorLegal = ContractorLegalMapper.MapToViewModel(assessBody.ContractorLegal),
-                Name = assessBody.Name,
-                ShortName = assessBody.ShortName
+                Id = model.Id,
+                Address = AddressMapper.MapToViewModel(model.Address),
+                AssessBodyEmployees = ConvertCollection(model.AssessBodyEmployees),
+                Attestate = AttestateMapper.MapToViewModel(model.Attestate),
+                ContractorLegal = ContractorLegalMapper.MapToViewModel(model.ContractorLegal),
+                Name = model.Name,
+                ShortName = model.ShortName
             };
         }
 
-        private static ICollection<AssessBodyEmployeeViewModel> ConvertToViewModelCollection(ICollection<AssessBodyEmployee> assessBodyEmployees)
+        private static ICollection<AssessBodyEmployeeViewModel> ConvertCollection(ICollection<AssessBodyEmployee> sourceCollection)
         {
-            var assessBodyEmployeesVM = new List<AssessBodyEmployeeViewModel>(assessBodyEmployees.Count);
+            var targetCollection = new List<AssessBodyEmployeeViewModel>(sourceCollection.Count);
 
-            foreach (var assessBodyEmployee in assessBodyEmployees)
-                assessBodyEmployeesVM.Add(AssessBodyEmployeeMapper.MapToViewModel(assessBodyEmployee));
+            foreach (var element in sourceCollection)
+                targetCollection.Add(AssessBodyEmployeeMapper.MapToViewModel(element));
 
-            return assessBodyEmployeesVM;
+            return targetCollection;
         }
 
-        private static ICollection<AssessBodyEmployee> ConvertToModelCollection(ICollection<AssessBodyEmployeeViewModel> assessBodyEmployeesVM)
+        private static ICollection<AssessBodyEmployee> ConvertCollection(ICollection<AssessBodyEmployeeViewModel> sourceCollection)
         {
-            var assessBodyEmployees = new List<AssessBodyEmployee>(assessBodyEmployeesVM.Count);
+            var targetCollection = new List<AssessBodyEmployee>(sourceCollection.Count);
 
-            foreach (var assessBodyEmployeeVM in assessBodyEmployeesVM)
-                assessBodyEmployees.Add(AssessBodyEmployeeMapper.MapToModel(assessBodyEmployeeVM));
+            foreach (var element in sourceCollection)
+                targetCollection.Add(AssessBodyEmployeeMapper.MapToModel(element));
 
-            return assessBodyEmployees;
+            return targetCollection;
         }
     }
 }

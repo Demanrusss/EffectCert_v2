@@ -24,8 +24,11 @@ namespace EffectCert.DAL.Implementations.Others
             return await appDBContext.ProductQuantities.FirstOrDefaultAsync(a => a.Id == id) ?? new ProductQuantity();
         }
 
-        public async Task<ICollection<ProductQuantity>> Find(string searchStr = "")
+        public async Task<ICollection<ProductQuantity>> Find(string searchStr)
         {
+            if (String.IsNullOrWhiteSpace(searchStr))
+                return await GetAll();
+
             var result = from pq in appDBContext.ProductQuantities
                          join p in appDBContext.Products on pq.Product.Id equals p.Id
                          where p.Name.Contains(searchStr)

@@ -1,11 +1,11 @@
 ﻿using EffectCert.DAL.Entities.Contractors;
 using EffectCert.DAL.Implementations.Contractors;
-using EffectCert.BLL;
-using Microsoft.IdentityModel.Tokens;
+using EffectCert.ViewModels.Contractors;
+using EffectCert.ViewMappers.Contractors;
 
 namespace EffectCert.BLL.Contractors
 {
-    public class ContractorIndividualBLL : ICommonBLL<ContractorIndividual>
+    public class ContractorIndividualBLL : ICommonBLL<ContractorIndividualViewModel>
     {
         private readonly ContractorIndividualRepo contractorIndividualDAL;
 
@@ -14,34 +14,52 @@ namespace EffectCert.BLL.Contractors
             this.contractorIndividualDAL = contractorIndividualDAL;
         }
 
-        public async Task<ContractorIndividual> Get(int id)
+        public async Task<ContractorIndividualViewModel> Get(int id)
         {
-            return await contractorIndividualDAL.Get(id);
+            var contractorIndividual = await contractorIndividualDAL.Get(id);
+
+            return ContractorIndividualMapper.MapToViewModel(contractorIndividual);
         }
 
-        public async Task<int> UpdateOrCreate(ContractorIndividual contractorIndividual)
+        public async Task<int> UpdateOrCreate(ContractorIndividualViewModel contractorIndividualVM)
         {
+            var contractorIndividual = ContractorIndividualMapper.MapToModel(contractorIndividualVM);
+
             return contractorIndividual.Id == 0 
                 ? await contractorIndividualDAL.Create(contractorIndividual) 
                 : await contractorIndividualDAL.Update(contractorIndividual);
         }
 
-        public async Task<ICollection<ContractorIndividual>> Find(string searchStr)
+        public async Task<ICollection<ContractorIndividualViewModel>> Find(string searchStr)
         {
-            if (searchStr.IsNullOrEmpty())
+            if (String.IsNullOrWhiteSpace(searchStr))
                 return await FindAll();
 
-            return await contractorIndividualDAL.Find(searchStr);
+            var contractorIndividuals = await contractorIndividualDAL.Find(searchStr);
+
+            return ConvertCollection(contractorIndividuals);
         }
 
-        public async Task<ICollection<ContractorIndividual>> FindAll()
+        public async Task<ICollection<ContractorIndividualViewModel>> FindAll()
         {
-            return await contractorIndividualDAL.GetAll();
+            var contractorIndividuals = await contractorIndividualDAL.GetAll();
+
+            return ConvertCollection(contractorIndividuals);
         }
 
         public async Task<int> Delete(int id)
         {
             return await contractorIndividualDAL.Delete(id);
+        }
+
+        private ICollection<ContractorIndividualViewModel> ConvertCollection(ICollection<ContractorIndividual> collection)
+        {
+            var collectionVM = new List<ContractorIndividualViewModel>(collection.Count);
+
+            foreach (var element in collection)
+                collectionVM.Add(ContractorIndividualMapper.MapToViewModel(element));
+
+            return collectionVM;
         }
     }
 }

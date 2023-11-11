@@ -7,30 +7,30 @@ namespace EffectCert.ViewMappers.Contractors
 {
     public static class ContractorIndividualMapper
     {
-        public static ContractorIndividual MapToModel(ContractorIndividualViewModel contractorIndividualViewModel)
+        public static ContractorIndividual MapToModel(ContractorIndividualViewModel viewModel)
         {
             return new ContractorIndividual()
             {
-                Id = contractorIndividualViewModel.Id,
-                FirstName = contractorIndividualViewModel.FirstName,
-                IIN = contractorIndividualViewModel.IIN,
-                LastName = contractorIndividualViewModel.LastName,
-                MiddleName = contractorIndividualViewModel.MiddleName
+                Id = viewModel.Id,
+                FirstName = viewModel.FirstName,
+                IIN = viewModel.IIN,
+                LastName = viewModel.LastName,
+                MiddleName = viewModel.MiddleName
             };
         }
 
-        public static ContractorIndividualViewModel MapToViewModel(ContractorIndividual contractorIndividual)
+        public static ContractorIndividualViewModel MapToViewModel(ContractorIndividual model)
         {
-            if (contractorIndividual == null)
+            if (model == null)
                 return new ContractorIndividualViewModel();
 
             return new ContractorIndividualViewModel()
             {
-                Id = contractorIndividual.Id,
-                FirstName = contractorIndividual.FirstName,
-                IIN = contractorIndividual.IIN,
-                LastName = contractorIndividual.LastName,
-                MiddleName = contractorIndividual.MiddleName
+                Id = model.Id,
+                FirstName = model.FirstName,
+                IIN = model.IIN,
+                LastName = model.LastName,
+                MiddleName = model.MiddleName
             };
         }
     }

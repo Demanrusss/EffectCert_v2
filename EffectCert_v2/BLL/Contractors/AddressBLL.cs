@@ -1,6 +1,5 @@
 ﻿using EffectCert.DAL.Entities.Contractors;
 using EffectCert.DAL.Implementations.Contractors;
-using EffectCert.BLL;
 using EffectCert.ViewModels.Contractors;
 using EffectCert.ViewMappers.Contractors;
 
@@ -22,9 +21,9 @@ namespace EffectCert.BLL.Contractors
             return AddressMapper.MapToViewModel(address);
         }
 
-        public async Task<int> UpdateOrCreate(AddressViewModel addressViewModel)
+        public async Task<int> UpdateOrCreate(AddressViewModel addressVM)
         {
-            var address = AddressMapper.MapToModel(addressViewModel);
+            var address = AddressMapper.MapToModel(addressVM);
 
             return address.Id == 0 
                 ? await addressDAL.Create(address) 
@@ -38,14 +37,14 @@ namespace EffectCert.BLL.Contractors
 
             var addresses = await addressDAL.Find(searchStr);
 
-            return ConvertAddressCollection(addresses);
+            return ConvertCollection(addresses);
         }
 
         public async Task<ICollection<AddressViewModel>> FindAll()
         {
             var addresses = await addressDAL.GetAll();
 
-            return ConvertAddressCollection(addresses);
+            return ConvertCollection(addresses);
         }
 
         public async Task<int> Delete(int id)
@@ -53,14 +52,14 @@ namespace EffectCert.BLL.Contractors
             return await addressDAL.Delete(id);
         }
 
-        private ICollection<AddressViewModel> ConvertAddressCollection(ICollection<Address> addresses)
+        private ICollection<AddressViewModel> ConvertCollection(ICollection<Address> collection)
         {
-            var addressesVM = new List<AddressViewModel>(addresses.Count);
+            var collectionVM = new List<AddressViewModel>(collection.Count);
 
-            foreach (var address in addresses)
-                addressesVM.Add(AddressMapper.MapToViewModel(address));
+            foreach (var element in collection)
+                collectionVM.Add(AddressMapper.MapToViewModel(element));
 
-            return addressesVM;
+            return collectionVM;
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     public interface IMapper<TModel, TViewModel>
     {
-        TModel MapFromViewModel(TViewModel viewModel);
+        TModel MapToModel(TViewModel viewModel);
         TViewModel MapToViewModel(TModel model);
     }
 }

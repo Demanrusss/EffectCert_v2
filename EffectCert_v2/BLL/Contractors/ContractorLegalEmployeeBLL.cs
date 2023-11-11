@@ -21,9 +21,9 @@ namespace EffectCert.BLL.Contractors
             return ContractorLegalEmployeeMapper.MapToViewModel(contractorLegalEmployee);
         }
 
-        public async Task<int> UpdateOrCreate(ContractorLegalEmployeeViewModel contractorLegalEmployeeViewModel)
+        public async Task<int> UpdateOrCreate(ContractorLegalEmployeeViewModel contractorLegalEmployeeVM)
         {
-            var contractorLegalEmployee = ContractorLegalEmployeeMapper.MapToModel(contractorLegalEmployeeViewModel);
+            var contractorLegalEmployee = ContractorLegalEmployeeMapper.MapToModel(contractorLegalEmployeeVM);
 
             return contractorLegalEmployee.Id == 0 
                 ? await contractorLegalEmployeeDAL.Create(contractorLegalEmployee) 
@@ -37,13 +37,13 @@ namespace EffectCert.BLL.Contractors
 
             var contractorLegalEmployees = await contractorLegalEmployeeDAL.Find(searchStr);
 
-            return ConvertContractorLegalEmployeesCollection(contractorLegalEmployees);
+            return ConvertCollection(contractorLegalEmployees);
         }
 
         public async Task<ICollection<ContractorLegalEmployeeViewModel>> FindAll()
         {
             var contractorLegalEmployees = await contractorLegalEmployeeDAL.GetAll();
-            return ConvertContractorLegalEmployeesCollection(contractorLegalEmployees);
+            return ConvertCollection(contractorLegalEmployees);
         }
 
         public async Task<int> Delete(int id)
@@ -51,14 +51,14 @@ namespace EffectCert.BLL.Contractors
             return await contractorLegalEmployeeDAL.Delete(id);
         }
 
-        private ICollection<ContractorLegalEmployeeViewModel> ConvertContractorLegalEmployeesCollection(ICollection<ContractorLegalEmployee> contractorLegalEmployees)
+        private ICollection<ContractorLegalEmployeeViewModel> ConvertCollection(ICollection<ContractorLegalEmployee> collection)
         {
-            var contractorLegalEmployeesVM = new List<ContractorLegalEmployeeViewModel>(contractorLegalEmployees.Count);
+            var collectionVM = new List<ContractorLegalEmployeeViewModel>(collection.Count);
 
-            foreach (var contractorLegalEmployee in contractorLegalEmployees)
-                contractorLegalEmployeesVM.Add(ContractorLegalEmployeeMapper.MapToViewModel(contractorLegalEmployee));
+            foreach (var element in collection)
+                collectionVM.Add(ContractorLegalEmployeeMapper.MapToViewModel(element));
 
-            return contractorLegalEmployeesVM;
+            return collectionVM;
         }
     }
 }

@@ -7,28 +7,28 @@ namespace EffectCert.ViewMappers.Contractors
 {
     public static class BankAccountMapper
     {
-        public static BankAccount MapToModel(BankAccountViewModel bankAccountViewModel)
+        public static BankAccount MapToModel(BankAccountViewModel viewModel)
         {
             return new BankAccount()
             {
-                Id = bankAccountViewModel.Id,
-                BankName = bankAccountViewModel.BankName,
-                BIK = bankAccountViewModel.BIK,
-                IIK = bankAccountViewModel.IIK
+                Id = viewModel.Id,
+                BankName = viewModel.BankName,
+                BIK = viewModel.BIK,
+                IIK = viewModel.IIK
             };
         }
 
-        public static BankAccountViewModel MapToViewModel(BankAccount bankAccount)
+        public static BankAccountViewModel MapToViewModel(BankAccount model)
         {
-            if (bankAccount == null)
+            if (model == null)
                 return new BankAccountViewModel();
 
             return new BankAccountViewModel()
             {
-                Id = bankAccount.Id,
-                BankName = bankAccount.BankName,
-                BIK = bankAccount.BIK,
-                IIK = bankAccount.IIK
+                Id = model.Id,
+                BankName = model.BankName,
+                BIK = model.BIK,
+                IIK = model.IIK
             };
         }
     }

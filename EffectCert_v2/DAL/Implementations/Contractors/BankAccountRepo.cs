@@ -24,8 +24,11 @@ namespace EffectCert.DAL.Implementations.Contractors
             return await appDBContext.BankAccounts.FirstOrDefaultAsync(a => a.Id == id) ?? new BankAccount();
         }
 
-        public async Task<ICollection<BankAccount>> Find(string searchStr = "")
+        public async Task<ICollection<BankAccount>> Find(string searchStr)
         {
+            if (String.IsNullOrWhiteSpace(searchStr))
+                return await GetAll();
+
             var result = appDBContext.BankAccounts.Where(c => c.IIK.Contains(searchStr));
             return await result.ToListAsync();
         }

@@ -24,8 +24,11 @@ namespace EffectCert.DAL.Implementations.Documents
             return await appDBContext.GTDs.FirstOrDefaultAsync(a => a.Id == id) ?? new GTD();
         }
 
-        public async Task<ICollection<GTD>> Find(string searchStr = "")
+        public async Task<ICollection<GTD>> Find(string searchStr)
         {
+            if (String.IsNullOrWhiteSpace(searchStr))
+                return await GetAll();
+
             var result = appDBContext.GTDs.Where(c => c.Number.Contains(searchStr));
             return await result.ToListAsync();
         }

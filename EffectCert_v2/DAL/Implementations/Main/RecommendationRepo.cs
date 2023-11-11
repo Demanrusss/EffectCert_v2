@@ -24,8 +24,11 @@ namespace EffectCert.DAL.Implementations.Main
             return await appDBContext.Recommendations.FirstOrDefaultAsync(a => a.Id == id) ?? new Recommendation();
         }
 
-        public async Task<ICollection<Recommendation>> Find(string searchStr = "")
+        public async Task<ICollection<Recommendation>> Find(string searchStr)
         {
+            if (String.IsNullOrWhiteSpace(searchStr))
+                return await GetAll();
+
             var result = appDBContext.Recommendations.Where(c => c.Number.Contains(searchStr));
 
             return await result.ToListAsync();

@@ -1,6 +1,5 @@
 ﻿using EffectCert.DAL.Entities.Contractors;
 using EffectCert.DAL.Implementations.Contractors;
-using EffectCert.BLL;
 using EffectCert.ViewModels.Contractors;
 using EffectCert.ViewMappers.Contractors;
 
@@ -22,9 +21,9 @@ namespace EffectCert.BLL.Contractors
             return AssessBodyMapper.MapToViewModel(assessBody);
         }
 
-        public async Task<int> UpdateOrCreate(AssessBodyViewModel assessBodyViewModel)
+        public async Task<int> UpdateOrCreate(AssessBodyViewModel assessBodyVM)
         {
-            var assessBody = AssessBodyMapper.MapToModel(assessBodyViewModel);
+            var assessBody = AssessBodyMapper.MapToModel(assessBodyVM);
 
             return assessBody.Id == 0 
                 ? await assessBodyDAL.Create(assessBody) 
@@ -38,14 +37,14 @@ namespace EffectCert.BLL.Contractors
 
             var assessBodies = await assessBodyDAL.Find(searchStr);
 
-            return ConvertAssessBodyCollection(assessBodies);
+            return ConvertCollection(assessBodies);
         }
 
         public async Task<ICollection<AssessBodyViewModel>> FindAll()
         {
             var assessBodies = await assessBodyDAL.GetAll();
 
-            return ConvertAssessBodyCollection(assessBodies);
+            return ConvertCollection(assessBodies);
         }
 
         public async Task<int> Delete(int id)
@@ -53,14 +52,14 @@ namespace EffectCert.BLL.Contractors
             return await assessBodyDAL.Delete(id);
         }
 
-        private ICollection<AssessBodyViewModel> ConvertAssessBodyCollection(ICollection<AssessBody> assessBodies)
+        private ICollection<AssessBodyViewModel> ConvertCollection(ICollection<AssessBody> collection)
         {
-            var assessBodiesVM = new List<AssessBodyViewModel>(assessBodies.Count);
+            var collectionVM = new List<AssessBodyViewModel>(collection.Count);
 
-            foreach (var assessBody in assessBodies)
-                assessBodiesVM.Add(AssessBodyMapper.MapToViewModel(assessBody));
+            foreach (var element in collection)
+                collectionVM.Add(AssessBodyMapper.MapToViewModel(element));
 
-            return assessBodiesVM;
+            return collectionVM;
         }
     }
 }

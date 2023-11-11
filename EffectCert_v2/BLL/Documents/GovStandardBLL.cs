@@ -1,13 +1,11 @@
 ﻿using EffectCert.DAL.Entities.Documents;
 using EffectCert.DAL.Implementations.Documents;
-using EffectCert.BLL;
-using EffectCert.BLL.Contractors;
-using EffectCert.DAL.Entities.Contractors;
-using Microsoft.IdentityModel.Tokens;
+using EffectCert.ViewMappers.Documents;
+using EffectCert.ViewModels.Documents;
 
 namespace EffectCert.BLL.Documents
 {
-    public class GovStandardBLL : ICommonBLL<GovStandard>
+    public class GovStandardBLL : ICommonBLL<GovStandardViewModel>
     {
         private readonly GovStandardRepo govStandardDAL;
 
@@ -16,34 +14,52 @@ namespace EffectCert.BLL.Documents
             this.govStandardDAL = govStandardDAL;
         }
 
-        public async Task<GovStandard> Get(int id)
+        public async Task<GovStandardViewModel> Get(int id)
         {
-            return await govStandardDAL.Get(id);
+            var govStandard = await govStandardDAL.Get(id);
+
+            return GovStandardMapper.MapToViewModel(govStandard);
         }
 
-        public async Task<int> UpdateOrCreate(GovStandard govStandard)
+        public async Task<int> UpdateOrCreate(GovStandardViewModel govStandardVM)
         {
+            var govStandard = GovStandardMapper.MapToModel(govStandardVM);
+
             return govStandard.Id == 0 
                 ? await govStandardDAL.Create(govStandard) 
                 : await govStandardDAL.Update(govStandard);
         }
 
-        public async Task<ICollection<GovStandard>> Find(string searchStr)
+        public async Task<ICollection<GovStandardViewModel>> Find(string searchStr)
         {
-            if (searchStr.IsNullOrEmpty())
+            if (String.IsNullOrWhiteSpace(searchStr))
                 return await FindAll();
 
-            return await govStandardDAL.Find(searchStr);
+            var govStandards = await govStandardDAL.Find(searchStr);
+
+            return ConvertCollection(govStandards);
         }
 
-        public async Task<ICollection<GovStandard>> FindAll()
+        public async Task<ICollection<GovStandardViewModel>> FindAll()
         {
-            return await govStandardDAL.GetAll();
+            var govStandards = await govStandardDAL.GetAll();
+
+            return ConvertCollection(govStandards);
         }
 
         public async Task<int> Delete(int id)
         {
             return await govStandardDAL.Delete(id);
+        }
+
+        private ICollection<GovStandardViewModel> ConvertCollection(ICollection<GovStandard> collection)
+        {
+            var collectionVM = new List<GovStandardViewModel>(collection.Count);
+
+            foreach (var element in collection)
+                collectionVM.Add(GovStandardMapper.MapToViewModel(element));
+
+            return collectionVM;
         }
     }
 }

@@ -1,13 +1,11 @@
 ﻿using EffectCert.DAL.Entities.Documents;
 using EffectCert.DAL.Implementations.Documents;
-using EffectCert.BLL;
-using EffectCert.BLL.Contractors;
-using EffectCert.DAL.Entities.Contractors;
-using Microsoft.IdentityModel.Tokens;
+using EffectCert.ViewModels.Documents;
+using EffectCert.ViewMappers.Documents;
 
 namespace EffectCert.BLL.Documents
 {
-    public class CertificateBLL : ICommonBLL<Certificate>
+    public class CertificateBLL : ICommonBLL<CertificateViewModel>
     {
         private readonly CertificateRepo certificateDAL;
 
@@ -16,34 +14,52 @@ namespace EffectCert.BLL.Documents
             this.certificateDAL = certificateDAL;
         }
 
-        public async Task<Certificate> Get(int id)
+        public async Task<CertificateViewModel> Get(int id)
         {
-            return await certificateDAL.Get(id);
+            var certificate = await certificateDAL.Get(id);
+
+            return CertificateMapper.MapToViewModel(certificate);
         }
 
-        public async Task<int> UpdateOrCreate(Certificate certificate)
+        public async Task<int> UpdateOrCreate(CertificateViewModel certificateVM)
         {
+            var certificate = CertificateMapper.MapToModel(certificateVM);
+
             return certificate.Id == 0 
                 ? await certificateDAL.Create(certificate) 
                 : await certificateDAL.Update(certificate);
         }
 
-        public async Task<ICollection<Certificate>> Find(string searchStr)
+        public async Task<ICollection<CertificateViewModel>> Find(string searchStr)
         {
-            if (searchStr.IsNullOrEmpty())
+            if (String.IsNullOrWhiteSpace(searchStr))
                 return await FindAll();
 
-            return await certificateDAL.Find(searchStr);
+            var certificates = await certificateDAL.Find(searchStr);
+
+            return ConvertCollection(certificates);
         }
 
-        public async Task<ICollection<Certificate>> FindAll()
+        public async Task<ICollection<CertificateViewModel>> FindAll()
         {
-            return await certificateDAL.GetAll();
+            var certificates = await certificateDAL.GetAll();
+
+            return ConvertCollection(certificates);
         }
 
         public async Task<int> Delete(int id)
         {
             return await certificateDAL.Delete(id);
+        }
+
+        private ICollection<CertificateViewModel> ConvertCollection(ICollection<Certificate> collection)
+        {
+            var collectionVM = new List<CertificateViewModel>(collection.Count);
+
+            foreach (var element in collection)
+                collectionVM.Add(CertificateMapper.MapToViewModel(element));
+
+            return collectionVM;
         }
     }
 }

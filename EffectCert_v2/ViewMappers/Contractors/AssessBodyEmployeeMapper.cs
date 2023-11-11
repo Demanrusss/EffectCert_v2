@@ -5,29 +5,29 @@ namespace EffectCert.ViewMappers.Contractors
 {
     public static class AssessBodyEmployeeMapper
     {
-        public static AssessBodyEmployee MapToModel(AssessBodyEmployeeViewModel assessBodyEmployeeViewModel)
+        public static AssessBodyEmployee MapToModel(AssessBodyEmployeeViewModel viewModel)
         {
             return new AssessBodyEmployee()
             {
-                Id = assessBodyEmployeeViewModel.Id,
-                ContractorLegalEmployeeId = assessBodyEmployeeViewModel.ContractorLegalEmployeeId,
-                ExpertAuditorOrientation = assessBodyEmployeeViewModel.ExpertAuditorOrientation,
-                Position = assessBodyEmployeeViewModel.Position
+                Id = viewModel.Id,
+                ContractorLegalEmployeeId = viewModel.ContractorLegalEmployeeId,
+                ExpertAuditorOrientation = viewModel.ExpertAuditorOrientation,
+                Position = viewModel.Position
             };
         }
 
-        public static AssessBodyEmployeeViewModel MapToViewModel(AssessBodyEmployee assessBodyEmployee)
+        public static AssessBodyEmployeeViewModel MapToViewModel(AssessBodyEmployee model)
         {
-            if (assessBodyEmployee == null)
+            if (model == null)
                 return new AssessBodyEmployeeViewModel();
 
             return new AssessBodyEmployeeViewModel()
             {
-                Id = assessBodyEmployee.Id,
-                ContractorLegalEmployeeId = assessBodyEmployee.ContractorLegalEmployeeId,
-                ContractorLegalEmployee = ContractorLegalEmployeeMapper.MapToViewModel(assessBodyEmployee.ContractorLegalEmployee),
-                ExpertAuditorOrientation = assessBodyEmployee.ExpertAuditorOrientation,
-                Position = assessBodyEmployee.Position
+                Id = model.Id,
+                ContractorLegalEmployeeId = model.ContractorLegalEmployeeId,
+                ContractorLegalEmployee = ContractorLegalEmployeeMapper.MapToViewModel(model.ContractorLegalEmployee),
+                ExpertAuditorOrientation = model.ExpertAuditorOrientation,
+                Position = model.Position
             };
         }
     }

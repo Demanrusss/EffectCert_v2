@@ -1,13 +1,11 @@
 ﻿using EffectCert.DAL.Entities.Documents;
 using EffectCert.DAL.Implementations.Documents;
-using EffectCert.BLL;
-using EffectCert.BLL.Contractors;
-using EffectCert.DAL.Entities.Contractors;
-using Microsoft.IdentityModel.Tokens;
+using EffectCert.ViewMappers.Documents;
+using EffectCert.ViewModels.Documents;
 
 namespace EffectCert.BLL.Documents
 {
-    public class ContractBLL : ICommonBLL<Contract>
+    public class ContractBLL : ICommonBLL<ContractViewModel>
     {
         private readonly ContractRepo contractDAL;
 
@@ -16,34 +14,52 @@ namespace EffectCert.BLL.Documents
             this.contractDAL = contractDAL;
         }
 
-        public async Task<Contract> Get(int id)
+        public async Task<ContractViewModel> Get(int id)
         {
-            return await contractDAL.Get(id);
+            var contract = await contractDAL.Get(id);
+
+            return ContractMapper.MapToViewModel(contract);
         }
 
-        public async Task<int> UpdateOrCreate(Contract contract)
+        public async Task<int> UpdateOrCreate(ContractViewModel contractVM)
         {
+            var contract = ContractMapper.MapToModel(contractVM);
+
             return contract.Id == 0 
                 ? await contractDAL.Create(contract) 
                 : await contractDAL.Update(contract);
         }
 
-        public async Task<ICollection<Contract>> Find(string searchStr)
+        public async Task<ICollection<ContractViewModel>> Find(string searchStr)
         {
-            if (searchStr.IsNullOrEmpty())
+            if (String.IsNullOrWhiteSpace(searchStr))
                 return await FindAll();
 
-            return await contractDAL.Find(searchStr);
+            var contracts = await contractDAL.Find(searchStr);
+
+            return ConvertCollection(contracts);
         }
 
-        public async Task<ICollection<Contract>> FindAll()
+        public async Task<ICollection<ContractViewModel>> FindAll()
         {
-            return await contractDAL.GetAll();
+            var contracts = await contractDAL.GetAll();
+
+            return ConvertCollection(contracts);
         }
 
         public async Task<int> Delete(int id)
         {
             return await contractDAL.Delete(id);
+        }
+
+        private ICollection<ContractViewModel> ConvertCollection(ICollection<Contract> collection)
+        {
+            var collectionVM = new List<ContractViewModel>(collection.Count);
+
+            foreach (var element in collection)
+                collectionVM.Add(ContractMapper.MapToViewModel(element));
+
+            return collectionVM;
         }
     }
 }

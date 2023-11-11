@@ -1,13 +1,11 @@
 ﻿using EffectCert.DAL.Entities.Documents;
 using EffectCert.DAL.Implementations.Documents;
-using EffectCert.BLL;
-using EffectCert.BLL.Contractors;
-using EffectCert.DAL.Entities.Contractors;
-using Microsoft.IdentityModel.Tokens;
+using EffectCert.ViewMappers.Documents;
+using EffectCert.ViewModels.Documents;
 
 namespace EffectCert.BLL.Documents
 {
-    public class DeclarationBLL : ICommonBLL<Declaration>
+    public class DeclarationBLL : ICommonBLL<DeclarationViewModel>
     {
         private readonly DeclarationRepo declarationDAL;
 
@@ -16,34 +14,52 @@ namespace EffectCert.BLL.Documents
             this.declarationDAL = declarationDAL;
         }
 
-        public async Task<Declaration> Get(int id)
+        public async Task<DeclarationViewModel> Get(int id)
         {
-            return await declarationDAL.Get(id);
+            var declaration = await declarationDAL.Get(id);
+
+            return DeclarationMapper.MapToViewModel(declaration);
         }
 
-        public async Task<int> UpdateOrCreate(Declaration declaration)
+        public async Task<int> UpdateOrCreate(DeclarationViewModel declarationVM)
         {
+            var declaration = DeclarationMapper.MapToModel(declarationVM);
+
             return declaration.Id == 0 
                 ? await declarationDAL.Create(declaration) 
                 : await declarationDAL.Update(declaration);
         }
 
-        public async Task<ICollection<Declaration>> Find(string searchStr)
+        public async Task<ICollection<DeclarationViewModel>> Find(string searchStr)
         {
-            if (searchStr.IsNullOrEmpty())
+            if (String.IsNullOrWhiteSpace(searchStr))
                 return await FindAll();
+            
+            var declarations = await declarationDAL.Find(searchStr);
 
-            return await declarationDAL.Find(searchStr);
+            return ConvertCollection(declarations);
         }
 
-        public async Task<ICollection<Declaration>> FindAll()
+        public async Task<ICollection<DeclarationViewModel>> FindAll()
         {
-            return await declarationDAL.GetAll();
+            var declarations = await declarationDAL.GetAll();
+
+            return ConvertCollection(declarations);
         }
 
         public async Task<int> Delete(int id)
         {
             return await declarationDAL.Delete(id);
+        }
+
+        private ICollection<DeclarationViewModel> ConvertCollection(ICollection<Declaration> collection)
+        {
+            var collectionVM = new List<DeclarationViewModel>(collection.Count);
+
+            foreach (var element in collection)
+                collectionVM.Add(DeclarationMapper.MapToViewModel(element));
+
+            return collectionVM;
         }
     }
 }

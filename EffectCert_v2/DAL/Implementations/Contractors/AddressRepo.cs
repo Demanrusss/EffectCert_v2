@@ -26,7 +26,7 @@ namespace EffectCert.DAL.Implementations.Contractors
 
         public async Task<ICollection<Address>> Find(string searchStr)
         {
-            if (searchStr == null)
+            if (String.IsNullOrWhiteSpace(searchStr))
                 return await GetAll();
 
             return await appDBContext.Addresses

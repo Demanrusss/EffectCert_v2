@@ -24,8 +24,11 @@ namespace EffectCert.DAL.Implementations.Others
             return await appDBContext.Products.FirstOrDefaultAsync(a => a.Id == id) ?? new Product();
         }
 
-        public async Task<ICollection<Product>> Find(string searchStr = "")
+        public async Task<ICollection<Product>> Find(string searchStr)
         {
+            if (String.IsNullOrWhiteSpace(searchStr))
+                return await GetAll();
+
             var result = appDBContext.Products.Where(c => c.Name.Contains(searchStr));
             return await result.ToListAsync();
         }

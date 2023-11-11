@@ -42,7 +42,7 @@ namespace EffectCert.DAL.Implementations.Contractors
             return await appDBContext.AssessBodyEmployees.FirstOrDefaultAsync(a => a.Id == id) ?? new AssessBodyEmployee();
         }
 
-        public async Task<ICollection<AssessBodyEmployee>> Find(string searchStr = "")
+        public async Task<ICollection<AssessBodyEmployee>> Find(string searchStr)
         {
             if (String.IsNullOrWhiteSpace(searchStr))
                 return await GetAll();

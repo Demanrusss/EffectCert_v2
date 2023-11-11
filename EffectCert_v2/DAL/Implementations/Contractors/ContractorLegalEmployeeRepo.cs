@@ -24,8 +24,11 @@ namespace EffectCert.DAL.Implementations.Contractors
             return await appDBContext.ContractorLegalEmployees.FirstOrDefaultAsync(a => a.Id == id) ?? new ContractorLegalEmployee();
         }
 
-        public async Task<ICollection<ContractorLegalEmployee>> Find(string searchStr = "")
+        public async Task<ICollection<ContractorLegalEmployee>> Find(string searchStr)
         {
+            if (String.IsNullOrWhiteSpace(searchStr))
+                return await GetAll();
+
             var result = from cle in appDBContext.ContractorLegalEmployees
                          join ci in appDBContext.ContractorIndividuals on cle.ContractorIndividual.Id equals ci.Id
                          where ci.FirstName.Contains(searchStr) || ci.LastName.Contains(searchStr)

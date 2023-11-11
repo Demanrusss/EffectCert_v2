@@ -24,8 +24,11 @@ namespace EffectCert.DAL.Implementations.Others
             return await appDBContext.CertObjects.FirstOrDefaultAsync(a => a.Id == id) ?? new CertObject();
         }
 
-        public async Task<ICollection<CertObject>> Find(string searchStr = "")
+        public async Task<ICollection<CertObject>> Find(string searchStr)
         {
+            if (String.IsNullOrWhiteSpace(searchStr))
+                return await GetAll();
+
             var result = appDBContext.CertObjects.Where(c => c.Name.Contains(searchStr));
             return await result.ToListAsync();
         }

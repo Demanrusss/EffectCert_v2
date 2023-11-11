@@ -1,11 +1,11 @@
 ﻿using EffectCert.DAL.Entities.Contractors;
 using EffectCert.DAL.Implementations.Contractors;
-using EffectCert.BLL;
-using Microsoft.IdentityModel.Tokens;
+using EffectCert.ViewMappers.Contractors;
+using EffectCert.ViewModels.Contractors;
 
 namespace EffectCert.BLL.Contractors
 {
-    public class LaboratoryEmployeeBLL : ICommonBLL<LaboratoryEmployee>
+    public class LaboratoryEmployeeBLL : ICommonBLL<LaboratoryEmployeeViewModel>
     {
         private readonly LaboratoryEmployeeRepo laboratoryEmployeeDAL;
 
@@ -14,34 +14,52 @@ namespace EffectCert.BLL.Contractors
             this.laboratoryEmployeeDAL = laboratoryEmployeeDAL;
         }
 
-        public async Task<LaboratoryEmployee> Get(int id)
+        public async Task<LaboratoryEmployeeViewModel> Get(int id)
         {
-            return await laboratoryEmployeeDAL.Get(id);
+            var laboratoryEmployee = await laboratoryEmployeeDAL.Get(id);
+
+            return LaboratoryEmployeeMapper.MapToViewModel(laboratoryEmployee);
         }
 
-        public async Task<int> UpdateOrCreate(LaboratoryEmployee laboratoryEmployee)
+        public async Task<int> UpdateOrCreate(LaboratoryEmployeeViewModel laboratoryEmployeeVM)
         {
+            var laboratoryEmployee = LaboratoryEmployeeMapper.MapToModel(laboratoryEmployeeVM);
+
             return laboratoryEmployee.Id == 0 
                 ? await laboratoryEmployeeDAL.Create(laboratoryEmployee) 
                 : await laboratoryEmployeeDAL.Update(laboratoryEmployee);
         }
 
-        public async Task<ICollection<LaboratoryEmployee>> Find(string searchStr)
+        public async Task<ICollection<LaboratoryEmployeeViewModel>> Find(string searchStr)
         {
-            if (searchStr.IsNullOrEmpty())
+            if (String.IsNullOrWhiteSpace(searchStr))
                 return await FindAll();
 
-            return await laboratoryEmployeeDAL.Find(searchStr);
+            var laboratories = await laboratoryEmployeeDAL.Find(searchStr);
+
+            return ConvertCollection(laboratories);
         }
 
-        public async Task<ICollection<LaboratoryEmployee>> FindAll()
+        public async Task<ICollection<LaboratoryEmployeeViewModel>> FindAll()
         {
-            return await laboratoryEmployeeDAL.GetAll();
+            var laboratories = await laboratoryEmployeeDAL.GetAll();
+
+            return ConvertCollection(laboratories);
         }
 
         public async Task<int> Delete(int id)
         {
             return await laboratoryEmployeeDAL.Delete(id);
+        }
+
+        private ICollection<LaboratoryEmployeeViewModel> ConvertCollection(ICollection<LaboratoryEmployee> collection)
+        {
+            var collectionVM = new List<LaboratoryEmployeeViewModel>(collection.Count);
+
+            foreach (var element in collection)
+                collectionVM.Add(LaboratoryEmployeeMapper.MapToViewModel(element));
+
+            return collectionVM;
         }
     }
 }

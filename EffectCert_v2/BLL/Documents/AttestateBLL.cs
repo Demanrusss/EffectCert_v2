@@ -1,12 +1,7 @@
 ﻿using EffectCert.DAL.Entities.Documents;
 using EffectCert.DAL.Implementations.Documents;
-using EffectCert.BLL;
-using EffectCert.BLL.Contractors;
-using EffectCert.DAL.Entities.Contractors;
-using Microsoft.IdentityModel.Tokens;
 using EffectCert.ViewModels.Documents;
-using EffectCert.ViewMappers.Contractors;
-using EffectCert.ViewModels.Contractors;
+using EffectCert.ViewMappers.Documents;
 
 namespace EffectCert.BLL.Documents
 {
@@ -26,9 +21,9 @@ namespace EffectCert.BLL.Documents
             return AttestateMapper.MapToViewModel(attestate);
         }
 
-        public async Task<int> UpdateOrCreate(AttestateViewModel attestateViewModel)
+        public async Task<int> UpdateOrCreate(AttestateViewModel attestateVM)
         {
-            var attestate = AttestateMapper.MapToModel(attestateViewModel);
+            var attestate = AttestateMapper.MapToModel(attestateVM);
 
             return attestate.Id == 0 
                 ? await attestateDAL.Create(attestate) 
@@ -37,19 +32,19 @@ namespace EffectCert.BLL.Documents
 
         public async Task<ICollection<AttestateViewModel>> Find(string searchStr)
         {
-            if (searchStr.IsNullOrEmpty())
+            if (String.IsNullOrWhiteSpace(searchStr))
                 return await FindAll();
 
             var attestates = await attestateDAL.Find(searchStr);
 
-            return ConvertAssessBodyCollection(attestates);
+            return ConvertCollection(attestates);
         }
 
         public async Task<ICollection<AttestateViewModel>> FindAll()
         {
             var attestates = await attestateDAL.GetAll();
 
-            return ConvertAssessBodyCollection(attestates);
+            return ConvertCollection(attestates);
         }
 
         public async Task<int> Delete(int id)
@@ -57,14 +52,14 @@ namespace EffectCert.BLL.Documents
             return await attestateDAL.Delete(id);
         }
 
-        private ICollection<AttestateViewModel> ConvertAssessBodyCollection(ICollection<Attestate> attestates)
+        private ICollection<AttestateViewModel> ConvertCollection(ICollection<Attestate> collection)
         {
-            var attestatesVM = new List<AttestateViewModel>(attestates.Count);
+            var collectionVM = new List<AttestateViewModel>(collection.Count);
 
-            foreach (var assessBody in attestates)
-                attestatesVM.Add(AttestateMapper.MapToViewModel(assessBody));
+            foreach (var element in collection)
+                collectionVM.Add(AttestateMapper.MapToViewModel(element));
 
-            return attestatesVM;
+            return collectionVM;
         }
     }
 }

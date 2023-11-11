@@ -7,30 +7,30 @@ namespace EffectCert.ViewMappers.Contractors
 {
     public static class ContractorLegalEmployeeMapper
     {
-        public static ContractorLegalEmployee MapToModel(ContractorLegalEmployeeViewModel contractorLegalEmployeeViewModel)
+        public static ContractorLegalEmployee MapToModel(ContractorLegalEmployeeViewModel viewModel)
         {
             return new ContractorLegalEmployee()
             {
-                Id = contractorLegalEmployeeViewModel.Id,
-                ContractorIndividual = ContractorIndividualMapper.MapToModel(contractorLegalEmployeeViewModel.ContractorIndividual),
-                ContractorLegal = ContractorLegalMapper.MapToModel(contractorLegalEmployeeViewModel.ContractorLegal),
-                IsManager = contractorLegalEmployeeViewModel.IsManager,
-                Position = contractorLegalEmployeeViewModel.Position
+                Id = viewModel.Id,
+                ContractorIndividual = ContractorIndividualMapper.MapToModel(viewModel.ContractorIndividual),
+                ContractorLegal = ContractorLegalMapper.MapToModel(viewModel.ContractorLegal),
+                IsManager = viewModel.IsManager,
+                Position = viewModel.Position
             };
         }
 
-        public static ContractorLegalEmployeeViewModel MapToViewModel(ContractorLegalEmployee contractorLegalEmployee)
+        public static ContractorLegalEmployeeViewModel MapToViewModel(ContractorLegalEmployee model)
         {
-            if (contractorLegalEmployee == null)
+            if (model == null)
                 return new ContractorLegalEmployeeViewModel();
 
             return new ContractorLegalEmployeeViewModel()
             {
-                Id = contractorLegalEmployee.Id,
-                ContractorIndividual = ContractorIndividualMapper.MapToViewModel(contractorLegalEmployee.ContractorIndividual),
-                ContractorLegal = ContractorLegalMapper.MapToViewModel(contractorLegalEmployee.ContractorLegal),
-                IsManager = contractorLegalEmployee.IsManager,
-                Position = contractorLegalEmployee.Position
+                Id = model.Id,
+                ContractorIndividual = ContractorIndividualMapper.MapToViewModel(model.ContractorIndividual),
+                ContractorLegal = ContractorLegalMapper.MapToViewModel(model.ContractorLegal),
+                IsManager = model.IsManager,
+                Position = model.Position
             };
         }
     }

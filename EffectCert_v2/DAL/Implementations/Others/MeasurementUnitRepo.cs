@@ -24,8 +24,11 @@ namespace EffectCert.DAL.Implementations.Others
             return await appDBContext.MeasurementUnits.FirstOrDefaultAsync(a => a.Id == id) ?? new MeasurementUnit();
         }
 
-        public async Task<ICollection<MeasurementUnit>> Find(string searchStr = "")
+        public async Task<ICollection<MeasurementUnit>> Find(string searchStr)
         {
+            if (String.IsNullOrWhiteSpace(searchStr))
+                return await GetAll();
+
             var result = appDBContext.MeasurementUnits.Where(c => c.FullName.Contains(searchStr) 
                                                                   || c.ShortName.Contains(searchStr));
             return await result.ToListAsync();

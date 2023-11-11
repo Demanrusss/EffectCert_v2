@@ -1,13 +1,11 @@
 ﻿using EffectCert.DAL.Entities.Documents;
 using EffectCert.DAL.Implementations.Documents;
-using EffectCert.BLL;
-using EffectCert.BLL.Contractors;
-using EffectCert.DAL.Entities.Contractors;
-using Microsoft.IdentityModel.Tokens;
+using EffectCert.ViewMappers.Documents;
+using EffectCert.ViewModels.Documents;
 
 namespace EffectCert.BLL.Documents
 {
-    public class TechRegBLL : ICommonBLL<TechReg>
+    public class TechRegBLL : ICommonBLL<TechRegViewModel>
     {
         private readonly TechRegRepo techRegDAL;
 
@@ -16,34 +14,52 @@ namespace EffectCert.BLL.Documents
             this.techRegDAL = techRegDAL;
         }
 
-        public async Task<TechReg> Get(int id)
+        public async Task<TechRegViewModel> Get(int id)
         {
-            return await techRegDAL.Get(id);
+            var techReg = await techRegDAL.Get(id);
+
+            return TechRegMapper.MapToViewModel(techReg);
         }
 
-        public async Task<int> UpdateOrCreate(TechReg techReg)
+        public async Task<int> UpdateOrCreate(TechRegViewModel techRegVM)
         {
+            var techReg = TechRegMapper.MapToModel(techRegVM);
+
             return techReg.Id == 0 
                 ? await techRegDAL.Create(techReg) 
                 : await techRegDAL.Update(techReg);
         }
 
-        public async Task<ICollection<TechReg>> Find(string searchStr)
+        public async Task<ICollection<TechRegViewModel>> Find(string searchStr)
         {
-            if (searchStr.IsNullOrEmpty())
+            if (String.IsNullOrWhiteSpace(searchStr))
                 return await FindAll();
             
-            return await techRegDAL.Find(searchStr);
+            var techRegs = await techRegDAL.Find(searchStr);
+
+            return ConvertCollection(techRegs);
         }
 
-        public async Task<ICollection<TechReg>> FindAll()
+        public async Task<ICollection<TechRegViewModel>> FindAll()
         {
-            return await techRegDAL.GetAll();
+            var techRegs = await techRegDAL.GetAll();
+
+            return ConvertCollection(techRegs);
         }
 
         public async Task<int> Delete(int id)
         {
             return await techRegDAL.Delete(id);
+        }
+
+        private ICollection<TechRegViewModel> ConvertCollection(ICollection<TechReg> collection)
+        {
+            var collectionVM = new List<TechRegViewModel>(collection.Count);
+
+            foreach (var element in collection)
+                collectionVM.Add(TechRegMapper.MapToViewModel(element));
+
+            return collectionVM;
         }
     }
 }

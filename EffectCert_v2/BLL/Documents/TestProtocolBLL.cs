@@ -1,13 +1,11 @@
 ﻿using EffectCert.DAL.Entities.Documents;
 using EffectCert.DAL.Implementations.Documents;
-using EffectCert.BLL;
-using EffectCert.BLL.Contractors;
-using EffectCert.DAL.Entities.Contractors;
-using Microsoft.IdentityModel.Tokens;
+using EffectCert.ViewMappers.Documents;
+using EffectCert.ViewModels.Documents;
 
 namespace EffectCert.BLL.Documents
 {
-    public class TestProtocolBLL : ICommonBLL<TestProtocol>
+    public class TestProtocolBLL : ICommonBLL<TestProtocolViewModel>
     {
         private readonly TestProtocolRepo testProtocolDAL;
 
@@ -16,34 +14,52 @@ namespace EffectCert.BLL.Documents
             this.testProtocolDAL = testProtocolDAL;
         }
 
-        public async Task<TestProtocol> Get(int id)
+        public async Task<TestProtocolViewModel> Get(int id)
         {
-            return await testProtocolDAL.Get(id);
+            var testProtocol = await testProtocolDAL.Get(id);
+
+            return TestProtocolMapper.MapToViewModel(testProtocol);
         }
 
-        public async Task<int> UpdateOrCreate(TestProtocol testProtocol)
+        public async Task<int> UpdateOrCreate(TestProtocolViewModel testProtocolVM)
         {
+            var testProtocol = TestProtocolMapper.MapToModel(testProtocolVM);
+
             return testProtocol.Id == 0 
                 ? await testProtocolDAL.Create(testProtocol) 
                 : await testProtocolDAL.Update(testProtocol);
         }
 
-        public async Task<ICollection<TestProtocol>> Find(string searchStr)
+        public async Task<ICollection<TestProtocolViewModel>> Find(string searchStr)
         {
-            if (searchStr.IsNullOrEmpty())
+            if (String.IsNullOrWhiteSpace(searchStr))
                 return await FindAll();
 
-            return await testProtocolDAL.Find(searchStr);
+            var testProtocols = await testProtocolDAL.Find(searchStr);
+
+            return ConvertCollection(testProtocols);
         }
 
-        public async Task<ICollection<TestProtocol>> FindAll()
+        public async Task<ICollection<TestProtocolViewModel>> FindAll()
         {
-            return await testProtocolDAL.GetAll();
+            var testProtocols = await testProtocolDAL.GetAll();
+
+            return ConvertCollection(testProtocols);
         }
 
         public async Task<int> Delete(int id)
         {
             return await testProtocolDAL.Delete(id);
+        }
+
+        private ICollection<TestProtocolViewModel> ConvertCollection(ICollection<TestProtocol> collection)
+        {
+            var collectionVM = new List<TestProtocolViewModel>(collection.Count);
+
+            foreach (var element in collection)
+                collectionVM.Add(TestProtocolMapper.MapToViewModel(element));
+
+            return collectionVM;
         }
     }
 }

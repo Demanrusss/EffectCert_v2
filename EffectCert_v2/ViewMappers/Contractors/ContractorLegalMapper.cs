@@ -7,62 +7,58 @@ namespace EffectCert.ViewMappers.Contractors
 {
     public static class ContractorLegalMapper
     {
-        public static ContractorLegal MapToModel(ContractorLegalViewModel contractorLegalViewModel)
+        public static ContractorLegal MapToModel(ContractorLegalViewModel viewModel)
         {
             return new ContractorLegal()
             {
-                Id = contractorLegalViewModel.Id,
-                BankAccount = contractorLegalViewModel.BankAccount != null 
-                    ? BankAccountMapper.MapToModel(contractorLegalViewModel.BankAccount!)
-                    : null,
-                BIN = contractorLegalViewModel.BIN,
-                Employees = ConvertToModelCollection(contractorLegalViewModel.Employees),
-                FactAddress = AddressMapper.MapToModel(contractorLegalViewModel.FactAddress ?? contractorLegalViewModel.RegAddress),
-                FullName = contractorLegalViewModel.FullName,
-                RegAddress = AddressMapper.MapToModel(contractorLegalViewModel.RegAddress),
-                ShortName = contractorLegalViewModel.ShortName
+                Id = viewModel.Id,
+                BankAccount = BankAccountMapper.MapToModel(viewModel.BankAccount ?? new BankAccountViewModel()),
+                BIN = viewModel.BIN,
+                Employees = ConvertCollection(viewModel.Employees),
+                FactAddress = AddressMapper.MapToModel(viewModel.FactAddress ?? viewModel.RegAddress),
+                FullName = viewModel.FullName,
+                RegAddress = AddressMapper.MapToModel(viewModel.RegAddress),
+                ShortName = viewModel.ShortName
             };
         }
 
-        public static ContractorLegalViewModel MapToViewModel(ContractorLegal contractorLegal)
+        public static ContractorLegalViewModel MapToViewModel(ContractorLegal model)
         {
-            if (contractorLegal == null)
+            if (model == null)
                 return new ContractorLegalViewModel();
 
             return new ContractorLegalViewModel()
             {
-                Id = contractorLegal.Id,
-                BankAccount = contractorLegal.BankAccount != null 
-                    ? BankAccountMapper.MapToViewModel(contractorLegal.BankAccount!)
-                    : null,
-                BIN = contractorLegal.BIN,
-                Employees = ConvertToViewModelCollection(contractorLegal.Employees),
-                FactAddress = AddressMapper.MapToViewModel(contractorLegal.FactAddress),
-                FullName = contractorLegal.FullName,
-                RegAddress = AddressMapper.MapToViewModel(contractorLegal.RegAddress),
-                ShortName = contractorLegal.ShortName,
-                IsAddressSame = contractorLegal.RegAddress == contractorLegal.FactAddress
+                Id = model.Id,
+                BankAccount = BankAccountMapper.MapToViewModel(model.BankAccount ?? new BankAccount()),
+                BIN = model.BIN,
+                Employees = ConvertCollection(model.Employees),
+                FactAddress = AddressMapper.MapToViewModel(model.FactAddress),
+                FullName = model.FullName,
+                RegAddress = AddressMapper.MapToViewModel(model.RegAddress),
+                ShortName = model.ShortName,
+                IsAddressSame = model.RegAddress == model.FactAddress
             };
         }
 
-        private static ICollection<ContractorLegalEmployeeViewModel> ConvertToViewModelCollection(ICollection<ContractorLegalEmployee> contractorLegalEmployees)
+        private static ICollection<ContractorLegalEmployeeViewModel> ConvertCollection(ICollection<ContractorLegalEmployee> sourceCollection)
         {
-            var contractorLegalEmployeesVM = new List<ContractorLegalEmployeeViewModel>(contractorLegalEmployees.Count);
+            var targetCollection = new List<ContractorLegalEmployeeViewModel>(sourceCollection.Count);
 
-            foreach (var contractorLegalEmployee in contractorLegalEmployees)
-                contractorLegalEmployeesVM.Add(ContractorLegalEmployeeMapper.MapToViewModel(contractorLegalEmployee));
+            foreach (var element in sourceCollection)
+                targetCollection.Add(ContractorLegalEmployeeMapper.MapToViewModel(element));
 
-            return contractorLegalEmployeesVM;
+            return targetCollection;
         }
 
-        private static ICollection<ContractorLegalEmployee> ConvertToModelCollection(ICollection<ContractorLegalEmployeeViewModel> contractorLegalEmployeesVM)
+        private static ICollection<ContractorLegalEmployee> ConvertCollection(ICollection<ContractorLegalEmployeeViewModel> sourceCollection)
         {
-            var contractorLegalEmployees = new List<ContractorLegalEmployee>(contractorLegalEmployeesVM.Count);
+            var targetCollection = new List<ContractorLegalEmployee>(sourceCollection.Count);
 
-            foreach (var assessBodyEmployeeVM in contractorLegalEmployeesVM)
-                contractorLegalEmployees.Add(ContractorLegalEmployeeMapper.MapToModel(assessBodyEmployeeVM));
+            foreach (var element in sourceCollection)
+                targetCollection.Add(ContractorLegalEmployeeMapper.MapToModel(element));
 
-            return contractorLegalEmployees;
+            return targetCollection;
         }
     }
 }

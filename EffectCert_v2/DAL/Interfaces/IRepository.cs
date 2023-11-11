@@ -7,8 +7,8 @@ namespace EffectCert.DAL.Interfaces
         Task<ICollection<T>> GetAll();
         Task<T> Get(int id);
         Task<ICollection<T>> Find(string searchStr);
-        Task<int> Create(T address);
-        Task<int> Update(T address);
+        Task<int> Create(T entity);
+        Task<int> Update(T entity);
         Task<int> Delete(int id);
     }
 }

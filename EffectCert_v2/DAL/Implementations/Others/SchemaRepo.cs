@@ -24,8 +24,11 @@ namespace EffectCert.DAL.Implementations.Others
             return await appDBContext.Schemas.FirstOrDefaultAsync(a => a.Id == id) ?? new Schema();
         }
 
-        public async Task<ICollection<Schema>> Find(string searchStr = "")
+        public async Task<ICollection<Schema>> Find(string searchStr)
         {
+            if (String.IsNullOrWhiteSpace(searchStr))
+                return await GetAll();
+
             var result = appDBContext.Schemas.Where(c => c.Name.Contains(searchStr));
             return await result.ToListAsync();
         }

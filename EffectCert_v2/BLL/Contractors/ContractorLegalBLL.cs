@@ -1,6 +1,5 @@
 ﻿using EffectCert.DAL.Entities.Contractors;
 using EffectCert.DAL.Implementations.Contractors;
-using EffectCert.BLL;
 using EffectCert.ViewModels.Contractors;
 using EffectCert.ViewMappers.Contractors;
 
@@ -22,9 +21,9 @@ namespace EffectCert.BLL.Contractors
             return ContractorLegalMapper.MapToViewModel(contractorLegal);
         }
 
-        public async Task<int> UpdateOrCreate(ContractorLegalViewModel contractorLegalViewModel)
+        public async Task<int> UpdateOrCreate(ContractorLegalViewModel contractorLegalVM)
         {
-            var contractorLegal = ContractorLegalMapper.MapToModel(contractorLegalViewModel);
+            var contractorLegal = ContractorLegalMapper.MapToModel(contractorLegalVM);
 
             return contractorLegal.Id == 0 
                 ? await contractorLegalDAL.Create(contractorLegal) 
@@ -38,13 +37,13 @@ namespace EffectCert.BLL.Contractors
 
             var contractorLegals = await contractorLegalDAL.Find(searchStr);
 
-            return ConvertAssessBodyCollection(contractorLegals);
+            return ConvertCollection(contractorLegals);
         }
 
         public async Task<ICollection<ContractorLegalViewModel>> FindAll()
         {
             var contractorLegals = await contractorLegalDAL.GetAll();
-            return ConvertAssessBodyCollection(contractorLegals);
+            return ConvertCollection(contractorLegals);
         }
 
         public async Task<int> Delete(int id)
@@ -52,14 +51,14 @@ namespace EffectCert.BLL.Contractors
             return await contractorLegalDAL.Delete(id);
         }
 
-        private ICollection<ContractorLegalViewModel> ConvertAssessBodyCollection(ICollection<ContractorLegal> contractorLegals)
+        private ICollection<ContractorLegalViewModel> ConvertCollection(ICollection<ContractorLegal> collection)
         {
-            var contractorLegalsVM = new List<ContractorLegalViewModel>(contractorLegals.Count);
+            var collectionVM = new List<ContractorLegalViewModel>(collection.Count);
 
-            foreach (var contractorLegal in contractorLegals)
-                contractorLegalsVM.Add(ContractorLegalMapper.MapToViewModel(contractorLegal));
+            foreach (var element in collection)
+                collectionVM.Add(ContractorLegalMapper.MapToViewModel(element));
 
-            return contractorLegalsVM;
+            return collectionVM;
         }
     }
 }

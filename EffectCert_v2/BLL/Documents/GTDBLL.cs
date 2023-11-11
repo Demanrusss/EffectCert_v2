@@ -1,13 +1,11 @@
 ﻿using EffectCert.DAL.Entities.Documents;
 using EffectCert.DAL.Implementations.Documents;
-using EffectCert.BLL;
-using EffectCert.BLL.Contractors;
-using EffectCert.DAL.Entities.Contractors;
-using Microsoft.IdentityModel.Tokens;
+using EffectCert.ViewMappers.Documents;
+using EffectCert.ViewModels.Documents;
 
 namespace EffectCert.BLL.Documents
 {
-    public class GTDBLL : ICommonBLL<GTD>
+    public class GTDBLL : ICommonBLL<GTDViewModel>
     {
         private readonly GTDRepo gTDDAL;
 
@@ -16,34 +14,53 @@ namespace EffectCert.BLL.Documents
             this.gTDDAL = gTDDAL;
         }
 
-        public async Task<GTD> Get(int id)
+        public async Task<GTDViewModel> Get(int id)
         {
-            return await gTDDAL.Get(id);
+            var gTD = await gTDDAL.Get(id);
+
+            return GTDMapper.MapToViewModel(gTD);
         }
 
-        public async Task<int> UpdateOrCreate(GTD gTD)
+        public async Task<int> UpdateOrCreate(GTDViewModel gTDVM)
         {
+            var gTD = GTDMapper.MapToModel(gTDVM);
+
             return gTD.Id == 0 
                 ? await gTDDAL.Create(gTD) 
                 : await gTDDAL.Update(gTD);
         }
 
-        public async Task<ICollection<GTD>> Find(string searchStr)
+        public async Task<ICollection<GTDViewModel>> Find(string searchStr)
         {
-            if (searchStr.IsNullOrEmpty())
+
+            if (String.IsNullOrWhiteSpace(searchStr))
                 return await FindAll();
 
-            return await gTDDAL.Find(searchStr);
+            var gTDs = await gTDDAL.Find(searchStr);
+
+            return ConvertCollection(gTDs);
         }
 
-        public async Task<ICollection<GTD>> FindAll()
+        public async Task<ICollection<GTDViewModel>> FindAll()
         {
-            return await gTDDAL.GetAll();
+            var gTDs = await gTDDAL.GetAll();
+
+            return ConvertCollection(gTDs);
         }
 
         public async Task<int> Delete(int id)
         {
             return await gTDDAL.Delete(id);
+        }
+
+        private ICollection<GTDViewModel> ConvertCollection(ICollection<GTD> collection)
+        {
+            var collectionVM = new List<GTDViewModel>(collection.Count);
+
+            foreach (var element in collection)
+                collectionVM.Add(GTDMapper.MapToViewModel(element));
+
+            return collectionVM;
         }
     }
 }

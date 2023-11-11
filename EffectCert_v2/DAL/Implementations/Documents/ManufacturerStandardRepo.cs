@@ -24,8 +24,11 @@ namespace EffectCert.DAL.Implementations.Documents
             return await appDBContext.ManufacturerStandards.FirstOrDefaultAsync(a => a.Id == id) ?? new ManufacturerStandard();
         }
 
-        public async Task<ICollection<ManufacturerStandard>> Find(string searchStr = "")
+        public async Task<ICollection<ManufacturerStandard>> Find(string searchStr)
         {
+            if (String.IsNullOrWhiteSpace(searchStr))
+                return await GetAll();
+
             var result = appDBContext.ManufacturerStandards.Where(c => c.Number.Contains(searchStr)
                                                                        || c.Name.Contains(searchStr));
             return await result.ToListAsync();

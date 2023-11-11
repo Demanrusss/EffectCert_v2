@@ -24,8 +24,11 @@ namespace EffectCert.DAL.Implementations.Contractors
             return await appDBContext.ContractorIndividuals.FirstOrDefaultAsync(a => a.Id == id) ?? new ContractorIndividual();
         }
 
-        public async Task<ICollection<ContractorIndividual>> Find(string searchStr = "")
+        public async Task<ICollection<ContractorIndividual>> Find(string searchStr)
         {
+            if (String.IsNullOrWhiteSpace(searchStr))
+                return await GetAll();
+
             var result = appDBContext.ContractorIndividuals.Where(c => c.LastName.Contains(searchStr) || c.FirstName.Contains(searchStr));
             return await result.ToListAsync();
         }

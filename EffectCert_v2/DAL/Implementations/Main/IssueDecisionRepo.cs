@@ -24,8 +24,11 @@ namespace EffectCert.DAL.Implementations.Main
             return await appDBContext.IssueDecisions.FirstOrDefaultAsync(a => a.Id == id) ?? new IssueDecision();
         }
 
-        public async Task<ICollection<IssueDecision>> Find(string searchStr = "")
+        public async Task<ICollection<IssueDecision>> Find(string searchStr)
         {
+            if (String.IsNullOrWhiteSpace(searchStr))
+                return await GetAll();
+
             var result = appDBContext.IssueDecisions.Where(c => c.Number.Contains(searchStr));
 
             return await result.ToListAsync();

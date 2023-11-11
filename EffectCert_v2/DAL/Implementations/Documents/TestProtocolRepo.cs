@@ -24,8 +24,11 @@ namespace EffectCert.DAL.Implementations.Documents
             return await appDBContext.TestProtocols.FirstOrDefaultAsync(a => a.Id == id) ?? new TestProtocol();
         }
 
-        public async Task<ICollection<TestProtocol>> Find(string searchStr = "")
+        public async Task<ICollection<TestProtocol>> Find(string searchStr)
         {
+            if (String.IsNullOrWhiteSpace(searchStr))
+                return await GetAll();
+
             var result = appDBContext.TestProtocols.Where(c => c.Number.Contains(searchStr));
             return await result.ToListAsync();
         }
