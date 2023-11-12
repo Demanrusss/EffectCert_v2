@@ -1,0 +1,122 @@
+﻿@model EffectCert.ViewModels.Contractors.ContractorLegalViewModel
+
+<h3>@ViewBag.Title</h3>
+
+<hr />
+<div class="row">
+    <div class="col-md-5">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="BIN" class="control-label"></label>
+                <input asp-for="BIN" class="form-control" required id="bin" />
+                <span asp-validation-for="BIN" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FullName" class="control-label"></label>
+                <input asp-for="FullName" class="form-control" required id="fullName" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShortName" class="control-label"></label>
+                <input asp-for="ShortName" class="form-control" required id="shortName" />
+                <span asp-validation-for="ShortName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RegAddress" class="control-label"></label>
+                <div style="overflow-inline:hidden;">
+                    <div style="width:78%; display:inline-block;">
+                        <select asp-for="RegAddress" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
+                            <option value="">Выберите адрес</option>
+                        </select>
+                    </div>
+                    <div style="display:inline-block;">
+                        <a asp-controller="Address" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                        <a asp-controller="Address" asp-action="Edit" asp-route-id="" id="RegAddressEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="Address" asp-action="Details" asp-route-id="" id="RegAddressDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="Address" asp-action="Delete" asp-route-id="" id="RegAddressDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                    </div>
+                </div>
+                <span asp-validation-for="RegAddress" class="text-danger" id="RegAddressWarning"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsAddressSame" checked onchange="changeVisibility('FactAddress', this), changeVisibilityDiv('FactAddressButtonsGroup', this)" /> @Html.DisplayNameFor(model => model.IsAddressSame)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="FactAddress" class="control-label"></label>
+                <div style="overflow-inline:hidden;">
+                    <div style="width:78%; display:inline-block;">
+                        <select asp-for="FactAddress" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
+                            <option value="">Выберите адрес</option>
+                        </select>
+                    </div>
+                    <div style="display:inline-block;" id="FactAddressButtonsGroup">
+                        <a asp-controller="Address" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                        <a asp-controller="Address" asp-action="Edit" asp-route-id="" id="FactAddressEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="Address" asp-action="Details" asp-route-id="" id="FactAddressDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="Address" asp-action="Delete" asp-route-id="" id="FactAddressDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                    </div>
+                </div>
+                <span asp-validation-for="FactAddress" class="text-danger" id="FactAddressWarning"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BankAccount" class="control-label"></label>
+                <div style="overflow-inline:hidden;">
+                    <div style="width:78%; display:inline-block;">
+                        <select asp-for="BankAccount" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
+                            <option value="">Выберите банковский счет</option>
+                        </select>
+                    </div>
+                    <div style="display:inline-block;">
+                        <a asp-controller="BankAccount" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                        <a asp-controller="BankAccount" asp-action="Edit" asp-route-id="" id="BankAccountEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="BankAccount" asp-action="Details" asp-route-id="" id="BankAccountDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="BankAccount" asp-action="Delete" asp-route-id="" id="BankAccountDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                    </div>
+                </div>
+                <span asp-validation-for="BankAccount" class="text-danger" id="BankAccountWarning"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Employees" class="control-label"></label>
+                <div style="overflow-inline:hidden;">
+                    <div style="width:78%; display:inline-block;">
+                        <select asp-for="Employees" class="form-control js-example-basic-multiple" required>
+                            <option value="">Выберите сотрудников</option>
+                        </select>
+                    </div>
+                    <div style="display:inline-block;">
+                        <a asp-controller="ContractorLegalEmployee" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                    </div>
+                </div>
+                <span asp-validation-for="Employees" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Назад к списку</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{await Html.RenderPartialAsync("_CreateScriptsPartial");}
+    @{await Html.RenderPartialAsync("_MainViewScripts");}
+    <script>
+        $(document).ready(function () {
+            let selectElements = [
+                { id: '#RegAddress', url: '/Address/GetAddresses/', placeholder: 'Выберите адрес' },
+                { id: '#FactAddress', url: '/Address/GetAddresses/', placeholder: 'Выберите адрес' },
+                { id: '#Employees', url: '/ContractorLegalEmployee/GetContractorLegalEmployees/', placeholder: 'Выберите сотрудников' }
+            ];
+
+            establishSelect2Algorithm(selectElements);
+        });
+    </script>
+}

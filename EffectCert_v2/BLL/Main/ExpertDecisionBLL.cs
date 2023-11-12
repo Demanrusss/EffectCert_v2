@@ -1,13 +1,11 @@
 ﻿using EffectCert.DAL.Entities.Main;
 using EffectCert.DAL.Implementations.Main;
-using EffectCert.BLL;
-using EffectCert.BLL.Contractors;
-using EffectCert.DAL.Entities.Contractors;
-using Microsoft.IdentityModel.Tokens;
+using EffectCert.ViewMappers.Main;
+using EffectCert.ViewModels.Main;
 
 namespace EffectCert.BLL.Main
 {
-    public class ExpertDecisionBLL : ICommonBLL<ExpertDecision>
+    public class ExpertDecisionBLL : ICommonBLL<ExpertDecisionViewModel>
     {
         private readonly ExpertDecisionRepo expertDecisionDAL;
 
@@ -16,34 +14,52 @@ namespace EffectCert.BLL.Main
             this.expertDecisionDAL = expertDecisionDAL;
         }
 
-        public async Task<ExpertDecision> Get(int id)
+        public async Task<ExpertDecisionViewModel> Get(int id)
         {
-            return await expertDecisionDAL.Get(id);
+            var expertDecision = await expertDecisionDAL.Get(id);
+
+            return ExpertDecisionMapper.MapToViewModel(expertDecision);
         }
 
-        public async Task<int> UpdateOrCreate(ExpertDecision expertDecision)
+        public async Task<int> UpdateOrCreate(ExpertDecisionViewModel expertDecisionVM)
         {
+            var expertDecision = ExpertDecisionMapper.MapToModel(expertDecisionVM);
+
             return expertDecision.Id == 0 
                 ? await expertDecisionDAL.Create(expertDecision) 
                 : await expertDecisionDAL.Update(expertDecision);
         }
 
-        public async Task<ICollection<ExpertDecision>> Find(string searchStr)
+        public async Task<ICollection<ExpertDecisionViewModel>> Find(string searchStr)
         {
-            if (searchStr.IsNullOrEmpty())
+            if (String.IsNullOrWhiteSpace(searchStr))
                 return await FindAll();
 
-            return await expertDecisionDAL.Find(searchStr);
+            var expertDecisions = await expertDecisionDAL.Find(searchStr);
+
+            return ConvertCollection(expertDecisions);
         }
 
-        public async Task<ICollection<ExpertDecision>> FindAll()
+        public async Task<ICollection<ExpertDecisionViewModel>> FindAll()
         {
-            return await expertDecisionDAL.GetAll();
+            var expertDecisions = await expertDecisionDAL.GetAll();
+
+            return ConvertCollection(expertDecisions);
         }
 
         public async Task<int> Delete(int id)
         {
             return await expertDecisionDAL.Delete(id);
+        }
+
+        private ICollection<ExpertDecisionViewModel> ConvertCollection(ICollection<ExpertDecision> collection)
+        {
+            var collectionVM = new List<ExpertDecisionViewModel>(collection.Count);
+
+            foreach (var element in collection)
+                collectionVM.Add(ExpertDecisionMapper.MapToViewModel(element));
+
+            return collectionVM;
         }
     }
 }

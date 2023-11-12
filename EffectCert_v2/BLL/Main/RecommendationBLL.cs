@@ -1,13 +1,11 @@
 ﻿using EffectCert.DAL.Entities.Main;
 using EffectCert.DAL.Implementations.Main;
-using EffectCert.BLL;
-using EffectCert.BLL.Contractors;
-using EffectCert.DAL.Entities.Contractors;
-using Microsoft.IdentityModel.Tokens;
+using EffectCert.ViewMappers.Main;
+using EffectCert.ViewModels.Main;
 
 namespace EffectCert.BLL.Main
 {
-    public class RecommendationBLL : ICommonBLL<Recommendation>
+    public class RecommendationBLL : ICommonBLL<RecommendationViewModel>
     {
         private readonly RecommendationRepo recommendationDAL;
 
@@ -16,34 +14,52 @@ namespace EffectCert.BLL.Main
             this.recommendationDAL = recommendationDAL;
         }
 
-        public async Task<Recommendation> Get(int id)
+        public async Task<RecommendationViewModel> Get(int id)
         {
-            return await recommendationDAL.Get(id);
+            var recommendation = await recommendationDAL.Get(id);
+
+            return RecommendationMapper.MapToViewModel(recommendation);
         }
 
-        public async Task<int> UpdateOrCreate(Recommendation recommendation)
+        public async Task<int> UpdateOrCreate(RecommendationViewModel recommendationVM)
         {
+            var recommendation = RecommendationMapper.MapToModel(recommendationVM);
+
             return recommendation.Id == 0 
                 ? await recommendationDAL.Create(recommendation) 
                 : await recommendationDAL.Update(recommendation);
         }
 
-        public async Task<ICollection<Recommendation>> Find(string searchStr)
+        public async Task<ICollection<RecommendationViewModel>> Find(string searchStr)
         {
-            if (searchStr.IsNullOrEmpty())
+            if (String.IsNullOrWhiteSpace(searchStr))
                 return await FindAll();
 
-            return await recommendationDAL.Find(searchStr);
+            var recommendations = await recommendationDAL.Find(searchStr);
+
+            return ConvertCollection(recommendations);
         }
 
-        public async Task<ICollection<Recommendation>> FindAll()
+        public async Task<ICollection<RecommendationViewModel>> FindAll()
         {
-            return await recommendationDAL.GetAll();
+            var recommendations = await recommendationDAL.GetAll();
+
+            return ConvertCollection(recommendations);
         }
 
         public async Task<int> Delete(int id)
         {
             return await recommendationDAL.Delete(id);
+        }
+
+        private ICollection<RecommendationViewModel> ConvertCollection(ICollection<Recommendation> collection)
+        {
+            var collectionVM = new List<RecommendationViewModel>(collection.Count);
+
+            foreach (var element in collection)
+                collectionVM.Add(RecommendationMapper.MapToViewModel(element));
+
+            return collectionVM;
         }
     }
 }

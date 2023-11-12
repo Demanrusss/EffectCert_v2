@@ -1,13 +1,11 @@
 ﻿using EffectCert.DAL.Entities.Main;
 using EffectCert.DAL.Implementations.Main;
-using EffectCert.BLL;
-using EffectCert.BLL.Contractors;
-using EffectCert.DAL.Entities.Contractors;
-using Microsoft.IdentityModel.Tokens;
+using EffectCert.ViewMappers.Main;
+using EffectCert.ViewModels.Main;
 
 namespace EffectCert.BLL.Main
 {
-    public class SelectProductsActBLL : ICommonBLL<SelectProductsAct>
+    public class SelectProductsActBLL : ICommonBLL<SelectProductsActViewModel>
     {
         private readonly SelectProductsActRepo selectProductsActDAL;
 
@@ -16,34 +14,52 @@ namespace EffectCert.BLL.Main
             this.selectProductsActDAL = selectProductsActDAL;
         }
 
-        public async Task<SelectProductsAct> Get(int id)
+        public async Task<SelectProductsActViewModel> Get(int id)
         {
-            return await selectProductsActDAL.Get(id);
+            var selectProductsAct = await selectProductsActDAL.Get(id);
+
+            return SelectProductsActMapper.MapToViewModel(selectProductsAct);
         }
 
-        public async Task<int> UpdateOrCreate(SelectProductsAct selectProductsAct)
+        public async Task<int> UpdateOrCreate(SelectProductsActViewModel selectProductsActVM)
         {
+            var selectProductsAct = SelectProductsActMapper.MapToModel(selectProductsActVM);
+
             return selectProductsAct.Id == 0 
                 ? await selectProductsActDAL.Create(selectProductsAct) 
                 : await selectProductsActDAL.Update(selectProductsAct);
         }
 
-        public async Task<ICollection<SelectProductsAct>> Find(string searchStr)
+        public async Task<ICollection<SelectProductsActViewModel>> Find(string searchStr)
         {
-            if (searchStr.IsNullOrEmpty())
+            if (String.IsNullOrWhiteSpace(searchStr))
                 return await FindAll();
 
-            return await selectProductsActDAL.Find(searchStr);
+            var selectProductsActs = await selectProductsActDAL.Find(searchStr);
+
+            return ConvertCollection(selectProductsActs);
         }
 
-        public async Task<ICollection<SelectProductsAct>> FindAll()
+        public async Task<ICollection<SelectProductsActViewModel>> FindAll()
         {
-            return await selectProductsActDAL.GetAll();
+            var selectProductsActs = await selectProductsActDAL.GetAll();
+
+            return ConvertCollection(selectProductsActs);
         }
 
         public async Task<int> Delete(int id)
         {
             return await selectProductsActDAL.Delete(id);
+        }
+
+        private ICollection<SelectProductsActViewModel> ConvertCollection(ICollection<SelectProductsAct> collection)
+        {
+            var collectionVM = new List<SelectProductsActViewModel>(collection.Count);
+
+            foreach (var element in collection)
+                collectionVM.Add(SelectProductsActMapper.MapToViewModel(element));
+
+            return collectionVM;
         }
     }
 }

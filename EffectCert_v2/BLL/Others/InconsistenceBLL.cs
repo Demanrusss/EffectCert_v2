@@ -1,13 +1,11 @@
 ﻿using EffectCert.DAL.Entities.Others;
 using EffectCert.DAL.Implementations.Others;
-using EffectCert.BLL;
-using EffectCert.BLL.Contractors;
-using EffectCert.DAL.Entities.Contractors;
-using Microsoft.IdentityModel.Tokens;
+using EffectCert.ViewMappers.Others;
+using EffectCert.ViewModels.Others;
 
 namespace EffectCert.BLL.Others
 {
-    public class InconsistenceBLL : ICommonBLL<Inconsistence>
+    public class InconsistenceBLL : ICommonBLL<InconsistenceViewModel>
     {
         private readonly InconsistenceRepo inconsistenceDAL;
 
@@ -16,34 +14,52 @@ namespace EffectCert.BLL.Others
             this.inconsistenceDAL = inconsistenceDAL;
         }
 
-        public async Task<Inconsistence> Get(int id)
+        public async Task<InconsistenceViewModel> Get(int id)
         {
-            return await inconsistenceDAL.Get(id);
+            var inconsistence = await inconsistenceDAL.Get(id);
+
+            return InconsistenceMapper.MapToViewModel(inconsistence);
         }
 
-        public async Task<int> UpdateOrCreate(Inconsistence inconsistence)
+        public async Task<int> UpdateOrCreate(InconsistenceViewModel inconsistenceVM)
         {
+            var inconsistence = InconsistenceMapper.MapToModel(inconsistenceVM);
+
             return inconsistence.Id == 0
                 ? await inconsistenceDAL.Create(inconsistence)
                 : await inconsistenceDAL.Update(inconsistence);
         }
 
-        public async Task<ICollection<Inconsistence>> Find(string searchStr)
+        public async Task<ICollection<InconsistenceViewModel>> Find(string searchStr)
         {
-            if (searchStr.IsNullOrEmpty())
+            if (String.IsNullOrWhiteSpace(searchStr))
                 return await FindAll();
 
-            return await inconsistenceDAL.Find(searchStr);
+            var inconsistences = await inconsistenceDAL.Find(searchStr);
+
+            return ConvertCollection(inconsistences);
         }
 
-        public async Task<ICollection<Inconsistence>> FindAll()
+        public async Task<ICollection<InconsistenceViewModel>> FindAll()
         {
-            return await inconsistenceDAL.GetAll();
+            var inconsistences = await inconsistenceDAL.GetAll();
+
+            return ConvertCollection(inconsistences);
         }
 
         public async Task<int> Delete(int id)
         {
             return await inconsistenceDAL.Delete(id);
+        }
+
+        private ICollection<InconsistenceViewModel> ConvertCollection(ICollection<Inconsistence> collection)
+        {
+            var collectionVM = new List<InconsistenceViewModel>(collection.Count);
+
+            foreach (var element in collection)
+                collectionVM.Add(InconsistenceMapper.MapToViewModel(element));
+
+            return collectionVM;
         }
     }
 }

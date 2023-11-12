@@ -1,13 +1,11 @@
 ﻿using EffectCert.DAL.Entities.Others;
 using EffectCert.DAL.Implementations.Others;
-using EffectCert.BLL;
-using EffectCert.BLL.Contractors;
-using EffectCert.DAL.Entities.Contractors;
-using Microsoft.IdentityModel.Tokens;
+using EffectCert.ViewMappers.Others;
+using EffectCert.ViewModels.Others;
 
 namespace EffectCert.BLL.Others
 {
-    public class ProductQuantityBLL : ICommonBLL<ProductQuantity>
+    public class ProductQuantityBLL : ICommonBLL<ProductQuantityViewModel>
     {
         private readonly ProductQuantityRepo productQuantityDAL;
 
@@ -16,34 +14,52 @@ namespace EffectCert.BLL.Others
             this.productQuantityDAL = productQuantityDAL;
         }
 
-        public async Task<ProductQuantity> Get(int id)
+        public async Task<ProductQuantityViewModel> Get(int id)
         {
-            return await productQuantityDAL.Get(id);
+            var productQuantity = await productQuantityDAL.Get(id);
+
+            return ProductQuantityMapper.MapToViewModel(productQuantity);
         }
 
-        public async Task<int> UpdateOrCreate(ProductQuantity productQuantity)
+        public async Task<int> UpdateOrCreate(ProductQuantityViewModel productQuantityVM)
         {
+            var productQuantity = ProductQuantityMapper.MapToModel(productQuantityVM);
+
             return productQuantity.Id == 0
                 ? await productQuantityDAL.Create(productQuantity)
                 : await productQuantityDAL.Update(productQuantity);
         }
 
-        public async Task<ICollection<ProductQuantity>> Find(string searchStr)
+        public async Task<ICollection<ProductQuantityViewModel>> Find(string searchStr)
         {
-            if (searchStr.IsNullOrEmpty())
+            if (String.IsNullOrWhiteSpace(searchStr))
                 return await FindAll();
 
-            return await productQuantityDAL.Find(searchStr);
+            var productQuantities = await productQuantityDAL.Find(searchStr);
+
+            return ConvertCollection(productQuantities);
         }
 
-        public async Task<ICollection<ProductQuantity>> FindAll()
+        public async Task<ICollection<ProductQuantityViewModel>> FindAll()
         {
-            return await productQuantityDAL.GetAll();
+            var productQuantities = await productQuantityDAL.GetAll();
+
+            return ConvertCollection(productQuantities);
         }
 
         public async Task<int> Delete(int id)
         {
             return await productQuantityDAL.Delete(id);
+        }
+
+        private ICollection<ProductQuantityViewModel> ConvertCollection(ICollection<ProductQuantity> collection)
+        {
+            var collectionVM = new List<ProductQuantityViewModel>(collection.Count);
+
+            foreach (var element in collection)
+                collectionVM.Add(ProductQuantityMapper.MapToViewModel(element));
+
+            return collectionVM;
         }
     }
 }

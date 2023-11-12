@@ -9,9 +9,11 @@ namespace EffectCert.DAL.Entities.Main
         public DateTime Date { get; set; }
         public int ApplicationId { get; set; }
         public Application Application { get; set; } = null!;
-        public int CertificateId { get; set; }
-        public Certificate Certificate { get; set; } = null!;
+        public int? CertificateId { get; set; }
+        public Certificate? Certificate { get; set; }
         public int ExpertDecisionId { get; set; }
+        public Declaration? Declaration { get; set; }
+        public int? DeclarationId { get; set; }
         public ExpertDecision ExpertDecision { get; set; } = null!;
         public int RecommendationId { get; set; }
         public Recommendation Recommendation { get; set; } = null!;

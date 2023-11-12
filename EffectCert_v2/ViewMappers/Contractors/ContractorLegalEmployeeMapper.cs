@@ -1,7 +1,5 @@
 ﻿using EffectCert.DAL.Entities.Contractors;
-using EffectCert.DAL.Entities.Documents;
 using EffectCert.ViewModels.Contractors;
-using EffectCert.ViewModels.Documents;
 
 namespace EffectCert.ViewMappers.Contractors
 {
@@ -13,7 +11,6 @@ namespace EffectCert.ViewMappers.Contractors
             {
                 Id = viewModel.Id,
                 ContractorIndividual = ContractorIndividualMapper.MapToModel(viewModel.ContractorIndividual),
-                ContractorLegal = ContractorLegalMapper.MapToModel(viewModel.ContractorLegal),
                 IsManager = viewModel.IsManager,
                 Position = viewModel.Position
             };
@@ -28,7 +25,6 @@ namespace EffectCert.ViewMappers.Contractors
             {
                 Id = model.Id,
                 ContractorIndividual = ContractorIndividualMapper.MapToViewModel(model.ContractorIndividual),
-                ContractorLegal = ContractorLegalMapper.MapToViewModel(model.ContractorLegal),
                 IsManager = model.IsManager,
                 Position = model.Position
             };

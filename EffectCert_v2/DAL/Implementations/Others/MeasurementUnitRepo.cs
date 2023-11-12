@@ -29,7 +29,7 @@ namespace EffectCert.DAL.Implementations.Others
             if (String.IsNullOrWhiteSpace(searchStr))
                 return await GetAll();
 
-            var result = appDBContext.MeasurementUnits.Where(c => c.FullName.Contains(searchStr) 
+            var result = appDBContext.MeasurementUnits.Where(c => c.Name.Contains(searchStr) 
                                                                   || c.ShortName.Contains(searchStr));
             return await result.ToListAsync();
         }

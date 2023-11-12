@@ -17,10 +17,6 @@
     <Folder Include="Controllers\Documents\" />
     <Folder Include="Controllers\Main\" />
     <Folder Include="Controllers\Others\" />
-    <Folder Include="ViewMappers\Main\" />
-    <Folder Include="ViewMappers\Others\" />
-    <Folder Include="ViewModels\Main\" />
-    <Folder Include="ViewModels\Others\" />
   </ItemGroup>
 
 </Project>

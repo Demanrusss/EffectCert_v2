@@ -1,13 +1,11 @@
 ﻿using EffectCert.DAL.Entities.Others;
 using EffectCert.DAL.Implementations.Others;
-using EffectCert.BLL;
-using EffectCert.BLL.Contractors;
-using EffectCert.DAL.Entities.Contractors;
-using Microsoft.IdentityModel.Tokens;
+using EffectCert.ViewMappers.Others;
+using EffectCert.ViewModels.Others;
 
 namespace EffectCert.BLL.Others
 {
-    public class RequirementBLL : ICommonBLL<Requirement>
+    public class RequirementBLL : ICommonBLL<RequirementViewModel>
     {
         private readonly RequirementRepo requirementDAL;
 
@@ -16,34 +14,52 @@ namespace EffectCert.BLL.Others
             this.requirementDAL = requirementDAL;
         }
 
-        public async Task<Requirement> Get(int id)
+        public async Task<RequirementViewModel> Get(int id)
         {
-            return await requirementDAL.Get(id);
+            var requirement = await requirementDAL.Get(id);
+
+            return RequirementMapper.MapToViewModel(requirement);
         }
 
-        public async Task<int> UpdateOrCreate(Requirement requirement)
+        public async Task<int> UpdateOrCreate(RequirementViewModel requirementVM)
         {
+            var requirement = RequirementMapper.MapToModel(requirementVM);
+
             return requirement.Id == 0
                 ? await requirementDAL.Create(requirement)
                 : await requirementDAL.Update(requirement);
         }
 
-        public async Task<ICollection<Requirement>> Find(string searchStr)
+        public async Task<ICollection<RequirementViewModel>> Find(string searchStr)
         {
-            if (searchStr.IsNullOrEmpty())
+            if (String.IsNullOrWhiteSpace(searchStr))
                 return await FindAll();
 
-            return await requirementDAL.Find(searchStr);
+            var requirements = await requirementDAL.Find(searchStr);
+
+            return ConvertCollection(requirements);
         }
 
-        public async Task<ICollection<Requirement>> FindAll()
+        public async Task<ICollection<RequirementViewModel>> FindAll()
         {
-            return await requirementDAL.GetAll();
+            var requirements = await requirementDAL.GetAll();
+
+            return ConvertCollection(requirements);
         }
 
         public async Task<int> Delete(int id)
         {
             return await requirementDAL.Delete(id);
+        }
+
+        private ICollection<RequirementViewModel> ConvertCollection(ICollection<Requirement> collection)
+        {
+            var collectionVM = new List<RequirementViewModel>(collection.Count);
+
+            foreach (var element in collection)
+                collectionVM.Add(RequirementMapper.MapToViewModel(element));
+
+            return collectionVM;
         }
     }
 }

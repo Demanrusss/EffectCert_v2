@@ -1,7 +1,5 @@
-﻿using EffectCert.DAL.Entities.Contractors;
-using EffectCert.DAL.Entities.Documents;
+﻿using EffectCert.DAL.Entities.Documents;
 using EffectCert.ViewMappers.Contractors;
-using EffectCert.ViewModels.Contractors;
 using EffectCert.ViewModels.Documents;
 
 namespace EffectCert.ViewMappers.Documents

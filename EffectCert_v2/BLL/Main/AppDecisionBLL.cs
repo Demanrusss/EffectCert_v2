@@ -1,13 +1,11 @@
 ﻿using EffectCert.DAL.Entities.Main;
 using EffectCert.DAL.Implementations.Main;
-using EffectCert.BLL;
-using EffectCert.BLL.Contractors;
-using EffectCert.DAL.Entities.Contractors;
-using Microsoft.IdentityModel.Tokens;
+using EffectCert.ViewMappers.Main;
+using EffectCert.ViewModels.Main;
 
 namespace EffectCert.BLL.Main
 {
-    public class AppDecisionBLL : ICommonBLL<AppDecision>
+    public class AppDecisionBLL : ICommonBLL<AppDecisionViewModel>
     {
         private readonly AppDecisionRepo appDecisionDAL;
 
@@ -16,34 +14,52 @@ namespace EffectCert.BLL.Main
             this.appDecisionDAL = appDecisionDAL;
         }
 
-        public async Task<AppDecision> Get(int id)
+        public async Task<AppDecisionViewModel> Get(int id)
         {
-            return await appDecisionDAL.Get(id);
+            var appDecision = await appDecisionDAL.Get(id);
+
+            return AppDecisionMapper.MapToViewModel(appDecision);
         }
 
-        public async Task<int> UpdateOrCreate(AppDecision appDecision)
+        public async Task<int> UpdateOrCreate(AppDecisionViewModel appDecisionVM)
         {
+            var appDecision = AppDecisionMapper.MapToModel(appDecisionVM);
+
             return appDecision.Id == 0 
                 ? await appDecisionDAL.Create(appDecision) 
                 : await appDecisionDAL.Update(appDecision);
         }
 
-        public async Task<ICollection<AppDecision>> Find(string searchStr)
+        public async Task<ICollection<AppDecisionViewModel>> Find(string searchStr)
         {
-            if (searchStr.IsNullOrEmpty())
+            if (String.IsNullOrWhiteSpace(searchStr))
                 return await FindAll();
 
-            return await appDecisionDAL.Find(searchStr);
+            var appDecisions = await appDecisionDAL.Find(searchStr);
+
+            return ConvertCollection(appDecisions);
         }
 
-        public async Task<ICollection<AppDecision>> FindAll()
+        public async Task<ICollection<AppDecisionViewModel>> FindAll()
         {
-            return await appDecisionDAL.GetAll();
+            var appDecisions = await appDecisionDAL.GetAll();
+
+            return ConvertCollection(appDecisions);
         }
 
         public async Task<int> Delete(int id)
         {
             return await appDecisionDAL.Delete(id);
+        }
+
+        private ICollection<AppDecisionViewModel> ConvertCollection(ICollection<AppDecision> collection)
+        {
+            var collectionVM = new List<AppDecisionViewModel>(collection.Count);
+
+            foreach (var element in collection)
+                collectionVM.Add(AppDecisionMapper.MapToViewModel(element));
+
+            return collectionVM;
         }
     }
 }

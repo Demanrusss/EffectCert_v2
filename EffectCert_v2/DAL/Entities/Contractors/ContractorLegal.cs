@@ -12,6 +12,6 @@
         public Address FactAddress { get; set; } = null!;
         public int? BankAccountId { get; set; }
         public BankAccount? BankAccount { get; set; }
-        public ICollection<ContractorLegalEmployee> Employees { get; set; } = new List<ContractorLegalEmployee>();
+        public ICollection<ContractorLegalEmployee> Employees { get; set; } = new HashSet<ContractorLegalEmployee>();
     }
 }

@@ -1,16 +1,20 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace EffectCert.ViewModels.Contractors
 {
     public class ContractorLegalViewModel
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Полное наименование")]
         public string FullName { get; set; } = null!;
+        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Сокращенное наименование")]
         public string ShortName { get; set; } = null!;
         [DisplayName("БИН")]
         public string? BIN { get; set; }
+        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Адрес регистрации")]
         public AddressViewModel RegAddress { get; set; } = null!;
         public int RegAddressId { get; set; }
@@ -23,6 +27,6 @@ namespace EffectCert.ViewModels.Contractors
         public BankAccountViewModel? BankAccount { get; set; }
         public int BankAccountId { get; set; }
         [DisplayName("Сотрудники")]
-        public ICollection<ContractorLegalEmployeeViewModel> Employees { get; set; } = new List<ContractorLegalEmployeeViewModel>();
+        public ICollection<ContractorLegalEmployeeViewModel> Employees { get; set; } = new HashSet<ContractorLegalEmployeeViewModel>();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using EffectCert.DAL.Entities.Contractors;
+using EffectCert.DAL.Entities.Documents;
 
 namespace EffectCert.DAL.Entities.Main
 {
@@ -16,5 +17,6 @@ namespace EffectCert.DAL.Entities.Main
         public int? DocsAnalizeExpertId { get; set; }
         public AssessBodyEmployee? DocsAnalizeExpert { get; set; }
         public DateTime? DocsAnalizeExpertSignDate { get; set; }
+        public ICollection<TestProtocol> TestProtocols { get; set; } = new HashSet<TestProtocol>();
     }
 }

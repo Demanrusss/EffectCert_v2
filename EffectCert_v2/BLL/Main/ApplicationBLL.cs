@@ -1,13 +1,11 @@
 ﻿using EffectCert.DAL.Entities.Main;
 using EffectCert.DAL.Implementations.Main;
-using EffectCert.BLL;
-using EffectCert.BLL.Contractors;
-using EffectCert.DAL.Entities.Contractors;
-using Microsoft.IdentityModel.Tokens;
+using EffectCert.ViewMappers.Main;
+using EffectCert.ViewModels.Main;
 
 namespace EffectCert.BLL.Main
 {
-    public class ApplicationBLL : ICommonBLL<Application>
+    public class ApplicationBLL : ICommonBLL<ApplicationViewModel>
     {
         private readonly ApplicationRepo applicationDAL;
 
@@ -16,34 +14,52 @@ namespace EffectCert.BLL.Main
             this.applicationDAL = applicationDAL;
         }
 
-        public async Task<Application> Get(int id)
+        public async Task<ApplicationViewModel> Get(int id)
         {
-            return await applicationDAL.Get(id);
+            var application = await applicationDAL.Get(id);
+
+            return ApplicationMapper.MapToViewModel(application);
         }
 
-        public async Task<int> UpdateOrCreate(Application application)
+        public async Task<int> UpdateOrCreate(ApplicationViewModel applicationVM)
         {
+            var application = ApplicationMapper.MapToModel(applicationVM);
+
             return application.Id == 0 
                 ? await applicationDAL.Create(application) 
                 : await applicationDAL.Update(application);
         }
 
-        public async Task<ICollection<Application>> Find(string searchStr)
+        public async Task<ICollection<ApplicationViewModel>> Find(string searchStr)
         {
-            if (searchStr.IsNullOrEmpty())
+            if (String.IsNullOrWhiteSpace(searchStr))
                 return await FindAll();
 
-            return await applicationDAL.Find(searchStr);
+            var applications = await applicationDAL.Find(searchStr);
+
+            return ConvertCollection(applications);
         }
 
-        public async Task<ICollection<Application>> FindAll()
+        public async Task<ICollection<ApplicationViewModel>> FindAll()
         {
-            return await applicationDAL.GetAll();
+            var applications = await applicationDAL.GetAll();
+
+            return ConvertCollection(applications);
         }
 
         public async Task<int> Delete(int id)
         {
             return await applicationDAL.Delete(id);
+        }
+
+        private ICollection<ApplicationViewModel> ConvertCollection(ICollection<Application> collection)
+        {
+            var collectionVM = new List<ApplicationViewModel>(collection.Count);
+
+            foreach (var element in collection)
+                collectionVM.Add(ApplicationMapper.MapToViewModel(element));
+
+            return collectionVM;
         }
     }
 }

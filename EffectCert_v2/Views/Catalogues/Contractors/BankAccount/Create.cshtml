@@ -1,0 +1,39 @@
+﻿@model EffectCert.ViewModels.Contractors.BankAccountViewModel
+
+<h3>@ViewBag.Title</h3>
+
+<hr />
+<div class="row">
+    <div class="col-md-5">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="IIK" class="control-label"></label>
+                <input asp-for="IIK" class="form-control" required id="iik" />
+                <span asp-validation-for="IIK" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BIK" class="control-label"></label>
+                <input asp-for="BIK" class="form-control" id="bik" />
+                <span asp-validation-for="BIK" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BankName" class="control-label"></label>
+                <input asp-for="BankName" class="form-control" id="bankName" />
+                <span asp-validation-for="BankName" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Назад к списку</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

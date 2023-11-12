@@ -1,13 +1,11 @@
 ﻿using EffectCert.DAL.Entities.Others;
 using EffectCert.DAL.Implementations.Others;
-using EffectCert.BLL;
-using EffectCert.BLL.Contractors;
-using EffectCert.DAL.Entities.Contractors;
-using Microsoft.IdentityModel.Tokens;
+using EffectCert.ViewMappers.Others;
+using EffectCert.ViewModels.Others;
 
 namespace EffectCert.BLL.Others
 {
-    public class MeasurementUnitBLL : ICommonBLL<MeasurementUnit>
+    public class MeasurementUnitBLL : ICommonBLL<MeasurementUnitViewModel>
     {
         private readonly MeasurementUnitRepo measurementUnitDAL;
 
@@ -16,34 +14,52 @@ namespace EffectCert.BLL.Others
             this.measurementUnitDAL = measurementUnitDAL;
         }
 
-        public async Task<MeasurementUnit> Get(int id)
+        public async Task<MeasurementUnitViewModel> Get(int id)
         {
-            return await measurementUnitDAL.Get(id);
+            var measurementUnit = await measurementUnitDAL.Get(id);
+
+            return MeasurementUnitMapper.MapToViewModel(measurementUnit);
         }
 
-        public async Task<int> UpdateOrCreate(MeasurementUnit measurementUnit)
+        public async Task<int> UpdateOrCreate(MeasurementUnitViewModel measurementUnitVM)
         {
+            var measurementUnit = MeasurementUnitMapper.MapToModel(measurementUnitVM);
+
             return measurementUnit.Id == 0
                 ? await measurementUnitDAL.Create(measurementUnit)
                 : await measurementUnitDAL.Update(measurementUnit);
         }
 
-        public async Task<ICollection<MeasurementUnit>> Find(string searchStr)
+        public async Task<ICollection<MeasurementUnitViewModel>> Find(string searchStr)
         {
-            if (searchStr.IsNullOrEmpty())
+            if (String.IsNullOrWhiteSpace(searchStr))
                 return await FindAll();
 
-            return await measurementUnitDAL.Find(searchStr);
+            var measurementUnits = await measurementUnitDAL.Find(searchStr);
+
+            return ConvertCollection(measurementUnits);
         }
 
-        public async Task<ICollection<MeasurementUnit>> FindAll()
+        public async Task<ICollection<MeasurementUnitViewModel>> FindAll()
         {
-            return await measurementUnitDAL.GetAll();
+            var measurementUnits = await measurementUnitDAL.GetAll();
+
+            return ConvertCollection(measurementUnits);
         }
 
         public async Task<int> Delete(int id)
         {
             return await measurementUnitDAL.Delete(id);
+        }
+
+        private ICollection<MeasurementUnitViewModel> ConvertCollection(ICollection<MeasurementUnit> collection)
+        {
+            var collectionVM = new List<MeasurementUnitViewModel>(collection.Count);
+
+            foreach (var element in collection)
+                collectionVM.Add(MeasurementUnitMapper.MapToViewModel(element));
+
+            return collectionVM;
         }
     }
 }

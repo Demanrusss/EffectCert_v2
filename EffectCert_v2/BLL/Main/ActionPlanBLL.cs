@@ -1,13 +1,11 @@
 ﻿using EffectCert.DAL.Entities.Main;
 using EffectCert.DAL.Implementations.Main;
-using EffectCert.BLL;
-using EffectCert.BLL.Contractors;
-using EffectCert.DAL.Entities.Contractors;
-using Microsoft.IdentityModel.Tokens;
+using EffectCert.ViewMappers.Main;
+using EffectCert.ViewModels.Main;
 
 namespace EffectCert.BLL.Main
 {
-    public class ActionPlanBLL : ICommonBLL<ActionPlan>
+    public class ActionPlanBLL : ICommonBLL<ActionPlanViewModel>
     {
         private readonly ActionPlanRepo actionPlanDAL;
 
@@ -16,34 +14,52 @@ namespace EffectCert.BLL.Main
             this.actionPlanDAL = testProtocolDAL;
         }
 
-        public async Task<ActionPlan> Get(int id)
+        public async Task<ActionPlanViewModel> Get(int id)
         {
-            return await actionPlanDAL.Get(id);
+            var actionPlan = await actionPlanDAL.Get(id);
+
+            return ActionPlanMapper.MapToViewModel(actionPlan);
         }
 
-        public async Task<int> UpdateOrCreate(ActionPlan actionPlan)
+        public async Task<int> UpdateOrCreate(ActionPlanViewModel actionPlanVM)
         {
+            var actionPlan = ActionPlanMapper.MapToModel(actionPlanVM);
+
             return actionPlan.Id == 0 
                 ? await actionPlanDAL.Create(actionPlan) 
                 : await actionPlanDAL.Update(actionPlan);
         }
 
-        public async Task<ICollection<ActionPlan>> Find(string searchStr)
+        public async Task<ICollection<ActionPlanViewModel>> Find(string searchStr)
         {
-            if (searchStr.IsNullOrEmpty())
+            if (String.IsNullOrWhiteSpace(searchStr))
                 return await FindAll();
 
-            return await actionPlanDAL.Find(searchStr);
+            var actionPlans = await actionPlanDAL.Find(searchStr);
+
+            return ConvertCollection(actionPlans);
         }
 
-        public async Task<ICollection<ActionPlan>> FindAll()
+        public async Task<ICollection<ActionPlanViewModel>> FindAll()
         {
-            return await actionPlanDAL.GetAll();
+            var actionPlans = await actionPlanDAL.GetAll();
+
+            return ConvertCollection(actionPlans);
         }
 
         public async Task<int> Delete(int id)
         {
             return await actionPlanDAL.Delete(id);
+        }
+
+        private ICollection<ActionPlanViewModel> ConvertCollection(ICollection<ActionPlan> collection)
+        {
+            var collectionVM = new List<ActionPlanViewModel>(collection.Count);
+
+            foreach (var element in collection)
+                collectionVM.Add(ActionPlanMapper.MapToViewModel(element));
+
+            return collectionVM;
         }
     }
 }
