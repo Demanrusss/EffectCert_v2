@@ -7,7 +7,7 @@ namespace EffectCert.ViewModels.Contractors
         public int Id { get; set; }
         [DisplayName("Физическое лицо")]
         public ContractorIndividualViewModel ContractorIndividual { get; set; } = null!;
-        public int ContractorLegalId { get; set; }
+        public int ContractorIndividualId { get; set; }
         [DisplayName("Позиция")]
         public string Position { get; set; } = null!;
         [DisplayName("Является руководителем")]

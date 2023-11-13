@@ -32,7 +32,7 @@
                         <a asp-controller="ContractorLegal" asp-action="Delete" asp-route-id="" id="ContractorLegalDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
                     </div>
                 </div>
-                <span asp-validation-for="ContractorLegal" class="text-danger" id="AddressIdWarning"></span>
+                <span asp-validation-for="ContractorLegal" class="text-danger" id="ContractorLegalWarning"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Address" class="control-label"></label>
@@ -49,7 +49,7 @@
                         <a asp-controller="Address" asp-action="Delete" asp-route-id="" id="AddressDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
                     </div>
                 </div>
-                <span asp-validation-for="Address" class="text-danger" id="AddressIdWarning"></span>
+                <span asp-validation-for="Address" class="text-danger" id="AddressWarning"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Attestate" class="control-label"></label>
@@ -66,7 +66,7 @@
                         <a asp-controller="Attestate" asp-action="Delete" asp-route-id="" id="AttestateDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
                     </div>
                 </div>
-                <span asp-validation-for="Attestate" class="text-danger" id="AttestateIdWarning"></span>
+                <span asp-validation-for="Attestate" class="text-danger" id="AttestateWarning"></span>
             </div>
             <div class="form-group">
                 <label asp-for="AssessBodyEmployees" class="control-label"></label>

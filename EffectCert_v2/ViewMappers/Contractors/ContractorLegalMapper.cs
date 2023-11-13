@@ -10,12 +10,12 @@ namespace EffectCert.ViewMappers.Contractors
             return new ContractorLegal()
             {
                 Id = viewModel.Id,
-                BankAccount = BankAccountMapper.MapToModel(viewModel.BankAccount ?? new BankAccountViewModel()),
+                BankAccountId = viewModel.BankAccountId,
                 BIN = viewModel.BIN,
                 Employees = ConvertCollection(viewModel.Employees),
-                FactAddress = AddressMapper.MapToModel(viewModel.FactAddress ?? viewModel.RegAddress),
+                FactAddressId = viewModel.FactAddressId,
                 FullName = viewModel.FullName,
-                RegAddress = AddressMapper.MapToModel(viewModel.RegAddress),
+                RegAddressId = viewModel.RegAddressId,
                 ShortName = viewModel.ShortName
             };
         }

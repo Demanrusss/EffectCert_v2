@@ -1,0 +1,49 @@
+﻿@model EffectCert.ViewModels.Documents.TechRegViewModel
+
+<h3>@ViewBag.Title</h3>
+
+<hr />
+<div class="row">
+    <div class="col-md-5">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Number" class="control-label"></label>
+                <input asp-for="Number" class="form-control" required id="number" />
+                <span asp-validation-for="Number" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" required id="name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShortName" class="control-label"></label>
+                <input asp-for="ShortName" class="form-control" required id="shortName" />
+                <span asp-validation-for="ShortName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ApprovedByInfo" class="control-label"></label>
+                <input asp-for="ApprovedByInfo" class="form-control" required id="approvedByInfo" />
+                <span asp-validation-for="ApprovedByInfo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Paragraphs" class="control-label"></label>
+                <input asp-for="Paragraphs" class="form-control" id="paragraphs" />
+                <span asp-validation-for="Paragraphs" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Назад к списку</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

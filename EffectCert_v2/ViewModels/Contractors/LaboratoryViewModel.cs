@@ -18,8 +18,8 @@ namespace EffectCert.ViewModels.Contractors
         public ContractorLegalViewModel ContractorLegal { get; set; } = null!;
         public int ContractorLegalId { get; set; }
         [DisplayName("Аттестат")]
-        public AttestateViewModel Attestate { get; set; } = null!;
-        public int AttestateId { get; set; }
+        public AttestateViewModel? Attestate { get; set; } = null!;
+        public int? AttestateId { get; set; }
         [DisplayName("Сотрудники органа")]
         public ICollection<LaboratoryEmployeeViewModel> LaboratoryEmployees { get; set; } = new HashSet<LaboratoryEmployeeViewModel>();
     }

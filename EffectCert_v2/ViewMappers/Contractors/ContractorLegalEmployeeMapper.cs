@@ -10,7 +10,7 @@ namespace EffectCert.ViewMappers.Contractors
             return new ContractorLegalEmployee()
             {
                 Id = viewModel.Id,
-                ContractorIndividual = ContractorIndividualMapper.MapToModel(viewModel.ContractorIndividual),
+                ContractorIndividualId = viewModel.ContractorIndividualId,
                 IsManager = viewModel.IsManager,
                 Position = viewModel.Position
             };
