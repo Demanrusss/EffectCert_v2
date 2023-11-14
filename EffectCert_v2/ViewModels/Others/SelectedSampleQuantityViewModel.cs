@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
-using EffectCert.DAL.Entities.Others;
 
 namespace EffectCert.ViewModels.Others
 {

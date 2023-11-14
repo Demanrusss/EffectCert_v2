@@ -1,0 +1,80 @@
+﻿@model EffectCert.ViewModels.Others.ProductQuantityViewModel
+
+<h3>@ViewBag.Title</h3>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Product" class="control-label"></label>
+                <div style="overflow-inline:hidden;">
+                    <div style="width:78%; display:inline-block;">
+                        <select asp-for="Product" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
+                            <option value="">Выберите продукцию</option>
+                        </select>
+                    </div>
+                    <div style="display:inline-block;">
+                        <a asp-controller="Product" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                        <a asp-controller="Product" asp-action="Edit" asp-route-id="" id="ProductEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="Product" asp-action="Details" asp-route-id="" id="ProductDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="Product" asp-action="Delete" asp-route-id="" id="ProductDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                    </div>
+                </div>
+                <span asp-validation-for="Product" class="text-danger" id="ProductWarning"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quantity" class="control-label"></label>
+                <input asp-for="Quantity" class="form-control" required id="quantity" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MeasurementUnit" class="control-label"></label>
+                <div style="overflow-inline:hidden;">
+                    <div style="width:78%; display:inline-block;">
+                        <select asp-for="MeasurementUnit" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
+                            <option value="">Выберите продукцию</option>
+                        </select>
+                    </div>
+                    <div style="display:inline-block;">
+                        <a asp-controller="MeasurementUnit" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                        <a asp-controller="MeasurementUnit" asp-action="Edit" asp-route-id="" id="MeasurementUnitEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="MeasurementUnit" asp-action="Details" asp-route-id="" id="MeasurementUnitDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="MeasurementUnit" asp-action="Delete" asp-route-id="" id="MeasurementUnitDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                    </div>
+                </div>
+                <span asp-validation-for="MeasurementUnit" class="text-danger" id="MeasurementUnitWarning"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MadeDate" class="control-label"></label>
+                <input asp-for="MadeDate" class="form-control" required id="madeDate" />
+                <span asp-validation-for="MadeDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Назад к списку</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{await Html.RenderPartialAsync("_CreateScriptsPartial");}
+    @{await Html.RenderPartialAsync("_MainViewScripts");}
+    <script>
+        $(document).ready(function () {
+            let selectElements = [
+                { id: '#Product', url: '/Product/GetProducts/', placeholder: 'Выберите продукцию' },
+                { id: '#MeasurementUnit', url: '/MeasurementUnit/GetMeasurementUnits/', placeholder: 'Выберите ед. изм.' }
+            ];
+
+            establishSelect2Algorithm(selectElements);
+        });
+    </script>
+}
