@@ -1,0 +1,73 @@
+﻿@model IEnumerable<EffectCert.ViewModels.Main.ActionPlanViewModel>
+
+<h3>@ViewBag.Title</h3>
+
+<p>
+    <a asp-action="Create">Создать новый</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Application)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AppAnalizeExpert)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ConformityAssessBodyHead)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SelectProductEmployee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResultsAnalizeExpert)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RegDocumentEmployee)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date.ToShortDateString())
+            </td>
+            <td>
+                №@Html.DisplayFor(modelItem => item.Application.Number) от @Html.DisplayFor(modelItem => item.Application.Date.ToShortDateString())
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AppAnalizeExpert.ContractorLegalEmployee.ContractorIndividual.LastName) @Html.DisplayFor(modelItem => item.AppAnalizeExpert.ContractorLegalEmployee.ContractorIndividual.FirstName[0])"."
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ConformityAssessBodyHead.ContractorLegalEmployee.ContractorIndividual.LastName) @Html.DisplayFor(modelItem => item.ConformityAssessBodyHead.ContractorLegalEmployee.ContractorIndividual.FirstName[0])"."
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SelectProductEmployee != null ? item.SelectProductEmployee.ContractorIndividual.LastName : String.Empty) @Html.DisplayFor(modelItem => item.SelectProductEmployee != null ? item.SelectProductEmployee.ContractorIndividual.FirstName[0] + "." : String.Empty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResultsAnalizeExpert != null ? item.ResultsAnalizeExpert.ContractorLegalEmployee.ContractorIndividual.LastName : String.Empty) @Html.DisplayFor(modelItem => item.ResultsAnalizeExpert != null ? item.ResultsAnalizeExpert.ContractorLegalEmployee.ContractorIndividual.FirstName[0] + "." : String.Empty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegDocumentEmployee != null ? item.RegDocumentEmployee.ContractorLegalEmployee.ContractorIndividual.LastName : String.Empty) @Html.DisplayFor(modelItem => item.RegDocumentEmployee != null ? item.RegDocumentEmployee.ContractorLegalEmployee.ContractorIndividual.FirstName[0] + "." : String.Empty)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Подробнее</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

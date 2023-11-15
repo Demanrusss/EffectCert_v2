@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using EffectCert.ViewModels.Contractors;
-using EffectCert.ViewModels.Others;
 
 namespace EffectCert.ViewModels.Main
 {

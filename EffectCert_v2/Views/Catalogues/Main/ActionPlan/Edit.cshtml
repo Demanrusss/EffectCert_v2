@@ -1,0 +1,152 @@
+﻿@model EffectCert.ViewModels.Main.ActionPlanViewModel
+
+<h3>@ViewBag.Title</h3>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Number" class="control-label"></label>
+                <input asp-for="Number" class="form-control" required id="number" />
+                <span asp-validation-for="Number" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" required id="date" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Application" class="control-label"></label>
+                <div style="overflow-inline:hidden;">
+                    <div style="width:78%; display:inline-block;">
+                        <select asp-for="Application" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
+                            <option value="">Выберите заявку</option>
+                        </select>
+                    </div>
+                    <div style="display:inline-block;">
+                        <a asp-controller="Application" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                        <a asp-controller="Application" asp-action="Edit" asp-route-id="" id="ApplicationEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="Application" asp-action="Details" asp-route-id="" id="ApplicationDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="Application" asp-action="Delete" asp-route-id="" id="ApplicationDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                    </div>
+                </div>
+                <span asp-validation-for="Application" class="text-danger" id="ApplicationWarning"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AppAnalizeExpert" class="control-label"></label>
+                <div style="overflow-inline:hidden;">
+                    <div style="width:78%; display:inline-block;">
+                        <select asp-for="AppAnalizeExpert" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
+                            <option value="">Выберите эксперта</option>
+                        </select>
+                    </div>
+                    <div style="display:inline-block;">
+                        <a asp-controller="AssessBodyEmployee" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                        <a asp-controller="AssessBodyEmployee" asp-action="Edit" asp-route-id="" id="AppAnalizeExpertEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="AssessBodyEmployee" asp-action="Details" asp-route-id="" id="AppAnalizeExpertDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="AssessBodyEmployee" asp-action="Delete" asp-route-id="" id="AppAnalizeExpertDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                    </div>
+                </div>
+                <span asp-validation-for="AppAnalizeExpert" class="text-danger" id="AppAnalizeExpertWarning"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConformityAssessBodyHead" class="control-label"></label>
+                <div style="overflow-inline:hidden;">
+                    <div style="width:78%; display:inline-block;">
+                        <select asp-for="ConformityAssessBodyHead" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
+                            <option value="">Выберите сотрудника ОПС</option>
+                        </select>
+                    </div>
+                    <div style="display:inline-block;">
+                        <a asp-controller="AssessBodyEmployee" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                        <a asp-controller="AssessBodyEmployee" asp-action="Edit" asp-route-id="" id="ConformityAssessBodyHeadEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="AssessBodyEmployee" asp-action="Details" asp-route-id="" id="ConformityAssessBodyHeadDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="AssessBodyEmployee" asp-action="Delete" asp-route-id="" id="ConformityAssessBodyHeadDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                    </div>
+                </div>
+                <span asp-validation-for="SelectProductEmployee" class="text-danger" id="ConformityAssessBodyHeadWarning"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SelectProductEmployee" class="control-label"></label>
+                <div style="overflow-inline:hidden;">
+                    <div style="width:78%; display:inline-block;">
+                        <select asp-for="SelectProductEmployee" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)">
+                            <option value="">Выберите сотрудника</option>
+                        </select>
+                    </div>
+                    <div style="display:inline-block;">
+                        <a asp-controller="ContractorLegalEmployee" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                        <a asp-controller="ContractorLegalEmployee" asp-action="Edit" asp-route-id="" id="SelectProductEmployeeEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="ContractorLegalEmployee" asp-action="Details" asp-route-id="" id="SelectProductEmployeeDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="ContractorLegalEmployee" asp-action="Delete" asp-route-id="" id="SelectProductEmployeeDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                    </div>
+                </div>
+                <span asp-validation-for="SelectProductEmployee" class="text-danger" id="SelectProductEmployeeWarning"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResultsAnalizeExpert" class="control-label"></label>
+                <div style="overflow-inline:hidden;">
+                    <div style="width:78%; display:inline-block;">
+                        <select asp-for="ResultsAnalizeExpert" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)">
+                            <option value="">Выберите сотрудника</option>
+                        </select>
+                    </div>
+                    <div style="display:inline-block;">
+                        <a asp-controller="AssessBodyEmployee" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                        <a asp-controller="AssessBodyEmployee" asp-action="Edit" asp-route-id="" id="ResultsAnalizeExpertEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="AssessBodyEmployee" asp-action="Details" asp-route-id="" id="ResultsAnalizeExpertDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="AssessBodyEmployee" asp-action="Delete" asp-route-id="" id="ResultsAnalizeExpertDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                    </div>
+                </div>
+                <span asp-validation-for="ResultsAnalizeExpert" class="text-danger" id="ResultsAnalizeExpertWarning"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RegDocumentEmployee" class="control-label"></label>
+                <div style="overflow-inline:hidden;">
+                    <div style="width:78%; display:inline-block;">
+                        <select asp-for="RegDocumentEmployee" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)">
+                            <option value="">Выберите сотрудника</option>
+                        </select>
+                    </div>
+                    <div style="display:inline-block;">
+                        <a asp-controller="AssessBodyEmployee" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                        <a asp-controller="AssessBodyEmployee" asp-action="Edit" asp-route-id="" id="RegDocumentEmployeeEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="AssessBodyEmployee" asp-action="Details" asp-route-id="" id="RegDocumentEmployeeDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="AssessBodyEmployee" asp-action="Delete" asp-route-id="" id="RegDocumentEmployeeDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                    </div>
+                </div>
+                <span asp-validation-for="RegDocumentEmployee" class="text-danger" id="RegDocumentEmployeeWarning"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Назад к списку</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{await Html.RenderPartialAsync("_CreateScriptsPartial");}
+    @{await Html.RenderPartialAsync("_MainViewScripts");}
+    <script>
+        $(document).ready(function () {
+            let selectElements = [
+                { id: '#Application', url: '/Application/GetApplications/', placeholder: 'Выберите заявку' },
+                { id: '#AppAnalizeExpert', url: '/AssessBodyEmployee/GetAssessBodyEmployees/', placeholder: 'Выберите эксперта' },
+                { id: '#ConformityAssessBodyHead', url: '/AssessBodyEmployee/GetAssessBodyEmployees/', placeholder: 'Выберите сотрудника ОПС' },
+                { id: '#SelectProductEmployee', url: '/ContractorLegalEmployee/GetContractorLegalEmployees/', placeholder: 'Выберите сотрудника' },
+                { id: '#ResultsAnalizeExpert', url: '/AssessBodyEmployee/GetAssessBodyEmployees/', placeholder: 'Выберите эксперта' },
+                { id: '#RegDocumentEmployee', url: '/AssessBodyEmployee/GetAssessBodyEmployees/', placeholder: 'Выберите сотрудника ОПС' }
+            ];
+
+            establishSelect2Algorithm(selectElements);
+        });
+    </script>
+}
