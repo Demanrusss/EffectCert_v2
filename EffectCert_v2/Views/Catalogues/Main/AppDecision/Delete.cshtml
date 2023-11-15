@@ -1,0 +1,100 @@
+﻿@model EffectCert.ViewModels.Main.AppDecisionViewModel
+
+<h3>@ViewBag.Title</h3>
+
+<h3>Вы уверены, что хотите удалить запись?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Number)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Number)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Application)
+        </dt>
+        <dd class = "col-sm-10">
+            №@Html.DisplayFor(model => model.Application.Number) от @Html.DisplayFor(model => model.Application.Date.ToShortDateString())
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ActionPlan)
+        </dt>
+        <dd class="col-sm-10">
+            №@Html.DisplayFor(model => model.ActionPlan.Number) от @Html.DisplayFor(model => model.ActionPlan.Date.ToShortDateString())
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ProductionAnalyzeAssessBody)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ProductionAnalyzeAssessBody != null ? model.ProductionAnalyzeAssessBody.ShortName : String.Empty)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ProductionAnalyzeLaboratory)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ProductionAnalyzeLaboratory != null ? model.ProductionAnalyzeLaboratory.ShortName : String.Empty)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.InspectionAssessBody)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.InspectionAssessBody != null ? model.InspectionAssessBody.ShortName : String.Empty)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.InspectionLaboratory)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.InspectionLaboratory != null ? model.InspectionLaboratory.ShortName : String.Empty)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.InspectionPeriod)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.InspectionPeriod)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SchemaAnother)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SchemaAnother != null ? model.SchemaAnother.Name : String.Empty)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DeclarationNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DeclarationNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DeclarationDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DeclarationDate.HasValue ? model.DeclarationDate.Value.ToShortDateString() : String.Empty)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AssessContractNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AssessContractNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AssessContractDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AssessContractDate.HasValue ? model.AssessContractDate.Value.ToShortDateString() : String.Empty)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Удалить" class="btn btn-danger" /> |
+        <a asp-action="Index">Назад к списку</a>
+    </form>
+</div>

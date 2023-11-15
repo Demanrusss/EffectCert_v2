@@ -1,0 +1,73 @@
+﻿@model IEnumerable<EffectCert.ViewModels.Main.AppDecisionViewModel>
+
+<h3>@ViewBag.Title</h3>
+
+<p>
+    <a asp-action="Create">Создать новый</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Application)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActionPlan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeclarationNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeclarationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AssessContractNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AssessContractDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date.ToShortDateString())
+            </td>
+            <td>
+                <a asp-controller="Application" action="Details" id="@item.Application.Id" target="_blank">@Html.DisplayFor(modelItem => item.Application.Number)</a>
+            </td>
+            <td>
+                <a asp-controller="ActionPlan" action="Details" id="@item.ActionPlan.Id" target="_blank">@Html.DisplayFor(modelItem => item.ActionPlan.Number)</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeclarationNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeclarationDate.HasValue ? item.DeclarationDate.Value.ToShortDateString() : String.Empty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssessContractNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssessContractDate.HasValue ? item.AssessContractDate.Value.ToShortDateString() : String.Empty)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Подробнее</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
