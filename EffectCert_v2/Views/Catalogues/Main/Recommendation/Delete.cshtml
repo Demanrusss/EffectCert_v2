@@ -1,0 +1,52 @@
+﻿@model EffectCert.ViewModels.Main.RecommendationViewModel
+
+<h3>@ViewBag.Title</h3>
+
+<h3>Вы уверены, что хотите удалить запись?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Number)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Number)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Application)
+        </dt>
+        <dd class = "col-sm-10">
+            №@Html.DisplayFor(model => model.Application.Number) от @Html.DisplayFor(model => model.Application.Date.ToShortDateString())
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Decision)
+        </dt>
+        <dd class = "col-sm-10">
+            №@Html.DisplayFor(model => model.Decision.Number) от @Html.DisplayFor(model => model.Decision.Date.ToShortDateString())
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SelectProductsAct)
+        </dt>
+        <dd class="col-sm-10">
+            №@Html.DisplayFor(model => model.SelectProductsAct.Number) от @Html.DisplayFor(model => model.SelectProductsAct.Date.ToShortDateString())
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ExpertDecision)
+        </dt>
+        <dd class="col-sm-10">
+            №@Html.DisplayFor(model => model.ExpertDecision.Number) от @Html.DisplayFor(model => model.ExpertDecision.Date.ToShortDateString())
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Удалить" class="btn btn-danger" /> |
+        <a asp-action="Index">Назад к списку</a>
+    </form>
+</div>

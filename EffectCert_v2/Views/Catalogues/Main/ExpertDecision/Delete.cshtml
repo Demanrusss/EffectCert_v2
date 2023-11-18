@@ -1,0 +1,67 @@
+﻿@model EffectCert.ViewModels.Main.ExpertDecisionViewModel
+
+<h3>@ViewBag.Title</h3>
+
+<h3>Вы уверены, что хотите удалить запись?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Number)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Number)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Application)
+        </dt>
+        <dd class="col-sm-10">
+            №@Html.DisplayFor(model => model.Application.Number) от @Html.DisplayFor(model => model.Application.Date.ToShortDateString())
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ConformityMarkInfo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ConformityMarkInfo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Expert)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Expert.ContractorLegalEmployee.ContractorIndividual.LastName) @{Html.DisplayFor(model => model.Expert.ContractorLegalEmployee.ContractorIndividual.FirstName[0]);}.
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ValidDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ValidDate.HasValue ? model.ValidDate.Value.ToShortDateString() : String.Empty)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DocsAnalizeExpert)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DocsAnalizeExpert != null ? model.DocsAnalizeExpert.ContractorLegalEmployee.ContractorIndividual.LastName : String.Empty) @{Html.DisplayFor(model => model.DocsAnalizeExpert != null ? model.DocsAnalizeExpert.ContractorLegalEmployee.ContractorIndividual.FirstName[0] : ' ');}.
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TestProtocols)
+        </dt>
+        <dd class="col-sm-10">
+        @foreach (var protocol in Model.TestProtocols)
+        {
+            <p>№@Html.DisplayFor(model => protocol.Number) от @Html.DisplayFor(model => protocol.Date.ToShortDateString())</p><br>
+        }
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Удалить" class="btn btn-danger" /> |
+        <a asp-action="Index">Назад к списку</a>
+    </form>
+</div>

@@ -1,0 +1,134 @@
+﻿@model EffectCert.ViewModels.Main.IssueDecisionViewModel
+
+<h3>@ViewBag.Title</h3>
+
+<hr />
+<div class="row">
+    <div class="col-md-5">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Number" class="control-label"></label>
+                <input asp-for="Number" class="form-control" required id="number" />
+                <span asp-validation-for="Number" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" required id="date" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Application" class="control-label"></label>
+                <div style="overflow-inline:hidden;">
+                    <div style="width:78%; display:inline-block;">
+                        <select asp-for="Application" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
+                            <option value="">Выберите заявку</option>
+                        </select>
+                    </div>
+                    <div style="display:inline-block;">
+                        <a asp-controller="Application" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                        <a asp-controller="Application" asp-action="Edit" asp-route-id="" id="ApplicationEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="Application" asp-action="Details" asp-route-id="" id="ApplicationDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="Application" asp-action="Delete" asp-route-id="" id="ApplicationDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                    </div>
+                </div>
+                <span asp-validation-for="Application" class="text-danger" id="ApplicationWarning"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Certificate" class="control-label"></label>
+                <div style="overflow-inline:hidden;">
+                    <div style="width:78%; display:inline-block;">
+                        <select asp-for="Certificate" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)">
+                            <option value="">Выберите эксперта</option>
+                        </select>
+                    </div>
+                    <div style="display:inline-block;">
+                        <a asp-controller="Certificate" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                        <a asp-controller="Certificate" asp-action="Edit" asp-route-id="" id="CertificateEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="Certificate" asp-action="Details" asp-route-id="" id="CertificateDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="Certificate" asp-action="Delete" asp-route-id="" id="CertificateDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                    </div>
+                </div>
+                <span asp-validation-for="Certificate" class="text-danger" id="CertificateWarning"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Declaration" class="control-label"></label>
+                <div style="overflow-inline:hidden;">
+                    <div style="width:78%; display:inline-block;">
+                        <select asp-for="Declaration" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)">
+                            <option value="">Выберите эксперта</option>
+                        </select>
+                    </div>
+                    <div style="display:inline-block;">
+                        <a asp-controller="Declaration" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                        <a asp-controller="Declaration" asp-action="Edit" asp-route-id="" id="DeclarationEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="Declaration" asp-action="Details" asp-route-id="" id="DeclarationDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="Declaration" asp-action="Delete" asp-route-id="" id="DeclarationDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                    </div>
+                </div>
+                <span asp-validation-for="Declaration" class="text-danger" id="DeclarationWarning"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ExpertDecision" class="control-label"></label>
+                <div style="overflow-inline:hidden;">
+                    <div style="width:78%; display:inline-block;">
+                        <select asp-for="ExpertDecision" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
+                            <option value="">Выберите сотрудника</option>
+                        </select>
+                    </div>
+                    <div style="display:inline-block;">
+                        <a asp-controller="ExpertDecision" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                        <a asp-controller="ExpertDecision" asp-action="Edit" asp-route-id="" id="ExpertDecisionEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="ExpertDecision" asp-action="Details" asp-route-id="" id="ExpertDecisionDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="ExpertDecision" asp-action="Delete" asp-route-id="" id="ExpertDecisionDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                    </div>
+                </div>
+                <span asp-validation-for="ExpertDecision" class="text-danger" id="ExpertDecisionWarning"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Recommendation" class="control-label"></label>
+                <div style="overflow-inline:hidden;">
+                    <div style="width:78%; display:inline-block;">
+                        <select asp-for="Recommendation" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
+                            <option value="">Выберите сотрудника</option>
+                        </select>
+                    </div>
+                    <div style="display:inline-block;">
+                        <a asp-controller="Recommendation" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                        <a asp-controller="Recommendation" asp-action="Edit" asp-route-id="" id="RecommendationEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="Recommendation" asp-action="Details" asp-route-id="" id="RecommendationDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="Recommendation" asp-action="Delete" asp-route-id="" id="RecommendationDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                    </div>
+                </div>
+                <span asp-validation-for="Recommendation" class="text-danger" id="RecommendationWarning"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Назад к списку</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{await Html.RenderPartialAsync("_CreateScriptsPartial");}
+    @{await Html.RenderPartialAsync("_MainViewScripts");}
+    <script>
+        $(document).ready(function () {
+            let selectElements = [
+                { id: '#Application', url: '/Application/GetApplications/', placeholder: 'Выберите заявку' },
+                { id: '#Certificate', url: '/Certificate/GetCertificates/', placeholder: 'Выберите сертификат' },
+                { id: '#Declaration', url: '/Declaration/GetDeclarations/', placeholder: 'Выберите декларацию' },
+                { id: '#ExpertDecision', url: '/ExpertDecision/GetExpertDecisions/', placeholder: 'Выберите заключение эксперта' },
+                { id: '#Recommendation', url: '/Recommendation/GetRecommendations/', placeholder: 'Выберите рекомендацию' }
+            ];
+
+            establishSelect2Algorithm(selectElements);
+        });
+    </script>
+}
