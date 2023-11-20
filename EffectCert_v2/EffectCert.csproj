@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Views\Catalogues\Documents\ManufacturerStandards\Delete.cshtml~RF78f59b50.TMP" />
+    <None Remove="Views\Catalogues\Documents\ManufacturerStandard\Delete.cshtml~RF78f59b50.TMP" />
   </ItemGroup>
 
   <ItemGroup>

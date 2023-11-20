@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EffectCert</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -23,6 +23,89 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>*@
+        <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/Home/Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Features</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Pricing</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Контрагенты
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/Address/Index">Адреса</a></li>
+                                <li><a class="dropdown-item" href="/AssessBody/Index">ОПС</a></li>
+                                <li><a class="dropdown-item" href="/AssessBodyEmployee/Index">Сотрудники ОПС</a></li>
+                                <li><a class="dropdown-item" href="/BankAccount/Index">Банковские счета</a></li>
+                                <li><a class="dropdown-item" href="/ContractorIndividual/Index">Физические лица</a></li>
+                                <li><a class="dropdown-item" href="/ContractorLegal/Index">Юридические лица</a></li>
+                                <li><a class="dropdown-item" href="/ContractorLegalEmployee/Index">Сотрудники компании</a></li>
+                                <li><a class="dropdown-item" href="/Laboratory/Index">Лаборатории</a></li>
+                                <li><a class="dropdown-item" href="/LaboratoryEmployee/Index">Сотрудники лаборатории</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Документы
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/Attestate/Index">Аттестаты</a></li>
+                                <li><a class="dropdown-item" href="/Certificate/Index">Сертификаты</a></li>
+                                <li><a class="dropdown-item" href="/Contract/Index">Контракты</a></li>
+                                <li><a class="dropdown-item" href="/Declaration/Index">Декларации</a></li>
+                                <li><a class="dropdown-item" href="/GovStandard/Index">ГОСТы</a></li>
+                                <li><a class="dropdown-item" href="/GTD/Index">ГТД</a></li>
+                                <li><a class="dropdown-item" href="/Invoice/Index">Инвойсы</a></li>
+                                <li><a class="dropdown-item" href="/ManufacturerStandard/Index">СТ ТОО</a></li>
+                                <li><a class="dropdown-item" href="/TechReg/Index">Тех. регламенты</a></li>
+                                <li><a class="dropdown-item" href="/TestProtocol/Index">Протоколы испытаний</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Основные
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/Application/Index">Заявки</a></li>
+                                <li><a class="dropdown-item" href="/AppDecision/Index">Решения по заявкам</a></li>
+                                <li><a class="dropdown-item" href="/ActionPlan/Index">Планы действий</a></li>
+                                <li><a class="dropdown-item" href="/SelectProductsAct/Index">Акты отбора образцов</a></li>
+                                <li><a class="dropdown-item" href="/ExpertDecision/Index">Экспертные заключения</a></li>
+                                <li><a class="dropdown-item" href="/Recommendation/Index">Рекомендации</a></li>
+                                <li><a class="dropdown-item" href="/IssueDecision/Index">Решения ОПС</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Разные
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/CertObject/Index">Объекты оценки</a></li>
+                                <li><a class="dropdown-item" href="/Inconsistence/Index">Несоответствия</a></li>
+                                <li><a class="dropdown-item" href="/MeasurementUnit/Index">Единицы измерения</a></li>
+                                <li><a class="dropdown-item" href="/Product/Index">Продукции</a></li>
+                                <li><a class="dropdown-item" href="/ProductQuantity/Index">Количества продукции</a></li>
+                                <li><a class="dropdown-item" href="/Requirement/Index">Требования</a></li>
+                                <li><a class="dropdown-item" href="/Schema/Index">Схемы</a></li>
+                                <li><a class="dropdown-item" href="/SelectedSampleQuantity/Index">Количества отобранных образцов</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
