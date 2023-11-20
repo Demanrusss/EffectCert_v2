@@ -17,9 +17,9 @@ namespace EffectCert.Controllers.Contractors
         {
             ViewData["Title"] = "Аттестаты";
 
-            var attestates = await attestateBLL.FindAll();
+            var attestatees = await attestateBLL.FindAll();
 
-            return View("~/Views/Catalogues/Contractors/Attestate/Index.cshtml", attestates);
+            return View("~/Views/Catalogues/Documents/Attestate/Index.cshtml", attestatees);
         }
 
         public async Task<IActionResult> Details(int id)
@@ -30,14 +30,14 @@ namespace EffectCert.Controllers.Contractors
             if (attestate.Id == 0)
                 return NotFound();
 
-            return View("~/Views/Catalogues/Contractors/Attestate/Details.cshtml", attestate);
+            return View("~/Views/Catalogues/Documents/Attestate/Details.cshtml", attestate);
         }
 
         public IActionResult Create()
         {
             ViewData["Title"] = "Создание аттестата";
 
-            return View("~/Views/Catalogues/Contractors/Attestate/Create.cshtml");
+            return View("~/Views/Catalogues/Documents/Attestate/Create.cshtml");
         }
 
         [HttpPost]
@@ -50,7 +50,7 @@ namespace EffectCert.Controllers.Contractors
                 return RedirectToAction(nameof(Index));
             }
             
-            return View("~/Views/Catalogues/Contractors/Attestate/Create.cshtml", attestate);
+            return View("~/Views/Catalogues/Documents/Attestate/Create.cshtml", attestate);
         }
 
         public async Task<IActionResult> Edit(int id)
@@ -61,7 +61,7 @@ namespace EffectCert.Controllers.Contractors
             if (attestate.Id == 0)
                 return NotFound();
 
-            return View("~/Views/Catalogues/Contractors/Attestate/Edit.cshtml", attestate);
+            return View("~/Views/Catalogues/Documents/Attestate/Edit.cshtml", attestate);
         }
 
         [HttpPost]
@@ -77,7 +77,7 @@ namespace EffectCert.Controllers.Contractors
                 return RedirectToAction(nameof(Index));
             }
 
-            return View("~/Views/Catalogues/Contractors/Attestate/Edit.cshtml", attestate);
+            return View("~/Views/Catalogues/Documents/Attestate/Edit.cshtml", attestate);
         }
 
         public async Task<IActionResult> Delete(int id)
@@ -88,7 +88,7 @@ namespace EffectCert.Controllers.Contractors
             if (attestate.Id == 0)
                 return NotFound();
 
-            return View("~/Views/Catalogues/Contractors/Attestate/Delete.cshtml", attestate);
+            return View("~/Views/Catalogues/Documents/Attestate/Delete.cshtml", attestate);
         }
 
         [HttpPost]
@@ -104,7 +104,7 @@ namespace EffectCert.Controllers.Contractors
                 return RedirectToAction(nameof(Index));
             }
 
-            return View("~/Views/Catalogues/Contractors/Attestate/Delete.cshtml", attestate);
+            return View("~/Views/Catalogues/Documents/Attestate/Delete.cshtml", attestate);
         }
 
         public async Task<JsonResult> GetAttestates(string searchStr)

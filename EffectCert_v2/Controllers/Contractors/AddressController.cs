@@ -1,7 +1,6 @@
 ﻿using EffectCert.BLL.Contractors;
 using EffectCert.ViewModels.Contractors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace EffectCert.Controllers.Contractors
 {
