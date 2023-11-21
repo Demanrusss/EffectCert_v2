@@ -44,6 +44,6 @@ namespace EffectCert.ViewModels.Main
         public string ControlSamplesQuantity { get; set; } = null!;
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Отобранные образцы продукции")]
-        public ICollection<SelectedSampleQuantityViewModel> Products { get; set; } = new HashSet<SelectedSampleQuantityViewModel>();
+        public ICollection<SelectedSampleQuantityViewModel> SelectedProducts { get; set; } = new HashSet<SelectedSampleQuantityViewModel>();
     }
 }

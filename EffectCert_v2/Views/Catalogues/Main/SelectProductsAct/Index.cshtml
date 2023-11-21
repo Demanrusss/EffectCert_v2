@@ -24,7 +24,7 @@
                 @Html.DisplayNameFor(model => model.Supplier)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Products)
+                @Html.DisplayNameFor(model => model.SelectedProducts)
             </th>
             <th></th>
         </tr>
@@ -45,9 +45,9 @@
                 @Html.DisplayFor(modelItem => item.Supplier.ShortName)
             </td>
             <td>
-            @foreach (var product in item.Products)
+            @foreach (var product in item.SelectedProducts)
             {
-                @Html.DisplayFor(model => product.Product.Name)<br>
+                @Html.DisplayFor(model => product.ProductQuantity.Product.Name)<br>
             }
             </td>
             <td>

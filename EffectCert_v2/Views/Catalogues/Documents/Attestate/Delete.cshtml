@@ -16,13 +16,15 @@
             @Html.DisplayNameFor(model => model.Date)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Date.ToShortDateString())
+            @{ var dateStr = Model.Date.ToShortDateString(); }
+            @Html.DisplayFor(model => dateStr)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.ValidDate)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ValidDate.ToShortDateString())
+            @{ var validDateStr = Model.Date.ToShortDateString(); }
+            @Html.DisplayFor(model => validDateStr)
         </dd>
     </dl>
     

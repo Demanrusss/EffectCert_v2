@@ -29,11 +29,11 @@ namespace EffectCert.DAL.Implementations.Others
             if (String.IsNullOrWhiteSpace(searchStr))
                 return await GetAll();
 
-            var item2 = appDBContext.SelectedSampleQuantities.First().Product.Id;
+            var item2 = appDBContext.SelectedSampleQuantities.First().ProductQuantity.Id;
 
             var result = from ssq in appDBContext.SelectedSampleQuantities
-                         join p in appDBContext.Products on ssq.Product.Id equals p.Id
-                         where p.Name.Contains(searchStr)
+                         join p in appDBContext.ProductQuantities on ssq.ProductQuantity.Id equals p.Id
+                         where p.Product.Name.Contains(searchStr)
                          select ssq;
             return await result.ToListAsync();
         }

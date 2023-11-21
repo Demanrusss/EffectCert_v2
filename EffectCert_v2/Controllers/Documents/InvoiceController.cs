@@ -2,7 +2,7 @@
 using EffectCert.ViewModels.Documents;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EffectCert.Controllers.Invoiceors
+namespace EffectCert.Controllers.Documents
 {
     public class InvoiceController : Controller
     {

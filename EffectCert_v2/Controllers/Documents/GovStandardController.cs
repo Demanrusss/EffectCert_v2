@@ -2,7 +2,7 @@
 using EffectCert.ViewModels.Documents;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EffectCert.Controllers.GovStandardors
+namespace EffectCert.Controllers.Documents
 {
     public class GovStandardController : Controller
     {

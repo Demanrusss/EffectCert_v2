@@ -10,7 +10,7 @@ namespace EffectCert.ViewModels.Others
         [DisplayName("Наименование")]
         public string Name { get; set; } = null!;
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
-        [DisplayName("Наименование")]
+        [DisplayName("Краткое наименование")]
         public string ShortName { get; set; } = null!;
     }
 }

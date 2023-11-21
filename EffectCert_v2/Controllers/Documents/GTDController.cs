@@ -2,7 +2,7 @@
 using EffectCert.ViewModels.Documents;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EffectCert.Controllers.GTDors
+namespace EffectCert.Controllers.Documents
 {
     public class GTDController : Controller
     {

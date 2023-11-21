@@ -8,8 +8,8 @@ namespace EffectCert.ViewModels.Others
         public int Id { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Продукция")]
-        public ProductViewModel Product { get; set; } = null!;
-        public int ProductId { get; set; }
+        public ProductQuantityViewModel ProductQuantity { get; set; } = null!;
+        public int ProductQuantityId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Количество отобранных образцов")]
         public double Quantity { get; set; }

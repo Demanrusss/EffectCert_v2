@@ -11,7 +11,7 @@ namespace EffectCert.ViewMappers.Others
             {
                 Id = viewModel.Id,
                 MeasurementUnitId = viewModel.MeasurementUnitId,
-                ProductId = viewModel.ProductId,
+                ProductQuantityId = viewModel.ProductQuantityId,
                 Quantity = viewModel.Quantity
             };
         }
@@ -25,7 +25,7 @@ namespace EffectCert.ViewMappers.Others
             {
                 Id = model.Id,
                 MeasurementUnit = MeasurementUnitMapper.MapToViewModel(model.MeasurementUnit),
-                Product = ProductMapper.MapToViewModel(model.Product),
+                ProductQuantity = ProductQuantityMapper.MapToViewModel(model.ProductQuantity),
                 Quantity = model.Quantity
             };
         }

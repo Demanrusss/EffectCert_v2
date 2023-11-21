@@ -107,10 +107,10 @@
                 <span asp-validation-for="ControlSamplesQuantity" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Products" class="control-label"></label>
+                <label asp-for="SelectedProducts" class="control-label"></label>
                 <div style="overflow-inline:hidden;">
                     <div style="width:78%; display:inline-block;">
-                        <select asp-for="Products" class="form-control js-example-basic-multiple" required>
+                        <select asp-for="SelectedProducts" class="form-control js-example-basic-multiple" required>
                             <option value="">Выберите продукцию</option>
                         </select>
                     </div>
@@ -118,7 +118,7 @@
                         <a asp-controller="Product" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
                     </div>
                 </div>
-                <span asp-validation-for="Products" class="text-danger" id="ProductsWarning"></span>
+                <span asp-validation-for="SelectedProducts" class="text-danger" id="SelectedProductsWarning"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Сохранить" class="btn btn-primary" />
@@ -142,7 +142,7 @@
                 { id: '#ActionPlan', url: '/ActionPlan/GetActionPlans/', placeholder: 'Выберите план действий' },
                 { id: '#Address', url: '/Address/GetAddresses/', placeholder: 'Выберите адрес' },
                 { id: '#Supplier', url: '/ContractorLegal/GetContractorLegals/', placeholder: 'Выберите поставщика' },
-                { id: '#Products', url: '/Product/GetProducts/', placeholder: 'Выберите продукцию' }
+                { id: '#SelectedProducts', url: '/SelectedProduct/GetProducts/', placeholder: 'Выберите продукцию' }
             ];
 
             establishSelect2Algorithm(selectElements);

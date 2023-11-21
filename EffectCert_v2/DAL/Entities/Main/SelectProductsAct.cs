@@ -20,6 +20,6 @@ namespace EffectCert.DAL.Entities.Main
         public string PackageType { get; set; } = null!;
         public int ControlSamplesStorageTime { get; set; }
         public string ControlSamplesQuantity { get; set; } = null!;
-        public ICollection<SelectedSampleQuantity> Products { get; set; } = new HashSet<SelectedSampleQuantity>();
+        public ICollection<SelectedSampleQuantity> SelectedProducts { get; set; } = new HashSet<SelectedSampleQuantity>();
     }
 }

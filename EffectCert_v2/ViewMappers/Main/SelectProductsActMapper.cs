@@ -1,5 +1,4 @@
-﻿using EffectCert.DAL.Entities.Contractors;
-using EffectCert.DAL.Entities.Main;
+﻿using EffectCert.DAL.Entities.Main;
 using EffectCert.DAL.Entities.Others;
 using EffectCert.ViewMappers.Contractors;
 using EffectCert.ViewMappers.Others;
@@ -23,7 +22,7 @@ namespace EffectCert.ViewMappers.Main
                 ControlSamplesQuantity = viewModel.ControlSamplesQuantity,
                 ControlSamplesStorageTime = viewModel.ControlSamplesStorageTime,
                 PackageType = viewModel.PackageType,
-                Products = ConvertCollection(viewModel.Products),
+                SelectedProducts = ConvertCollection(viewModel.SelectedProducts),
                 StorageCondition = viewModel.StorageCondition,
                 SupplierId = viewModel.SupplierId
             };
@@ -45,7 +44,7 @@ namespace EffectCert.ViewMappers.Main
                 ControlSamplesQuantity = model.ControlSamplesQuantity,
                 ControlSamplesStorageTime = model.ControlSamplesStorageTime,
                 PackageType = model.PackageType,
-                Products = ConvertCollection(model.Products),
+                SelectedProducts = ConvertCollection(model.SelectedProducts),
                 StorageCondition = model.StorageCondition,
                 Supplier = ContractorLegalMapper.MapToViewModel(model.Supplier)
             };

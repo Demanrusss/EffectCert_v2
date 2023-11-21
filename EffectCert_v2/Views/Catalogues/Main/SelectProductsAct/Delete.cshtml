@@ -67,12 +67,12 @@
             @Html.DisplayFor(model => model.ControlSamplesQuantity)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Products)
+            @Html.DisplayNameFor(model => model.SelectedProducts)
         </dt>
         <dd class="col-sm-10">
-        @foreach (var product in Model.Products)
+        @foreach (var product in Model.SelectedProducts)
         {
-            @Html.DisplayFor(model => product.Product.Name)<br>
+            @Html.DisplayFor(model => product.ProductQuantity.Product.Name)<br>
         }
         </dd>
     </dl>

@@ -2,7 +2,7 @@
 using EffectCert.ViewModels.Documents;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EffectCert.Controllers.TestProtocolors
+namespace EffectCert.Controllers.Documents
 {
     public class TestProtocolController : Controller
     {
@@ -15,16 +15,16 @@ namespace EffectCert.Controllers.TestProtocolors
 
         public async Task<IActionResult> Index()
         {
-            ViewData["Title"] = "Технические регламенты";
+            ViewData["Title"] = "Протоколы испытаний";
 
-            var testProtocoles = await testProtocolBLL.FindAll();
+            var testProtocols = await testProtocolBLL.FindAll();
 
-            return View("~/Views/Catalogues/Documents/TestProtocol/Index.cshtml", testProtocoles);
+            return View("~/Views/Catalogues/Documents/TestProtocol/Index.cshtml", testProtocols);
         }
 
         public async Task<IActionResult> Details(int id)
         {
-            ViewData["Title"] = "Полные данные Технического регламента";
+            ViewData["Title"] = "Полные данные протокола испытаний";
 
             var testProtocol = await testProtocolBLL.Get(id);
             if (testProtocol.Id == 0)
@@ -35,7 +35,7 @@ namespace EffectCert.Controllers.TestProtocolors
 
         public IActionResult Create()
         {
-            ViewData["Title"] = "Создание Технического регламента";
+            ViewData["Title"] = "Создание протокола испытаний";
 
             return View("~/Views/Catalogues/Documents/TestProtocol/Create.cshtml");
         }
@@ -55,7 +55,7 @@ namespace EffectCert.Controllers.TestProtocolors
 
         public async Task<IActionResult> Edit(int id)
         {
-            ViewData["Title"] = "Внесение изменений в Технический регламент";
+            ViewData["Title"] = "Внесение изменений в протокол испытаний";
 
             var testProtocol = await testProtocolBLL.Get(id);
             if (testProtocol.Id == 0)
@@ -82,7 +82,7 @@ namespace EffectCert.Controllers.TestProtocolors
 
         public async Task<IActionResult> Delete(int id)
         {
-            ViewData["Title"] = "Удаление Технического регламента";
+            ViewData["Title"] = "Удаление протокола испытаний";
 
             var testProtocol = await testProtocolBLL.Get(id);
             if (testProtocol.Id == 0)

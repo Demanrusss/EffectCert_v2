@@ -1,9 +1,5 @@
 ﻿using EffectCert.DAL.Entities.Main;
-using EffectCert.DAL.Entities.Others;
-using EffectCert.ViewMappers.Contractors;
-using EffectCert.ViewMappers.Others;
 using EffectCert.ViewModels.Main;
-using EffectCert.ViewModels.Others;
 
 namespace EffectCert.ViewMappers.Main
 {

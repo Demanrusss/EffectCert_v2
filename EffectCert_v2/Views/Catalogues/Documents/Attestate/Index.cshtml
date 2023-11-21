@@ -27,10 +27,12 @@
                 @Html.DisplayFor(modelItem => item.Number)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Date.ToShortTimeString())
+                @{ var dateStr = item.Date.ToShortDateString(); }
+                @Html.DisplayFor(modelItem => dateStr)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ValidDate.ToShortDateString())
+                @{ var validDateStr = item.ValidDate.ToShortDateString(); }
+                @Html.DisplayFor(modelItem => validDateStr)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |

@@ -117,7 +117,7 @@ namespace EffectCert.Controllers.Others
                 var selectedSampleQuantityItem = new Dictionary<string, string>
                 {
                     { "id", item.Id.ToString() },
-                    { "name", String.Format("{0} {1}", item.Quantity.ToString(), item.Product.Name) }
+                    { "name", String.Format("{0} {1}", item.Quantity.ToString(), item.ProductQuantity.Product.Name) }
                 };
 
                 selectedSampleQuantitiesList.Add(selectedSampleQuantityItem);
