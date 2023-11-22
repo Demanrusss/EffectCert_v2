@@ -14,7 +14,7 @@ namespace EffectCert.ViewMappers.Contractors
                 BIN = viewModel.BIN,
                 Employees = ConvertCollection(viewModel.Employees),
                 FactAddressId = viewModel.FactAddressId,
-                FullName = viewModel.FullName,
+                Name = viewModel.Name,
                 RegAddressId = viewModel.RegAddressId,
                 ShortName = viewModel.ShortName
             };
@@ -32,7 +32,7 @@ namespace EffectCert.ViewMappers.Contractors
                 BIN = model.BIN,
                 Employees = ConvertCollection(model.Employees),
                 FactAddress = AddressMapper.MapToViewModel(model.FactAddress),
-                FullName = model.FullName,
+                Name = model.Name,
                 RegAddress = AddressMapper.MapToViewModel(model.RegAddress),
                 ShortName = model.ShortName,
                 IsAddressSame = model.RegAddress == model.FactAddress

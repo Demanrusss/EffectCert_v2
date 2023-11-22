@@ -4,9 +4,9 @@ BEGIN
 CREATE TABLE Addresses
 (
 	[Id] INT NOT NULL PRIMARY KEY,
-	[Country] NVARCHAR(128) NULL, 
+	[Country] NVARCHAR(128) NOT NULL, 
 	[Index] NVARCHAR(16) NULL,
-	[AddressLine] NVARCHAR(256) NULL
+	[AddressStr] NVARCHAR(256) NULL
 )
 
 END
@@ -34,7 +34,7 @@ CREATE TABLE AssessBodyEmployees
 	[Id] INT NOT NULL PRIMARY KEY,
 	[ContractorLegalEmployeeId] INT NOT NULL,
     [Position] NVARCHAR(128) NOT NULL,
-    [ExpertAuditorOrientation] NVARCHAR(192) NULL
+    [ExpertAuditorOrientation] NVARCHAR(256) NULL
 )
 
 END
@@ -72,11 +72,11 @@ BEGIN
 CREATE TABLE ContractorLegals
 (
 	[Id] INT NOT NULL PRIMARY KEY,
-	[FullName] NVARCHAR(256) NOT NULL, 
+	[Name] NVARCHAR(256) NOT NULL, 
 	[ShortName] NVARCHAR(256) NOT NULL,
 	[BIN] NVARCHAR(12) NULL,
 	[RegAddressId] INT NOT NULL,
-	[FactAddressId] INT NULL,
+	[FactAddressId] INT NOT NULL,
 	[BankAccountId] INT NULL
 )
 
@@ -89,8 +89,7 @@ CREATE TABLE ContractorLegalEmployees
 (
 	[Id] INT NOT NULL PRIMARY KEY,
 	[ContractorIndividualId] INT NOT NULL, 
-	[ContractorLegalId] INT NOT NULL,
-	[Position] NVARCHAR(128) NULL,
+	[Position] NVARCHAR(128) NOT NULL,
 	[IsManager] BIT NOT NULL
 )
 

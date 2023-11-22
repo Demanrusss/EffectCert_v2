@@ -4,128 +4,97 @@ BEGIN
 CREATE TABLE CertObjects
 (
 	[Id] INT NOT NULL PRIMARY KEY,
-	[Number] NVARCHAR(32) NOT NULL, 
+	[Name] NVARCHAR(32) NOT NULL
 )
 
 END
 
-IF OBJECT_ID(N'Certificates', N'U') IS NULL
+IF OBJECT_ID(N'Inconsistences', N'U') IS NULL
 BEGIN
 
-CREATE TABLE Certificates
+CREATE TABLE Inconsistences
 (
 	[Id] INT NOT NULL PRIMARY KEY,
-    [Number] NVARCHAR(32) NOT NULL,
-    [Date] DATETIME NOT NULL,
-	[ValidDate] DATETIME NULL
+    [Name] NVARCHAR(128) NOT NULL
 )
 
 END
 
-IF OBJECT_ID(N'Contracts', N'U') IS NULL
+IF OBJECT_ID(N'MeasurementUnits', N'U') IS NULL
 BEGIN
 
-CREATE TABLE Contracts
+CREATE TABLE MeasurementUnits
 (
 	[Id] INT NOT NULL PRIMARY KEY,
-	[Name] NVARCHAR(20) NOT NULL,
-    [ShortName] NVARCHAR(16) NOT NULL,
-    [Number] NVARCHAR(32) NOT NULL,
-	[Date] DATETIME NOT NULL
+	[Name] NVARCHAR(32) NOT NULL,
+    [ShortName] NVARCHAR(32) NOT NULL
 )
 
 END
 
-IF OBJECT_ID(N'Declarations', N'U') IS NULL
+IF OBJECT_ID(N'Products', N'U') IS NULL
 BEGIN
 
-CREATE TABLE Declarations
+CREATE TABLE Products
 (
 	[Id] INT NOT NULL PRIMARY KEY,
-	[Name] NVARCHAR(32) NOT NULL, 
-	[Number] NVARCHAR(32) NOT NULL,
-	[Date] DATETIME NOT NULL,
-	[ValidDate] DATETIME NULL
-)
-
-END
-
-IF OBJECT_ID(N'GovStandards', N'U') IS NULL
-BEGIN
-
-CREATE TABLE GovStandards
-(
-	[Id] INT NOT NULL PRIMARY KEY,
-	[Number] NVARCHAR(20) NOT NULL, 
-	[Name] NVARCHAR(64) NOT NULL,
-	[Paragraphs] NVARCHAR(64) NULL
-)
-
-END
-
-IF OBJECT_ID(N'GTDs', N'U') IS NULL
-BEGIN
-
-CREATE TABLE GTDs
-(
-	[Id] INT NOT NULL PRIMARY KEY,
-	[Number] NVARCHAR(32) NOT NULL, 
-	[Date] DATETIME NULL,
-)
-
-END
-
-IF OBJECT_ID(N'Invoices', N'U') IS NULL
-BEGIN
-
-CREATE TABLE Invoices
-(
-	[Id] INT NOT NULL PRIMARY KEY,
-	[Name] NVARCHAR(32) NOT NULL, 
-	[ShortName] NVARCHAR(32) NOT NULL,
-	[Number] NVARCHAR(32) NOT NULL,
-	[Date] DATETIME NULL
-)
-
-END
-
-IF OBJECT_ID(N'ManufacturerStandards', N'U') IS NULL
-BEGIN
-
-CREATE TABLE ManufacturerStandards
-(
-	[Id] INT NOT NULL PRIMARY KEY,
-	[Number] NVARCHAR(32) NOT NULL, 
 	[Name] NVARCHAR(128) NOT NULL,
-	[Date] DATETIME NOT NULL
+    [GroupName] NVARCHAR(64) NULL,
+    [Type] NVARCHAR(64) NULL,
+    [TradeMark] NVARCHAR(64) NULL,
+    [Model] NVARCHAR(64) NULL,
+    [Article] NVARCHAR(64) NULL,
+	[ManufacturerId] INT NOT NULL,
+	[TNVED] NVARCHAR(10) NOT NULL
 )
 
 END
 
-IF OBJECT_ID(N'TechRegs', N'U') IS NULL
+IF OBJECT_ID(N'ProductQuantities', N'U') IS NULL
 BEGIN
 
-CREATE TABLE TechRegs
+CREATE TABLE ProductQuantities
 (
 	[Id] INT NOT NULL PRIMARY KEY,
-	[Number] NVARCHAR(16) NOT NULL, 
-	[Name] NVARCHAR(256) NOT NULL,
-	[ShortName] NVARCHAR(32) NOT NULL,
-	[ApprovedByInfo] NVARCHAR(128) NOT NULL,
-	[Paragraphs] NVARCHAR(128) NULL
+    [ProductId] INT NOT NULL,
+	[Quantity] REAL NOT NULL,
+	[MeasurementUnitId] INT NOT NULL,
+	[MadeDate] DATETIME NOT NULL
 )
 
 END
 
-IF OBJECT_ID(N'TestProtocols', N'U') IS NULL
+IF OBJECT_ID(N'Requirements', N'U') IS NULL
 BEGIN
 
-CREATE TABLE TestProtocols
+CREATE TABLE Requirements
 (
 	[Id] INT NOT NULL PRIMARY KEY,
-	[Number] NVARCHAR(16) NOT NULL, 
-	[Date] DATETIME NOT NULL,
-	[LaboratoryId] NVARCHAR(32) NOT NULL
+	[Name] NVARCHAR(128) NOT NULL
+)
+
+END
+
+IF OBJECT_ID(N'Schemas', N'U') IS NULL
+BEGIN
+
+CREATE TABLE Schemas
+(
+	[Id] INT NOT NULL PRIMARY KEY,
+	[Name] NVARCHAR(8) NOT NULL
+)
+
+END
+
+IF OBJECT_ID(N'SelectedSampleQuantities', N'U') IS NULL
+BEGIN
+
+CREATE TABLE SelectedSampleQuantities
+(
+	[Id] INT NOT NULL PRIMARY KEY,
+	[ProductQuantityId] INT NOT NULL,
+    [Quantity] REAL NOT NULL,
+	[MeasurementUnitId] INT NOT NULL
 )
 
 END

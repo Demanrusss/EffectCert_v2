@@ -48,7 +48,7 @@ namespace EffectCert.DAL.Implementations.Contractors
                 return await GetAll();
 
             var result = appDBContext.ContractorLegals
-                .Where(c => c.ShortName.Contains(searchStr) || c.FullName.Contains(searchStr));
+                .Where(c => c.ShortName.Contains(searchStr) || c.Name.Contains(searchStr));
 
             return await result.ToListAsync();
         }

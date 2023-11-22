@@ -8,7 +8,7 @@ namespace EffectCert.ViewModels.Contractors
         public int Id { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Полное наименование")]
-        public string FullName { get; set; } = null!;
+        public string Name { get; set; } = null!;
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Сокращенное наименование")]
         public string ShortName { get; set; } = null!;

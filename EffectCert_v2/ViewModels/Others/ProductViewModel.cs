@@ -10,10 +10,15 @@ namespace EffectCert.ViewModels.Others
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Наименование")]
         public string Name { get; set; } = null!;
+        [DisplayName("Группа")]
         public string? GroupName { get; set; }
+        [DisplayName("Тип")]
         public string? Type { get; set; }
+        [DisplayName("Торговая марка")]
         public string? TradeMark { get; set; }
+        [DisplayName("Модель")]
         public string? Model { get; set; }
+        [DisplayName("Артикул")]
         public string? Article { get; set; }
         public int ManufacturerId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
