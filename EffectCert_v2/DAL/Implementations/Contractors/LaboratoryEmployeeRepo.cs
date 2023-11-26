@@ -16,7 +16,24 @@ namespace EffectCert.DAL.Implementations.Contractors
 
         public async Task<ICollection<LaboratoryEmployee>> GetAll()
         {
-            return await appDBContext.LaboratoryEmployees.ToListAsync();
+            return await appDBContext.LaboratoryEmployees
+                .Include(le => le.ContractorLegalEmployee)
+                    .ThenInclude(cle => cle.ContractorIndividual)
+                .Select(le => new LaboratoryEmployee
+                {
+                    Id = le.Id,
+                    ContractorLegalEmployeeId = le.ContractorLegalEmployeeId,
+                    ContractorLegalEmployee = new ContractorLegalEmployee
+                    {
+                        ContractorIndividual = new ContractorIndividual
+                        {
+                            LastName = le.ContractorLegalEmployee.ContractorIndividual.LastName,
+                            FirstName = le.ContractorLegalEmployee.ContractorIndividual.FirstName
+                        }
+                    },
+                    Position = le.Position
+                })
+                .ToListAsync();
         }
 
         public async Task<LaboratoryEmployee> Get(int id)

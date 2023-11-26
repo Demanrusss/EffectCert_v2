@@ -14,7 +14,7 @@ namespace EffectCert.ViewMappers.Main
                 Number = viewModel.Number,
                 ApplicationId = viewModel.ApplicationId,
                 SelectProductsActId = viewModel.SelectProductsActId,
-                DecisionId = viewModel.DecisionId,
+                AppDecisionId = viewModel.DecisionId,
                 ExpertDecisionId = viewModel.ExpertDecisionId
             };
         }
@@ -31,7 +31,7 @@ namespace EffectCert.ViewMappers.Main
                 Number = model.Number,
                 Application = ApplicationMapper.MapToViewModel(model.Application),
                 SelectProductsAct = SelectProductsActMapper.MapToViewModel(model.SelectProductsAct),
-                Decision = AppDecisionMapper.MapToViewModel(model.Decision),
+                Decision = AppDecisionMapper.MapToViewModel(model.AppDecision),
                 ExpertDecision = ExpertDecisionMapper.MapToViewModel(model.ExpertDecision)
             };
         }

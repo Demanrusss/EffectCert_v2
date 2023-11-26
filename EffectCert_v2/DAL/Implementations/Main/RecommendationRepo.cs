@@ -16,7 +16,38 @@ namespace EffectCert.DAL.Implementations.Main
 
         public async Task<ICollection<Recommendation>> GetAll()
         {
-            return await appDBContext.Recommendations.ToListAsync();
+            return await appDBContext.Recommendations
+                .Include(r => r.Application)
+                .Include(r => r.AppDecision)
+                .Include(r => r.ExpertDecision)
+                .Include(r => r.SelectProductsAct)
+                .Select(r => new Recommendation
+                {
+                    Id = r.Id,
+                    ApplicationId = r.ApplicationId,
+                    Application = new Application
+                    {
+                        Number = r.Application.Number
+                    },
+                    SelectProductsActId = r.SelectProductsActId,
+                    SelectProductsAct = new SelectProductsAct
+                    {
+                        Number = r.SelectProductsAct.Number
+                    },
+                    AppDecisionId = r.AppDecisionId,
+                    AppDecision = new AppDecision
+                    {
+                        Number = r.AppDecision.Number
+                    },
+                    ExpertDecisionId = r.AppDecisionId,
+                    ExpertDecision = new ExpertDecision
+                    {
+                        Number = r.AppDecision.Number
+                    },
+                    Date = r.Date,
+                    Number = r.Number
+                })
+                .ToListAsync();
         }
 
         public async Task<Recommendation> Get(int id)

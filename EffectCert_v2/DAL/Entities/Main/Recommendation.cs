@@ -7,8 +7,8 @@
         public DateTime Date { get; set; }
         public int ApplicationId { get; set; }
         public Application Application { get; set; } = null!;
-        public int DecisionId { get; set; }
-        public AppDecision Decision { get; set; } = null!;
+        public int AppDecisionId { get; set; }
+        public AppDecision AppDecision { get; set; } = null!;
         public int SelectProductsActId { get; set; }
         public SelectProductsAct SelectProductsAct { get; set; } = null!;
         public int ExpertDecisionId { get; set; }

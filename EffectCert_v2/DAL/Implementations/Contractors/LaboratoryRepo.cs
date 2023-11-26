@@ -2,6 +2,7 @@
 using EffectCert.DAL.Entities.Contractors;
 using EffectCert.DAL.Interfaces;
 using EffectCert.DAL.DBContext;
+using EffectCert.DAL.Entities.Documents;
 
 namespace EffectCert.DAL.Implementations.Contractors
 {
@@ -16,7 +17,25 @@ namespace EffectCert.DAL.Implementations.Contractors
 
         public async Task<ICollection<Laboratory>> GetAll()
         {
-            return await appDBContext.Laboratories.ToListAsync();
+            return await appDBContext.Laboratories
+                .Include(l => l.ContractorLegal)
+                .Include(l => l.Attestate)
+                .Select(l => new Laboratory
+                {
+                    Id = l.Id,
+                    ShortName = l.ShortName,
+                    AttestateId = l.AttestateId,
+                    Attestate = new Attestate
+                    {
+                        Number = l.Attestate != null ? l.Attestate.Number : String.Empty,
+                    },
+                    ContractorLegalId = l.ContractorLegalId,
+                    ContractorLegal = new ContractorLegal
+                    {
+                        ShortName = l.ContractorLegal.ShortName
+                    }
+                })
+                .ToListAsync();
         }
 
         public async Task<Laboratory> Get(int id)

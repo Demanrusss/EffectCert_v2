@@ -16,7 +16,25 @@ namespace EffectCert.DAL.Implementations.Others
 
         public async Task<ICollection<SelectedSampleQuantity>> GetAll()
         {
-            return await appDBContext.SelectedSampleQuantities.ToListAsync();
+            return await appDBContext.SelectedSampleQuantities
+                .Include(ssq => ssq.MeasurementUnit)
+                .Include(ssq => ssq.ProductQuantity)
+                .Select(ssq => new SelectedSampleQuantity
+                {
+                    Id = ssq.Id,
+                    MeasurementUnitId = ssq.MeasurementUnitId,
+                    MeasurementUnit = new MeasurementUnit
+                    {
+                        ShortName = ssq.MeasurementUnit.ShortName
+                    },
+                    ProductQuantityId = ssq.ProductQuantityId,
+                    ProductQuantity = new ProductQuantity
+                    {
+                        Quantity = ssq.ProductQuantity.Quantity
+                    },
+                    Quantity = ssq.Quantity
+                })
+                .ToListAsync();
         }
 
         public async Task<SelectedSampleQuantity> Get(int id)
