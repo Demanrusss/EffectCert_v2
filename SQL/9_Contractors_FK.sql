@@ -1,9 +1,9 @@
 ALTER TABLE AssessBodies
 ADD CONSTRAINT FK_AssessBodiesAddresses_AddressId FOREIGN KEY (AddressId)
 	REFERENCES Addresses(Id),
-ADD CONSTRAINT FK_AssessBodiesContractorLegals_ContractorLegalId FOREIGN KEY (ContractorLegalId)
+	CONSTRAINT FK_AssessBodiesContractorLegals_ContractorLegalId FOREIGN KEY (ContractorLegalId)
 	REFERENCES ContractorLegals(Id),
-ADD CONSTRAINT FK_AssessBodiesAttestates_AttestateId FOREIGN KEY (AttestateId)
+	CONSTRAINT FK_AssessBodiesAttestates_AttestateId FOREIGN KEY (AttestateId)
 	REFERENCES Attestates(Id)
 ;
 
@@ -15,9 +15,9 @@ ADD CONSTRAINT FK_AssessBodyEmployeesContractorLegalEmployees_ContractorLegalEmp
 ALTER TABLE ContractorLegals
 ADD CONSTRAINT FK_ContractorLegalsAddresses_RegAddressId FOREIGN KEY (RegAddressId)
 	REFERENCES Addresses(Id),
- ADD CONSTRAINT FK_ContractorLegalsAddresses_FactAddressId FOREIGN KEY (FactAddressId)
+	CONSTRAINT FK_ContractorLegalsAddresses_FactAddressId FOREIGN KEY (FactAddressId)
 	REFERENCES Addresses(Id), 
- ADD CONSTRAINT FK_ContractorLegalsBankAccounts_BankAccountId FOREIGN KEY (BankAccountId)
+	CONSTRAINT FK_ContractorLegalsBankAccounts_BankAccountId FOREIGN KEY (BankAccountId)
 	REFERENCES BankAccounts(Id)
 ;
 
@@ -29,7 +29,7 @@ ADD CONSTRAINT FK_ContractorLegalEmployeesContractorIndividuals_ContractorIndivi
 ALTER TABLE Laboratories
 ADD CONSTRAINT FK_LaboratoriesContractorLegals_ContractorLegalId FOREIGN KEY (ContractorLegalId)
 	REFERENCES ContractorLegals(Id),
-ADD CONSTRAINT FK_LaboratoriesAttestates_AttestateId FOREIGN KEY (AttestateId)
+	CONSTRAINT FK_LaboratoriesAttestates_AttestateId FOREIGN KEY (AttestateId)
 	REFERENCES Attestates(Id)
 ;
 
