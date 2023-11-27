@@ -36,7 +36,7 @@ namespace EffectCert.DAL.Implementations.Contractors
         public async Task<int> Create(BankAccount bankAccount)
         {
             if (bankAccount == null)
-                throw new ArgumentNullException();
+                return 0;
 
             appDBContext.BankAccounts.Add(bankAccount);
             return await appDBContext.SaveChangesAsync();
@@ -58,7 +58,6 @@ namespace EffectCert.DAL.Implementations.Contractors
                 return 0;
 
             appDBContext.BankAccounts.Remove(bankAccount);
-
             return await appDBContext.SaveChangesAsync();
         }
     }

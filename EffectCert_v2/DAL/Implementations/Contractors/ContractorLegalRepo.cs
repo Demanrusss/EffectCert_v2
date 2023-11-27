@@ -47,10 +47,22 @@ namespace EffectCert.DAL.Implementations.Contractors
             if (String.IsNullOrWhiteSpace(searchStr))
                 return await GetAll();
 
-            var result = appDBContext.ContractorLegals
-                .Where(c => c.ShortName.Contains(searchStr) || c.Name.Contains(searchStr));
-
-            return await result.ToListAsync();
+            return await appDBContext.ContractorLegals
+                .Include(cl => cl.RegAddress)
+                .Where(cl => cl.ShortName.Contains(searchStr) || cl.Name.Contains(searchStr))
+                .Select(c => new ContractorLegal
+                {
+                    BIN = c.BIN,
+                    Id = c.Id,
+                    ShortName = c.ShortName,
+                    RegAddress = new Address
+                    {
+                        AddressStr = c.RegAddress.AddressStr,
+                        Country = c.RegAddress.Country
+                    },
+                    RegAddressId = c.RegAddressId
+                })
+                .ToListAsync();
         }
 
         public async Task<int> Create(ContractorLegal contractorLegal)

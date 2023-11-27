@@ -29,14 +29,15 @@ namespace EffectCert.DAL.Implementations.Contractors
             if (String.IsNullOrWhiteSpace(searchStr))
                 return await GetAll();
 
-            var result = appDBContext.ContractorIndividuals.Where(c => c.LastName.Contains(searchStr) || c.FirstName.Contains(searchStr));
-            return await result.ToListAsync();
+            return await appDBContext.ContractorIndividuals
+                .Where(c => c.LastName.Contains(searchStr) || c.FirstName.Contains(searchStr))
+                .ToListAsync();
         }
 
         public async Task<int> Create(ContractorIndividual contractorIndividual)
         {
             if (contractorIndividual == null)
-                throw new ArgumentNullException();
+                return 0;
 
             appDBContext.ContractorIndividuals.Add(contractorIndividual);
             return await appDBContext.SaveChangesAsync();
@@ -58,7 +59,6 @@ namespace EffectCert.DAL.Implementations.Contractors
                 return 0;
 
             appDBContext.ContractorIndividuals.Remove(contractorIndividual);
-
             return await appDBContext.SaveChangesAsync();
         }
     }

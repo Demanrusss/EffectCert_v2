@@ -47,24 +47,60 @@ namespace EffectCert.DAL.Implementations.Contractors
             if (String.IsNullOrWhiteSpace(searchStr))
                 return await GetAll();
 
-            var result = from abe in appDBContext.AssessBodyEmployees
-                         join cle in appDBContext.ContractorLegalEmployees on abe.ContractorLegalEmployee.Id equals cle.Id
-                         join ci in appDBContext.ContractorIndividuals on cle.ContractorIndividual.Id equals ci.Id
-                         where ci.FirstName.Contains(searchStr) || ci.LastName.Contains(searchStr)
-                         select abe;
-            return await result.ToListAsync();
+            return await appDBContext.AssessBodyEmployees
+                .Include(abe => abe.ContractorLegalEmployee)
+                    .ThenInclude(cle => cle.ContractorIndividual)
+                .Where(abe => abe.ContractorLegalEmployee.ContractorIndividual.FirstName.Contains(searchStr)
+                              || abe.ContractorLegalEmployee.ContractorIndividual.LastName.Contains(searchStr))
+                .Select(abe => new AssessBodyEmployee
+                {
+                    Id = abe.Id,
+                    ContractorLegalEmployeeId = abe.ContractorLegalEmployeeId,
+                    ContractorLegalEmployee = new ContractorLegalEmployee
+                    {
+                        ContractorIndividual = new ContractorIndividual
+                        {
+                            FirstName = abe.ContractorLegalEmployee.ContractorIndividual.FirstName,
+                            LastName = abe.ContractorLegalEmployee.ContractorIndividual.LastName
+                        }
+                    },
+                    ExpertAuditorOrientation = abe.ExpertAuditorOrientation,
+                    Position = abe.Position
+                })
+                .ToListAsync();
         }
 
-        public async Task<IEnumerable<AssessBodyEmployee>> FindByPosition(string searchStr = "")
+        public async Task<IEnumerable<AssessBodyEmployee>> FindByPosition(string searchStr)
         {
-            var result = appDBContext.AssessBodyEmployees.Where(c => c.Position.Contains(searchStr));
-            return await result.ToListAsync();
+            if (String.IsNullOrWhiteSpace(searchStr))
+                return await GetAll();
+
+            return await appDBContext.AssessBodyEmployees
+                .Include(abe => abe.ContractorLegalEmployee)
+                    .ThenInclude(cle => cle.ContractorIndividual)
+                .Where(abe => abe.Position.Contains(searchStr))
+                .Select(abe => new AssessBodyEmployee
+                {
+                    Id = abe.Id,
+                    ContractorLegalEmployeeId = abe.ContractorLegalEmployeeId,
+                    ContractorLegalEmployee = new ContractorLegalEmployee
+                    {
+                        ContractorIndividual = new ContractorIndividual
+                        {
+                            FirstName = abe.ContractorLegalEmployee.ContractorIndividual.FirstName,
+                            LastName = abe.ContractorLegalEmployee.ContractorIndividual.LastName
+                        }
+                    },
+                    ExpertAuditorOrientation = abe.ExpertAuditorOrientation,
+                    Position = abe.Position
+                })
+                .ToListAsync();
         }
 
         public async Task<int> Create(AssessBodyEmployee assessBodyEmployee)
         {
             if (assessBodyEmployee == null)
-                throw new ArgumentNullException();
+                return 0;
 
             appDBContext.AssessBodyEmployees.Add(assessBodyEmployee);
             return await appDBContext.SaveChangesAsync();
@@ -86,7 +122,6 @@ namespace EffectCert.DAL.Implementations.Contractors
                 return 0;
 
             appDBContext.AssessBodyEmployees.Remove(assessBodyEmployee);
-
             return await appDBContext.SaveChangesAsync();
         }
     }

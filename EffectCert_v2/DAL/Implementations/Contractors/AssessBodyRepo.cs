@@ -60,13 +60,34 @@ namespace EffectCert.DAL.Implementations.Contractors
             if (String.IsNullOrWhiteSpace(searchStr))
                 return await GetAll();
 
-            var result = appDBContext.AssessBodies
+            return await appDBContext.AssessBodies
                 .Include(ab => ab.Address)
                 .Include(ab => ab.Attestate)
                 .Include(ab => ab.ContractorLegal)
-                .Where(c => c.Name.Contains(searchStr) || c.ShortName.Contains(searchStr));
-
-            return await result.ToListAsync();
+                .Where(ab => ab.Name.Contains(searchStr) || ab.ShortName.Contains(searchStr))
+                .Select(ab => new AssessBody
+                {
+                    Id = ab.Id,
+                    Name = ab.Name,
+                    ShortName = ab.ShortName,
+                    AddressId = ab.AddressId,
+                    AttestateId = ab.AttestateId,
+                    ContractorLegalId = ab.ContractorLegalId,
+                    Address = new Address
+                    {
+                        AddressStr = ab.Address.AddressStr,
+                        Country = ab.Address.Country
+                    },
+                    Attestate = new Attestate
+                    {
+                        Number = ab.Attestate.Number
+                    },
+                    ContractorLegal = new ContractorLegal
+                    {
+                        ShortName = ab.ContractorLegal.ShortName
+                    }
+                })
+                .ToListAsync();
         }
 
         public async Task<int> Create(AssessBody assessBody)
@@ -94,7 +115,6 @@ namespace EffectCert.DAL.Implementations.Contractors
                 return 0;
 
             appDBContext.AssessBodies.Remove(assessBody);
-
             return await appDBContext.SaveChangesAsync();
         }
     }

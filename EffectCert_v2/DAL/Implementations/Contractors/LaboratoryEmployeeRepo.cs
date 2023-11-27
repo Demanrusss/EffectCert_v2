@@ -38,7 +38,10 @@ namespace EffectCert.DAL.Implementations.Contractors
 
         public async Task<LaboratoryEmployee> Get(int id)
         {
-            return await appDBContext.LaboratoryEmployees.FirstOrDefaultAsync(a => a.Id == id) ?? new LaboratoryEmployee();
+            return await appDBContext.LaboratoryEmployees
+                .Include(le => le.ContractorLegalEmployee)
+                    .ThenInclude(cle => cle.ContractorIndividual)
+                .FirstOrDefaultAsync(a => a.Id == id) ?? new LaboratoryEmployee();
         }
 
         public async Task<ICollection<LaboratoryEmployee>> Find(string searchStr)
@@ -46,24 +49,44 @@ namespace EffectCert.DAL.Implementations.Contractors
             if (String.IsNullOrWhiteSpace(searchStr))
                 return await GetAll();
 
-            var result = from le in appDBContext.LaboratoryEmployees
-                         join cle in appDBContext.ContractorLegalEmployees on le.ContractorLegalEmployee.Id equals cle.Id
-                         join ci in appDBContext.ContractorIndividuals on cle.ContractorIndividual.Id equals ci.Id
-                         where ci.FirstName.Contains(searchStr) || ci.LastName.Contains(searchStr)
-                         select le;
-            return await result.ToListAsync();
+            return await appDBContext.LaboratoryEmployees
+                .Include(le => le.ContractorLegalEmployee)
+                    .ThenInclude(cle => cle.ContractorIndividual)
+                .Where(le => le.ContractorLegalEmployee.ContractorIndividual.FirstName.Contains(searchStr) 
+                             || le.ContractorLegalEmployee.ContractorIndividual.LastName.Contains(searchStr))
+                .Select(le => new LaboratoryEmployee
+                {
+                    Id = le.Id,
+                    ContractorLegalEmployeeId = le.ContractorLegalEmployeeId,
+                    ContractorLegalEmployee = new ContractorLegalEmployee
+                    {
+                        ContractorIndividual = new ContractorIndividual
+                        {
+                            LastName = le.ContractorLegalEmployee.ContractorIndividual.LastName,
+                            FirstName = le.ContractorLegalEmployee.ContractorIndividual.FirstName
+                        }
+                    },
+                    Position = le.Position
+                })
+                .ToListAsync();
         }
 
-        public async Task<ICollection<LaboratoryEmployee>> FindByPosition(string searchStr = "")
+        public async Task<ICollection<LaboratoryEmployee>> FindByPosition(string searchStr)
         {
-            var result = appDBContext.LaboratoryEmployees.Where(c => c.Position.Contains(searchStr));
-            return await result.ToListAsync();
+            if (String.IsNullOrWhiteSpace(searchStr))
+                return await GetAll();
+
+            return await appDBContext.LaboratoryEmployees
+                .Include(le => le.ContractorLegalEmployee)
+                    .ThenInclude(cle => cle.ContractorIndividual)
+                .Where(c => c.Position.Contains(searchStr))
+                .ToListAsync();
         }
 
         public async Task<int> Create(LaboratoryEmployee laboratoryEmployee)
         {
             if (laboratoryEmployee == null)
-                throw new ArgumentNullException();
+                return 0;
 
             appDBContext.LaboratoryEmployees.Add(laboratoryEmployee);
             return await appDBContext.SaveChangesAsync();
@@ -85,7 +108,6 @@ namespace EffectCert.DAL.Implementations.Contractors
                 return 0;
 
             appDBContext.LaboratoryEmployees.Remove(laboratoryEmployee);
-
             return await appDBContext.SaveChangesAsync();
         }
     }
