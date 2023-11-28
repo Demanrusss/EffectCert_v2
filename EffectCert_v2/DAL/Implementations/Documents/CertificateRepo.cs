@@ -36,7 +36,7 @@ namespace EffectCert.DAL.Implementations.Documents
         public async Task<int> Create(Certificate certificate)
         {
             if (certificate == null)
-                throw new ArgumentNullException();
+                return 0;
 
             appDBContext.Certificates.Add(certificate);
             return await appDBContext.SaveChangesAsync();
@@ -58,7 +58,6 @@ namespace EffectCert.DAL.Implementations.Documents
                 return 0;
 
             appDBContext.Certificates.Remove(certificate);
-
             return await appDBContext.SaveChangesAsync();
         }
     }

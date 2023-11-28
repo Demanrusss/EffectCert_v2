@@ -36,7 +36,7 @@ namespace EffectCert.DAL.Implementations.Documents
         public async Task<int> Create(Declaration declaration)
         {
             if (declaration == null)
-                throw new ArgumentNullException();
+                return 0;
 
             appDBContext.Declarations.Add(declaration);
             return await appDBContext.SaveChangesAsync();
@@ -58,7 +58,6 @@ namespace EffectCert.DAL.Implementations.Documents
                 return 0;
 
             appDBContext.Declarations.Remove(declaration);
-
             return await appDBContext.SaveChangesAsync();
         }
     }

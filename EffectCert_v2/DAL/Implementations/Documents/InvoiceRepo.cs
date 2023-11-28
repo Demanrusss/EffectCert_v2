@@ -38,7 +38,7 @@ namespace EffectCert.DAL.Implementations.Documents
         public async Task<int> Create(Invoice invoice)
         {
             if (invoice == null)
-                throw new ArgumentNullException();
+                return 0;
 
             appDBContext.Invoices.Add(invoice);
             return await appDBContext.SaveChangesAsync();
@@ -60,7 +60,6 @@ namespace EffectCert.DAL.Implementations.Documents
                 return 0;
 
             appDBContext.Invoices.Remove(invoice);
-
             return await appDBContext.SaveChangesAsync();
         }
     }

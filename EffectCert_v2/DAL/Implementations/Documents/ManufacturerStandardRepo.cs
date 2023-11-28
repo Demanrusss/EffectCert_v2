@@ -21,7 +21,8 @@ namespace EffectCert.DAL.Implementations.Documents
 
         public async Task<ManufacturerStandard> Get(int id)
         {
-            return await appDBContext.ManufacturerStandards.FirstOrDefaultAsync(a => a.Id == id) ?? new ManufacturerStandard();
+            return await appDBContext.ManufacturerStandards
+                .FirstOrDefaultAsync(a => a.Id == id) ?? new ManufacturerStandard();
         }
 
         public async Task<ICollection<ManufacturerStandard>> Find(string searchStr)
@@ -37,7 +38,7 @@ namespace EffectCert.DAL.Implementations.Documents
         public async Task<int> Create(ManufacturerStandard manufacturerStandard)
         {
             if (manufacturerStandard == null)
-                throw new ArgumentNullException();
+                return 0;
 
             appDBContext.ManufacturerStandards.Add(manufacturerStandard);
             return await appDBContext.SaveChangesAsync();
@@ -59,7 +60,6 @@ namespace EffectCert.DAL.Implementations.Documents
                 return 0;
 
             appDBContext.ManufacturerStandards.Remove(manufacturerStandard);
-
             return await appDBContext.SaveChangesAsync();
         }
     }

@@ -36,7 +36,7 @@ namespace EffectCert.DAL.Implementations.Documents
         public async Task<int> Create(GTD gTD)
         {
             if (gTD == null)
-                throw new ArgumentNullException();
+                return 0;
 
             appDBContext.GTDs.Add(gTD);
             return await appDBContext.SaveChangesAsync();
@@ -58,7 +58,6 @@ namespace EffectCert.DAL.Implementations.Documents
                 return 0;
 
             appDBContext.GTDs.Remove(gTD);
-
             return await appDBContext.SaveChangesAsync();
         }
     }

@@ -38,7 +38,7 @@ namespace EffectCert.DAL.Implementations.Documents
         public async Task<int> Create(TechReg techReg)
         {
             if (techReg == null)
-                throw new ArgumentNullException();
+                return 0;
 
             appDBContext.TechRegs.Add(techReg);
             return await appDBContext.SaveChangesAsync();
@@ -60,7 +60,6 @@ namespace EffectCert.DAL.Implementations.Documents
                 return 0;
 
             appDBContext.TechRegs.Remove(techReg);
-
             return await appDBContext.SaveChangesAsync();
         }
     }

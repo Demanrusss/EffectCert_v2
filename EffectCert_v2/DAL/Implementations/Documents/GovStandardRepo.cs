@@ -37,7 +37,7 @@ namespace EffectCert.DAL.Implementations.Documents
         public async Task<int> Create(GovStandard govStandard)
         {
             if (govStandard == null)
-                throw new ArgumentNullException();
+                return 0;
 
             appDBContext.GovStandards.Add(govStandard);
             return await appDBContext.SaveChangesAsync();
@@ -59,7 +59,6 @@ namespace EffectCert.DAL.Implementations.Documents
                 return 0;
 
             appDBContext.GovStandards.Remove(govStandard);
-
             return await appDBContext.SaveChangesAsync();
         }
     }

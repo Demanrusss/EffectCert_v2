@@ -43,14 +43,27 @@ namespace EffectCert.DAL.Implementations.Documents
             if (String.IsNullOrWhiteSpace(searchStr))
                 return await GetAll();
 
-            var result = appDBContext.TestProtocols.Where(c => c.Number.Contains(searchStr));
-            return await result.ToListAsync();
+            return await appDBContext.TestProtocols
+                .Include(tp => tp.Laboratory)
+                .Where(tp => tp.Number.Contains(searchStr))
+                .Select(tp => new TestProtocol
+                {
+                    Id = tp.Id,
+                    Date = tp.Date,
+                    Number = tp.Number,
+                    LaboratoryId = tp.LaboratoryId,
+                    Laboratory = new Laboratory
+                    {
+                        ShortName = tp.Laboratory.ShortName
+                    }
+                })
+                .ToListAsync();
         }
 
         public async Task<int> Create(TestProtocol testProtocol)
         {
             if (testProtocol == null)
-                throw new ArgumentNullException();
+                return 0;
 
             appDBContext.TestProtocols.Add(testProtocol);
             return await appDBContext.SaveChangesAsync();
@@ -72,7 +85,6 @@ namespace EffectCert.DAL.Implementations.Documents
                 return 0;
 
             appDBContext.TestProtocols.Remove(testProtocol);
-
             return await appDBContext.SaveChangesAsync();
         }
     }

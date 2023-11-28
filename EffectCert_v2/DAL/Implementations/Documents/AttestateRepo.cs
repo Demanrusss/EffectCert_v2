@@ -36,7 +36,7 @@ namespace EffectCert.DAL.Implementations.Documents
         public async Task<int> Create(Attestate attestate)
         {
             if (attestate == null)
-                throw new ArgumentNullException();
+                return 0;
 
             appDBContext.Attestates.Add(attestate);
             return await appDBContext.SaveChangesAsync();
@@ -58,7 +58,6 @@ namespace EffectCert.DAL.Implementations.Documents
                 return 0;
 
             appDBContext.Attestates.Remove(attestate);
-
             return await appDBContext.SaveChangesAsync();
         }
     }

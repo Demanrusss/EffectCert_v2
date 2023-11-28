@@ -38,7 +38,7 @@ namespace EffectCert.DAL.Implementations.Documents
         public async Task<int> Create(Contract contract)
         {
             if (contract == null)
-                throw new ArgumentNullException();
+                return 0;
 
             appDBContext.Contracts.Add(contract);
             return await appDBContext.SaveChangesAsync();
@@ -60,7 +60,6 @@ namespace EffectCert.DAL.Implementations.Documents
                 return 0;
 
             appDBContext.Contracts.Remove(contract);
-
             return await appDBContext.SaveChangesAsync();
         }
     }
