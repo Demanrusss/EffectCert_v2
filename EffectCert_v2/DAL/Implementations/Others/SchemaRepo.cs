@@ -36,7 +36,7 @@ namespace EffectCert.DAL.Implementations.Others
         public async Task<int> Create(Schema schema)
         {
             if (schema == null)
-                throw new ArgumentNullException();
+                return 0;
 
             appDBContext.Schemas.Add(schema);
             return await appDBContext.SaveChangesAsync();
@@ -58,7 +58,6 @@ namespace EffectCert.DAL.Implementations.Others
                 return 0;
 
             appDBContext.Schemas.Remove(schema);
-
             return await appDBContext.SaveChangesAsync();
         }
     }

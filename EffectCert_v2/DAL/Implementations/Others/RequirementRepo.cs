@@ -36,7 +36,7 @@ namespace EffectCert.DAL.Implementations.Others
         public async Task<int> Create(Requirement requirement)
         {
             if (requirement == null)
-                throw new ArgumentNullException();
+                return 0;
 
             appDBContext.Requirements.Add(requirement);
             return await appDBContext.SaveChangesAsync();
@@ -58,7 +58,6 @@ namespace EffectCert.DAL.Implementations.Others
                 return 0;
 
             appDBContext.Requirements.Remove(requirement);
-
             return await appDBContext.SaveChangesAsync();
         }
     }

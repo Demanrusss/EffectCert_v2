@@ -47,19 +47,32 @@ namespace EffectCert.DAL.Implementations.Others
             if (String.IsNullOrWhiteSpace(searchStr))
                 return await GetAll();
 
-            var item2 = appDBContext.SelectedSampleQuantities.First().ProductQuantity.Id;
-
-            var result = from ssq in appDBContext.SelectedSampleQuantities
-                         join p in appDBContext.ProductQuantities on ssq.ProductQuantity.Id equals p.Id
-                         where p.Product.Name.Contains(searchStr)
-                         select ssq;
-            return await result.ToListAsync();
+            return await appDBContext.SelectedSampleQuantities
+                .Include(ssq => ssq.MeasurementUnit)
+                .Include(ssq => ssq.ProductQuantity)
+                .Where(ssq => ssq.ProductQuantity.Product.Name.Contains(@searchStr))
+                .Select(ssq => new SelectedSampleQuantity
+                {
+                    Id = ssq.Id,
+                    MeasurementUnitId = ssq.MeasurementUnitId,
+                    MeasurementUnit = new MeasurementUnit
+                    {
+                        ShortName = ssq.MeasurementUnit.ShortName
+                    },
+                    ProductQuantityId = ssq.ProductQuantityId,
+                    ProductQuantity = new ProductQuantity
+                    {
+                        Quantity = ssq.ProductQuantity.Quantity
+                    },
+                    Quantity = ssq.Quantity
+                })
+                .ToListAsync();
         }
 
         public async Task<int> Create(SelectedSampleQuantity selectedSampleQuantity)
         {
             if (selectedSampleQuantity == null)
-                throw new ArgumentNullException();
+                return 0;
 
             appDBContext.SelectedSampleQuantities.Add(selectedSampleQuantity);
             return await appDBContext.SaveChangesAsync();
@@ -81,7 +94,6 @@ namespace EffectCert.DAL.Implementations.Others
                 return 0;
 
             appDBContext.SelectedSampleQuantities.Remove(selectedSampleQuantity);
-
             return await appDBContext.SaveChangesAsync();
         }
     }

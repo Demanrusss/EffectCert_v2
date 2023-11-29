@@ -37,7 +37,7 @@ namespace EffectCert.DAL.Implementations.Others
         public async Task<int> Create(MeasurementUnit measurementUnit)
         {
             if (measurementUnit == null)
-                throw new ArgumentNullException();
+                return 0;
 
             appDBContext.MeasurementUnits.Add(measurementUnit);
             return await appDBContext.SaveChangesAsync();
@@ -59,7 +59,6 @@ namespace EffectCert.DAL.Implementations.Others
                 return 0;
 
             appDBContext.MeasurementUnits.Remove(measurementUnit);
-
             return await appDBContext.SaveChangesAsync();
         }
     }

@@ -2,6 +2,8 @@
 using EffectCert.DAL.Entities.Main;
 using EffectCert.DAL.Interfaces;
 using EffectCert.DAL.DBContext;
+using EffectCert.DAL.Entities.Contractors;
+using EffectCert.DAL.Entities.Documents;
 
 namespace EffectCert.DAL.Implementations.Main
 {
@@ -16,7 +18,39 @@ namespace EffectCert.DAL.Implementations.Main
 
         public async Task<ICollection<ExpertDecision>> GetAll()
         {
-            return await appDBContext.ExpertDecisions.ToListAsync();
+            return await appDBContext.ExpertDecisions
+                .Include(ed => ed.Application)
+                .Include(ed => ed.Expert)
+                    .ThenInclude(e => e.ContractorLegalEmployee)
+                        .ThenInclude(cle => cle.ContractorIndividual)
+                .Include(ed => ed.TestProtocols)
+                .Select(ed => new ExpertDecision
+                {
+                    Id = ed.Id,
+                    ApplicationId = ed.ApplicationId,
+                    Application = new Application
+                    {
+                        Number = ed.Application.Number
+                    },
+                    ExpertId = ed.ExpertId,
+                    Expert = new AssessBodyEmployee
+                    {
+                        ContractorLegalEmployee = new ContractorLegalEmployee
+                        {
+                            ContractorIndividual = new ContractorIndividual
+                            {
+                                LastName = ed.Expert.ContractorLegalEmployee.ContractorIndividual.LastName,
+                                FirstName = ed.Expert.ContractorLegalEmployee.ContractorIndividual.FirstName
+                            }
+                        }
+                    },
+                    TestProtocols = ed.TestProtocols.Select(tp => new TestProtocol
+                    {
+                        Number = tp.Number,
+                        Date = tp.Date,
+                    }).ToList()
+                })
+                .ToListAsync();
         }
 
         public async Task<ExpertDecision> Get(int id)
@@ -29,15 +63,46 @@ namespace EffectCert.DAL.Implementations.Main
             if (String.IsNullOrWhiteSpace(searchStr))
                 return await GetAll();
 
-            var result = appDBContext.ExpertDecisions.Where(c => c.Number.Contains(searchStr));
-
-            return await result.ToListAsync();
+            return await appDBContext.ExpertDecisions
+                .Include(ed => ed.Application)
+                .Include(ed => ed.Expert)
+                    .ThenInclude(e => e.ContractorLegalEmployee)
+                        .ThenInclude(cle => cle.ContractorIndividual)
+                .Include(ed => ed.TestProtocols)
+                .Where(ed => ed.Number.Contains(searchStr))
+                .Select(ed => new ExpertDecision
+                {
+                    Id = ed.Id,
+                    ApplicationId = ed.ApplicationId,
+                    Application = new Application
+                    {
+                        Number = ed.Application.Number
+                    },
+                    ExpertId = ed.ExpertId,
+                    Expert = new AssessBodyEmployee
+                    {
+                        ContractorLegalEmployee = new ContractorLegalEmployee
+                        {
+                            ContractorIndividual = new ContractorIndividual
+                            {
+                                LastName = ed.Expert.ContractorLegalEmployee.ContractorIndividual.LastName,
+                                FirstName = ed.Expert.ContractorLegalEmployee.ContractorIndividual.FirstName
+                            }
+                        }
+                    },
+                    TestProtocols = ed.TestProtocols.Select(tp => new TestProtocol
+                    {
+                        Number = tp.Number,
+                        Date = tp.Date,
+                    }).ToList()
+                })
+                .ToListAsync();
         }
 
         public async Task<int> Create(ExpertDecision expertDecision)
         {
             if (expertDecision == null)
-                throw new ArgumentNullException();
+                return 0;
 
             appDBContext.ExpertDecisions.Add(expertDecision);
             return await appDBContext.SaveChangesAsync();
@@ -59,7 +124,6 @@ namespace EffectCert.DAL.Implementations.Main
                 return 0;
 
             appDBContext.ExpertDecisions.Remove(expertDecision);
-
             return await appDBContext.SaveChangesAsync();
         }
     }

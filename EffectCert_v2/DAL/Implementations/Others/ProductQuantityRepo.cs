@@ -16,7 +16,26 @@ namespace EffectCert.DAL.Implementations.Others
 
         public async Task<ICollection<ProductQuantity>> GetAll()
         {
-            return await appDBContext.ProductQuantities.ToListAsync();
+            return await appDBContext.ProductQuantities
+                .Include(pq => pq.Product)
+                .Include(pq => pq.MeasurementUnit)
+                .Select(pq => new ProductQuantity
+                {
+                    Id = pq.Id,
+                    ProductId = pq.ProductId,
+                    Product = new Product
+                    {
+                        Name = pq.Product.Name
+                    },
+                    Quantity = pq.Quantity,
+                    MeasurementUnitId = pq.MeasurementUnitId,
+                    MeasurementUnit = new MeasurementUnit
+                    {
+                        ShortName = pq.MeasurementUnit.ShortName
+                    },
+                    MadeDate = pq.MadeDate
+                })
+                .ToListAsync();
         }
 
         public async Task<ProductQuantity> Get(int id)
@@ -29,17 +48,33 @@ namespace EffectCert.DAL.Implementations.Others
             if (String.IsNullOrWhiteSpace(searchStr))
                 return await GetAll();
 
-            var result = from pq in appDBContext.ProductQuantities
-                         join p in appDBContext.Products on pq.Product.Id equals p.Id
-                         where p.Name.Contains(searchStr)
-                         select pq;
-            return await result.ToListAsync();
+            return await appDBContext.ProductQuantities
+                .Include(pq => pq.Product)
+                .Include(pq => pq.MeasurementUnit)
+                .Where(pq => pq.Product.Name.Contains(searchStr))
+                .Select(pq => new ProductQuantity
+                {
+                    Id = pq.Id,
+                    ProductId = pq.ProductId,
+                    Product = new Product
+                    {
+                        Name = pq.Product.Name
+                    },
+                    Quantity = pq.Quantity,
+                    MeasurementUnitId = pq.MeasurementUnitId,
+                    MeasurementUnit = new MeasurementUnit
+                    {
+                        ShortName = pq.MeasurementUnit.ShortName
+                    },
+                    MadeDate = pq.MadeDate
+                })
+                .ToListAsync();
         }
 
         public async Task<int> Create(ProductQuantity productQuantity)
         {
             if (productQuantity == null)
-                throw new ArgumentNullException();
+                return 0;
 
             appDBContext.ProductQuantities.Add(productQuantity);
             return await appDBContext.SaveChangesAsync();
@@ -61,7 +96,6 @@ namespace EffectCert.DAL.Implementations.Others
                 return 0;
 
             appDBContext.ProductQuantities.Remove(productQuantity);
-
             return await appDBContext.SaveChangesAsync();
         }
     }

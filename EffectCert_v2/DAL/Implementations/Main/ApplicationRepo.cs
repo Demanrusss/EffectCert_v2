@@ -2,6 +2,8 @@
 using EffectCert.DAL.Entities.Main;
 using EffectCert.DAL.Interfaces;
 using EffectCert.DAL.DBContext;
+using EffectCert.DAL.Entities.Contractors;
+using EffectCert.DAL.Entities.Others;
 
 namespace EffectCert.DAL.Implementations.Main
 {
@@ -16,7 +18,31 @@ namespace EffectCert.DAL.Implementations.Main
 
         public async Task<ICollection<Application>> GetAll()
         {
-            return await appDBContext.Applications.ToListAsync();
+            return await appDBContext.Applications
+                .Include(a => a.ContractorLegal)
+                .Include(a => a.Schema)
+                .Include(a => a.Products)
+                .Select(a => new Application
+                {
+                    Id = a.Id,
+                    Number = a.Number,
+                    Date = a.Date,
+                    ContractorLegalId = a.ContractorLegalId,
+                    ContractorLegal = new ContractorLegal
+                    {
+                        ShortName = a.ContractorLegal.ShortName
+                    },
+                    SchemaId = a.SchemaId,
+                    Schema = new Schema
+                    {
+                        Name = a.Schema.Name
+                    },
+                    Products = a.Products.Select(p => new Product
+                    {
+                        Name = p.Name
+                    }).ToList()
+                })
+                .ToListAsync();
         }
 
         public async Task<Application> Get(int id)
@@ -29,15 +55,37 @@ namespace EffectCert.DAL.Implementations.Main
             if (String.IsNullOrWhiteSpace(searchStr))
                 return await GetAll();
 
-            var result = appDBContext.Applications.Where(c => c.Number.Contains(searchStr));
-
-            return await result.ToListAsync();
+            return await appDBContext.Applications
+                .Include(a => a.ContractorLegal)
+                .Include(a => a.Schema)
+                .Include(a => a.Products)
+                .Where(a => a.Number.Contains(searchStr))
+                .Select(a => new Application
+                {
+                    Number = a.Number,
+                    Date = a.Date,
+                    ContractorLegalId = a.ContractorLegalId,
+                    ContractorLegal = new ContractorLegal
+                    {
+                        ShortName = a.ContractorLegal.ShortName
+                    },
+                    SchemaId = a.SchemaId,
+                    Schema = new Schema
+                    {
+                        Name = a.Schema.Name
+                    },
+                    Products = a.Products.Select(p => new Product
+                    {
+                        Name = p.Name
+                    }).ToList()
+                })
+                .ToListAsync();
         }
 
         public async Task<int> Create(Application application)
         {
             if (application == null)
-                throw new ArgumentNullException();
+                return 0;
 
             appDBContext.Applications.Add(application);
             return await appDBContext.SaveChangesAsync();
@@ -59,7 +107,6 @@ namespace EffectCert.DAL.Implementations.Main
                 return 0;
 
             appDBContext.Applications.Remove(application);
-
             return await appDBContext.SaveChangesAsync();
         }
     }

@@ -2,6 +2,7 @@
 using EffectCert.DAL.Entities.Main;
 using EffectCert.DAL.Interfaces;
 using EffectCert.DAL.DBContext;
+using EffectCert.DAL.Entities.Documents;
 
 namespace EffectCert.DAL.Implementations.Main
 {
@@ -16,7 +17,47 @@ namespace EffectCert.DAL.Implementations.Main
 
         public async Task<ICollection<IssueDecision>> GetAll()
         {
-            return await appDBContext.IssueDecisions.ToListAsync();
+            return await appDBContext.IssueDecisions
+                .Include(id => id.Application)
+                .Include(id => id.Certificate)
+                .Include(id => id.Declaration)
+                .Include(id => id.ExpertDecision)
+                .Include(id => id.Recommendation)
+                .Select(id => new IssueDecision
+                {
+                    Id = id.Id,
+                    ApplicationId = id.ApplicationId,
+                    Application = new Application
+                    {
+                        Number = id.Application.Number,
+                        Date = id.Application.Date
+                    },
+                    CertificateId = id.CertificateId,
+                    Certificate = new Certificate
+                    {
+                        Number = id.Certificate!.Number,
+                        Date = id.Certificate!.Date
+                    },
+                    DeclarationId = id.DeclarationId,
+                    Declaration = new Declaration
+                    {
+                        Number = id.Declaration!.Number,
+                        Date = id.Declaration!.Date
+                    },
+                    ExpertDecisionId = id.ExpertDecisionId,
+                    ExpertDecision = new ExpertDecision
+                    {
+                        Number = id.ExpertDecision.Number,
+                        Date = id.ExpertDecision.Date
+                    },
+                    RecommendationId = id.RecommendationId,
+                    Recommendation = new Recommendation
+                    {
+                        Number = id.Recommendation.Number,
+                        Date = id.Recommendation.Date
+                    }
+                })
+                .ToListAsync();
         }
 
         public async Task<IssueDecision> Get(int id)
@@ -29,15 +70,54 @@ namespace EffectCert.DAL.Implementations.Main
             if (String.IsNullOrWhiteSpace(searchStr))
                 return await GetAll();
 
-            var result = appDBContext.IssueDecisions.Where(c => c.Number.Contains(searchStr));
-
-            return await result.ToListAsync();
+            return await appDBContext.IssueDecisions
+                .Include(id => id.Application)
+                .Include(id => id.Certificate)
+                .Include(id => id.Declaration)
+                .Include(id => id.ExpertDecision)
+                .Include(id => id.Recommendation)
+                .Where(id => id.Number.Contains(searchStr))
+                .Select(id => new IssueDecision
+                {
+                    Id = id.Id,
+                    ApplicationId = id.ApplicationId,
+                    Application = new Application
+                    {
+                        Number = id.Application.Number,
+                        Date = id.Application.Date
+                    },
+                    CertificateId = id.CertificateId,
+                    Certificate = new Certificate
+                    {
+                        Number = id.Certificate!.Number,
+                        Date = id.Certificate!.Date
+                    },
+                    DeclarationId = id.DeclarationId,
+                    Declaration = new Declaration
+                    {
+                        Number = id.Declaration!.Number,
+                        Date = id.Declaration!.Date
+                    },
+                    ExpertDecisionId = id.ExpertDecisionId,
+                    ExpertDecision = new ExpertDecision
+                    {
+                        Number = id.ExpertDecision.Number,
+                        Date = id.ExpertDecision.Date
+                    },
+                    RecommendationId = id.RecommendationId,
+                    Recommendation = new Recommendation
+                    {
+                        Number = id.Recommendation.Number,
+                        Date = id.Recommendation.Date
+                    }
+                })
+                .ToListAsync();
         }
 
         public async Task<int> Create(IssueDecision issueDecision)
         {
             if (issueDecision == null)
-                throw new ArgumentNullException();
+                return 0;
 
             appDBContext.IssueDecisions.Add(issueDecision);
             return await appDBContext.SaveChangesAsync();
@@ -59,7 +139,6 @@ namespace EffectCert.DAL.Implementations.Main
                 return 0;
 
             appDBContext.IssueDecisions.Remove(issueDecision);
-
             return await appDBContext.SaveChangesAsync();
         }
     }

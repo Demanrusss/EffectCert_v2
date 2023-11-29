@@ -60,15 +60,45 @@ namespace EffectCert.DAL.Implementations.Main
             if (String.IsNullOrWhiteSpace(searchStr))
                 return await GetAll();
 
-            var result = appDBContext.Recommendations.Where(c => c.Number.Contains(searchStr));
-
-            return await result.ToListAsync();
+            return await appDBContext.Recommendations
+                .Include(r => r.Application)
+                .Include(r => r.AppDecision)
+                .Include(r => r.ExpertDecision)
+                .Include(r => r.SelectProductsAct)
+                .Where(r => r.Number.Contains(searchStr))
+                .Select(r => new Recommendation
+                {
+                    Id = r.Id,
+                    ApplicationId = r.ApplicationId,
+                    Application = new Application
+                    {
+                        Number = r.Application.Number
+                    },
+                    SelectProductsActId = r.SelectProductsActId,
+                    SelectProductsAct = new SelectProductsAct
+                    {
+                        Number = r.SelectProductsAct.Number
+                    },
+                    AppDecisionId = r.AppDecisionId,
+                    AppDecision = new AppDecision
+                    {
+                        Number = r.AppDecision.Number
+                    },
+                    ExpertDecisionId = r.AppDecisionId,
+                    ExpertDecision = new ExpertDecision
+                    {
+                        Number = r.AppDecision.Number
+                    },
+                    Date = r.Date,
+                    Number = r.Number
+                })
+                .ToListAsync();
         }
 
         public async Task<int> Create(Recommendation recommendation)
         {
             if (recommendation == null)
-                throw new ArgumentNullException();
+                return 0;
 
             appDBContext.Recommendations.Add(recommendation);
             return await appDBContext.SaveChangesAsync();
@@ -90,7 +120,6 @@ namespace EffectCert.DAL.Implementations.Main
                 return 0;
 
             appDBContext.Recommendations.Remove(recommendation);
-
             return await appDBContext.SaveChangesAsync();
         }
     }

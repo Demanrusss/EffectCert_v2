@@ -16,7 +16,30 @@ namespace EffectCert.DAL.Implementations.Main
 
         public async Task<ICollection<AppDecision>> GetAll()
         {
-            return await appDBContext.AppDecisions.ToListAsync();
+            return await appDBContext.AppDecisions
+                .Include(ad => ad.ActionPlan)
+                .Include(ad => ad.Application)
+                .Select(ad => new AppDecision
+                {
+                    Id = ad.Id,
+                    Number = ad.Number,
+                    Date = ad.Date,
+                    ActionPlanId = ad.ActionPlanId,
+                    ActionPlan = new ActionPlan
+                    {
+                        Number = ad.ActionPlan.Number
+                    },
+                    ApplicationId = ad.ApplicationId,
+                    Application = new Application
+                    {
+                        Number = ad.Application.Number
+                    },
+                    DeclarationNumber = ad.DeclarationNumber,
+                    DeclarationDate = ad.DeclarationDate,
+                    AssessContractNumber = ad.AssessContractNumber,
+                    AssessContractDate = ad.AssessContractDate
+                })
+                .ToListAsync();
         }
 
         public async Task<AppDecision> Get(int id)
@@ -29,15 +52,36 @@ namespace EffectCert.DAL.Implementations.Main
             if (String.IsNullOrWhiteSpace(searchStr))
                 return await GetAll();
 
-            var result = appDBContext.AppDecisions.Where(c => c.Number.Contains(searchStr));
-
-            return await result.ToListAsync();
+            return await appDBContext.AppDecisions
+                .Include(ad => ad.ActionPlan)
+                .Include(ad => ad.Application)
+                .Where(ad => ad.Number.Contains(searchStr))
+                .Select(ad => new AppDecision
+                {
+                    Number = ad.Number,
+                    Date = ad.Date,
+                    ActionPlanId = ad.ActionPlanId,
+                    ActionPlan = new ActionPlan
+                    {
+                        Number = ad.ActionPlan.Number
+                    },
+                    ApplicationId = ad.ApplicationId,
+                    Application = new Application
+                    {
+                        Number = ad.Application.Number
+                    },
+                    DeclarationNumber = ad.DeclarationNumber,
+                    DeclarationDate = ad.DeclarationDate,
+                    AssessContractNumber = ad.AssessContractNumber,
+                    AssessContractDate = ad.AssessContractDate
+                })
+                .ToListAsync();
         }
 
         public async Task<int> Create(AppDecision appDecision)
         {
             if (appDecision == null)
-                throw new ArgumentNullException();
+                return 0;
 
             appDBContext.AppDecisions.Add(appDecision);
             return await appDBContext.SaveChangesAsync();
@@ -59,7 +103,6 @@ namespace EffectCert.DAL.Implementations.Main
                 return 0;
 
             appDBContext.AppDecisions.Remove(appDecision);
-
             return await appDBContext.SaveChangesAsync();
         }
     }

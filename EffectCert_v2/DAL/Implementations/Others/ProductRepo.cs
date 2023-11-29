@@ -44,38 +44,120 @@ namespace EffectCert.DAL.Implementations.Others
             if (String.IsNullOrWhiteSpace(searchStr))
                 return await GetAll();
 
-            var result = appDBContext.Products.Where(c => c.Name.Contains(searchStr));
-            return await result.ToListAsync();
+            return await appDBContext.Products
+                .Include(p => p.Manufacturer)
+                .Where(p => p.Name.Contains(searchStr))
+                .Select(p => new Product
+                {
+                    ManufacturerId = p.ManufacturerId,
+                    Manufacturer = new ContractorLegal
+                    {
+                        ShortName = p.Manufacturer.ShortName
+                    },
+                    Id = p.Id,
+                    Model = p.Model,
+                    Name = p.Name,
+                    TNVED = p.TNVED
+                })
+                .ToListAsync();
         }
 
-        public async Task<ICollection<Product>> FindByGroupName(string searchStr = "")
+        public async Task<ICollection<Product>> FindByGroupName(string searchStr)
         {
-            var result = appDBContext.Products.Where(c => c.GroupName != null ? c.GroupName.Contains(searchStr) : false);
-            return await result.ToListAsync();
+            if (String.IsNullOrWhiteSpace(searchStr))
+                return await GetAll();
+
+            return await appDBContext.Products
+                .Include(p => p.Manufacturer)
+                .Where(p => p.GroupName!.Contains(searchStr))
+                .Select(p => new Product
+                {
+                    ManufacturerId = p.ManufacturerId,
+                    Manufacturer = new ContractorLegal
+                    {
+                        ShortName = p.Manufacturer.ShortName
+                    },
+                    Id = p.Id,
+                    Model = p.Model,
+                    Name = p.Name,
+                    TNVED = p.TNVED
+                })
+                .ToListAsync();
         }
 
-        public async Task<ICollection<Product>> FindByType(string searchStr = "")
+        public async Task<ICollection<Product>> FindByType(string searchStr)
         {
-            var result = appDBContext.Products.Where(c => c.Type != null ? c.Type.Contains(searchStr) : false);
-            return await result.ToListAsync();
+            if (String.IsNullOrWhiteSpace(searchStr))
+                return await GetAll();
+
+            return await appDBContext.Products
+                .Include(p => p.Manufacturer)
+                .Where(p => p.Type!.Contains(searchStr))
+                .Select(p => new Product
+                {
+                    ManufacturerId = p.ManufacturerId,
+                    Manufacturer = new ContractorLegal
+                    {
+                        ShortName = p.Manufacturer.ShortName
+                    },
+                    Id = p.Id,
+                    Model = p.Model,
+                    Name = p.Name,
+                    TNVED = p.TNVED
+                })
+                .ToListAsync();
         }
 
-        public async Task<ICollection<Product>> FindByModel(string searchStr = "")
+        public async Task<ICollection<Product>> FindByModel(string searchStr)
         {
-            var result = appDBContext.Products.Where(c => c.Model != null ? c.Model.Contains(searchStr) : false);
-            return await result.ToListAsync();
+            if (String.IsNullOrWhiteSpace(searchStr))
+                return await GetAll();
+
+            return await appDBContext.Products
+                .Include(p => p.Manufacturer)
+                .Where(p => p.Model!.Contains(searchStr))
+                .Select(p => new Product
+                {
+                    ManufacturerId = p.ManufacturerId,
+                    Manufacturer = new ContractorLegal
+                    {
+                        ShortName = p.Manufacturer.ShortName
+                    },
+                    Id = p.Id,
+                    Model = p.Model,
+                    Name = p.Name,
+                    TNVED = p.TNVED
+                })
+                .ToListAsync();
         }
 
-        public async Task<ICollection<Product>> FindByTradeMark(string searchStr = "")
+        public async Task<ICollection<Product>> FindByTradeMark(string searchStr)
         {
-            var result = appDBContext.Products.Where(c => c.TradeMark != null ? c.TradeMark.Contains(searchStr) : false);
-            return await result.ToListAsync();
+            if (String.IsNullOrWhiteSpace(searchStr))
+                return await GetAll();
+
+            return await appDBContext.Products
+                .Include(p => p.Manufacturer)
+                .Where(p => p.TradeMark!.Contains(searchStr))
+                .Select(p => new Product
+                {
+                    ManufacturerId = p.ManufacturerId,
+                    Manufacturer = new ContractorLegal
+                    {
+                        ShortName = p.Manufacturer.ShortName
+                    },
+                    Id = p.Id,
+                    Model = p.Model,
+                    Name = p.Name,
+                    TNVED = p.TNVED
+                })
+                .ToListAsync();
         }
 
         public async Task<int> Create(Product product)
         {
             if (product == null)
-                throw new ArgumentNullException();
+                return 0;
 
             appDBContext.Products.Add(product);
             return await appDBContext.SaveChangesAsync();
@@ -97,7 +179,6 @@ namespace EffectCert.DAL.Implementations.Others
                 return 0;
 
             appDBContext.Products.Remove(product);
-
             return await appDBContext.SaveChangesAsync();
         }
     }

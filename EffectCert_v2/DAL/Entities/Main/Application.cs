@@ -18,4 +18,10 @@ namespace EffectCert.DAL.Entities.Main
         public Schema Schema { get; set; } = null!;
         public ICollection<Product> Products { get; set; } = new HashSet<Product>();
     }
+
+    public class ApplicationsProducts
+    {
+        public int ApplicationId { get; set; }
+        public int ProductId { get; set; }
+    }
 }

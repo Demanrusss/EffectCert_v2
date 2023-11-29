@@ -36,7 +36,7 @@ namespace EffectCert.DAL.Implementations.Others
         public async Task<int> Create(Inconsistence inconsistence)
         {
             if (inconsistence == null)
-                throw new ArgumentNullException();
+                return 0;
 
             appDBContext.Inconsistences.Add(inconsistence);
             return await appDBContext.SaveChangesAsync();
@@ -58,7 +58,6 @@ namespace EffectCert.DAL.Implementations.Others
                 return 0;
 
             appDBContext.Inconsistences.Remove(inconsistence);
-
             return await appDBContext.SaveChangesAsync();
         }
     }

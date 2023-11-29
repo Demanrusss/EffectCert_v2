@@ -35,6 +35,7 @@ namespace EffectCert.DAL.Implementations.Main
                     .ThenInclude(spe => spe!.ContractorIndividual)
                 .Select(ap => new ActionPlan
                 {
+                    Id = ap.Id,
                     AppAnalizeExpertId = ap.AppAnalizeExpertId,
                     AppAnalizeExpert = new AssessBodyEmployee
                     {

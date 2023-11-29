@@ -1,4 +1,5 @@
 ﻿using EffectCert.DAL.Entities.Contractors;
+using EffectCert.DAL.Entities.Main;
 
 namespace EffectCert.DAL.Entities.Others
 {
@@ -14,5 +15,7 @@ namespace EffectCert.DAL.Entities.Others
         public int ManufacturerId { get; set; }
         public ContractorLegal Manufacturer { get; set; } = null!;
         public string TNVED { get; set; } = null!;
+
+        public virtual ICollection<Application> Applications { get; set; } = new List<Application>();
     }
 }
