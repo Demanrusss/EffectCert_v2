@@ -3,7 +3,7 @@ BEGIN
 
 CREATE TABLE ActionPlans
 (
-	[Id] INT NOT NULL PRIMARY KEY,
+	[Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     [Number] NVARCHAR(32) NOT NULL,
 	[Date] DATETIME NOT NULL,
     [ApplicationId] INT NOT NULL,
@@ -21,7 +21,7 @@ BEGIN
 
 CREATE TABLE AppDecisions
 (
-	[Id] INT NOT NULL PRIMARY KEY,
+	[Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     [Number] NVARCHAR(32) NOT NULL,
 	[Date] DATETIME NOT NULL,
     [ApplicationId] INT NOT NULL,
@@ -45,7 +45,7 @@ BEGIN
 
 CREATE TABLE Applications
 (
-	[Id] INT NOT NULL PRIMARY KEY,
+	[Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     [Number] NVARCHAR(32) NOT NULL,
     [Date] DATETIME NOT NULL,
     [AssessBodyId] INT NOT NULL,
@@ -62,7 +62,7 @@ BEGIN
 
 CREATE TABLE ExpertDecisions
 (
-	[Id] INT NOT NULL PRIMARY KEY,
+	[Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     [Number] NVARCHAR(32) NOT NULL,
 	[Date] DATETIME NOT NULL,
     [ApplicationId] INT NOT NULL,
@@ -80,7 +80,7 @@ BEGIN
 
 CREATE TABLE IssueDecisions
 (
-	[Id] INT NOT NULL PRIMARY KEY,
+	[Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     [Number] NVARCHAR(32) NOT NULL,
 	[Date] DATETIME NOT NULL,
     [ApplicationId] INT NOT NULL,
@@ -97,11 +97,11 @@ BEGIN
 
 CREATE TABLE Recommendations
 (
-	[Id] INT NOT NULL PRIMARY KEY,
+	[Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     [Number] NVARCHAR(32) NOT NULL,
 	[Date] DATETIME NOT NULL,
     [ApplicationId] INT NOT NULL,
-    [DecisionId] INT NOT NULL,
+    [AppDecisionId] INT NOT NULL,
     [SelectProductsActId] INT NOT NULL,
     [ExpertDecisionId] INT NOT NULL
 )
@@ -113,7 +113,7 @@ BEGIN
 
 CREATE TABLE SelectProductsActs
 (
-	[Id] INT NOT NULL PRIMARY KEY,
+	[Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     [Number] NVARCHAR(32) NOT NULL,
 	[Date] DATETIME NOT NULL,
     [ApplicationId] INT NOT NULL,
