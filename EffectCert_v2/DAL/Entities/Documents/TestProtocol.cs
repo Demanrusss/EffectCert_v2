@@ -1,4 +1,5 @@
 ﻿using EffectCert.DAL.Entities.Contractors;
+using EffectCert.DAL.Entities.Main;
 
 namespace EffectCert.DAL.Entities.Documents
 {
@@ -9,5 +10,7 @@ namespace EffectCert.DAL.Entities.Documents
         public DateTime Date { get; set; }
         public int LaboratoryId { get; set; }
         public Laboratory Laboratory { get; set; } = null!;
+
+        public virtual ICollection<ExpertDecision> ExpertDecisions { get; set; }
     }
 }

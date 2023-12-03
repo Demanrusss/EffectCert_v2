@@ -62,6 +62,16 @@ namespace EffectCert.DAL.DBContext
                 .HasMany(a => a.Products)
                 .WithMany(p => p.Applications)
                 .UsingEntity<ApplicationsProducts>();
+
+            modelBuilder.Entity<ExpertDecision>()
+                .HasMany(ed => ed.TestProtocols)
+                .WithMany(tp => tp.ExpertDecisions)
+                .UsingEntity<ExpertDecisionsTestProtocols>();
+
+            modelBuilder.Entity<SelectProductsAct>()
+                .HasMany(spa => spa.SelectedProducts)
+                .WithMany(sp => sp.SelectProductsActs)
+                .UsingEntity<SelectProductsActsSelectedSampleQuantities>();
         }
     }
 }

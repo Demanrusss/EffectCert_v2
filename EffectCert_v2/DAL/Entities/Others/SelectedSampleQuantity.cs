@@ -1,4 +1,6 @@
-﻿namespace EffectCert.DAL.Entities.Others
+﻿using EffectCert.DAL.Entities.Main;
+
+namespace EffectCert.DAL.Entities.Others
 {
     public class SelectedSampleQuantity : IEntity
     {
@@ -8,5 +10,7 @@
         public double Quantity { get; set; }
         public int MeasurementUnitId { get; set; }
         public MeasurementUnit MeasurementUnit { get; set; } = null!;
+
+        public virtual ICollection<SelectProductsAct> SelectProductsActs { get; set; } = new HashSet<SelectProductsAct>();
     }
 }

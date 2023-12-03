@@ -16,6 +16,6 @@ namespace EffectCert.DAL.Entities.Others
         public ContractorLegal Manufacturer { get; set; } = null!;
         public string TNVED { get; set; } = null!;
 
-        public virtual ICollection<Application> Applications { get; set; } = new List<Application>();
+        public virtual ICollection<Application> Applications { get; set; } = new HashSet<Application>();
     }
 }
