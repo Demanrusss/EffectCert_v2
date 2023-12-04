@@ -21,7 +21,8 @@
                     };
                 }
             },
-            placeholder: selectElements[i].placeholder
+            placeholder: selectElements[i].placeholder,
+            selectOnClose: false
         });
     }
 }
