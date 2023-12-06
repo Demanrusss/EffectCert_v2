@@ -1,4 +1,4 @@
-﻿using EffectCert.BLL.Contractors;
+﻿using EffectCert.BLL.Interfaces;
 using EffectCert.ViewModels.Contractors;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,9 +6,9 @@ namespace EffectCert.Controllers.Contractors
 {
     public class ContractorLegalEmployeeController : Controller
     {
-        private readonly ContractorLegalEmployeeBLL contractorLegalEmployeeBLL;
+        private readonly IContractorLegalEmployeeBLL contractorLegalEmployeeBLL;
 
-        public ContractorLegalEmployeeController(ContractorLegalEmployeeBLL contractorLegalEmployeeBLL)
+        public ContractorLegalEmployeeController(IContractorLegalEmployeeBLL contractorLegalEmployeeBLL)
         {
             this.contractorLegalEmployeeBLL = contractorLegalEmployeeBLL;
         }

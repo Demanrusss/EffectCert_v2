@@ -2,10 +2,11 @@
 using EffectCert.DAL.Implementations.Contractors;
 using EffectCert.ViewModels.Contractors;
 using EffectCert.ViewMappers.Contractors;
+using EffectCert.BLL.Interfaces;
 
 namespace EffectCert.BLL.Contractors
 {
-    public class AddressBLL : ICommonBLL<AddressViewModel>
+    public class AddressBLL : IAddressBLL
     {
         private readonly AddressRepo addressDAL;
 

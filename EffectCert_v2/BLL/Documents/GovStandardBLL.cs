@@ -1,4 +1,5 @@
-﻿using EffectCert.DAL.Entities.Documents;
+﻿using EffectCert.BLL.Interfaces;
+using EffectCert.DAL.Entities.Documents;
 using EffectCert.DAL.Implementations.Documents;
 using EffectCert.ViewMappers.Documents;
 using EffectCert.ViewModels.Documents;

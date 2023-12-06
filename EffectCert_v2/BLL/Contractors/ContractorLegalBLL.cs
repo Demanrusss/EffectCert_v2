@@ -2,10 +2,11 @@
 using EffectCert.DAL.Implementations.Contractors;
 using EffectCert.ViewModels.Contractors;
 using EffectCert.ViewMappers.Contractors;
+using EffectCert.BLL.Interfaces;
 
 namespace EffectCert.BLL.Contractors
 {
-    public class ContractorLegalBLL : ICommonBLL<ContractorLegalViewModel>
+    public class ContractorLegalBLL : IContractorLegalBLL
     {
         private readonly ContractorLegalRepo contractorLegalDAL;
 

@@ -1,4 +1,4 @@
-﻿using EffectCert.BLL.Contractors;
+﻿using EffectCert.BLL.Interfaces;
 using EffectCert.ViewModels.Contractors;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,9 +6,9 @@ namespace EffectCert.Controllers.Contractors
 {
     public class AddressController : Controller
     {
-        private readonly AddressBLL addressBLL;
+        private readonly IAddressBLL addressBLL;
 
-        public AddressController(AddressBLL addressBLL)
+        public AddressController(IAddressBLL addressBLL)
         {
             this.addressBLL = addressBLL;
         }

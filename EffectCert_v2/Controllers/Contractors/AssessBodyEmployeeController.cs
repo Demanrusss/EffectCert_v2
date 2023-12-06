@@ -1,4 +1,4 @@
-﻿using EffectCert.BLL.Contractors;
+﻿using EffectCert.BLL.Interfaces;
 using EffectCert.ViewModels.Contractors;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,9 +6,9 @@ namespace EffectCert.Controllers.Contractors
 {
     public class AssessBodyEmployeeController : Controller
     {
-        private readonly AssessBodyEmployeeBLL assessBodyEmployeeBLL;
+        private readonly IAssessBodyEmployeeBLL assessBodyEmployeeBLL;
 
-        public AssessBodyEmployeeController(AssessBodyEmployeeBLL assessBodyEmployeeBLL)
+        public AssessBodyEmployeeController(IAssessBodyEmployeeBLL assessBodyEmployeeBLL)
         {
             this.assessBodyEmployeeBLL = assessBodyEmployeeBLL;
         }

@@ -2,10 +2,11 @@
 using EffectCert.DAL.Implementations.Documents;
 using EffectCert.ViewModels.Documents;
 using EffectCert.ViewMappers.Documents;
+using EffectCert.BLL.Interfaces;
 
 namespace EffectCert.BLL.Documents
 {
-    public class AttestateBLL : ICommonBLL<AttestateViewModel>
+    public class AttestateBLL : IAttestateBLL
     {
         private readonly AttestateRepo attestateDAL;
 

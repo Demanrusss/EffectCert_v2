@@ -1,4 +1,4 @@
-﻿using EffectCert.BLL.Contractors;
+﻿using EffectCert.BLL.Interfaces;
 using EffectCert.ViewModels.Contractors;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,9 +6,9 @@ namespace EffectCert.Controllers.Contractors
 {
     public class BankAccountController : Controller
     {
-        private readonly BankAccountBLL bankAccountBLL;
+        private readonly IBankAccountBLL bankAccountBLL;
 
-        public BankAccountController(BankAccountBLL bankAccountBLL)
+        public BankAccountController(IBankAccountBLL bankAccountBLL)
         {
             this.bankAccountBLL = bankAccountBLL;
         }

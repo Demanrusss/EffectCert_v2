@@ -1,5 +1,4 @@
-﻿using EffectCert.BLL.Contractors;
-using EffectCert.BLL.Documents;
+﻿using EffectCert.BLL.Interfaces;
 using EffectCert.ViewModels.Contractors;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,10 +6,10 @@ namespace EffectCert.Controllers.Contractors
 {
     public class LaboratoryController : Controller
     {
-        private readonly LaboratoryBLL laboratoryBLL;
-        private readonly AttestateBLL attestateBLL;
+        private readonly ILaboratoryBLL laboratoryBLL;
+        private readonly IAttestateBLL attestateBLL;
 
-        public LaboratoryController(LaboratoryBLL laboratoryBLL, AttestateBLL attestateBLL)
+        public LaboratoryController(ILaboratoryBLL laboratoryBLL, IAttestateBLL attestateBLL)
         {
             this.laboratoryBLL = laboratoryBLL;
             this.attestateBLL = attestateBLL;
