@@ -11,18 +11,18 @@
                 <label asp-for="ContractorIndividual" class="control-label"></label>
                 <div style="overflow-inline:hidden;">
                     <div style="width:78%; display:inline-block;">
-                        <select asp-for="ContractorIndividual" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
-                            <!--<option value="">Выберите физ.лицо</option>-->
+                        <select asp-for="ContractorIndividualId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
+                            <option></option>
                         </select>
                     </div>
                     <div style="display:inline-block;">
                         <a asp-controller="ContractorIndividual" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
-                        <a asp-controller="ContractorIndividual" asp-action="Edit" asp-route-id="" id="ContractorIndividualEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
-                        <a asp-controller="ContractorIndividual" asp-action="Details" asp-route-id="" id="ContractorIndividualDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
-                        <a asp-controller="ContractorIndividual" asp-action="Delete" asp-route-id="" id="ContractorIndividualDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                        <a asp-controller="ContractorIndividual" asp-action="Edit" asp-route-id="" id="ContractorIndividualIdEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="ContractorIndividual" asp-action="Details" asp-route-id="" id="ContractorIndividualIdDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="ContractorIndividual" asp-action="Delete" asp-route-id="" id="ContractorIndividualIdDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
                     </div>
                 </div>
-                <span asp-validation-for="ContractorIndividual" class="text-danger" id="ContractorIndividualWarning"></span>
+                <span asp-validation-for="ContractorIndividualId" class="text-danger" id="ContractorIndividualIdWarning"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Position" class="control-label"></label>
@@ -52,7 +52,7 @@
     <script>
         $(document).ready(function () {
             let selectElements = [
-                { id: '#ContractorIndividual', url: '/ContractorIndividual/GetContractorIndividuals/', placeholder: 'Выберите физ.лицо' }
+                { id: '#ContractorIndividualId', url: '/ContractorIndividual/GetContractorIndividuals/', placeholder: 'Выберите физ.лицо' }
             ];
 
             establishSelect2Algorithm(selectElements);
