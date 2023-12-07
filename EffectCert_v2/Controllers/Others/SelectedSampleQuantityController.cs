@@ -1,4 +1,4 @@
-﻿using EffectCert.BLL.Others;
+﻿using EffectCert.BLL.Interfaces;
 using EffectCert.ViewModels.Others;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,9 +6,9 @@ namespace EffectCert.Controllers.Others
 {
     public class SelectedSampleQuantityController : Controller
     {
-        private readonly SelectedSampleQuantityBLL selectedSampleQuantityBLL;
+        private readonly ISelectedSampleQuantityBLL selectedSampleQuantityBLL;
 
-        public SelectedSampleQuantityController(SelectedSampleQuantityBLL selectedSampleQuantityBLL)
+        public SelectedSampleQuantityController(ISelectedSampleQuantityBLL selectedSampleQuantityBLL)
         {
             this.selectedSampleQuantityBLL = selectedSampleQuantityBLL;
         }

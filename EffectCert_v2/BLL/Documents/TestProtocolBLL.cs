@@ -6,7 +6,7 @@ using EffectCert.ViewModels.Documents;
 
 namespace EffectCert.BLL.Documents
 {
-    public class TestProtocolBLL : ICommonBLL<TestProtocolViewModel>
+    public class TestProtocolBLL : ITestProtocolBLL
     {
         private readonly TestProtocolRepo testProtocolDAL;
 

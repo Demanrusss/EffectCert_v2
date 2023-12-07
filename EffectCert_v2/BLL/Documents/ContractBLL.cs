@@ -6,7 +6,7 @@ using EffectCert.ViewModels.Documents;
 
 namespace EffectCert.BLL.Documents
 {
-    public class ContractBLL : ICommonBLL<ContractViewModel>
+    public class ContractBLL : IContractBLL
     {
         private readonly ContractRepo contractDAL;
 

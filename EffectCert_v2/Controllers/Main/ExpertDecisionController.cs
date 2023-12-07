@@ -1,4 +1,4 @@
-﻿using EffectCert.BLL.Main;
+﻿using EffectCert.BLL.Interfaces;
 using EffectCert.ViewModels.Main;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,9 +6,9 @@ namespace EffectCert.Controllers.Main
 {
     public class ExpertDecisionController : Controller
     {
-        private readonly ExpertDecisionBLL expertDecisionBLL;
+        private readonly IExpertDecisionBLL expertDecisionBLL;
 
-        public ExpertDecisionController(ExpertDecisionBLL expertDecisionBLL)
+        public ExpertDecisionController(IExpertDecisionBLL expertDecisionBLL)
         {
             this.expertDecisionBLL = expertDecisionBLL;
         }

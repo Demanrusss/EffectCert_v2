@@ -1,4 +1,4 @@
-﻿using EffectCert.BLL.Documents;
+﻿using EffectCert.BLL.Interfaces;
 using EffectCert.ViewModels.Documents;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,9 +6,9 @@ namespace EffectCert.Controllers.Documents
 {
     public class GTDController : Controller
     {
-        private readonly GTDBLL gTDBLL;
+        private readonly IGTDBLL gTDBLL;
 
-        public GTDController(GTDBLL gTDBLL)
+        public GTDController(IGTDBLL gTDBLL)
         {
             this.gTDBLL = gTDBLL;
         }

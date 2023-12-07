@@ -6,7 +6,7 @@ using EffectCert.ViewModels.Main;
 
 namespace EffectCert.BLL.Main
 {
-    public class IssueDecisionBLL : ICommonBLL<IssueDecisionViewModel>
+    public class IssueDecisionBLL : IIssueDecisionBLL
     {
         private readonly IssueDecisionRepo issueDecisionDAL;
 

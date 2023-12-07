@@ -1,4 +1,4 @@
-﻿using EffectCert.BLL.Others;
+﻿using EffectCert.BLL.Interfaces;
 using EffectCert.ViewModels.Others;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,9 +6,9 @@ namespace EffectCert.Controllers.Others
 {
     public class MeasurementUnitController : Controller
     {
-        private readonly MeasurementUnitBLL measurementUnitBLL;
+        private readonly IMeasurementUnitBLL measurementUnitBLL;
 
-        public MeasurementUnitController(MeasurementUnitBLL measurementUnitBLL)
+        public MeasurementUnitController(IMeasurementUnitBLL measurementUnitBLL)
         {
             this.measurementUnitBLL = measurementUnitBLL;
         }

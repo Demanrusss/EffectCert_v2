@@ -6,7 +6,7 @@ using EffectCert.ViewModels.Others;
 
 namespace EffectCert.BLL.Others
 {
-    public class MeasurementUnitBLL : ICommonBLL<MeasurementUnitViewModel>
+    public class MeasurementUnitBLL : IMeasurementUnitBLL
     {
         private readonly MeasurementUnitRepo measurementUnitDAL;
 

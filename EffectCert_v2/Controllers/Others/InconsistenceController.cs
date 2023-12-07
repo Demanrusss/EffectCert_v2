@@ -1,4 +1,4 @@
-﻿using EffectCert.BLL.Others;
+﻿using EffectCert.BLL.Interfaces;
 using EffectCert.ViewModels.Others;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,9 +6,9 @@ namespace EffectCert.Controllers.Others
 {
     public class InconsistenceController : Controller
     {
-        private readonly InconsistenceBLL inconsistenceBLL;
+        private readonly IInconsistenceBLL inconsistenceBLL;
 
-        public InconsistenceController(InconsistenceBLL inconsistenceBLL)
+        public InconsistenceController(IInconsistenceBLL inconsistenceBLL)
         {
             this.inconsistenceBLL = inconsistenceBLL;
         }

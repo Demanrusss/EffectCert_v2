@@ -1,4 +1,4 @@
-﻿using EffectCert.BLL.Documents;
+﻿using EffectCert.BLL.Interfaces;
 using EffectCert.ViewModels.Documents;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,9 +6,9 @@ namespace EffectCert.Controllers.Documents
 {
     public class DeclarationController : Controller
     {
-        private readonly DeclarationBLL declarationBLL;
+        private readonly IDeclarationBLL declarationBLL;
 
-        public DeclarationController(DeclarationBLL declarationBLL)
+        public DeclarationController(IDeclarationBLL declarationBLL)
         {
             this.declarationBLL = declarationBLL;
         }

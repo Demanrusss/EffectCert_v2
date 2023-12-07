@@ -1,4 +1,4 @@
-﻿using EffectCert.BLL.Main;
+﻿using EffectCert.BLL.Interfaces;
 using EffectCert.ViewModels.Main;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,9 +6,9 @@ namespace EffectCert.Controllers.Main
 {
     public class ActionPlanController : Controller
     {
-        private readonly ActionPlanBLL actionPlanBLL;
+        private readonly IActionPlanBLL actionPlanBLL;
 
-        public ActionPlanController(ActionPlanBLL actionPlanBLL)
+        public ActionPlanController(IActionPlanBLL actionPlanBLL)
         {
             this.actionPlanBLL = actionPlanBLL;
         }

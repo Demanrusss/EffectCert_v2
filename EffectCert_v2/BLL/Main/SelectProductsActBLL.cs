@@ -6,7 +6,7 @@ using EffectCert.ViewModels.Main;
 
 namespace EffectCert.BLL.Main
 {
-    public class SelectProductsActBLL : ICommonBLL<SelectProductsActViewModel>
+    public class SelectProductsActBLL : ISelectProductsActBLL
     {
         private readonly SelectProductsActRepo selectProductsActDAL;
 

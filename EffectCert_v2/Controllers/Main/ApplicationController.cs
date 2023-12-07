@@ -1,4 +1,4 @@
-﻿using EffectCert.BLL.Main;
+﻿using EffectCert.BLL.Interfaces;
 using EffectCert.ViewModels.Main;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,9 +6,9 @@ namespace EffectCert.Controllers.Main
 {
     public class ApplicationController : Controller
     {
-        private readonly ApplicationBLL applicationBLL;
+        private readonly IApplicationBLL applicationBLL;
 
-        public ApplicationController(ApplicationBLL applicationBLL)
+        public ApplicationController(IApplicationBLL applicationBLL)
         {
             this.applicationBLL = applicationBLL;
         }

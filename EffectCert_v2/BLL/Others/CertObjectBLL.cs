@@ -6,7 +6,7 @@ using EffectCert.ViewModels.Others;
 
 namespace EffectCert.BLL.Others
 {
-    public class CertObjectBLL : ICommonBLL<CertObjectViewModel>
+    public class CertObjectBLL : ICertObjectBLL
     {
         private readonly CertObjectRepo certObjectDAL;
 

@@ -1,4 +1,4 @@
-﻿using EffectCert.BLL.Main;
+﻿using EffectCert.BLL.Interfaces;
 using EffectCert.ViewModels.Main;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,9 +6,9 @@ namespace EffectCert.Controllers.Main
 {
     public class SelectProductsActController : Controller
     {
-        private readonly SelectProductsActBLL selectProductsActBLL;
+        private readonly ISelectProductsActBLL selectProductsActBLL;
 
-        public SelectProductsActController(SelectProductsActBLL selectProductsActBLL)
+        public SelectProductsActController(ISelectProductsActBLL selectProductsActBLL)
         {
             this.selectProductsActBLL = selectProductsActBLL;
         }

@@ -6,7 +6,7 @@ using EffectCert.ViewModels.Documents;
 
 namespace EffectCert.BLL.Documents
 {
-    public class GTDBLL : ICommonBLL<GTDViewModel>
+    public class GTDBLL : IGTDBLL
     {
         private readonly GTDRepo gTDDAL;
 

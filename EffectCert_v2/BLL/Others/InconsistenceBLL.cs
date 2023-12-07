@@ -6,7 +6,7 @@ using EffectCert.ViewModels.Others;
 
 namespace EffectCert.BLL.Others
 {
-    public class InconsistenceBLL : ICommonBLL<InconsistenceViewModel>
+    public class InconsistenceBLL : IInconsistenceBLL
     {
         private readonly InconsistenceRepo inconsistenceDAL;
 

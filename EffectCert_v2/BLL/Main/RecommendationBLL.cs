@@ -6,7 +6,7 @@ using EffectCert.ViewModels.Main;
 
 namespace EffectCert.BLL.Main
 {
-    public class RecommendationBLL : ICommonBLL<RecommendationViewModel>
+    public class RecommendationBLL : IRecommendationBLL
     {
         private readonly RecommendationRepo recommendationDAL;
 

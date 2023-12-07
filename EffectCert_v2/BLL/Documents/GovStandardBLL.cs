@@ -6,7 +6,7 @@ using EffectCert.ViewModels.Documents;
 
 namespace EffectCert.BLL.Documents
 {
-    public class GovStandardBLL : ICommonBLL<GovStandardViewModel>
+    public class GovStandardBLL : IGovStandardBLL
     {
         private readonly GovStandardRepo govStandardDAL;
 

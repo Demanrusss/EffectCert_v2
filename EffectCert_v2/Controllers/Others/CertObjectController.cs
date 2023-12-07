@@ -1,4 +1,4 @@
-﻿using EffectCert.BLL.Others;
+﻿using EffectCert.BLL.Interfaces;
 using EffectCert.ViewModels.Others;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,9 +6,9 @@ namespace EffectCert.Controllers.Others
 {
     public class CertObjectController : Controller
     {
-        private readonly CertObjectBLL certObjectBLL;
+        private readonly ICertObjectBLL certObjectBLL;
 
-        public CertObjectController(CertObjectBLL certObjectBLL)
+        public CertObjectController(ICertObjectBLL certObjectBLL)
         {
             this.certObjectBLL = certObjectBLL;
         }

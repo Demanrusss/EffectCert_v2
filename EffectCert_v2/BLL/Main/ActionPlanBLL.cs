@@ -6,7 +6,7 @@ using EffectCert.ViewModels.Main;
 
 namespace EffectCert.BLL.Main
 {
-    public class ActionPlanBLL : ICommonBLL<ActionPlanViewModel>
+    public class ActionPlanBLL : IActionPlanBLL
     {
         private readonly ActionPlanRepo actionPlanDAL;
 

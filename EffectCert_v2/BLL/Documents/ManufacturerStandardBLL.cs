@@ -6,7 +6,7 @@ using EffectCert.ViewModels.Documents;
 
 namespace EffectCert.BLL.Documents
 {
-    public class ManufacturerStandardBLL : ICommonBLL<ManufacturerStandardViewModel>
+    public class ManufacturerStandardBLL : IManufacturerStandardBLL
     {
         private readonly ManufacturerStandardRepo manufacturerStandardDAL;
 

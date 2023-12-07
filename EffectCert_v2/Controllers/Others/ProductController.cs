@@ -1,4 +1,4 @@
-﻿using EffectCert.BLL.Others;
+﻿using EffectCert.BLL.Interfaces;
 using EffectCert.ViewModels.Others;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,9 +6,9 @@ namespace EffectCert.Controllers.Others
 {
     public class ProductController : Controller
     {
-        private readonly ProductBLL productBLL;
+        private readonly IProductBLL productBLL;
 
-        public ProductController(ProductBLL productBLL)
+        public ProductController(IProductBLL productBLL)
         {
             this.productBLL = productBLL;
         }

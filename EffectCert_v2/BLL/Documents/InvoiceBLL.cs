@@ -6,7 +6,7 @@ using EffectCert.ViewModels.Documents;
 
 namespace EffectCert.BLL.Documents
 {
-    public class InvoiceBLL : ICommonBLL<InvoiceViewModel>
+    public class InvoiceBLL : IInvoiceBLL
     {
         private readonly InvoiceRepo invoiceDAL;
 

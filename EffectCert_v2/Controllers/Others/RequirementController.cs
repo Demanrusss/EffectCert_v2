@@ -1,4 +1,4 @@
-﻿using EffectCert.BLL.Others;
+﻿using EffectCert.BLL.Interfaces;
 using EffectCert.ViewModels.Others;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,9 +6,9 @@ namespace EffectCert.Controllers.Others
 {
     public class RequirementController : Controller
     {
-        private readonly RequirementBLL requirementBLL;
+        private readonly IRequirementBLL requirementBLL;
 
-        public RequirementController(RequirementBLL requirementBLL)
+        public RequirementController(IRequirementBLL requirementBLL)
         {
             this.requirementBLL = requirementBLL;
         }

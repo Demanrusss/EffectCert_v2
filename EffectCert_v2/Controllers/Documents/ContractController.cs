@@ -1,4 +1,4 @@
-﻿using EffectCert.BLL.Documents;
+﻿using EffectCert.BLL.Interfaces;
 using EffectCert.ViewModels.Documents;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,9 +6,9 @@ namespace EffectCert.Controllers.Documents
 {
     public class ContractController : Controller
     {
-        private readonly ContractBLL contractBLL;
+        private readonly IContractBLL contractBLL;
 
-        public ContractController(ContractBLL contractBLL)
+        public ContractController(IContractBLL contractBLL)
         {
             this.contractBLL = contractBLL;
         }

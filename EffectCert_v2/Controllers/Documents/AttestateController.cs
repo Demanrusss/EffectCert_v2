@@ -1,4 +1,4 @@
-﻿using EffectCert.BLL.Documents;
+﻿using EffectCert.BLL.Interfaces;
 using EffectCert.ViewModels.Documents;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,9 +6,9 @@ namespace EffectCert.Controllers.Documents
 {
     public class AttestateController : Controller
     {
-        private readonly AttestateBLL attestateBLL;
+        private readonly IAttestateBLL attestateBLL;
 
-        public AttestateController(AttestateBLL attestateBLL)
+        public AttestateController(IAttestateBLL attestateBLL)
         {
             this.attestateBLL = attestateBLL;
         }

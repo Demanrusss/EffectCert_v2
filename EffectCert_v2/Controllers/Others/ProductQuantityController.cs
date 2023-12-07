@@ -1,4 +1,4 @@
-﻿using EffectCert.BLL.Others;
+﻿using EffectCert.BLL.Interfaces;
 using EffectCert.ViewModels.Others;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,9 +6,9 @@ namespace EffectCert.Controllers.Others
 {
     public class ProductQuantityController : Controller
     {
-        private readonly ProductQuantityBLL productQuantityBLL;
+        private readonly IProductQuantityBLL productQuantityBLL;
 
-        public ProductQuantityController(ProductQuantityBLL productQuantityBLL)
+        public ProductQuantityController(IProductQuantityBLL productQuantityBLL)
         {
             this.productQuantityBLL = productQuantityBLL;
         }

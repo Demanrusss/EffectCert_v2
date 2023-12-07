@@ -6,7 +6,7 @@ using EffectCert.BLL.Interfaces;
 
 namespace EffectCert.BLL.Documents
 {
-    public class CertificateBLL : ICommonBLL<CertificateViewModel>
+    public class CertificateBLL : ICertificateBLL
     {
         private readonly CertificateRepo certificateDAL;
 

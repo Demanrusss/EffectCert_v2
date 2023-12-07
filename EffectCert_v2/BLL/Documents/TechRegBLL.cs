@@ -6,7 +6,7 @@ using EffectCert.ViewModels.Documents;
 
 namespace EffectCert.BLL.Documents
 {
-    public class TechRegBLL : ICommonBLL<TechRegViewModel>
+    public class TechRegBLL : ITechRegBLL
     {
         private readonly TechRegRepo techRegDAL;
 

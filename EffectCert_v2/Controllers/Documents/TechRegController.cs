@@ -1,4 +1,4 @@
-﻿using EffectCert.BLL.Documents;
+﻿using EffectCert.BLL.Interfaces;
 using EffectCert.ViewModels.Documents;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,9 +6,9 @@ namespace EffectCert.Controllers.Documents
 {
     public class TechRegController : Controller
     {
-        private readonly TechRegBLL techRegBLL;
+        private readonly ITechRegBLL techRegBLL;
 
-        public TechRegController(TechRegBLL techRegBLL)
+        public TechRegController(ITechRegBLL techRegBLL)
         {
             this.techRegBLL = techRegBLL;
         }

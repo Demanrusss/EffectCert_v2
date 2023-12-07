@@ -1,4 +1,4 @@
-﻿using EffectCert.BLL.Documents;
+﻿using EffectCert.BLL.Interfaces;
 using EffectCert.ViewModels.Documents;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,9 +6,9 @@ namespace EffectCert.Controllers.Documents
 {
     public class ManufacturerStandardController : Controller
     {
-        private readonly ManufacturerStandardBLL manufacturerStandardBLL;
+        private readonly IManufacturerStandardBLL manufacturerStandardBLL;
 
-        public ManufacturerStandardController(ManufacturerStandardBLL manufacturerStandardBLL)
+        public ManufacturerStandardController(IManufacturerStandardBLL manufacturerStandardBLL)
         {
             this.manufacturerStandardBLL = manufacturerStandardBLL;
         }

@@ -6,7 +6,7 @@ using EffectCert.ViewModels.Documents;
 
 namespace EffectCert.BLL.Documents
 {
-    public class DeclarationBLL : ICommonBLL<DeclarationViewModel>
+    public class DeclarationBLL : IDeclarationBLL
     {
         private readonly DeclarationRepo declarationDAL;
 

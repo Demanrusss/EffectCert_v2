@@ -6,7 +6,7 @@ using EffectCert.ViewModels.Others;
 
 namespace EffectCert.BLL.Others
 {
-    public class RequirementBLL : ICommonBLL<RequirementViewModel>
+    public class RequirementBLL : IRequirementBLL
     {
         private readonly RequirementRepo requirementDAL;
 

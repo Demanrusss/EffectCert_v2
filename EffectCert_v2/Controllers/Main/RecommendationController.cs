@@ -1,4 +1,4 @@
-﻿using EffectCert.BLL.Main;
+﻿using EffectCert.BLL.Interfaces;
 using EffectCert.ViewModels.Main;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,9 +6,9 @@ namespace EffectCert.Controllers.Main
 {
     public class RecommendationController : Controller
     {
-        private readonly RecommendationBLL recommendationBLL;
+        private readonly IRecommendationBLL recommendationBLL;
 
-        public RecommendationController(RecommendationBLL recommendationBLL)
+        public RecommendationController(IRecommendationBLL recommendationBLL)
         {
             this.recommendationBLL = recommendationBLL;
         }

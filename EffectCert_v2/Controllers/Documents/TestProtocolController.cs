@@ -1,4 +1,4 @@
-﻿using EffectCert.BLL.Documents;
+﻿using EffectCert.BLL.Interfaces;
 using EffectCert.ViewModels.Documents;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,9 +6,9 @@ namespace EffectCert.Controllers.Documents
 {
     public class TestProtocolController : Controller
     {
-        private readonly TestProtocolBLL testProtocolBLL;
+        private readonly ITestProtocolBLL testProtocolBLL;
 
-        public TestProtocolController(TestProtocolBLL testProtocolBLL)
+        public TestProtocolController(ITestProtocolBLL testProtocolBLL)
         {
             this.testProtocolBLL = testProtocolBLL;
         }

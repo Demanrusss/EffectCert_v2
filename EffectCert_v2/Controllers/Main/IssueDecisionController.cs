@@ -1,4 +1,4 @@
-﻿using EffectCert.BLL.Main;
+﻿using EffectCert.BLL.Interfaces;
 using EffectCert.ViewModels.Main;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,9 +6,9 @@ namespace EffectCert.Controllers.Main
 {
     public class IssueDecisionController : Controller
     {
-        private readonly IssueDecisionBLL issueDecisionBLL;
+        private readonly IIssueDecisionBLL issueDecisionBLL;
 
-        public IssueDecisionController(IssueDecisionBLL issueDecisionBLL)
+        public IssueDecisionController(IIssueDecisionBLL issueDecisionBLL)
         {
             this.issueDecisionBLL = issueDecisionBLL;
         }

@@ -6,7 +6,7 @@ using EffectCert.ViewModels.Others;
 
 namespace EffectCert.BLL.Others
 {
-    public class ProductQuantityBLL : ICommonBLL<ProductQuantityViewModel>
+    public class ProductQuantityBLL : IProductQuantityBLL
     {
         private readonly ProductQuantityRepo productQuantityDAL;
 
