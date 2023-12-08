@@ -14,19 +14,19 @@ namespace EffectCert.ViewModels.Main
         public DateTime Date { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Заявка")]
-        public ApplicationViewModel Application { get; set; } = null!;
+        public ApplicationViewModel? Application { get; set; }
         public int ApplicationId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Решение по заявке")]
-        public AppDecisionViewModel Decision { get; set; } = null!;
+        public AppDecisionViewModel? Decision { get; set; }
         public int DecisionId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Акт отбора образцов")]
-        public SelectProductsActViewModel SelectProductsAct { get; set; } = null!;
+        public SelectProductsActViewModel? SelectProductsAct { get; set; }
         public int SelectProductsActId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Экспертное решение")]
-        public ExpertDecisionViewModel ExpertDecision { get; set; } = null!;
+        public ExpertDecisionViewModel? ExpertDecision { get; set; }
         public int ExpertDecisionId { get; set; }
     }
 }

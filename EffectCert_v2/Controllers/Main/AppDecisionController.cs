@@ -117,7 +117,7 @@ namespace EffectCert.Controllers.Main
                 var appDecisionItem = new Dictionary<string, string>
                 {
                     { "id", item.Id.ToString() },
-                    { "name", item.Number ?? item.Application.Number }
+                    { "name", item.Number ?? item.Application?.Number ?? String.Empty }
                 };
 
                 appDecisionsList.Add(appDecisionItem);

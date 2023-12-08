@@ -15,15 +15,15 @@ namespace EffectCert.ViewModels.Main
         public DateTime Date { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Заявка")]
-        public ApplicationViewModel Application { get; set; } = null!;
+        public ApplicationViewModel? Application { get; set; }
         public int ApplicationId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Эксперт-аудитор по анализу заявки")]
-        public AssessBodyEmployeeViewModel AppAnalizeExpert { get; set; } = null!;
+        public AssessBodyEmployeeViewModel? AppAnalizeExpert { get; set; }
         public int AppAnalizeExpertId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Руководитель ОПС")]
-        public AssessBodyEmployeeViewModel ConformityAssessBodyHead { get; set; } = null!;
+        public AssessBodyEmployeeViewModel? ConformityAssessBodyHead { get; set; }
         public int ConformityAssessBodyHeadId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Ответственный по отбору продукции")]

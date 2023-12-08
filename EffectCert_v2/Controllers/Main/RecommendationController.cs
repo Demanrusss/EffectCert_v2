@@ -117,7 +117,7 @@ namespace EffectCert.Controllers.Main
                 var recommendationItem = new Dictionary<string, string>
                 {
                     { "id", item.Id.ToString() },
-                    { "name", item.Number ?? item.Application.Number }
+                    { "name", item.Number ?? item.Application?.Number ?? String.Empty }
                 };
 
                 recommendationsList.Add(recommendationItem);

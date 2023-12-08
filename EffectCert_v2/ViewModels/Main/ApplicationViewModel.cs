@@ -17,11 +17,11 @@ namespace EffectCert.ViewModels.Main
         public int AssessBodyId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Орган подтверждения соответствия")]
-        public AssessBodyViewModel AssessBody { get; set; } = null!;
+        public AssessBodyViewModel? AssessBody { get; set; }
         public int ContractorLegalId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Заявитель")]
-        public ContractorLegalViewModel ContractorLegal { get; set; } = null!;
+        public ContractorLegalViewModel? ContractorLegal { get; set; }
         [DisplayName("Номер в электронном реестре")]
         public string? ElectronicNumber { get; set; }
         [DisplayName("Дата в электронном реестре")]

@@ -16,13 +16,13 @@ namespace EffectCert.ViewModels.Main
         public DateTime Date { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Заявка")]
-        public ApplicationViewModel Application { get; set; } = null!;
+        public ApplicationViewModel? Application { get; set; }
         public int ApplicationId { get; set; }
         [DisplayName("Информация о знаке соответствия")]
         public string? ConformityMarkInfo { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Эксперт-аудитор")]
-        public AssessBodyEmployeeViewModel Expert { get; set; } = null!;
+        public AssessBodyEmployeeViewModel? Expert { get; set; }
         public int ExpertId { get; set; }
         [DisplayName("Действует до")]
         public DateTime? ValidDate { get; set; }

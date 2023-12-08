@@ -14,9 +14,9 @@ namespace EffectCert.ViewModels.Contractors
         public string ShortName { get; set; } = null!;
         [DisplayName("БИН")]
         public string? BIN { get; set; }
-        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Адрес регистрации")]
-        public AddressViewModel RegAddress { get; set; } = null!;
+        public AddressViewModel? RegAddress { get; set; }
+        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         public int RegAddressId { get; set; }
         [DisplayName("Адрес фактический")]
         public AddressViewModel? FactAddress { get; set; }

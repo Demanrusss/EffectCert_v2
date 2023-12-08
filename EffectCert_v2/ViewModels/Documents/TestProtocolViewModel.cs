@@ -15,7 +15,7 @@ namespace EffectCert.ViewModels.Documents
         public DateTime Date { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Лаборатория")]
-        public LaboratoryViewModel Laboratory { get; set; } = null!;
+        public LaboratoryViewModel? Laboratory { get; set; }
         public int LaboratoryId { get; set; }
     }
 }

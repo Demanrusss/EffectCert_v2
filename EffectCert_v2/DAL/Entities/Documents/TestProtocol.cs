@@ -11,6 +11,6 @@ namespace EffectCert.DAL.Entities.Documents
         public int LaboratoryId { get; set; }
         public Laboratory Laboratory { get; set; } = null!;
 
-        public virtual ICollection<ExpertDecision> ExpertDecisions { get; set; }
+        public virtual ICollection<ExpertDecision> ExpertDecisions { get; set; } = new HashSet<ExpertDecision>();
     }
 }

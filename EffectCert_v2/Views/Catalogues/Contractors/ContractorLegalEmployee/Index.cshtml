@@ -24,8 +24,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ContractorIndividual.LastName)<br>
-                @Html.DisplayFor(modelItem => item.ContractorIndividual.FirstName)
+                @Html.DisplayFor(modelItem => item.ContractorIndividual!.LastName) @Html.DisplayFor(modelItem => item.ContractorIndividual!.FirstName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Position)

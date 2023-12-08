@@ -15,7 +15,7 @@ namespace EffectCert.ViewModels.Contractors
         public string ShortName { get; set; } = null!;
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Юридическое лицо")]
-        public ContractorLegalViewModel ContractorLegal { get; set; } = null!;
+        public ContractorLegalViewModel? ContractorLegal { get; set; }
         public int ContractorLegalId { get; set; }
         [DisplayName("Аттестат")]
         public AttestateViewModel? Attestate { get; set; } = null!;

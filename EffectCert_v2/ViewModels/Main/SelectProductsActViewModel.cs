@@ -16,19 +16,19 @@ namespace EffectCert.ViewModels.Main
         public DateTime Date { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Заявка")]
-        public ApplicationViewModel Application { get; set; } = null!;
+        public ApplicationViewModel? Application { get; set; }
         public int ApplicationId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("План действий")]
-        public ActionPlanViewModel ActionPlan { get; set; } = null!;
+        public ActionPlanViewModel? ActionPlan { get; set; }
         public int ActionPlanId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Адрес отбора")]
-        public AddressViewModel Address { get; set; } = null!;
+        public AddressViewModel? Address { get; set; }
         public int AddressId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Поставщик")]
-        public ContractorLegalViewModel Supplier { get; set; } = null!;
+        public ContractorLegalViewModel? Supplier { get; set; }
         public int SupplierId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Условия хранения")]

@@ -3,6 +3,7 @@ using EffectCert.DAL.Implementations.Contractors;
 using EffectCert.ViewModels.Contractors;
 using EffectCert.ViewMappers.Contractors;
 using EffectCert.BLL.Interfaces;
+using EffectCert.ViewMappers;
 
 namespace EffectCert.BLL.Contractors
 {

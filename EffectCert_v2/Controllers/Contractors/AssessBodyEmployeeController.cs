@@ -117,8 +117,8 @@ namespace EffectCert.Controllers.Contractors
                 var assessBodyEmployeeItem = new Dictionary<string, string>
                 {
                     { "id", item.Id.ToString() },
-                    { "name", String.Format("{0} {1}.", item.ContractorLegalEmployee.ContractorIndividual.LastName,
-                                                        item.ContractorLegalEmployee.ContractorIndividual.FirstName)
+                    { "name", String.Format("{0} {1}.", item.ContractorLegalEmployee?.ContractorIndividual?.LastName,
+                                                        item.ContractorLegalEmployee?.ContractorIndividual?.FirstName)
                     }
                 };
 

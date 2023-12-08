@@ -23,7 +23,7 @@ namespace EffectCert.ViewModels.Others
         public int ManufacturerId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Изготовитель")]
-        public ContractorLegalViewModel Manufacturer { get; set; } = null!;
+        public ContractorLegalViewModel? Manufacturer { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Код ТН ВЭД")]
         public string TNVED { get; set; } = null!;

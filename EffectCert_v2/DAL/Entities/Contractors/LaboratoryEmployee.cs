@@ -6,5 +6,6 @@
         public int ContractorLegalEmployeeId { get; set; }
         public ContractorLegalEmployee ContractorLegalEmployee { get; set; } = null!;
         public string Position { get; set; } = null!;
+        public int? LaboratoryId { get; set; }
     }
 }

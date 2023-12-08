@@ -15,21 +15,21 @@ namespace EffectCert.ViewModels.Main
         public DateTime Date { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Заявка")]
-        public ApplicationViewModel Application { get; set; } = null!;
+        public ApplicationViewModel? Application { get; set; }
         public int ApplicationId { get; set; }
         [DisplayName("Сертификат")]
-        public CertificateViewModel? Certificate { get; set; } = null!;
+        public CertificateViewModel? Certificate { get; set; }
         public int? CertificateId { get; set; }
         [DisplayName("Декларация")]
-        public DeclarationViewModel? Declaration { get; set; } = null!;
+        public DeclarationViewModel? Declaration { get; set; }
         public int? DeclarationId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Экспертное заключение")]
-        public ExpertDecisionViewModel ExpertDecision { get; set; } = null!;
+        public ExpertDecisionViewModel? ExpertDecision { get; set; }
         public int ExpertDecisionId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Рекомендация")]
-        public RecommendationViewModel Recommendation { get; set; } = null!;
+        public RecommendationViewModel? Recommendation { get; set; }
         public int RecommendationId { get; set; }
     }
 }

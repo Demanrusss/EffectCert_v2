@@ -117,7 +117,7 @@ namespace EffectCert.Controllers.Main
                 var selectProductsActItem = new Dictionary<string, string>
                 {
                     { "id", item.Id.ToString() },
-                    { "name", item.Number ?? item.Application.Number }
+                    { "name", item.Number ?? item.Application?.Number ?? String.Empty }
                 };
 
                 selectProductsActsList.Add(selectProductsActItem);

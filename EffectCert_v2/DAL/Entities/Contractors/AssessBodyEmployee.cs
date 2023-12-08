@@ -7,5 +7,6 @@
         public ContractorLegalEmployee ContractorLegalEmployee { get; set; } = null!;
         public string Position { get; set; } = null!;
         public string? ExpertAuditorOrientation { get; set; }
+        public int? AssessBodyId { get; set; }
     }
 }
