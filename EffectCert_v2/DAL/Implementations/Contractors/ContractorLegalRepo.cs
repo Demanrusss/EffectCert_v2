@@ -71,6 +71,8 @@ namespace EffectCert.DAL.Implementations.Contractors
                 return 0;
 
             appDBContext.ContractorLegals.Add(contractorLegal);
+            foreach (var employee in contractorLegal.Employees)
+                appDBContext.ContractorLegalEmployees.Single(cle => cle.Id == employee.Id).ContractorLegalId = contractorLegal.Id;
             return await appDBContext.SaveChangesAsync();
         }
 

@@ -28,5 +28,6 @@ namespace EffectCert.ViewModels.Contractors
         public int BankAccountId { get; set; }
         [DisplayName("Сотрудники")]
         public ICollection<ContractorLegalEmployeeViewModel> Employees { get; set; } = new HashSet<ContractorLegalEmployeeViewModel>();
+        public int[]? EmployeesIds { get; set; }
     }
 }
