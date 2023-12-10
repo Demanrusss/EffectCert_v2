@@ -2,6 +2,7 @@
 using EffectCert.DAL.Entities.Contractors;
 using EffectCert.DAL.Interfaces;
 using EffectCert.DAL.DBContext;
+using System.Linq.Expressions;
 
 namespace EffectCert.DAL.Implementations.Contractors
 {
@@ -39,6 +40,8 @@ namespace EffectCert.DAL.Implementations.Contractors
                 .Include(cl => cl.FactAddress)
                 .Include(cl => cl.RegAddress)
                 .Include(cl => cl.BankAccount)
+                .Include(cl => cl.Employees)
+                    .ThenInclude(cle => cle.ContractorIndividual)
                 .FirstOrDefaultAsync(a => a.Id == id) ?? new ContractorLegal();
         }
 
@@ -71,8 +74,27 @@ namespace EffectCert.DAL.Implementations.Contractors
                 return 0;
 
             appDBContext.ContractorLegals.Add(contractorLegal);
-            foreach (var employee in contractorLegal.Employees)
-                appDBContext.ContractorLegalEmployees.Single(cle => cle.Id == employee.Id).ContractorLegalId = contractorLegal.Id;
+            await appDBContext.SaveChangesAsync();
+
+            var dbEmployees = appDBContext.ContractorLegalEmployees
+                .Where(cle => cle.ContractorLegalId == contractorLegal.Id
+                       || contractorLegal.Employees.Any(e => e.Id == cle.Id))
+                .Select(cle => new ContractorLegalEmployee
+                {
+                    Id = cle.Id,
+                    ContractorLegalId = cle.ContractorLegalId
+                });
+
+            foreach (var dbEmployee in dbEmployees)
+            {
+                dbEmployee.ContractorLegalId = contractorLegal.Employees.Any(e => e.Id == dbEmployee.Id) 
+                    ? contractorLegal.Id
+                    : null;
+
+                appDBContext.Attach(dbEmployee);
+                appDBContext.Entry(dbEmployee).Property(cle => cle.ContractorLegalId).IsModified = true;
+            }
+
             return await appDBContext.SaveChangesAsync();
         }
 
@@ -82,6 +104,26 @@ namespace EffectCert.DAL.Implementations.Contractors
                 return 0;
 
             appDBContext.ContractorLegals.Update(contractorLegal);
+
+            var dbEmployees = appDBContext.ContractorLegalEmployees
+                .Where(cle => cle.ContractorLegalId == contractorLegal.Id 
+                       || contractorLegal.Employees.Any(e => e.Id == cle.Id))
+                .Select(cle => new ContractorLegalEmployee
+                {
+                    Id = cle.Id,
+                    ContractorLegalId = cle.ContractorLegalId
+                });
+
+            foreach (var dbEmployee in dbEmployees)
+            {
+                dbEmployee.ContractorLegalId = contractorLegal.Employees.Any(e => e.Id == dbEmployee.Id)
+                    ? contractorLegal.Id
+                    : null;
+
+                appDBContext.Attach(dbEmployee);
+                appDBContext.Entry(dbEmployee).Property(cle => cle.ContractorLegalId).IsModified = true;
+            }
+
             return await appDBContext.SaveChangesAsync();
         }
 

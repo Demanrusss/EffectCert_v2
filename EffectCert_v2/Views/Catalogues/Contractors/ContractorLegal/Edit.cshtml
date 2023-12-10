@@ -28,7 +28,7 @@
                 <div style="overflow-inline:hidden;">
                     <div style="width:78%; display:inline-block;">
                         <select asp-for="RegAddressId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
-                            <option></option>
+                            <option value="@Model.RegAddressId" selected>@Model.RegAddress?.AddressLine</option>
                         </select>
                     </div>
                     <div style="display:inline-block;">
@@ -50,7 +50,7 @@
                 <div style="overflow-inline:hidden;">
                     <div style="width:78%; display:inline-block;">
                         <select asp-for="FactAddressId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
-                            <option></option>
+                            <option value="@Model.FactAddressId" selected>@Model.FactAddress?.AddressLine</option>
                         </select>
                     </div>
                     <div style="display:inline-block;" id="FactAddressButtonsGroup">
@@ -67,7 +67,7 @@
                 <div style="overflow-inline:hidden;">
                     <div style="width:78%; display:inline-block;">
                         <select asp-for="BankAccountId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
-                            <option></option>
+                            <option value="@Model.BankAccountId" selected>@Model.BankAccount?.IIK</option>
                         </select>
                     </div>
                     <div style="display:inline-block;">
@@ -84,7 +84,10 @@
                 <div style="overflow-inline:hidden;">
                     <div style="width:78%; display:inline-block;">
                         <select asp-for="EmployeesIds" class="form-control js-example-basic-multiple" required>
-                            <option></option>
+                            @foreach(var employee in Model.Employees)
+                            {
+                                <option value="@employee.Id" selected>@employee.ContractorIndividual?.LastName</option>
+                            }
                         </select>
                     </div>
                     <div style="display:inline-block;">

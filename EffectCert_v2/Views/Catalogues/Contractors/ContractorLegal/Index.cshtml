@@ -30,7 +30,7 @@
                 @Html.DisplayFor(modelItem => item.ShortName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.RegAddress.AddressLine)
+                @Html.DisplayFor(modelItem => item.RegAddress!.AddressLine)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
