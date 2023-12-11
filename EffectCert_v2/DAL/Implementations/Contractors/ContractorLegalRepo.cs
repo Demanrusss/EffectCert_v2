@@ -78,7 +78,7 @@ namespace EffectCert.DAL.Implementations.Contractors
 
             var dbEmployees = appDBContext.ContractorLegalEmployees
                 .Where(cle => cle.ContractorLegalId == contractorLegal.Id
-                       || contractorLegal.Employees.Any(e => e.Id == cle.Id))
+                              || contractorLegal.Employees.Any(e => e.Id == cle.Id))
                 .Select(cle => new ContractorLegalEmployee
                 {
                     Id = cle.Id,
@@ -105,9 +105,12 @@ namespace EffectCert.DAL.Implementations.Contractors
 
             appDBContext.ContractorLegals.Update(contractorLegal);
 
+            Expression<Func<ContractorLegalEmployee, bool>> expression = Item => contractorLegal.Employees.Any(e => e.Id == Item.Id);
+            var func = expression.Compile();
+
             var dbEmployees = appDBContext.ContractorLegalEmployees
-                .Where(cle => cle.ContractorLegalId == contractorLegal.Id 
-                       || contractorLegal.Employees.Any(e => e.Id == cle.Id))
+                .Where(cle => cle.ContractorLegalId == contractorLegal.Id)
+                .Where(cle => func(cle))
                 .Select(cle => new ContractorLegalEmployee
                 {
                     Id = cle.Id,
