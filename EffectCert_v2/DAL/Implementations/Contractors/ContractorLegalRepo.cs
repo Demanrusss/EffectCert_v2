@@ -3,6 +3,7 @@ using EffectCert.DAL.Entities.Contractors;
 using EffectCert.DAL.Interfaces;
 using EffectCert.DAL.DBContext;
 using System.Linq.Expressions;
+using System.Linq;
 
 namespace EffectCert.DAL.Implementations.Contractors
 {
@@ -105,12 +106,18 @@ namespace EffectCert.DAL.Implementations.Contractors
 
             appDBContext.ContractorLegals.Update(contractorLegal);
 
-            Expression<Func<ContractorLegalEmployee, bool>> expression = Item => contractorLegal.Employees.Any(e => e.Id == Item.Id);
-            var func = expression.Compile();
+            List<int> ids = new List<int>(contractorLegal.Employees.Count);
+            foreach (var employee in contractorLegal.Employees)
+            {
+                ids.Add(employee.Id);
+
+                appDBContext.Attach(employee);
+                appDBContext.Entry(employee).Property(cle => cle.ContractorLegalId).IsModified = true;
+            }
 
             var dbEmployees = appDBContext.ContractorLegalEmployees
-                .Where(cle => cle.ContractorLegalId == contractorLegal.Id)
-                .Where(cle => func(cle))
+                .Where(cle => cle.ContractorLegalId == contractorLegal.Id
+                              && !ids.Contains(cle.Id))
                 .Select(cle => new ContractorLegalEmployee
                 {
                     Id = cle.Id,
@@ -119,9 +126,7 @@ namespace EffectCert.DAL.Implementations.Contractors
 
             foreach (var dbEmployee in dbEmployees)
             {
-                dbEmployee.ContractorLegalId = contractorLegal.Employees.Any(e => e.Id == dbEmployee.Id)
-                    ? contractorLegal.Id
-                    : null;
+                dbEmployee.ContractorLegalId = null;
 
                 appDBContext.Attach(dbEmployee);
                 appDBContext.Entry(dbEmployee).Property(cle => cle.ContractorLegalId).IsModified = true;

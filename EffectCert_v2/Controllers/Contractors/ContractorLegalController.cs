@@ -63,7 +63,7 @@ namespace EffectCert.Controllers.Contractors
             if (contractorLegal.Id == 0)
                 return NotFound();
 
-            return View("~/Views/Catalogues/Contractors/ContractorLegal/Edit.cshtml", contractorLegal);
+             return View("~/Views/Catalogues/Contractors/ContractorLegal/Edit.cshtml", contractorLegal);
         }
 
         [HttpPost]
@@ -75,8 +75,9 @@ namespace EffectCert.Controllers.Contractors
 
             if (ModelState.IsValid)
             {
-                foreach (var employee in contractorLegal.EmployeesIds)
-                    contractorLegal.Employees.Add(new ContractorLegalEmployeeViewModel() { Id = employee });
+                if (contractorLegal.EmployeesIds != null)
+                    foreach (var employee in contractorLegal.EmployeesIds)
+                        contractorLegal.Employees.Add(new ContractorLegalEmployeeViewModel() { Id = employee });
 
                 await contractorLegalBLL.UpdateOrCreate(contractorLegal);
                 return RedirectToAction(nameof(Index));

@@ -28,7 +28,7 @@
                 <div style="overflow-inline:hidden;">
                     <div style="width:78%; display:inline-block;">
                         <select asp-for="RegAddressId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
-                            <option value="@Model.RegAddressId" selected>@Model.RegAddress?.AddressLine</option>
+                            <option value="@Model.RegAddress?.Id" selected>@Model.RegAddress?.AddressLine</option>
                         </select>
                     </div>
                     <div style="display:inline-block;">
@@ -42,7 +42,7 @@
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsAddressSame" checked onchange="changeVisibility('FactAddress', this), changeVisibilityDiv('FactAddressButtonsGroup', this)" /> @Html.DisplayNameFor(model => model.IsAddressSame)
+                    <input class="form-check-input" asp-for="IsAddressSame" checked="@Model.IsAddressSame" onchange="changeVisibility('FactAddress', this), changeVisibilityDiv('FactAddressButtonsGroup', this)" /> @Html.DisplayNameFor(model => model.IsAddressSame)
                 </label>
             </div>
             <div class="form-group">
@@ -50,7 +50,7 @@
                 <div style="overflow-inline:hidden;">
                     <div style="width:78%; display:inline-block;">
                         <select asp-for="FactAddressId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
-                            <option value="@Model.FactAddressId" selected>@Model.FactAddress?.AddressLine</option>
+                            <option value="@Model.FactAddress?.Id" selected>@Model.FactAddress?.AddressLine</option>
                         </select>
                     </div>
                     <div style="display:inline-block;" id="FactAddressButtonsGroup">
@@ -67,7 +67,7 @@
                 <div style="overflow-inline:hidden;">
                     <div style="width:78%; display:inline-block;">
                         <select asp-for="BankAccountId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
-                            <option value="@Model.BankAccountId" selected>@Model.BankAccount?.IIK</option>
+                            <option value="@Model.BankAccount?.Id" selected>@Model.BankAccount?.IIK</option>
                         </select>
                     </div>
                     <div style="display:inline-block;">
