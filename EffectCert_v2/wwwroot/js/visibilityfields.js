@@ -8,7 +8,7 @@ function changeVisibilityDiv(groupDivId, checkElement) {
     document.getElementById(groupDivId).hidden = checkElement.checked;
 }
 function setVisibilityButtons(element) {
-    let status = element.selectedIndex == 0;
+    let status = element.selectedIndex == 0 && element.options[0].value == '';
     document.getElementById(element.id + 'Edit').hidden = status;
     document.getElementById(element.id + 'Details').hidden = status;
     document.getElementById(element.id + 'Delete').hidden = status;
