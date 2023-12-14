@@ -12,7 +12,7 @@ namespace EffectCert.ViewMappers.Contractors
             {
                 Id = viewModel.Id,
                 AddressId = viewModel.AddressId,
-                Employees = ConvertCollection(viewModel.AssessBodyEmployees),
+                Employees = ConvertCollection(viewModel.Employees),
                 AttestateId = viewModel.AttestateId,
                 ContractorLegalId = viewModel.ContractorLegalId,
                 Name = viewModel.Name,
@@ -29,7 +29,7 @@ namespace EffectCert.ViewMappers.Contractors
             {
                 Id = model.Id,
                 Address = AddressMapper.MapToViewModel(model.Address),
-                AssessBodyEmployees = ConvertCollection(model.Employees),
+                Employees = ConvertCollection(model.Employees),
                 Attestate = AttestateMapper.MapToViewModel(model.Attestate),
                 ContractorLegal = ContractorLegalMapper.MapToViewModel(model.ContractorLegal),
                 Name = model.Name,

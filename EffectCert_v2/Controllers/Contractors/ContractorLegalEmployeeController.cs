@@ -44,6 +44,8 @@ namespace EffectCert.Controllers.Contractors
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ContractorLegalEmployeeViewModel contractorLegalEmployee)
         {
+            ViewData["Title"] = "Создание сотрудника компании";
+
             if (ModelState.IsValid)
             {
                 await contractorLegalEmployeeBLL.UpdateOrCreate(contractorLegalEmployee);
@@ -68,6 +70,8 @@ namespace EffectCert.Controllers.Contractors
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, ContractorLegalEmployeeViewModel contractorLegalEmployee)
         {
+            ViewData["Title"] = "Внесение изменений в данные сотрудника компании";
+
             if (id != contractorLegalEmployee.Id)
                 return NotFound();
 
@@ -95,6 +99,8 @@ namespace EffectCert.Controllers.Contractors
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id, ContractorLegalEmployeeViewModel contractorLegalEmployee)
         {
+            ViewData["Title"] = "Удаление записи о сотруднике компании";
+
             if (id != contractorLegalEmployee.Id)
                 return NotFound();
             
@@ -117,7 +123,7 @@ namespace EffectCert.Controllers.Contractors
                 var contractorLegalEmployeeItem = new Dictionary<string, string>
                 {
                     { "id", item.Id.ToString() ?? String.Empty },
-                    { "name", String.Format("{0} {1}.", item.ContractorIndividual?.LastName,
+                    { "name", String.Format("{0} {1}", item.ContractorIndividual?.LastName,
                                                         item.ContractorIndividual?.FirstName)
                     }
                 };

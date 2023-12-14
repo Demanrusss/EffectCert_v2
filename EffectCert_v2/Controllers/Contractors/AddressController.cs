@@ -44,6 +44,8 @@ namespace EffectCert.Controllers.Contractors
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AddressViewModel address)
         {
+            ViewData["Title"] = "Создание адреса";
+
             if (ModelState.IsValid)
             {
                 await addressBLL.UpdateOrCreate(address);
@@ -68,6 +70,8 @@ namespace EffectCert.Controllers.Contractors
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, AddressViewModel address)
         {
+            ViewData["Title"] = "Внесение изменений в адрес";
+
             if (id != address.Id)
                 return NotFound();
 
@@ -95,6 +99,8 @@ namespace EffectCert.Controllers.Contractors
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id, AddressViewModel address)
         {
+            ViewData["Title"] = "Удаление адреса";
+
             if (id != address.Id)
                 return NotFound();
             

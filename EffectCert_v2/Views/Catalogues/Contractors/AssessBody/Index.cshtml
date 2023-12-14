@@ -36,7 +36,7 @@
                 @Html.DisplayFor(modelItem => item.Attestate.Number)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Address.AddressLine)
+                @Html.DisplayFor(modelItem => item.Address!.AddressLine)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |

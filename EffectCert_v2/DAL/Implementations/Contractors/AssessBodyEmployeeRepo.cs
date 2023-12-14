@@ -39,7 +39,10 @@ namespace EffectCert.DAL.Implementations.Contractors
 
         public async Task<AssessBodyEmployee> Get(int id)
         {
-            return await appDBContext.AssessBodyEmployees.FirstOrDefaultAsync(a => a.Id == id) ?? new AssessBodyEmployee();
+            return await appDBContext.AssessBodyEmployees
+                .Include(abe => abe.ContractorLegalEmployee)
+                    .ThenInclude(cle => cle.ContractorIndividual)
+                .FirstOrDefaultAsync(a => a.Id == id) ?? new AssessBodyEmployee();
         }
 
         public async Task<ICollection<AssessBodyEmployee>> Find(string searchStr)

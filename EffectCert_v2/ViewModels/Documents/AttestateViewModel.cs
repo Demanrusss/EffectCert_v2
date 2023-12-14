@@ -8,6 +8,7 @@ namespace EffectCert.ViewModels.Documents
         public int Id { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Номер")]
+        [RegularExpression("[A-Z]{2}.[A-Z]{1}.[0-9]{2}.[0-9]{4}", ErrorMessage = "Формат должен соответствовать XX.X.00.0000")]
         public string Number { get; set; } = null!;
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Дата регистрации")]

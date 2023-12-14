@@ -77,24 +77,7 @@ namespace EffectCert.DAL.Implementations.Contractors
             appDBContext.ContractorLegals.Add(contractorLegal);
             await appDBContext.SaveChangesAsync();
 
-            var dbEmployees = appDBContext.ContractorLegalEmployees
-                .Where(cle => cle.ContractorLegalId == contractorLegal.Id
-                              || contractorLegal.Employees.Any(e => e.Id == cle.Id))
-                .Select(cle => new ContractorLegalEmployee
-                {
-                    Id = cle.Id,
-                    ContractorLegalId = cle.ContractorLegalId
-                });
-
-            foreach (var dbEmployee in dbEmployees)
-            {
-                dbEmployee.ContractorLegalId = contractorLegal.Employees.Any(e => e.Id == dbEmployee.Id) 
-                    ? contractorLegal.Id
-                    : null;
-
-                appDBContext.Attach(dbEmployee);
-                appDBContext.Entry(dbEmployee).Property(cle => cle.ContractorLegalId).IsModified = true;
-            }
+            UpdateEmployees(contractorLegal);
 
             return await appDBContext.SaveChangesAsync();
         }
@@ -105,7 +88,23 @@ namespace EffectCert.DAL.Implementations.Contractors
                 return 0;
 
             appDBContext.ContractorLegals.Update(contractorLegal);
+            UpdateEmployees(contractorLegal);
 
+            return await appDBContext.SaveChangesAsync();
+        }
+
+        public async Task<int> Delete(int id)
+        {
+            ContractorLegal? contractorLegal = await appDBContext.ContractorLegals.FindAsync(id);
+            if (contractorLegal == null)
+                return 0;
+
+            appDBContext.ContractorLegals.Remove(contractorLegal);
+            return await appDBContext.SaveChangesAsync();
+        }
+
+        private void UpdateEmployees(ContractorLegal contractorLegal)
+        {
             List<int> ids = new List<int>(contractorLegal.Employees.Count);
             foreach (var employee in contractorLegal.Employees)
             {
@@ -131,18 +130,6 @@ namespace EffectCert.DAL.Implementations.Contractors
                 appDBContext.Attach(dbEmployee);
                 appDBContext.Entry(dbEmployee).Property(cle => cle.ContractorLegalId).IsModified = true;
             }
-
-            return await appDBContext.SaveChangesAsync();
-        }
-
-        public async Task<int> Delete(int id)
-        {
-            ContractorLegal? contractorLegal = await appDBContext.ContractorLegals.FindAsync(id);
-            if (contractorLegal == null)
-                return 0;
-
-            appDBContext.ContractorLegals.Remove(contractorLegal);
-            return await appDBContext.SaveChangesAsync();
         }
     }
 }

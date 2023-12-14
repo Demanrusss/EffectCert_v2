@@ -11,18 +11,18 @@
                 <label asp-for="ContractorLegalEmployee" class="control-label"></label>
                 <div style="overflow-inline:hidden;">
                     <div style="width:78%; display:inline-block;">
-                        <select asp-for="ContractorLegalEmployee" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
-                            <option value="">Выберите сотрудника юр.лица</option>
+                        <select asp-for="ContractorLegalEmployeeId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
+                            <option></option>
                         </select>
                     </div>
                     <div style="display:inline-block;">
                         <a asp-controller="ContractorLegalEmployee" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
-                        <a asp-controller="ContractorLegalEmployee" asp-action="Edit" asp-route-id="" id="ContractorLegalEmployeeEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
-                        <a asp-controller="ContractorLegalEmployee" asp-action="Details" asp-route-id="" id="ContractorLegalEmployeeDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
-                        <a asp-controller="ContractorLegalEmployee" asp-action="Delete" asp-route-id="" id="ContractorLegalEmployeeDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                        <a asp-controller="ContractorLegalEmployee" asp-action="Edit" asp-route-id="" id="ContractorLegalEmployeeIdEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="ContractorLegalEmployee" asp-action="Details" asp-route-id="" id="ContractorLegalEmployeeIdDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="ContractorLegalEmployee" asp-action="Delete" asp-route-id="" id="ContractorLegalEmployeeIdDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
                     </div>
                 </div>
-                <span asp-validation-for="ContractorLegalEmployee" class="text-danger" id="ContractorLegalEmployeeWarning"></span>
+                <span asp-validation-for="ContractorLegalEmployeeId" class="text-danger" id="ContractorLegalEmployeeIdWarning"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Position" class="control-label"></label>
@@ -34,6 +34,7 @@
                 <input asp-for="ExpertAuditorOrientation" class="form-control" id="expert_auditor_orientation" />
                 <span asp-validation-for="ExpertAuditorOrientation" class="text-danger"></span>
             </div>
+            <br>
             <div class="form-group">
                 <input type="submit" value="Создать" class="btn btn-primary" />
             </div>
@@ -52,7 +53,7 @@
     <script>
         $(document).ready(function () {
             let selectElements = [
-                { id: '#ContractorLegalEmployee', url: '/ContractorLegalEmployee/GetContractorLegalEmployees/', placeholder: 'Выберите сотрудника юр.лица' }
+                { id: '#ContractorLegalEmployeeId', url: '/ContractorLegalEmployee/GetContractorLegalEmployees/', placeholder: 'Выберите сотрудника юр.лица' }
             ];
 
             establishSelect2Algorithm(selectElements);

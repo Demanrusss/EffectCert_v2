@@ -21,29 +21,34 @@
             @Html.DisplayNameFor(model => model.ContractorLegal)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ContractorLegal.ShortName)
+            @Html.DisplayFor(model => model.ContractorLegal!.ShortName)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Attestate)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayNameFor(model => model.Attestate.Number): @Model.Attestate.Number<br>
-            @Html.DisplayNameFor(model => model.Attestate.Date): @Model.Attestate.Date.ToShortDateString()<br>
-            @Html.DisplayNameFor(model => model.Attestate.ValidDate): @Model.Attestate.ValidDate.ToShortDateString()<br>
+            @Html.DisplayNameFor(model => model.Attestate!.Number): @Model.Attestate!.Number<br>
+            @Html.DisplayNameFor(model => model.Attestate!.Date): @Model.Attestate!.Date.ToShortDateString()<br>
+            @Html.DisplayNameFor(model => model.Attestate!.ValidDate): @Model.Attestate!.ValidDate.ToShortDateString()<br>
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Address)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayNameFor(model => model.Address.Country): @Model.Address.Country<br>
-            @Html.DisplayNameFor(model => model.Address.Index): @Model.Address.Index<br>
-            @Html.DisplayNameFor(model => model.Address.AddressLine): @Model.Address.AddressLine<br>
+            @Html.DisplayNameFor(model => model.Address!.Country): @Model.Address!.Country<br>
+            @Html.DisplayNameFor(model => model.Address!.Index): @Model.Address!.Index<br>
+            @Html.DisplayNameFor(model => model.Address!.AddressLine): @Model.Address!.AddressLine<br>
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AssessBodyEmployees)
+            @Html.DisplayNameFor(model => model.Employees)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AssessBodyEmployees.Count)<br>
+            @Html.DisplayFor(model => model.Employees.Count)<br>
+            @foreach (var employee in Model.Employees)
+            {
+                <p>@String.Format("{0} {1}.", employee.ContractorLegalEmployee?.ContractorIndividual?.LastName,
+                                              employee.ContractorLegalEmployee?.ContractorIndividual?.FirstName.FirstOrDefault())</p>
+            }
         </dd>
     </dl>
 </div>

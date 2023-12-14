@@ -52,6 +52,9 @@ namespace EffectCert.DAL.Implementations.Contractors
                 .Include(ab => ab.Address)
                 .Include(ab => ab.Attestate)
                 .Include(ab => ab.ContractorLegal)
+                .Include(ab => ab.Employees)
+                    .ThenInclude(e => e.ContractorLegalEmployee)
+                        .ThenInclude(cle => cle.ContractorIndividual)
                 .FirstOrDefaultAsync(a => a.Id == id) ?? new AssessBody();
         }
 
@@ -96,6 +99,10 @@ namespace EffectCert.DAL.Implementations.Contractors
                 return 0;
 
             appDBContext.AssessBodies.Add(assessBody);
+            await appDBContext.SaveChangesAsync();
+
+            UpdateEmployees(assessBody);
+
             return await appDBContext.SaveChangesAsync();
         }
 
@@ -105,6 +112,8 @@ namespace EffectCert.DAL.Implementations.Contractors
                 return 0;
 
             appDBContext.AssessBodies.Update(assessBody);
+            UpdateEmployees(assessBody);
+
             return await appDBContext.SaveChangesAsync();
         }
 
@@ -116,6 +125,38 @@ namespace EffectCert.DAL.Implementations.Contractors
 
             appDBContext.AssessBodies.Remove(assessBody);
             return await appDBContext.SaveChangesAsync();
+        }
+
+        private void UpdateEmployees(AssessBody assessBody)
+        {
+            List<int> ids = new List<int>(assessBody.Employees.Count);
+            foreach (var employee in assessBody.Employees)
+            {
+                ids.Add(employee.Id);
+
+                appDBContext.Attach(employee);
+                appDBContext.Entry(employee).Property(abe => abe.AssessBodyId).IsModified = true;
+            }
+
+            var dbEmployees = appDBContext.AssessBodyEmployees
+                .Include(abe => abe.ContractorLegalEmployee)
+                .Where(abe => abe.AssessBodyId == assessBody.Id
+                              && !ids.Contains(abe.Id))
+                .Select(abe => new AssessBodyEmployee
+                {
+                    Id = abe.Id,
+                    AssessBodyId = abe.AssessBodyId
+                });
+
+            foreach (var dbEmployee in dbEmployees)
+            {
+                dbEmployee.AssessBodyId = assessBody.Employees.Any(e => e.Id == dbEmployee.Id)
+                    ? assessBody.Id
+                    : null;
+
+                appDBContext.Attach(dbEmployee);
+                appDBContext.Entry(dbEmployee).Property(abe => abe.AssessBodyId).IsModified = true;
+            }
         }
     }
 }

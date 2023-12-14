@@ -86,7 +86,7 @@
                         <select asp-for="EmployeesIds" class="form-control js-example-basic-multiple" required>
                             @foreach(var employee in Model.Employees)
                             {
-                                <option value="@employee.Id" selected>@employee.ContractorIndividual?.LastName</option>
+                                <option value="@employee.Id" selected>@employee.ContractorIndividual?.LastName @employee.ContractorIndividual?.FirstName</option>
                             }
                         </select>
                     </div>
@@ -96,6 +96,7 @@
                 </div>
                 <span asp-validation-for="Employees" class="text-danger"></span>
             </div>
+            <br>
             <div class="form-group">
                 <input type="submit" value="Сохранить" class="btn btn-primary" />
             </div>

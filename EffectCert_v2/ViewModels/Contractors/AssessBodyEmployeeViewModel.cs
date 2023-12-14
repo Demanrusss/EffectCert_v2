@@ -6,9 +6,9 @@ namespace EffectCert.ViewModels.Contractors
     public class AssessBodyEmployeeViewModel
     {
         public int Id { get; set; }
-        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Сотрудник юридического лица")]
         public ContractorLegalEmployeeViewModel? ContractorLegalEmployee { get; set; }
+        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         public int ContractorLegalEmployeeId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Позиция")]

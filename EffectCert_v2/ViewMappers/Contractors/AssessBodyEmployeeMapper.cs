@@ -24,7 +24,6 @@ namespace EffectCert.ViewMappers.Contractors
             return new AssessBodyEmployeeViewModel()
             {
                 Id = model.Id,
-                ContractorLegalEmployeeId = model.ContractorLegalEmployeeId,
                 ContractorLegalEmployee = ContractorLegalEmployeeMapper.MapToViewModel(model.ContractorLegalEmployee),
                 ExpertAuditorOrientation = model.ExpertAuditorOrientation,
                 Position = model.Position
