@@ -7,6 +7,9 @@ namespace EffectCert.ViewMappers.Contractors
     {
         public static ContractorLegal MapToModel(ContractorLegalViewModel viewModel)
         {
+            if (viewModel.IsAddressSame)
+                viewModel.FactAddressId = viewModel.RegAddressId;
+
             return new ContractorLegal()
             {
                 Id = viewModel.Id,

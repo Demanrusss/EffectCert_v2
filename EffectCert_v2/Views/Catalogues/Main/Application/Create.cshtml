@@ -14,7 +14,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" required id="date" />
+                <input asp-for="Date" class="form-control" required id="date" type="date" />
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -24,66 +24,66 @@
             </div>
             <div class="form-group">
                 <label asp-for="ElectronicDate" class="control-label"></label>
-                <input asp-for="ElectronicDate" class="form-control" id="electronicdate" />
+                <input asp-for="ElectronicDate" class="form-control" id="electronicdate" type="date" />
                 <span asp-validation-for="ElectronicDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="AssessBody" class="control-label"></label>
                 <div style="overflow-inline:hidden;">
                     <div style="width:78%; display:inline-block;">
-                        <select asp-for="AssessBody" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
-                            <option value="">Выберите ОПС</option>
+                        <select asp-for="AssessBodyId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
+                            <option></option>
                         </select>
                     </div>
                     <div style="display:inline-block;">
                         <a asp-controller="AssessBody" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
-                        <a asp-controller="AssessBody" asp-action="Edit" asp-route-id="" id="AssessBodyEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
-                        <a asp-controller="AssessBody" asp-action="Details" asp-route-id="" id="AssessBodyDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
-                        <a asp-controller="AssessBody" asp-action="Delete" asp-route-id="" id="AssessBodyDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                        <a asp-controller="AssessBody" asp-action="Edit" asp-route-id="" id="AssessBodyIdEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="AssessBody" asp-action="Details" asp-route-id="" id="AssessBodyIdDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="AssessBody" asp-action="Delete" asp-route-id="" id="AssessBodyIdDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
                     </div>
                 </div>
-                <span asp-validation-for="AssessBody" class="text-danger" id="AssessBodyWarning"></span>
+                <span asp-validation-for="AssessBodyId" class="text-danger" id="AssessBodyIdWarning"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ContractorLegal" class="control-label"></label>
                 <div style="overflow-inline:hidden;">
                     <div style="width:78%; display:inline-block;">
-                        <select asp-for="ContractorLegal" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
-                            <option value="">Выберите юр.лицо</option>
+                        <select asp-for="ContractorLegalId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
+                            <option></option>
                         </select>
                     </div>
                     <div style="display:inline-block;">
                         <a asp-controller="ContractorLegal" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
-                        <a asp-controller="ContractorLegal" asp-action="Edit" asp-route-id="" id="ContractorLegalEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
-                        <a asp-controller="ContractorLegal" asp-action="Details" asp-route-id="" id="ContractorLegalDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
-                        <a asp-controller="ContractorLegal" asp-action="Delete" asp-route-id="" id="ContractorLegalDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                        <a asp-controller="ContractorLegal" asp-action="Edit" asp-route-id="" id="ContractorLegalIdEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="ContractorLegal" asp-action="Details" asp-route-id="" id="ContractorLegalIdDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="ContractorLegal" asp-action="Delete" asp-route-id="" id="ContractorLegalIdDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
                     </div>
                 </div>
-                <span asp-validation-for="ContractorLegal" class="text-danger" id="ContractorLegalWarning"></span>
+                <span asp-validation-for="ContractorLegalId" class="text-danger" id="ContractorLegalIdWarning"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Schema" class="control-label"></label>
                 <div style="overflow-inline:hidden;">
                     <div style="width:78%; display:inline-block;">
-                        <select asp-for="Schema" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
-                            <option value="">Выберите схему</option>
+                        <select asp-for="SchemaId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
+                            <option></option>
                         </select>
                     </div>
                     <div style="display:inline-block;">
                         <a asp-controller="Schema" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
-                        <a asp-controller="Schema" asp-action="Edit" asp-route-id="" id="SchemaEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
-                        <a asp-controller="Schema" asp-action="Details" asp-route-id="" id="SchemaDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
-                        <a asp-controller="Schema" asp-action="Delete" asp-route-id="" id="SchemaDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                        <a asp-controller="Schema" asp-action="Edit" asp-route-id="" id="SchemaIdEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="Schema" asp-action="Details" asp-route-id="" id="SchemaIdDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="Schema" asp-action="Delete" asp-route-id="" id="SchemaIdDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
                     </div>
                 </div>
-                <span asp-validation-for="Schema" class="text-danger" id="SchemaWarning"></span>
+                <span asp-validation-for="SchemaId" class="text-danger" id="SchemaIdWarning"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Products" class="control-label"></label>
                 <div style="overflow-inline:hidden;">
                     <div style="width:78%; display:inline-block;">
                         <select asp-for="Products" class="form-control js-example-basic-multiple" required>
-                            <option value="">Выберите сотрудников</option>
+                            <option></option>
                         </select>
                     </div>
                     <div style="display:inline-block;">
@@ -92,7 +92,7 @@
                 </div>
                 <span asp-validation-for="Products" class="text-danger" id="ProductsWarning"></span>
             </div>
-            <br />
+            <br>
             <div class="form-group">
                 <input type="submit" value="Создать" class="btn btn-primary" />
             </div>
@@ -111,9 +111,9 @@
     <script>
         $(document).ready(function () {
             let selectElements = [
-                { id: '#AssessBody', url: '/AssessBody/GetAssessBodyies/', placeholder: 'Выберите ОПС' },
-                { id: '#ContractorLegal', url: '/ContractorLegal/GetContractorLegals/', placeholder: 'Выберите юр.лицо' },
-                { id: '#Schema', url: '/Schema/GetSchemas/', placeholder: 'Выберите схему' },
+                { id: '#AssessBodyId', url: '/AssessBody/GetAssessBodies/', placeholder: 'Выберите ОПС' },
+                { id: '#ContractorLegalId', url: '/ContractorLegal/GetContractorLegals/', placeholder: 'Выберите юр.лицо' },
+                { id: '#SchemaId', url: '/Schema/GetSchemas/', placeholder: 'Выберите схему' },
                 { id: '#Products', url: '/Product/GetProducts/', placeholder: 'Выберите продукцию' }
             ];
 

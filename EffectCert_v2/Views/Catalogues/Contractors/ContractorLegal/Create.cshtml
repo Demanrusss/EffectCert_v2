@@ -82,7 +82,7 @@
                 <label asp-for="Employees" class="control-label"></label>
                 <div style="overflow-inline:hidden;">
                     <div style="width:78%; display:inline-block;">
-                        <select asp-for="Employees" class="form-control js-example-basic-multiple">
+                        <select asp-for="EmployeesIds" class="form-control js-example-basic-multiple">
                             <option></option>
                         </select>
                     </div>
@@ -114,7 +114,7 @@
                 { id: '#RegAddressId', url: '/Address/GetAddresses/', placeholder: 'Выберите адрес' },
                 { id: '#FactAddressId', url: '/Address/GetAddresses/', placeholder: 'Выберите адрес' },
                 { id: '#BankAccountId', url: '/BankAccount/GetBankAccounts/', placeholder: 'Выберите счет' },
-                { id: '#Employees', url: '/ContractorLegalEmployee/GetContractorLegalEmployees/', placeholder: 'Выберите сотрудников' }
+                { id: '#EmployeesIds', url: '/ContractorLegalEmployee/GetContractorLegalEmployees/', placeholder: 'Выберите сотрудников' }
             ];
 
             establishSelect2Algorithm(selectElements);

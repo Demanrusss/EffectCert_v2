@@ -63,7 +63,7 @@ namespace EffectCert.Controllers.Contractors
             if (contractorLegal.Id == 0)
                 return NotFound();
 
-             return View("~/Views/Catalogues/Contractors/ContractorLegal/Edit.cshtml", contractorLegal);
+            return View("~/Views/Catalogues/Contractors/ContractorLegal/Edit.cshtml", contractorLegal);
         }
 
         [HttpPost]
