@@ -39,7 +39,8 @@ namespace EffectCert.DAL.Implementations.Main
                     },
                     Products = a.Products.Select(p => new Product
                     {
-                        Name = p.Name
+                        Name = p.Name,
+                        Model = p.Model
                     }).ToList()
                 })
                 .ToListAsync();
@@ -47,7 +48,12 @@ namespace EffectCert.DAL.Implementations.Main
 
         public async Task<Application> Get(int id)
         {
-            return await appDBContext.Applications.FirstOrDefaultAsync(a => a.Id == id) ?? new Application();
+            return await appDBContext.Applications
+                .Include(a => a.AssessBody)
+                .Include(a => a.ContractorLegal)
+                .Include(a => a.Schema)
+                .Include(a => a.Products)
+                .FirstOrDefaultAsync(a => a.Id == id) ?? new Application();
         }
 
         public async Task<ICollection<Application>> Find(string searchStr)
@@ -76,7 +82,8 @@ namespace EffectCert.DAL.Implementations.Main
                     },
                     Products = a.Products.Select(p => new Product
                     {
-                        Name = p.Name
+                        Name = p.Name,
+                        Model = p.Model
                     }).ToList()
                 })
                 .ToListAsync();
@@ -87,7 +94,17 @@ namespace EffectCert.DAL.Implementations.Main
             if (application == null)
                 return 0;
 
+            var appProductsIds = new HashSet<int>();
+            foreach (var product in application.Products)
+                appProductsIds.Add(product.Id);
+
+            application.Products = new HashSet<Product>();
             appDBContext.Applications.Add(application);
+            await appDBContext.SaveChangesAsync();
+
+            foreach (var product in appProductsIds)
+                appDBContext.ApplicationsProducts.Add(new ApplicationsProducts() { ApplicationId = application.Id, ProductId = product });
+
             return await appDBContext.SaveChangesAsync();
         }
 
@@ -96,7 +113,21 @@ namespace EffectCert.DAL.Implementations.Main
             if (application == null)
                 return 0;
 
+            var appProductsIds = new HashSet<int>();
+            foreach (var product in application.Products)
+                appProductsIds.Add(product.Id);
+
+            application.Products = new HashSet<Product>();
             appDBContext.Applications.Update(application);
+
+            IEnumerable<int> existedAPProductsIds = appDBContext.ApplicationsProducts.Where(ap => ap.ApplicationId == application.Id).Select(ap => ap.ProductId);
+
+            foreach (var productToAddId in appProductsIds.Except(existedAPProductsIds))
+                appDBContext.ApplicationsProducts.Add(new ApplicationsProducts() { ApplicationId = application.Id, ProductId = productToAddId });
+
+            foreach (var id in existedAPProductsIds.Except(appProductsIds))
+                appDBContext.ApplicationsProducts.Remove(new ApplicationsProducts() { ApplicationId = application.Id, ProductId = id });
+
             return await appDBContext.SaveChangesAsync();
         }
 
@@ -108,6 +139,34 @@ namespace EffectCert.DAL.Implementations.Main
 
             appDBContext.Applications.Remove(application);
             return await appDBContext.SaveChangesAsync();
+        }
+
+        private void UpdateAppsProducts(Application application)
+        {
+            List<int> ids = new List<int>(application.Products.Count);
+            foreach (var product in application.Products)
+            {
+                ids.Add(product.Id);
+
+                appDBContext.Add(new ApplicationsProducts() { ApplicationId = application.Id, ProductId = product.Id });
+            }
+
+            //var dbProducts = appDBContext.Products
+            //    .Where(p => p.ContractorLegalId == application.Id
+            //                  && !ids.Contains(p.Id))
+            //    .Select(p => new ContractorLegalEmployee
+            //    {
+            //        Id = p.Id,
+            //        ContractorLegalId = p.ContractorLegalId
+            //    });
+
+            //foreach (var dbProduct in dbProducts)
+            //{
+            //    dbProduct.ContractorLegalId = null;
+
+            //    appDBContext.Attach(dbProduct);
+            //    appDBContext.Entry(dbProduct).Property(p => p.ContractorLegalId).IsModified = true;
+            //}
         }
     }
 }

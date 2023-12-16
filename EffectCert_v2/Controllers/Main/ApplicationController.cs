@@ -1,5 +1,6 @@
 ﻿using EffectCert.BLL.Interfaces;
 using EffectCert.ViewModels.Main;
+using EffectCert.ViewModels.Others;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EffectCert.Controllers.Main
@@ -17,9 +18,9 @@ namespace EffectCert.Controllers.Main
         {
             ViewData["Title"] = "Заявки";
 
-            var applicationes = await applicationBLL.FindAll();
+            var applications = await applicationBLL.FindAll();
 
-            return View("~/Views/Catalogues/Main/Application/Index.cshtml", applicationes);
+            return View("~/Views/Catalogues/Main/Application/Index.cshtml", applications);
         }
 
         public async Task<IActionResult> Details(int id)
@@ -46,6 +47,10 @@ namespace EffectCert.Controllers.Main
         {
             if (ModelState.IsValid)
             {
+                if (application.ProductsIds != null)
+                    foreach (var product in application.ProductsIds)
+                        application.Products.Add(new ProductViewModel() { Id = product });
+
                 await applicationBLL.UpdateOrCreate(application);
                 return RedirectToAction(nameof(Index));
             }
@@ -73,6 +78,10 @@ namespace EffectCert.Controllers.Main
 
             if (ModelState.IsValid)
             {
+                if (application.ProductsIds != null)
+                    foreach (var productId in application.ProductsIds)
+                        application.Products.Add(new ProductViewModel() { Id = productId });
+
                 await applicationBLL.UpdateOrCreate(application);
                 return RedirectToAction(nameof(Index));
             }

@@ -41,25 +41,25 @@
                 <label asp-for="Manufacturer" class="control-label"></label>
                 <div style="overflow-inline:hidden;">
                     <div style="width:78%; display:inline-block;">
-                        <select asp-for="Manufacturer" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
-                            <option value="">Выберите продукцию</option>
+                        <select asp-for="ManufacturerId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
+                            <option></option>
                         </select>
                     </div>
                     <div style="display:inline-block;">
                         <a asp-controller="ContractorLegal" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
-                        <a asp-controller="ContractorLegal" asp-action="Edit" asp-route-id="" id="ManufacturerEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
-                        <a asp-controller="ContractorLegal" asp-action="Details" asp-route-id="" id="ManufacturerDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
-                        <a asp-controller="ContractorLegal" asp-action="Delete" asp-route-id="" id="ManufacturerDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                        <a asp-controller="ContractorLegal" asp-action="Edit" asp-route-id="" id="ManufacturerIdEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="ContractorLegal" asp-action="Details" asp-route-id="" id="ManufacturerIdDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="ContractorLegal" asp-action="Delete" asp-route-id="" id="ManufacturerIdDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
                     </div>
                 </div>
-                <span asp-validation-for="Manufacturer" class="text-danger" id="ManufacturerWarning"></span>
+                <span asp-validation-for="ManufacturerId" class="text-danger" id="ManufacturerIdWarning"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TNVED" class="control-label"></label>
                 <input asp-for="TNVED" class="form-control" id="tnved" />
                 <span asp-validation-for="TNVED" class="text-danger"></span>
             </div>
-            <br />
+            <br>
             <div class="form-group">
                 <input type="submit" value="Создать" class="btn btn-primary" />
             </div>
@@ -78,7 +78,7 @@
     <script>
         $(document).ready(function () {
             let selectElements = [
-                { id: '#Manufacturer', url: '/ContractorLegal/GetContractorLegals/', placeholder: 'Выберите юр.лицо' }
+                { id: '#ManufacturerId', url: '/ContractorLegal/GetContractorLegals/', placeholder: 'Выберите юр.лицо' }
             ];
 
             establishSelect2Algorithm(selectElements);

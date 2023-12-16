@@ -67,7 +67,7 @@
                 <div style="overflow-inline:hidden;">
                     <div style="width:78%; display:inline-block;">
                         <select asp-for="SchemaId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
-                            <option value="@Model.Schema.Id">@Model.Schema.Name</option>
+                            <option value="@Model.Schema?.Id">@Model.Schema?.Name</option>
                         </select>
                     </div>
                     <div style="display:inline-block;">
@@ -83,10 +83,10 @@
                 <label asp-for="Products" class="control-label"></label>
                 <div style="overflow-inline:hidden;">
                     <div style="width:78%; display:inline-block;">
-                        <select asp-for="Products" class="form-control js-example-basic-multiple" required>
+                        <select asp-for="ProductsIds" class="form-control js-example-basic-multiple" required>
                             @foreach (var product in Model.Products)
                             {
-                                <option value="@product.Id">@product.Name</option>
+                                <option value="@product.Id" selected>@product.Name, @product.Model</option>
                             }
                         </select>
                     </div>
@@ -118,7 +118,7 @@
                 { id: '#AssessBodyId', url: '/AssessBody/GetAssessBodyies/', placeholder: 'Выберите ОПС' },
                 { id: '#ContractorLegalId', url: '/ContractorLegal/GetContractorLegals/', placeholder: 'Выберите юр.лицо' },
                 { id: '#SchemaId', url: '/Schema/GetSchemas/', placeholder: 'Выберите схему' },
-                { id: '#Products', url: '/Product/GetProducts/', placeholder: 'Выберите продукцию' }
+                { id: '#ProductsIds', url: '/Product/GetProducts/', placeholder: 'Выберите продукцию' }
             ];
 
             establishSelect2Algorithm(selectElements);

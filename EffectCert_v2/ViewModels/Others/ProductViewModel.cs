@@ -20,8 +20,8 @@ namespace EffectCert.ViewModels.Others
         public string? Model { get; set; }
         [DisplayName("Артикул")]
         public string? Article { get; set; }
-        public int ManufacturerId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
+        public int ManufacturerId { get; set; }
         [DisplayName("Изготовитель")]
         public ContractorLegalViewModel? Manufacturer { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]

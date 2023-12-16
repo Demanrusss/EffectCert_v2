@@ -27,7 +27,8 @@
             @Html.DisplayNameFor(model => model.ElectronicDate)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ElectronicDate.HasValue ? model.ElectronicDate.Value.ToShortDateString() : String.Empty)
+            @{ var dateStr = Model.ElectronicDate.HasValue ? Model.ElectronicDate.Value.ToShortDateString() : String.Empty; }
+            @Html.DisplayFor(model => dateStr)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.AssessBody)
@@ -45,7 +46,7 @@
             @Html.DisplayNameFor(model => model.Schema)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Schema.Name)
+            @Html.DisplayFor(model => model.Schema!.Name)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Products)
@@ -54,7 +55,7 @@
             @Html.DisplayFor(model => model.Products.Count)
             @foreach (var product in Model.Products)
             {
-                @Html.Display(String.Format("{0}, {1}", product.Name, product.Manufacturer!.ShortName))
+                <div>@Html.DisplayFor(modelItem => product.Name), @Html.DisplayFor(modelItem => product.Model)</div>
             }
         </dd>
     </dl>

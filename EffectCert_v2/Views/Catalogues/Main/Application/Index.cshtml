@@ -33,18 +33,19 @@
                 @Html.DisplayFor(modelItem => item.Number)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Date.ToShortDateString())
+                @{ var dateStr = item.Date.ToShortDateString(); }
+                @Html.DisplayFor(modelItem => dateStr)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ContractorLegal!.ShortName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Schema.Name)
+                @Html.DisplayFor(modelItem => item.Schema!.Name)
             </td>
             <td>
             @foreach (var product in item.Products)
             {
-                @Html.Display(String.Format("{0}\n", product.Name))
+                <div>@Html.DisplayFor(modelItem => product.Name), @Html.DisplayFor(modelItem => product.Model)</div>
             }
             </td>
             <td>

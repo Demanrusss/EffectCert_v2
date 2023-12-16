@@ -117,7 +117,7 @@ namespace EffectCert.Controllers.Others
                 var productItem = new Dictionary<string, string>
                 {
                     { "id", item.Id.ToString() },
-                    { "name", item.Name }
+                    { "name", String.Join(", ", item.Name, item.Model) }
                 };
 
                 productsList.Add(productItem);

@@ -48,6 +48,10 @@ namespace EffectCert.Controllers.Contractors
         {
             if (ModelState.IsValid)
             {
+                if (contractorLegal.EmployeesIds != null)
+                    foreach (var employee in contractorLegal.EmployeesIds)
+                        contractorLegal.Employees.Add(new ContractorLegalEmployeeViewModel() { Id = employee });
+
                 await contractorLegalBLL.UpdateOrCreate(contractorLegal);
                 return RedirectToAction(nameof(Index));
             }

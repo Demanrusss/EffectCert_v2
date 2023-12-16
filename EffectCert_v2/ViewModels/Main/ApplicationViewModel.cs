@@ -14,24 +14,25 @@ namespace EffectCert.ViewModels.Main
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Дата")]
         public DateTime Date { get; set; }
-        public int AssessBodyId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
+        public int AssessBodyId { get; set; }
         [DisplayName("Орган подтверждения соответствия")]
         public AssessBodyViewModel? AssessBody { get; set; }
-        public int ContractorLegalId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
+        public int ContractorLegalId { get; set; }
         [DisplayName("Заявитель")]
         public ContractorLegalViewModel? ContractorLegal { get; set; }
         [DisplayName("Номер в электронном реестре")]
         public string? ElectronicNumber { get; set; }
         [DisplayName("Дата в электронном реестре")]
         public DateTime? ElectronicDate { get; set; }
+        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         public int SchemaId { get; set; }
-        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Схема подтверждения соответствия")]
-        public SchemaViewModel Schema { get; set; } = null!;
-        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
+        public SchemaViewModel? Schema { get; set; }
         [DisplayName("Продукция")]
         public ICollection<ProductViewModel> Products { get; set; } = new HashSet<ProductViewModel>();
+        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
+        public int[]? ProductsIds { get; set; }
     }
 }

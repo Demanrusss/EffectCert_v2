@@ -3,7 +3,6 @@ using EffectCert.DAL.Entities.Contractors;
 using EffectCert.DAL.Entities.Documents;
 using EffectCert.DAL.Entities.Main;
 using EffectCert.DAL.Entities.Others;
-using Microsoft.Extensions.Hosting;
 
 namespace EffectCert.DAL.DBContext
 {
@@ -55,6 +54,8 @@ namespace EffectCert.DAL.DBContext
         public DbSet<ExpertDecision> ExpertDecisions { get; set; }
         public DbSet<Recommendation> Recommendations { get; set; }
         public DbSet<SelectProductsAct> SelectProductsActs { get; set; }
+
+        public DbSet<ApplicationsProducts> ApplicationsProducts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
