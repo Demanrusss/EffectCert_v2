@@ -78,20 +78,29 @@
                 </div>
                 <span asp-validation-for="SchemaId" class="text-danger" id="SchemaIdWarning"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Products" class="control-label"></label>
-                <div style="overflow-inline:hidden;">
-                    <div style="width:78%; display:inline-block;">
-                        <select asp-for="ProductsIds" class="form-control js-example-basic-multiple" required>
-                            <option></option>
-                        </select>
-                    </div>
-                    <div style="display:inline-block;">
-                        <a asp-controller="Product" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
-                    </div>
-                </div>
-                <span asp-validation-for="Products" class="text-danger" id="ProductsWarning"></span>
-            </div>
+            <table class="table" id="dynamic_table">
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label asp-for="Products" class="control-label"></label>
+                            <div style="overflow-inline:hidden;">
+                                <div style="width:78%; display:inline-block;">
+                                    <select asp-for="ProductsIds" class="form-control js-example-basic-multiple" required name="addmore[0][project]">
+                                        <option></option>
+                                    </select>
+                                </div>
+                                <div style="display:inline-block;">
+                                    <a asp-controller="Product" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                                </div>
+                            </div>
+                            <span asp-validation-for="Products" class="text-danger" id="ProductsWarning"></span>
+                        </div>
+                    </td>
+                    <td>
+                        <button type="button" name="add" id="add12" class="btn btn-success">Add More</button>
+                    </td>
+                </tr>
+            </table>
             <br>
             <div class="form-group">
                 <input type="submit" value="Создать" class="btn btn-primary" />
@@ -118,6 +127,25 @@
             ];
 
             establishSelect2Algorithm(selectElements);
+        });
+    </script>
+    <script>
+        let initializeSelect2 =  function() {
+          $('.js').select2();
+        };
+
+        var i = 0;
+        $("#add12").click(function () {
+            ++i;
+            $("#dynamic_table").append('<tr><td><div class="form-group"><label for="Products" class="control-label"></label><div style="overflow-inline:hidden;"><div style="width:78%; display:inline-block;"><select for="ProductsIds" class="form-control js-example-basic-multiple js" required name="addmore['+i+'][project]" id="ProductsIds"><option></option></select></div><div style="display:inline-block;"><a href="/Product/Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="/icons/icons8-plus.png" height="24" width="24" /></a></div></div><span validation-for="Products" class="text-danger" id="ProductsWarning"></span></div></td><td><button type="button" class="btn btn-danger remove-tr">Remove</button></td></tr>');
+            initializeSelect2()
+        });
+        $(document).on('click', '.remove-tr', function () {
+            $(this).parents('tr').remove();
+        });
+
+        $(document).ready(function () {
+            initializeSelect2()
         });
     </script>
 }

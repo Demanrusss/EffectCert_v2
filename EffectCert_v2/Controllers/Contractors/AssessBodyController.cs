@@ -75,10 +75,6 @@ namespace EffectCert.Controllers.Contractors
 
             if (ModelState.IsValid)
             {
-                if (assessBody.EmployeesIds != null)
-                    foreach (var employee in assessBody.EmployeesIds)
-                        assessBody.Employees.Add(new AssessBodyEmployeeViewModel() { Id = employee });
-
                 await assessBodyBLL.UpdateOrCreate(assessBody);
                 return RedirectToAction(nameof(Index));
             }

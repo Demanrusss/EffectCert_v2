@@ -24,6 +24,10 @@ namespace EffectCert.BLL.Contractors
 
         public async Task<int> UpdateOrCreate(ContractorLegalViewModel contractorLegalVM)
         {
+            if (contractorLegalVM.EmployeesIds != null)
+                foreach (var employee in contractorLegalVM.EmployeesIds)
+                    contractorLegalVM.Employees.Add(new ContractorLegalEmployeeViewModel() { Id = employee });
+
             var contractorLegal = ContractorLegalMapper.MapToModel(contractorLegalVM);
 
             return contractorLegal.Id == 0 

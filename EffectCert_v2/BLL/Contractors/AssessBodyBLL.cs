@@ -24,6 +24,10 @@ namespace EffectCert.BLL.Contractors
 
         public async Task<int> UpdateOrCreate(AssessBodyViewModel assessBodyVM)
         {
+            if (assessBodyVM.EmployeesIds != null)
+                foreach (var employee in assessBodyVM.EmployeesIds)
+                    assessBodyVM.Employees.Add(new AssessBodyEmployeeViewModel() { Id = employee });
+
             var assessBody = AssessBodyMapper.MapToModel(assessBodyVM);
 
             return assessBody.Id == 0 
