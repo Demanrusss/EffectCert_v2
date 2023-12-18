@@ -21,7 +21,8 @@ namespace EffectCert.ViewMappers.Main
                 ElectronicNumber = viewModel.ElectronicNumber,
                 Number = viewModel.Number,
                 Products = ConvertCollection(viewModel.Products),
-                SchemaId = viewModel.SchemaId,
+                ProductQuantities = ConvertCollection(viewModel.ProductQuantities),
+                SchemaId = viewModel.SchemaId
             };
         }
 
@@ -40,6 +41,7 @@ namespace EffectCert.ViewMappers.Main
                 ElectronicNumber = model.ElectronicNumber,
                 Number = model.Number,
                 Products = ConvertCollection(model.Products),
+                ProductQuantities = ConvertCollection(model.ProductQuantities),
                 Schema = SchemaMapper.MapToViewModel(model.Schema)
             };
         }
@@ -60,6 +62,26 @@ namespace EffectCert.ViewMappers.Main
 
             foreach (var element in sourceCollection)
                 targetCollection.Add(ProductMapper.MapToModel(element));
+
+            return targetCollection;
+        }
+
+        private static ICollection<ProductQuantityViewModel> ConvertCollection(ICollection<ProductQuantity> sourceCollection)
+        {
+            var targetCollection = new List<ProductQuantityViewModel>(sourceCollection.Count);
+
+            foreach (var element in sourceCollection)
+                targetCollection.Add(ProductQuantityMapper.MapToViewModel(element));
+
+            return targetCollection;
+        }
+
+        private static ICollection<ProductQuantity> ConvertCollection(ICollection<ProductQuantityViewModel> sourceCollection)
+        {
+            var targetCollection = new List<ProductQuantity>(sourceCollection.Count);
+
+            foreach (var element in sourceCollection)
+                targetCollection.Add(ProductQuantityMapper.MapToModel(element));
 
             return targetCollection;
         }

@@ -55,7 +55,9 @@ namespace EffectCert.DAL.DBContext
         public DbSet<Recommendation> Recommendations { get; set; }
         public DbSet<SelectProductsAct> SelectProductsActs { get; set; }
 
+        // Many to many
         public DbSet<ApplicationsProducts> ApplicationsProducts { get; set; }
+        public DbSet<ApplicationsProductQuantities> ApplicationsProductQuantities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -63,6 +65,11 @@ namespace EffectCert.DAL.DBContext
                 .HasMany(a => a.Products)
                 .WithMany(p => p.Applications)
                 .UsingEntity<ApplicationsProducts>();
+
+            modelBuilder.Entity<Application>()
+                .HasMany(a => a.ProductQuantities)
+                .WithMany(p => p.Applications)
+                .UsingEntity<ApplicationsProductQuantities>();
 
             modelBuilder.Entity<ExpertDecision>()
                 .HasMany(ed => ed.TestProtocols)

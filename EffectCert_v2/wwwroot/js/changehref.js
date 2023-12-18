@@ -14,4 +14,4 @@
         const pathArray = pathname.split('/');
         return `/${pathArray[1]}/${pathArray[2]}`;
     }
-}
+};

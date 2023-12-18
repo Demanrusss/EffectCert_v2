@@ -16,6 +16,8 @@ namespace EffectCert.DAL.Entities.Main
         public DateTime? ElectronicDate { get; set; }
         public int SchemaId { get; set; }
         public Schema Schema { get; set; } = null!;
+
         public ICollection<Product> Products { get; set; } = new HashSet<Product>();
+        public ICollection<ProductQuantity> ProductQuantities { get; set; } = new HashSet<ProductQuantity>();
     }
 }

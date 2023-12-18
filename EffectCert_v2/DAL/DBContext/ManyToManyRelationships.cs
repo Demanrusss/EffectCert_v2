@@ -32,13 +32,13 @@
 
     public class ApplicationsManufacturerStandards
     {
-        public int ApplicationsId { get; set; }
+        public int ApplicationId { get; set; }
         public int ManufacturerStandardId { get; set; }
     }
 
     public class ApplicationsProductQuantities
     {
-        public int ApplicationsId { get; set; }
+        public int ApplicationId { get; set; }
         public int ProductQuantityId { get; set; }
     }
 

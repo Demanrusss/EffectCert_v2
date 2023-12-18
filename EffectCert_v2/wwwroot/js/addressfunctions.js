@@ -12,4 +12,4 @@
         full_address.push(address_str);
 
     document.getElementById('full_address_name').value = full_address.join(", ");
-}
+};

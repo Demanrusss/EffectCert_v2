@@ -24,4 +24,4 @@
             placeholder: selectElements[i].placeholder
         });
     }
-}
+};

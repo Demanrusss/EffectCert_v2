@@ -53,6 +53,7 @@ namespace EffectCert.DAL.Implementations.Main
                 .Include(a => a.ContractorLegal)
                 .Include(a => a.Schema)
                 .Include(a => a.Products)
+                .Include(a => a.ProductQuantities)
                 .FirstOrDefaultAsync(a => a.Id == id) ?? new Application();
         }
 
@@ -65,6 +66,7 @@ namespace EffectCert.DAL.Implementations.Main
                 .Include(a => a.ContractorLegal)
                 .Include(a => a.Schema)
                 .Include(a => a.Products)
+                .Include(a => a.ProductQuantities)
                 .Where(a => a.Number.Contains(searchStr))
                 .Select(a => new Application
                 {
@@ -84,6 +86,14 @@ namespace EffectCert.DAL.Implementations.Main
                     {
                         Name = p.Name,
                         Model = p.Model
+                    }).ToList(),
+                    ProductQuantities = a.ProductQuantities.Select(p => new ProductQuantity
+                    {
+                        Product = new Product
+                        {
+                            Name = p.Product.Name,
+                            Model = p.Product.Model
+                        }
                     }).ToList()
                 })
                 .ToListAsync();
@@ -98,12 +108,21 @@ namespace EffectCert.DAL.Implementations.Main
             foreach (var product in application.Products)
                 appProductsIds.Add(product.Id);
 
+            var appProductQuantitiesIds = new HashSet<int>();
+            foreach (var productQuantity in application.ProductQuantities)
+                appProductQuantitiesIds.Add(productQuantity.Id);
+
             application.Products = new HashSet<Product>();
+            application.ProductQuantities = new HashSet<ProductQuantity>();
+
             appDBContext.Applications.Add(application);
             await appDBContext.SaveChangesAsync();
 
             foreach (var product in appProductsIds)
                 appDBContext.ApplicationsProducts.Add(new ApplicationsProducts() { ApplicationId = application.Id, ProductId = product });
+
+            foreach (var productQuantity in appProductQuantitiesIds)
+                appDBContext.ApplicationsProductQuantities.Add(new ApplicationsProductQuantities() { ApplicationId = application.Id, ProductQuantityId = productQuantity });
 
             return await appDBContext.SaveChangesAsync();
         }
@@ -139,34 +158,6 @@ namespace EffectCert.DAL.Implementations.Main
 
             appDBContext.Applications.Remove(application);
             return await appDBContext.SaveChangesAsync();
-        }
-
-        private void UpdateAppsProducts(Application application)
-        {
-            List<int> ids = new List<int>(application.Products.Count);
-            foreach (var product in application.Products)
-            {
-                ids.Add(product.Id);
-
-                appDBContext.Add(new ApplicationsProducts() { ApplicationId = application.Id, ProductId = product.Id });
-            }
-
-            //var dbProducts = appDBContext.Products
-            //    .Where(p => p.ContractorLegalId == application.Id
-            //                  && !ids.Contains(p.Id))
-            //    .Select(p => new ContractorLegalEmployee
-            //    {
-            //        Id = p.Id,
-            //        ContractorLegalId = p.ContractorLegalId
-            //    });
-
-            //foreach (var dbProduct in dbProducts)
-            //{
-            //    dbProduct.ContractorLegalId = null;
-
-            //    appDBContext.Attach(dbProduct);
-            //    appDBContext.Entry(dbProduct).Property(p => p.ContractorLegalId).IsModified = true;
-            //}
         }
     }
 }
