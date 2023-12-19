@@ -33,11 +33,9 @@ namespace EffectCert.ViewModels.Main
 
         [DisplayName("Продукция")]
         public ICollection<ProductViewModel> Products { get; set; } = new HashSet<ProductViewModel>();
-        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         public int[]? ProductsIds { get; set; }
         [DisplayName("Продукция и количество")]
         public ICollection<ProductQuantityViewModel> ProductQuantities { get; set; } = new HashSet<ProductQuantityViewModel>();
-        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         public int[]? ProductQuantitiesIds { get; set; }
     }
 }

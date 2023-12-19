@@ -21,49 +21,49 @@
                 <label asp-for="ContractorLegal" class="control-label"></label>
                 <div style="overflow-inline:hidden;">
                     <div style="width:78%; display:inline-block;">
-                        <select asp-for="ContractorLegal" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
-                            <option value="">Выберите юр.лицо</option>
+                        <select asp-for="ContractorLegalId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
+                            <option></option>
                         </select>
                     </div>
                     <div style="display:inline-block;">
-                        <a asp-controller="ContractorLegal" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
-                        <a asp-controller="ContractorLegal" asp-action="Edit" asp-route-id="" id="ContractorLegalEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
-                        <a asp-controller="ContractorLegal" asp-action="Details" asp-route-id="" id="ContractorLegalDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
-                        <a asp-controller="ContractorLegal" asp-action="Delete" asp-route-id="" id="ContractorLegalDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                        <a asp-controller="ContractorLegal" asp-action="Create" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                        <a asp-controller="ContractorLegal" asp-action="Edit" asp-route-id="" id="ContractorLegalIdEdit" class="btn-icons-animation" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="ContractorLegal" asp-action="Details" asp-route-id="" id="ContractorLegalIdDetails" class="btn-icons-animation" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="ContractorLegal" asp-action="Delete" asp-route-id="" id="ContractorLegalIdDelete" class="btn-icons-animation" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
                     </div>
                 </div>
-                <span asp-validation-for="ContractorLegal" class="text-danger" id="ContractorLegalWarning"></span>
+                <span asp-validation-for="ContractorLegalId" class="text-danger" id="ContractorLegalIdWarning"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Attestate" class="control-label"></label>
                 <div style="overflow-inline:hidden;">
                     <div style="width:78%; display:inline-block;">
-                        <select asp-for="Attestate" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)">
-                            <option value="">Выберите аттестат</option>
+                        <select asp-for="AttestateId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)">
+                            <option></option>
                         </select>
                     </div>
                     <div style="display:inline-block;">
-                        <a asp-controller="Attestate" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
-                        <a asp-controller="Attestate" asp-action="Edit" asp-route-id="" id="AttestateEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
-                        <a asp-controller="Attestate" asp-action="Details" asp-route-id="" id="AttestateDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
-                        <a asp-controller="Attestate" asp-action="Delete" asp-route-id="" id="AttestateDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                        <a asp-controller="Attestate" asp-action="Create" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                        <a asp-controller="Attestate" asp-action="Edit" asp-route-id="" id="AttestateIdEdit" class="btn-icons-animation" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="Attestate" asp-action="Details" asp-route-id="" id="AttestateIdDetails" class="btn-icons-animation" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="Attestate" asp-action="Delete" asp-route-id="" id="AttestateIdDelete" class="btn-icons-animation" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
                     </div>
                 </div>
-                <span asp-validation-for="Attestate" class="text-danger" id="AttestateWarning"></span>
+                <span asp-validation-for="AttestateId" class="text-danger" id="AttestateIdWarning"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LaboratoryEmployees" class="control-label"></label>
+                <label asp-for="Employees" class="control-label"></label>
                 <div style="overflow-inline:hidden;">
                     <div style="width:78%; display:inline-block;">
-                        <select asp-for="LaboratoryEmployees" class="form-control js-example-basic-multiple" required>
-                            <option value="">Выберите сотрудников</option>
+                        <select asp-for="EmployeesIds" class="form-control js-example-basic-multiple" required>
+                            <option></option>
                         </select>
                     </div>
                     <div style="display:inline-block;">
-                        <a asp-controller="LaboratoryEmployee" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                        <a asp-controller="LaboratoryEmployee" asp-action="Create" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
                     </div>
                 </div>
-                <span asp-validation-for="LaboratoryEmployees" class="text-danger"></span>
+                <span asp-validation-for="EmployeesIds" class="text-danger"></span>
             </div>
             <br />
             <div class="form-group">
@@ -84,9 +84,9 @@
     <script>
         $(document).ready(function () {
             let selectElements = [
-                { id: '#ContractorLegal', url: '/ContractorLegal/GetContractorLegals/', placeholder: 'Выберите юр.лицо' },
-                { id: '#Attestate', url: '/Attestate/GetAttestates/', placeholder: 'Выберите аттестат' },
-                { id: '#LaboratoryEmployees', url: '/LaboratoryEmployee/GetLaboratoryEmployees/', placeholder: 'Выберите сотрудников' }
+                { id: '#ContractorLegalId', url: '/ContractorLegal/GetContractorLegals/', placeholder: 'Выберите юр.лицо' },
+                { id: '#AttestateId', url: '/Attestate/GetAttestates/', placeholder: 'Выберите аттестат' },
+                { id: '#EmployeesIds', url: '/LaboratoryEmployee/GetLaboratoryEmployees/', placeholder: 'Выберите сотрудников' }
             ];
 
             establishSelect2Algorithm(selectElements);

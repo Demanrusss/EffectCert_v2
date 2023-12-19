@@ -14,21 +14,21 @@ namespace EffectCert.ViewModels.Main
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Дата")]
         public DateTime Date { get; set; }
-        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Заявка")]
         public ApplicationViewModel? Application { get; set; }
-        public int ApplicationId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
+        public int ApplicationId { get; set; }
         [DisplayName("План действий")]
         public ActionPlanViewModel? ActionPlan { get; set; }
-        public int ActionPlanId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
+        public int ActionPlanId { get; set; }
         [DisplayName("Адрес отбора")]
         public AddressViewModel? Address { get; set; }
-        public int AddressId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
+        public int AddressId { get; set; }
         [DisplayName("Поставщик")]
         public ContractorLegalViewModel? Supplier { get; set; }
+        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         public int SupplierId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Условия хранения")]
@@ -42,8 +42,9 @@ namespace EffectCert.ViewModels.Main
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Количество контрольных образцов продукции")]
         public string ControlSamplesQuantity { get; set; } = null!;
-        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Отобранные образцы продукции")]
         public ICollection<SelectedSampleQuantityViewModel> SelectedProducts { get; set; } = new HashSet<SelectedSampleQuantityViewModel>();
+        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
+        public int[]? SelectedProductsIds { get; set; }
     }
 }

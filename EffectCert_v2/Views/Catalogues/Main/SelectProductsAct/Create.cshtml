@@ -26,10 +26,10 @@
                         </select>
                     </div>
                     <div style="display:inline-block;">
-                        <a asp-controller="Application" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
-                        <a asp-controller="Application" asp-action="Edit" asp-route-id="" id="ApplicationEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
-                        <a asp-controller="Application" asp-action="Details" asp-route-id="" id="ApplicationDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
-                        <a asp-controller="Application" asp-action="Delete" asp-route-id="" id="ApplicationDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                        <a asp-controller="Application" asp-action="Create" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                        <a asp-controller="Application" asp-action="Edit" asp-route-id="" id="ApplicationEdit" class="btn-icons-animation" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="Application" asp-action="Details" asp-route-id="" id="ApplicationDetails" class="btn-icons-animation" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="Application" asp-action="Delete" asp-route-id="" id="ApplicationDelete" class="btn-icons-animation" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
                     </div>
                 </div>
                 <span asp-validation-for="Application" class="text-danger" id="ApplicationWarning"></span>
@@ -43,10 +43,10 @@
                         </select>
                     </div>
                     <div style="display:inline-block;">
-                        <a asp-controller="ActionPlan" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
-                        <a asp-controller="ActionPlan" asp-action="Edit" asp-route-id="" id="ActionPlanEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
-                        <a asp-controller="ActionPlan" asp-action="Details" asp-route-id="" id="ActionPlanDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
-                        <a asp-controller="ActionPlan" asp-action="Delete" asp-route-id="" id="ActionPlanDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                        <a asp-controller="ActionPlan" asp-action="Create" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                        <a asp-controller="ActionPlan" asp-action="Edit" asp-route-id="" id="ActionPlanEdit" class="btn-icons-animation" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="ActionPlan" asp-action="Details" asp-route-id="" id="ActionPlanDetails" class="btn-icons-animation" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="ActionPlan" asp-action="Delete" asp-route-id="" id="ActionPlanDelete" class="btn-icons-animation" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
                     </div>
                 </div>
                 <span asp-validation-for="ActionPlan" class="text-danger" id="ActionPlantWarning"></span>
@@ -60,10 +60,10 @@
                         </select>
                     </div>
                     <div style="display:inline-block;">
-                        <a asp-controller="Address" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
-                        <a asp-controller="Address" asp-action="Edit" asp-route-id="" id="AddressEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
-                        <a asp-controller="Address" asp-action="Details" asp-route-id="" id="AddressDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
-                        <a asp-controller="Address" asp-action="Delete" asp-route-id="" id="AddressDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                        <a asp-controller="Address" asp-action="Create" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                        <a asp-controller="Address" asp-action="Edit" asp-route-id="" id="AddressEdit" class="btn-icons-animation" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="Address" asp-action="Details" asp-route-id="" id="AddressDetails" class="btn-icons-animation" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="Address" asp-action="Delete" asp-route-id="" id="AddressDelete" class="btn-icons-animation" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
                     </div>
                 </div>
                 <span asp-validation-for="Address" class="text-danger" id="AddressWarning"></span>
@@ -77,10 +77,10 @@
                         </select>
                     </div>
                     <div style="display:inline-block;">
-                        <a asp-controller="ContractorLegal" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
-                        <a asp-controller="ContractorLegal" asp-action="Edit" asp-route-id="" id="SupplierEdit" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
-                        <a asp-controller="ContractorLegal" asp-action="Details" asp-route-id="" id="SupplierDetails" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
-                        <a asp-controller="ContractorLegal" asp-action="Delete" asp-route-id="" id="SupplierDelete" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                        <a asp-controller="ContractorLegal" asp-action="Create" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                        <a asp-controller="ContractorLegal" asp-action="Edit" asp-route-id="" id="SupplierEdit" class="btn-icons-animation" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="ContractorLegal" asp-action="Details" asp-route-id="" id="SupplierDetails" class="btn-icons-animation" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="ContractorLegal" asp-action="Delete" asp-route-id="" id="SupplierDelete" class="btn-icons-animation" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
                     </div>
                 </div>
                 <span asp-validation-for="Supplier" class="text-danger" id="SupplierWarning"></span>
@@ -114,7 +114,7 @@
                         </select>
                     </div>
                     <div style="display:inline-block;">
-                        <a asp-controller="Product" asp-action="Create" onmouseover="StartAnimation(this)" onmouseout="StopAnimation(this)" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                        <a asp-controller="Product" asp-action="Create" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
                     </div>
                 </div>
                 <span asp-validation-for="SelectedProducts" class="text-danger" id="SelectedProductsWarning"></span>

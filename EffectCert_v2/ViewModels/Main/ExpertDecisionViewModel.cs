@@ -14,15 +14,15 @@ namespace EffectCert.ViewModels.Main
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Дата")]
         public DateTime Date { get; set; }
-        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Заявка")]
         public ApplicationViewModel? Application { get; set; }
+        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         public int ApplicationId { get; set; }
         [DisplayName("Информация о знаке соответствия")]
         public string? ConformityMarkInfo { get; set; }
-        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Эксперт-аудитор")]
         public AssessBodyEmployeeViewModel? Expert { get; set; }
+        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         public int ExpertId { get; set; }
         [DisplayName("Действует до")]
         public DateTime? ValidDate { get; set; }
@@ -31,8 +31,9 @@ namespace EffectCert.ViewModels.Main
         public int? DocsAnalizeExpertId { get; set; }
         [DisplayName("Дата подписания")]
         public DateTime? DocsAnalizeExpertSignDate { get; set; }
-        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Протоколы испытаний")]
         public ICollection<TestProtocolViewModel> TestProtocols { get; set; } = new HashSet<TestProtocolViewModel>();
+        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
+        public int[]? TestProtocolsIds { get; set; }
     }
 }

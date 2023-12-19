@@ -13,27 +13,24 @@ namespace EffectCert.ViewModels.Main
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Дата")]
         public DateTime Date { get; set; }
-        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Заявка")]
         public ApplicationViewModel? Application { get; set; }
-        public int ApplicationId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
+        public int ApplicationId { get; set; }
         [DisplayName("Эксперт-аудитор по анализу заявки")]
         public AssessBodyEmployeeViewModel? AppAnalizeExpert { get; set; }
-        public int AppAnalizeExpertId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
+        public int AppAnalizeExpertId { get; set; }
         [DisplayName("Руководитель ОПС")]
         public AssessBodyEmployeeViewModel? ConformityAssessBodyHead { get; set; }
-        public int ConformityAssessBodyHeadId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
+        public int ConformityAssessBodyHeadId { get; set; }
         [DisplayName("Ответственный по отбору продукции")]
         public ContractorLegalEmployeeViewModel? SelectProductEmployee { get; set; }
         public int? SelectProductEmployeeId { get; set; }
-        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Эксперт-аудитор по анализу результатов")]
         public AssessBodyEmployeeViewModel? ResultsAnalizeExpert { get; set; }
         public int? ResultsAnalizeExpertId { get; set; }
-        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Ответственный по регистрации выходного документа")]
         public AssessBodyEmployeeViewModel? RegDocumentEmployee { get; set; }
         public int? RegDocumentEmployeeId { get; set; }

@@ -14,13 +14,13 @@ namespace EffectCert.ViewModels.Main
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Дата")]
         public DateTime Date { get; set; }
-        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Заявка")]
         public ApplicationViewModel? Application { get; set; }
-        public int ApplicationId { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
+        public int ApplicationId { get; set; }
         [DisplayName("План действий")]
         public ActionPlanViewModel? ActionPlan { get; set; }
+        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         public int ActionPlanId { get; set; }
         [DisplayName("ОПС по анализу производства")]
         public AssessBodyViewModel? ProductionAnalyzeAssessBody { get; set; }
