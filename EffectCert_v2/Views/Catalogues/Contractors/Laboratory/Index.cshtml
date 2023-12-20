@@ -29,10 +29,10 @@
                 @Html.DisplayFor(modelItem => item.ShortName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ContractorLegal.ShortName)
+                @Html.DisplayFor(modelItem => item.ContractorLegal!.ShortName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => (item.Attestate ?? new AttestateViewModel()).Number)
+                @Html.DisplayFor(modelItem => item.Attestate!.Number)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |

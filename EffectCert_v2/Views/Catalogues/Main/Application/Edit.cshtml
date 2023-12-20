@@ -94,7 +94,24 @@
                         <a asp-controller="Product" asp-action="Create" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
                     </div>
                 </div>
-                <span asp-validation-for="Products" class="text-danger" id="ProductsWarning"></span>
+                <span asp-validation-for="ProductsIds" class="text-danger" id="ProductsIdsWarning"></span>
+            </div>
+            <div class="form-group party">
+                <label asp-for="ProductQuantities" class="control-label"></label>
+                <div style="overflow-inline:hidden;">
+                    <div style="width:78%; display:inline-block;">
+                        <select asp-for="ProductQuantitiesIds" class="form-control js-example-basic-single">
+                        @foreach (var productQuantity in Model.ProductQuantities)
+                        {
+                            <option value="@productQuantity.Id">@productQuantity.Product?.Name, @productQuantity.Product?.Model, @productQuantity.Quantity, @productQuantity.MeasurementUnit?.ShortName</option>
+                        }
+                        </select>
+                    </div>
+                    <div style="display:inline-block;">
+                        <a asp-controller="ProductQuantity" asp-action="Create" target="_blank" class="btn-icons-animation"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                    </div>
+                </div>
+                <span asp-validation-for="ProductQuantitiesIds" class="text-danger" id="ProductQuantitiesIdsWarning"></span>
             </div>
             <br>
             <div class="form-group">
@@ -118,7 +135,8 @@
                 { id: '#AssessBodyId', url: '/AssessBody/GetAssessBodies/', placeholder: 'Выберите ОПС' },
                 { id: '#ContractorLegalId', url: '/ContractorLegal/GetContractorLegals/', placeholder: 'Выберите юр.лицо' },
                 { id: '#SchemaId', url: '/Schema/GetSchemas/', placeholder: 'Выберите схему' },
-                { id: '#ProductsIds', url: '/Product/GetProducts/', placeholder: 'Выберите продукцию' }
+                { id: '#ProductsIds', url: '/Product/GetProducts/', placeholder: 'Выберите продукцию' },
+                { id: '#ProductQuantitiesIds', url: '/ProductQuantity/GetProductQuantities/', placeholder: 'Выберите партию продукции' }
             ];
 
             establishSelect2Algorithm(selectElements);

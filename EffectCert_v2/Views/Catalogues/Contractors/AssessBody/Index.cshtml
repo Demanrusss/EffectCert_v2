@@ -30,10 +30,10 @@
                 @Html.DisplayFor(modelItem => item.ShortName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ContractorLegal.ShortName)
+                @Html.DisplayFor(modelItem => item.ContractorLegal!.ShortName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Attestate.Number)
+                @Html.DisplayFor(modelItem => item.Attestate!.Number)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Address!.AddressLine)

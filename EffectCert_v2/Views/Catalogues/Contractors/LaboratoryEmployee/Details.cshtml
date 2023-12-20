@@ -9,8 +9,8 @@
             @Html.DisplayNameFor(model => model.ContractorLegalEmployee)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ContractorLegalEmployee.ContractorIndividual.LastName)<br>
-            @Html.DisplayFor(model => model.ContractorLegalEmployee.ContractorIndividual.FirstName)
+            @Html.DisplayFor(model => model.ContractorLegalEmployee!.ContractorIndividual!.LastName)<br>
+            @Html.DisplayFor(model => model.ContractorLegalEmployee!.ContractorIndividual!.FirstName)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Position)

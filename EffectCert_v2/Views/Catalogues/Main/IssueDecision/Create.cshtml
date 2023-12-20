@@ -21,86 +21,86 @@
                 <label asp-for="Application" class="control-label"></label>
                 <div style="overflow-inline:hidden;">
                     <div style="width:78%; display:inline-block;">
-                        <select asp-for="Application" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
-                            <option value="">Выберите заявку</option>
+                        <select asp-for="ApplicationId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
+                            <option></option>
                         </select>
                     </div>
                     <div style="display:inline-block;">
                         <a asp-controller="Application" asp-action="Create" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
-                        <a asp-controller="Application" asp-action="Edit" asp-route-id="" id="ApplicationEdit" class="btn-icons-animation" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
-                        <a asp-controller="Application" asp-action="Details" asp-route-id="" id="ApplicationDetails" class="btn-icons-animation" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
-                        <a asp-controller="Application" asp-action="Delete" asp-route-id="" id="ApplicationDelete" class="btn-icons-animation" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                        <a asp-controller="Application" asp-action="Edit" asp-route-id="" id="ApplicationIdEdit" class="btn-icons-animation" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="Application" asp-action="Details" asp-route-id="" id="ApplicationIdDetails" class="btn-icons-animation" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="Application" asp-action="Delete" asp-route-id="" id="ApplicationIdDelete" class="btn-icons-animation" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
                     </div>
                 </div>
-                <span asp-validation-for="Application" class="text-danger" id="ApplicationWarning"></span>
+                <span asp-validation-for="ApplicationId" class="text-danger" id="ApplicationIdWarning"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Certificate" class="control-label"></label>
                 <div style="overflow-inline:hidden;">
                     <div style="width:78%; display:inline-block;">
-                        <select asp-for="Certificate" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)">
-                            <option value="">Выберите эксперта</option>
+                        <select asp-for="CertificateId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)">
+                            <option></option>
                         </select>
                     </div>
                     <div style="display:inline-block;">
                         <a asp-controller="Certificate" asp-action="Create" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
-                        <a asp-controller="Certificate" asp-action="Edit" asp-route-id="" id="CertificateEdit" class="btn-icons-animation" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
-                        <a asp-controller="Certificate" asp-action="Details" asp-route-id="" id="CertificateDetails" class="btn-icons-animation" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
-                        <a asp-controller="Certificate" asp-action="Delete" asp-route-id="" id="CertificateDelete" class="btn-icons-animation" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                        <a asp-controller="Certificate" asp-action="Edit" asp-route-id="" id="CertificateIdEdit" class="btn-icons-animation" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="Certificate" asp-action="Details" asp-route-id="" id="CertificateIdDetails" class="btn-icons-animation" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="Certificate" asp-action="Delete" asp-route-id="" id="CertificateIdDelete" class="btn-icons-animation" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
                     </div>
                 </div>
-                <span asp-validation-for="Certificate" class="text-danger" id="CertificateWarning"></span>
+                <span asp-validation-for="CertificateId" class="text-danger" id="CertificateIdWarning"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Declaration" class="control-label"></label>
                 <div style="overflow-inline:hidden;">
                     <div style="width:78%; display:inline-block;">
-                        <select asp-for="Declaration" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)">
-                            <option value="">Выберите эксперта</option>
+                        <select asp-for="DeclarationId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)">
+                            <option></option>
                         </select>
                     </div>
                     <div style="display:inline-block;">
                         <a asp-controller="Declaration" asp-action="Create" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
-                        <a asp-controller="Declaration" asp-action="Edit" asp-route-id="" id="DeclarationEdit" class="btn-icons-animation" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
-                        <a asp-controller="Declaration" asp-action="Details" asp-route-id="" id="DeclarationDetails" class="btn-icons-animation" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
-                        <a asp-controller="Declaration" asp-action="Delete" asp-route-id="" id="DeclarationDelete" class="btn-icons-animation" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                        <a asp-controller="Declaration" asp-action="Edit" asp-route-id="" id="DeclarationIdEdit" class="btn-icons-animation" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="Declaration" asp-action="Details" asp-route-id="" id="DeclarationIdDetails" class="btn-icons-animation" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="Declaration" asp-action="Delete" asp-route-id="" id="DeclarationIdDelete" class="btn-icons-animation" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
                     </div>
                 </div>
-                <span asp-validation-for="Declaration" class="text-danger" id="DeclarationWarning"></span>
+                <span asp-validation-for="DeclarationId" class="text-danger" id="DeclarationIdWarning"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ExpertDecision" class="control-label"></label>
                 <div style="overflow-inline:hidden;">
                     <div style="width:78%; display:inline-block;">
-                        <select asp-for="ExpertDecision" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
-                            <option value="">Выберите сотрудника</option>
+                        <select asp-for="ExpertDecisionId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
+                            <option></option>
                         </select>
                     </div>
                     <div style="display:inline-block;">
                         <a asp-controller="ExpertDecision" asp-action="Create" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
-                        <a asp-controller="ExpertDecision" asp-action="Edit" asp-route-id="" id="ExpertDecisionEdit" class="btn-icons-animation" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
-                        <a asp-controller="ExpertDecision" asp-action="Details" asp-route-id="" id="ExpertDecisionDetails" class="btn-icons-animation" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
-                        <a asp-controller="ExpertDecision" asp-action="Delete" asp-route-id="" id="ExpertDecisionDelete" class="btn-icons-animation" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                        <a asp-controller="ExpertDecision" asp-action="Edit" asp-route-id="" id="ExpertDecisionIdEdit" class="btn-icons-animation" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="ExpertDecision" asp-action="Details" asp-route-id="" id="ExpertDecisionIdDetails" class="btn-icons-animation" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="ExpertDecision" asp-action="Delete" asp-route-id="" id="ExpertDecisionIdDelete" class="btn-icons-animation" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
                     </div>
                 </div>
-                <span asp-validation-for="ExpertDecision" class="text-danger" id="ExpertDecisionWarning"></span>
+                <span asp-validation-for="ExpertDecisionId" class="text-danger" id="ExpertDecisionIdWarning"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Recommendation" class="control-label"></label>
                 <div style="overflow-inline:hidden;">
                     <div style="width:78%; display:inline-block;">
-                        <select asp-for="Recommendation" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
-                            <option value="">Выберите сотрудника</option>
+                        <select asp-for="RecommendationId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
+                            <option></option>
                         </select>
                     </div>
                     <div style="display:inline-block;">
                         <a asp-controller="Recommendation" asp-action="Create" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
-                        <a asp-controller="Recommendation" asp-action="Edit" asp-route-id="" id="RecommendationEdit" class="btn-icons-animation" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
-                        <a asp-controller="Recommendation" asp-action="Details" asp-route-id="" id="RecommendationDetails" class="btn-icons-animation" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
-                        <a asp-controller="Recommendation" asp-action="Delete" asp-route-id="" id="RecommendationDelete" class="btn-icons-animation" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                        <a asp-controller="Recommendation" asp-action="Edit" asp-route-id="" id="RecommendationIdEdit" class="btn-icons-animation" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="Recommendation" asp-action="Details" asp-route-id="" id="RecommendationIdDetails" class="btn-icons-animation" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="Recommendation" asp-action="Delete" asp-route-id="" id="RecommendationIdDelete" class="btn-icons-animation" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
                     </div>
                 </div>
-                <span asp-validation-for="Recommendation" class="text-danger" id="RecommendationWarning"></span>
+                <span asp-validation-for="RecommendationId" class="text-danger" id="RecommendationIdWarning"></span>
             </div>
             <br />
             <div class="form-group">
@@ -121,11 +121,11 @@
     <script>
         $(document).ready(function () {
             let selectElements = [
-                { id: '#Application', url: '/Application/GetApplications/', placeholder: 'Выберите заявку' },
-                { id: '#Certificate', url: '/Certificate/GetCertificates/', placeholder: 'Выберите сертификат' },
-                { id: '#Declaration', url: '/Declaration/GetDeclarations/', placeholder: 'Выберите декларацию' },
-                { id: '#ExpertDecision', url: '/ExpertDecision/GetExpertDecisions/', placeholder: 'Выберите заключение эксперта' },
-                { id: '#Recommendation', url: '/Recommendation/GetRecommendations/', placeholder: 'Выберите рекомендацию' }
+                { id: '#ApplicationId', url: '/Application/GetApplications/', placeholder: 'Выберите заявку' },
+                { id: '#CertificateId', url: '/Certificate/GetCertificates/', placeholder: 'Выберите сертификат' },
+                { id: '#DeclarationId', url: '/Declaration/GetDeclarations/', placeholder: 'Выберите декларацию' },
+                { id: '#ExpertDecisionId', url: '/ExpertDecision/GetExpertDecisions/', placeholder: 'Выберите заключение эксперта' },
+                { id: '#RecommendationId', url: '/Recommendation/GetRecommendations/', placeholder: 'Выберите рекомендацию' }
             ];
 
             establishSelect2Algorithm(selectElements);

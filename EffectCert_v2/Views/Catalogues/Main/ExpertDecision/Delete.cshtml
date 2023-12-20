@@ -22,7 +22,7 @@
             @Html.DisplayNameFor(model => model.Application)
         </dt>
         <dd class="col-sm-10">
-            №@Html.DisplayFor(model => model.Application.Number) от @Html.DisplayFor(model => model.Application.Date.ToShortDateString())
+            №@Html.DisplayFor(model => model.Application!.Number) от @Html.DisplayFor(model => model.Application!.Date.ToShortDateString())
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ConformityMarkInfo)
@@ -34,7 +34,7 @@
             @Html.DisplayNameFor(model => model.Expert)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Expert.ContractorLegalEmployee.ContractorIndividual.LastName) @{Html.DisplayFor(model => model.Expert.ContractorLegalEmployee.ContractorIndividual.FirstName[0]);}.
+            @Html.DisplayFor(model => model.Expert!.ContractorLegalEmployee!.ContractorIndividual!.LastName) @{Html.DisplayFor(model => model.Expert!.ContractorLegalEmployee!.ContractorIndividual!.FirstName[0]);}.
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ValidDate)
@@ -46,7 +46,7 @@
             @Html.DisplayNameFor(model => model.DocsAnalizeExpert)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DocsAnalizeExpert != null ? model.DocsAnalizeExpert.ContractorLegalEmployee.ContractorIndividual.LastName : String.Empty) @{Html.DisplayFor(model => model.DocsAnalizeExpert != null ? model.DocsAnalizeExpert.ContractorLegalEmployee.ContractorIndividual.FirstName[0] : ' ');}.
+            @Html.DisplayFor(model => model.DocsAnalizeExpert != null ? model.DocsAnalizeExpert!.ContractorLegalEmployee!.ContractorIndividual!.LastName : String.Empty) @{Html.DisplayFor(model => model.DocsAnalizeExpert != null ? model.DocsAnalizeExpert!.ContractorLegalEmployee!.ContractorIndividual!.FirstName[0] : ' ');}.
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.TestProtocols)

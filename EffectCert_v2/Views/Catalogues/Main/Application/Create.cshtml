@@ -90,7 +90,7 @@
                         <a asp-controller="Product" asp-action="Create" target="_blank" class="btn-icons-animation"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
                     </div>
                 </div>
-                <span asp-validation-for="Products" class="text-danger" id="ProductsWarning"></span>
+                <span asp-validation-for="ProductsIds" class="text-danger" id="ProductsIdsWarning"></span>
             </div>
             <div class="form-group party">
                 <label asp-for="ProductQuantities" class="control-label"></label>
@@ -104,7 +104,7 @@
                         <a asp-controller="ProductQuantity" asp-action="Create" target="_blank" class="btn-icons-animation"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
                     </div>
                 </div>
-                <span asp-validation-for="ProductQuantities" class="text-danger" id="ProductQuantitiesWarning"></span>
+                <span asp-validation-for="ProductQuantitiesIds" class="text-danger" id="ProductQuantitiesIdsWarning"></span>
             </div>
             <br>
             <div class="form-group">
@@ -129,7 +129,7 @@
                 { id: '#ContractorLegalId', url: '/ContractorLegal/GetContractorLegals/', placeholder: 'Выберите юр.лицо' },
                 { id: '#SchemaId', url: '/Schema/GetSchemas/', placeholder: 'Выберите схему' },
                 { id: '#ProductsIds', url: '/Product/GetProducts/', placeholder: 'Выберите продукцию' },
-                { id: '#ProductQuantitiesIds', url: '/ProductQuantity/GetProductQuantities/', placeholder: 'Выберите продукцию' }
+                { id: '#ProductQuantitiesIds', url: '/ProductQuantity/GetProductQuantities/', placeholder: 'Выберите партию продукции' }
             ];
 
             establishSelect2Algorithm(selectElements);

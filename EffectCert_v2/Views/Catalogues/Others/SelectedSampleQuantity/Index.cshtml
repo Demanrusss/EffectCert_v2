@@ -24,13 +24,13 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.ProductQuantity.Quantity.ToString())
+                @Html.DisplayFor(modelItem => item.ProductQuantity!.Quantity.ToString())
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Quantity)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MeasurementUnit.ShortName)
+                @Html.DisplayFor(modelItem => item.MeasurementUnit!.ShortName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |

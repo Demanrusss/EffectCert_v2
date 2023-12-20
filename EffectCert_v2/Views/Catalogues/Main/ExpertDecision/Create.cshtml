@@ -21,18 +21,18 @@
                 <label asp-for="Application" class="control-label"></label>
                 <div style="overflow-inline:hidden;">
                     <div style="width:78%; display:inline-block;">
-                        <select asp-for="Application" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
-                            <option value="">Выберите заявку</option>
+                        <select asp-for="ApplicationId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
+                            <option></option>
                         </select>
                     </div>
                     <div style="display:inline-block;">
                         <a asp-controller="Application" asp-action="Create" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
-                        <a asp-controller="Application" asp-action="Edit" asp-route-id="" id="ApplicationEdit" class="btn-icons-animation" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
-                        <a asp-controller="Application" asp-action="Details" asp-route-id="" id="ApplicationDetails" class="btn-icons-animation" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
-                        <a asp-controller="Application" asp-action="Delete" asp-route-id="" id="ApplicationDelete" class="btn-icons-animation" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                        <a asp-controller="Application" asp-action="Edit" asp-route-id="" id="ApplicationIdEdit" class="btn-icons-animation" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="Application" asp-action="Details" asp-route-id="" id="ApplicationIdDetails" class="btn-icons-animation" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="Application" asp-action="Delete" asp-route-id="" id="ApplicationIdDelete" class="btn-icons-animation" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
                     </div>
                 </div>
-                <span asp-validation-for="Application" class="text-danger" id="ApplicationWarning"></span>
+                <span asp-validation-for="ApplicationId" class="text-danger" id="ApplicationIdWarning"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ConformityMarkInfo" class="control-label"></label>
@@ -43,18 +43,18 @@
                 <label asp-for="Expert" class="control-label"></label>
                 <div style="overflow-inline:hidden;">
                     <div style="width:78%; display:inline-block;">
-                        <select asp-for="Expert" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
-                            <option value="">Выберите эксперта</option>
+                        <select asp-for="ExpertId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
+                            <option></option>
                         </select>
                     </div>
                     <div style="display:inline-block;">
                         <a asp-controller="AssessBodyEmployee" asp-action="Create" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
-                        <a asp-controller="AssessBodyEmployee" asp-action="Edit" asp-route-id="" id="ExpertEdit" class="btn-icons-animation" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
-                        <a asp-controller="AssessBodyEmployee" asp-action="Details" asp-route-id="" id="ExpertDetails" class="btn-icons-animation" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
-                        <a asp-controller="AssessBodyEmployee" asp-action="Delete" asp-route-id="" id="ExpertDelete" class="btn-icons-animation" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                        <a asp-controller="AssessBodyEmployee" asp-action="Edit" asp-route-id="" id="ExpertIdEdit" class="btn-icons-animation" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="AssessBodyEmployee" asp-action="Details" asp-route-id="" id="ExpertIdDetails" class="btn-icons-animation" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="AssessBodyEmployee" asp-action="Delete" asp-route-id="" id="ExpertIdDelete" class="btn-icons-animation" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
                     </div>
                 </div>
-                <span asp-validation-for="Expert" class="text-danger" id="ExpertWarning"></span>
+                <span asp-validation-for="ExpertId" class="text-danger" id="ExpertIdWarning"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ValidDate" class="control-label"></label>
@@ -65,18 +65,18 @@
                 <label asp-for="DocsAnalizeExpert" class="control-label"></label>
                 <div style="overflow-inline:hidden;">
                     <div style="width:78%; display:inline-block;">
-                        <select asp-for="DocsAnalizeExpert" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)">
-                            <option value="">Выберите эксперта</option>
+                        <select asp-for="DocsAnalizeExpertId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)">
+                            <option></option>
                         </select>
                     </div>
                     <div style="display:inline-block;">
                         <a asp-controller="AssessBodyEmployee" asp-action="Create" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
-                        <a asp-controller="AssessBodyEmployee" asp-action="Edit" asp-route-id="" id="DocsAnalizeExpertEdit" class="btn-icons-animation" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
-                        <a asp-controller="AssessBodyEmployee" asp-action="Details" asp-route-id="" id="DocsAnalizeExpertDetails" class="btn-icons-animation" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
-                        <a asp-controller="AssessBodyEmployee" asp-action="Delete" asp-route-id="" id="DocsAnalizeExpertDelete" class="btn-icons-animation" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                        <a asp-controller="AssessBodyEmployee" asp-action="Edit" asp-route-id="" id="DocsAnalizeExpertIdEdit" class="btn-icons-animation" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="AssessBodyEmployee" asp-action="Details" asp-route-id="" id="DocsAnalizeExpertIdDetails" class="btn-icons-animation" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="AssessBodyEmployee" asp-action="Delete" asp-route-id="" id="DocsAnalizeExpertIdDelete" class="btn-icons-animation" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
                     </div>
                 </div>
-                <span asp-validation-for="DocsAnalizeExpert" class="text-danger" id="DocsAnalizeExpertWarning"></span>
+                <span asp-validation-for="DocsAnalizeExpertId" class="text-danger" id="DocsAnalizeExpertIdWarning"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DocsAnalizeExpertSignDate" class="control-label"></label>
@@ -87,15 +87,15 @@
                 <label asp-for="TestProtocols" class="control-label"></label>
                 <div style="overflow-inline:hidden;">
                     <div style="width:78%; display:inline-block;">
-                        <select asp-for="TestProtocols" class="form-control js-example-basic-multiple" required>
-                            <option value="">Выберите протоколы</option>
+                        <select asp-for="TestProtocolsIds" class="form-control js-example-basic-multiple" required>
+                            <option></option>
                         </select>
                     </div>
                     <div style="display:inline-block;">
                         <a asp-controller="TestProtocol" asp-action="Create" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
                     </div>
                 </div>
-                <span asp-validation-for="TestProtocols" class="text-danger" id="testProtocolsWarning"></span>
+                <span asp-validation-for="TestProtocolsIds" class="text-danger" id="testProtocolsIdsWarning"></span>
             </div>
             <br />
             <div class="form-group">
@@ -116,10 +116,10 @@
     <script>
         $(document).ready(function () {
             let selectElements = [
-                { id: '#Application', url: '/Application/GetApplications/', placeholder: 'Выберите заявку' },
-                { id: '#Expert', url: '/AssessBodyEmployee/GetAssessBodyEmployees/', placeholder: 'Выберите эксперта' },
-                { id: '#DocsAnalizeExpert', url: '/AssessBodyEmployee/GetAssessBodyEmployees/', placeholder: 'Выберите эксперта' },
-                { id: '#TestProtocols', url: '/TestProtocol/GetTestProtocols/', placeholder: 'Выберите протокол' }
+                { id: '#ApplicationId', url: '/Application/GetApplications/', placeholder: 'Выберите заявку' },
+                { id: '#ExpertId', url: '/AssessBodyEmployee/GetAssessBodyEmployees/', placeholder: 'Выберите эксперта' },
+                { id: '#DocsAnalizeExpertId', url: '/AssessBodyEmployee/GetAssessBodyEmployees/', placeholder: 'Выберите эксперта' },
+                { id: '#TestProtocolsIds', url: '/TestProtocol/GetTestProtocols/', placeholder: 'Выберите протокол' }
             ];
 
             establishSelect2Algorithm(selectElements);
