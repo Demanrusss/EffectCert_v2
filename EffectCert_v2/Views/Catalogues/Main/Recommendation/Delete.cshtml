@@ -22,25 +22,25 @@
             @Html.DisplayNameFor(model => model.Application)
         </dt>
         <dd class = "col-sm-10">
-            №@Html.DisplayFor(model => model.Application.Number) от @Html.DisplayFor(model => model.Application.Date.ToShortDateString())
+            №@Html.DisplayFor(model => model.Application!.Number) от @Html.DisplayFor(model => model.Application!.Date.ToShortDateString())
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Decision)
         </dt>
         <dd class = "col-sm-10">
-            №@Html.DisplayFor(model => model.Decision.Number) от @Html.DisplayFor(model => model.Decision.Date.ToShortDateString())
+            №@Html.DisplayFor(model => model.Decision!.Number) от @Html.DisplayFor(model => model.Decision!.Date.ToShortDateString())
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.SelectProductsAct)
         </dt>
         <dd class="col-sm-10">
-            №@Html.DisplayFor(model => model.SelectProductsAct.Number) от @Html.DisplayFor(model => model.SelectProductsAct.Date.ToShortDateString())
+            №@Html.DisplayFor(model => model.SelectProductsAct!.Number) от @Html.DisplayFor(model => model.SelectProductsAct!.Date.ToShortDateString())
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ExpertDecision)
         </dt>
         <dd class="col-sm-10">
-            №@Html.DisplayFor(model => model.ExpertDecision.Number) от @Html.DisplayFor(model => model.ExpertDecision.Date.ToShortDateString())
+            №@Html.DisplayFor(model => model.ExpertDecision!.Number) от @Html.DisplayFor(model => model.ExpertDecision!.Date.ToShortDateString())
         </dd>
     </dl>
     

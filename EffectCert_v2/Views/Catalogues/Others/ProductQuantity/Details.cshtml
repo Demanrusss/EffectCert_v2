@@ -9,7 +9,7 @@
             @Html.DisplayNameFor(model => model.Product)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Product.Name)
+            @Html.DisplayFor(model => model.Product!.Name)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Quantity)
@@ -21,7 +21,7 @@
             @Html.DisplayNameFor(model => model.MeasurementUnit)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.MeasurementUnit.Name)
+            @Html.DisplayFor(model => model.MeasurementUnit!.Name)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.MadeDate)

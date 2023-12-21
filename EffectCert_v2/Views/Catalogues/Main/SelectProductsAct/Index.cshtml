@@ -39,18 +39,18 @@
                 @Html.DisplayFor(modelItem => item.Date.ToShortDateString())
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Application.Number)
+                @Html.DisplayFor(modelItem => item.Application!.Number)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ActionPlan.Number)
+                @Html.DisplayFor(modelItem => item.ActionPlan!.Number)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Supplier.ShortName)
+                @Html.DisplayFor(modelItem => item.Supplier!.ShortName)
             </td>
             <td>
             @foreach (var product in item.SelectedProducts)
             {
-                @Html.DisplayFor(model => product.ProductQuantity.Product.Name)<br>
+                @Html.DisplayFor(model => product.ProductQuantity!.Product!.Name)<br>
             }
             </td>
             <td>

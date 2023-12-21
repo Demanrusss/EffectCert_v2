@@ -31,16 +31,16 @@
             <div class="form-group">
                 <label asp-for="AssessBody" class="control-label"></label>
                 <div style="overflow-inline:hidden;">
-                    <div style="width:78%; display:inline-block;">
+                    <div style="width:70%; display:inline-block;">
                         <select asp-for="AssessBodyId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
                             <option value="@Model.AssessBody?.Id" selected>@Model.AssessBody?.ShortName</option>
                         </select>
                     </div>
                     <div style="display:inline-block;">
                         <a asp-controller="AssessBody" asp-action="Create" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
-                        <a asp-controller="AssessBody" asp-action="Edit" asp-route-id="" id="AssessBodyIdEdit" class="btn-icons-animation" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
-                        <a asp-controller="AssessBody" asp-action="Details" asp-route-id="" id="AssessBodyIdDetails" class="btn-icons-animation" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
-                        <a asp-controller="AssessBody" asp-action="Delete" asp-route-id="" id="AssessBodyIdDelete" class="btn-icons-animation" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                        <a asp-controller="AssessBody" asp-action="Edit" asp-route-id="" id="AssessBodyIdEdit" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="AssessBody" asp-action="Details" asp-route-id="" id="AssessBodyIdDetails" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="AssessBody" asp-action="Delete" asp-route-id="" id="AssessBodyIdDelete" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
                     </div>
                 </div>
                 <span asp-validation-for="AssessBodyId" class="text-danger" id="AssessBodyIdWarning"></span>
@@ -55,9 +55,9 @@
                     </div>
                     <div style="display:inline-block;">
                         <a asp-controller="ContractorLegal" asp-action="Create" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
-                        <a asp-controller="ContractorLegal" asp-action="Edit" asp-route-id="" id="ContractorLegalIdEdit" class="btn-icons-animation" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
-                        <a asp-controller="ContractorLegal" asp-action="Details" asp-route-id="" id="ContractorLegalIdDetails" class="btn-icons-animation" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
-                        <a asp-controller="ContractorLegal" asp-action="Delete" asp-route-id="" id="ContractorLegalIdDelete" class="btn-icons-animation" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                        <a asp-controller="ContractorLegal" asp-action="Edit" asp-route-id="" id="ContractorLegalIdEdit" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="ContractorLegal" asp-action="Details" asp-route-id="" id="ContractorLegalIdDetails" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="ContractorLegal" asp-action="Delete" asp-route-id="" id="ContractorLegalIdDelete" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
                     </div>
                 </div>
                 <span asp-validation-for="ContractorLegalId" class="text-danger" id="ContractorLegalIdWarning"></span>
@@ -72,9 +72,9 @@
                     </div>
                     <div style="display:inline-block;">
                         <a asp-controller="Schema" asp-action="Create" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
-                        <a asp-controller="Schema" asp-action="Edit" asp-route-id="" id="SchemaIdEdit" class="btn-icons-animation" hidden><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
-                        <a asp-controller="Schema" asp-action="Details" asp-route-id="" id="SchemaIdDetails" class="btn-icons-animation" hidden><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
-                        <a asp-controller="Schema" asp-action="Delete" asp-route-id="" id="SchemaIdDelete" class="btn-icons-animation" hidden><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                        <a asp-controller="Schema" asp-action="Edit" asp-route-id="" id="SchemaIdEdit" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                        <a asp-controller="Schema" asp-action="Details" asp-route-id="" id="SchemaIdDetails" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                        <a asp-controller="Schema" asp-action="Delete" asp-route-id="" id="SchemaIdDelete" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
                     </div>
                 </div>
                 <span asp-validation-for="SchemaId" class="text-danger" id="SchemaIdWarning"></span>
@@ -108,7 +108,7 @@
                         </select>
                     </div>
                     <div style="display:inline-block;">
-                        <a asp-controller="ProductQuantity" asp-action="Create" target="_blank" class="btn-icons-animation"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                        <a asp-controller="ProductQuantity" asp-action="Create" target="_blank" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
                     </div>
                 </div>
                 <span asp-validation-for="ProductQuantitiesIds" class="text-danger" id="ProductQuantitiesIdsWarning"></span>

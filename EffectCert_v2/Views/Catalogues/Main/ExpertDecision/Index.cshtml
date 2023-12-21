@@ -36,10 +36,10 @@
                 @Html.DisplayFor(modelItem => item.Date.ToShortDateString())
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Application.Number)
+                @Html.DisplayFor(modelItem => item.Application!.Number)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Expert.ContractorLegalEmployee.ContractorIndividual.LastName) @{Html.DisplayFor(modelItem => item.Expert.ContractorLegalEmployee.ContractorIndividual.FirstName[0]);}.
+                @Html.DisplayFor(modelItem => item.Expert!.ContractorLegalEmployee!.ContractorIndividual!.LastName) @{Html.DisplayFor(modelItem => item.Expert!.ContractorLegalEmployee!.ContractorIndividual!.FirstName[0]);}.
             </td>
             <td>
             @foreach (var product in item.TestProtocols)

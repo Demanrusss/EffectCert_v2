@@ -27,13 +27,13 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Product.Name)
+                @Html.DisplayFor(modelItem => item.Product!.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Quantity)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MeasurementUnit.ShortName)
+                @Html.DisplayFor(modelItem => item.MeasurementUnit!.ShortName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.MadeDate.ToShortDateString())

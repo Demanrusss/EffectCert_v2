@@ -42,7 +42,7 @@
                 @Html.DisplayFor(modelItem => item.Date.ToShortDateString())
             </td>
             <td>
-                №@Html.DisplayFor(modelItem => item.Application.Number) от @Html.DisplayFor(modelItem => item.Application.Date.ToShortDateString())
+                №@Html.DisplayFor(modelItem => item.Application!.Number) от @Html.DisplayFor(modelItem => item.Application!.Date.ToShortDateString())
             </td>
             <td>
                 №@Html.DisplayFor(modelItem => item.Certificate != null ? item.Certificate.Number : String.Empty) от @Html.DisplayFor(modelItem => item.Certificate != null ? item.Certificate.Date.ToShortDateString() : String.Empty)
@@ -51,10 +51,10 @@
                 №@Html.DisplayFor(modelItem => item.Declaration != null ? item.Declaration.Number : String.Empty) от @Html.DisplayFor(modelItem => item.Declaration != null ? item.Declaration.Date.ToShortDateString() : String.Empty)
             </td>
             <td>
-                №@Html.DisplayFor(modelItem => item.ExpertDecision.Number) от @Html.DisplayFor(modelItem => item.ExpertDecision.Date.ToShortDateString())
+                №@Html.DisplayFor(modelItem => item.ExpertDecision!.Number) от @Html.DisplayFor(modelItem => item.ExpertDecision!.Date.ToShortDateString())
             </td>
             <td>
-                №@Html.DisplayFor(modelItem => item.Recommendation.Number) от @Html.DisplayFor(modelItem => item.Recommendation.Date.ToShortDateString())
+                №@Html.DisplayFor(modelItem => item.Recommendation!.Number) от @Html.DisplayFor(modelItem => item.Recommendation!.Date.ToShortDateString())
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |

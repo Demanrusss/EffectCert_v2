@@ -39,16 +39,16 @@
                 @Html.DisplayFor(modelItem => item.Date.ToShortDateString())
             </td>
             <td>
-                №@Html.DisplayFor(modelItem => item.Application.Number) от @Html.DisplayFor(modelItem => item.Application.Date.ToShortDateString())
+                №@Html.DisplayFor(modelItem => item.Application!.Number) от @Html.DisplayFor(modelItem => item.Application!.Date.ToShortDateString())
             </td>
             <td>
-                №@Html.DisplayFor(modelItem => item.Decision.Number) от @Html.DisplayFor(modelItem => item.Decision.Date.ToShortDateString())
+                №@Html.DisplayFor(modelItem => item.Decision!.Number) от @Html.DisplayFor(modelItem => item.Decision!.Date.ToShortDateString())
             </td>
             <td>
-                №@Html.DisplayFor(modelItem => item.SelectProductsAct.Number) от @Html.DisplayFor(modelItem => item.SelectProductsAct.Date.ToShortDateString())
+                №@Html.DisplayFor(modelItem => item.SelectProductsAct!.Number) от @Html.DisplayFor(modelItem => item.SelectProductsAct!.Date.ToShortDateString())
             </td>
             <td>
-                №@Html.DisplayFor(modelItem => item.ExpertDecision.Number) от @Html.DisplayFor(modelItem => item.ExpertDecision.Date.ToShortDateString())
+                №@Html.DisplayFor(modelItem => item.ExpertDecision!.Number) от @Html.DisplayFor(modelItem => item.ExpertDecision!.Date.ToShortDateString())
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
