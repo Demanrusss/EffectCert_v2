@@ -20,13 +20,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="ContractorLegal" class="control-label"></label>
-                <div style="overflow-inline:hidden;">
-                    <div style="width:78%; display:inline-block;">
+                <div class="row justify-content-between">
+                    <div class="col-md">
                         <select asp-for="ContractorLegalId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
                             <option value="@Model.ContractorLegal?.Id" selected>@Model.ContractorLegal?.ShortName</option>
                         </select>
                     </div>
-                    <div style="display:inline-block;">
+                    <div class="col-md-3">
                         <a asp-controller="ContractorLegal" asp-action="Create" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
                         <a asp-controller="ContractorLegal" asp-action="Edit" asp-route-id="@Model.ContractorLegal?.Id" id="ContractorLegalIdEdit" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
                         <a asp-controller="ContractorLegal" asp-action="Details" asp-route-id="@Model.ContractorLegal?.Id" id="ContractorLegalIdDetails" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
@@ -37,13 +37,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="Address" class="control-label"></label>
-                <div style="overflow-inline:hidden;">
-                    <div style="width:78%; display:inline-block;">
+                <div class="row justify-content-between">
+                    <div class="col-md">
                         <select asp-for="AddressId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
                             <option value="@Model.Address?.Id" selected>@Model.Address?.AddressLine</option>
                         </select>
                     </div>
-                    <div style="display:inline-block;">
+                    <div class="col-md-3">
                         <a asp-controller="Address" asp-action="Create" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
                         <a asp-controller="Address" asp-action="Edit" asp-route-id="@Model.Address?.Id" id="AddressIdEdit" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
                         <a asp-controller="Address" asp-action="Details" asp-route-id="@Model.Address?.Id" id="AddressIdDetails" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
@@ -54,13 +54,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="Attestate" class="control-label"></label>
-                <div style="overflow-inline:hidden;">
-                    <div style="width:78%; display:inline-block;">
+                <div class="row justify-content-between">
+                    <div class="col-md">
                         <select asp-for="AttestateId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
                             <option value="@Model.Attestate?.Id" selected>@Model.Attestate?.Number</option>
                         </select>
                     </div>
-                    <div style="display:inline-block;">
+                    <div class="col-md-3">
                         <a asp-controller="Attestate" asp-action="Create" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
                         <a asp-controller="Attestate" asp-action="Edit" asp-route-id="@Model.Attestate?.Id" id="AttestateIdEdit" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
                         <a asp-controller="Attestate" asp-action="Details" asp-route-id="@Model.Attestate?.Id" id="AttestateIdDetails" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
@@ -71,8 +71,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="Employees" class="control-label"></label>
-                <div style="overflow-inline:hidden;">
-                    <div style="width:78%; display:inline-block;">
+                <div class="row justify-content-between">
+                    <div class="col-md">
                         <select asp-for="EmployeesIds" class="form-control js-example-basic-multiple" required>
                             @foreach (var employee in Model.Employees)
                             {
@@ -80,7 +80,7 @@
                             }
                         </select>
                     </div>
-                    <div style="display:inline-block;">
+                    <div class="col-md-3">
                         <a asp-controller="AssessBodyEmployee" asp-action="Create" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
                     </div>
                 </div>

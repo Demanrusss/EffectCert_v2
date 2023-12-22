@@ -10,13 +10,13 @@
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Product" class="control-label"></label>
-                <div style="overflow-inline:hidden;">
-                    <div style="width:78%; display:inline-block;">
+                <div class="row justify-content-between">
+                    <div class="col-md">
                         <select asp-for="ProductId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
                             <option value="@Model.Product?.Id">@Model.Product?.Name, @Model.Product?.Model</option>
                         </select>
                     </div>
-                    <div style="display:inline-block;">
+                    <div class="col-md-3">
                         <a asp-controller="Product" asp-action="Create" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
                         <a asp-controller="Product" asp-action="Edit" asp-route-id="" id="ProductIdEdit" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
                         <a asp-controller="Product" asp-action="Details" asp-route-id="" id="ProductIdDetails" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
@@ -32,13 +32,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="MeasurementUnit" class="control-label"></label>
-                <div style="overflow-inline:hidden;">
-                    <div style="width:78%; display:inline-block;">
+                <div class="row justify-content-between">
+                    <div class="col-md">
                         <select asp-for="MeasurementUnitId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
                             <option value="@Model.MeasurementUnit?.Id">@Model.MeasurementUnit?.ShortName</option>
                         </select>
                     </div>
-                    <div style="display:inline-block;">
+                    <div class="col-md-3">
                         <a asp-controller="MeasurementUnit" asp-action="Create" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
                         <a asp-controller="MeasurementUnit" asp-action="Edit" asp-route-id="" id="MeasurementUnitIdEdit" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
                         <a asp-controller="MeasurementUnit" asp-action="Details" asp-route-id="" id="MeasurementUnitIdDetails" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
