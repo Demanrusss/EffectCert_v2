@@ -71,4 +71,10 @@
         public int SelectProductsActId { get; set; }
         public int SelectedSampleQuantityId { get; set; }
     }
+
+    public class SchemasCertObjects
+    {
+        public int SchemaId { get; set; }
+        public int CertObjectId { get; set; }
+    }
 }

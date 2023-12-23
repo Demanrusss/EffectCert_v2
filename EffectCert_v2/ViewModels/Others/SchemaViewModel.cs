@@ -9,5 +9,8 @@ namespace EffectCert.ViewModels.Others
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Номер")]
         public string Name { get; set; } = null!;
+        [DisplayName("Объекты подтверждения соответствия")]
+        public ICollection<CertObjectViewModel> CertObjects { get; set; } = new HashSet<CertObjectViewModel>();
+        public int[]? CertObjectIds { get; set; }
     }
 }

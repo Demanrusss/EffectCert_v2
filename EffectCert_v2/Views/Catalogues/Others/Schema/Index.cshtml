@@ -11,6 +11,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CertObjects)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -19,6 +22,12 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+            @foreach (var certObject in item.CertObjects)
+            {
+                <div>@Html.DisplayFor(modelItem => certObject.Name)</div>
+            }
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |

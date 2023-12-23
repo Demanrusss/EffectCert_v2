@@ -15,7 +15,7 @@ namespace EffectCert.Controllers.Others
 
         public async Task<IActionResult> Index()
         {
-            ViewData["Title"] = "Объекты сертификации";
+            ViewData["Title"] = "Объекты подтверждения соответствия";
 
             var certObjectes = await certObjectBLL.FindAll();
 
@@ -24,7 +24,7 @@ namespace EffectCert.Controllers.Others
 
         public async Task<IActionResult> Details(int id)
         {
-            ViewData["Title"] = "Полные данные объекта сертификации";
+            ViewData["Title"] = "Полные данные объекта подтверждения соответствия";
 
             var certObject = await certObjectBLL.Get(id);
             if (certObject.Id == 0)
@@ -35,7 +35,7 @@ namespace EffectCert.Controllers.Others
 
         public IActionResult Create()
         {
-            ViewData["Title"] = "Создание объекта сертификации";
+            ViewData["Title"] = "Создание объекта подтверждения соответствия";
 
             return View("~/Views/Catalogues/Others/CertObject/Create.cshtml");
         }
@@ -55,7 +55,7 @@ namespace EffectCert.Controllers.Others
 
         public async Task<IActionResult> Edit(int id)
         {
-            ViewData["Title"] = "Внесение изменений в объект сертификации";
+            ViewData["Title"] = "Внесение изменений в объект подтверждения соответствия";
 
             var certObject = await certObjectBLL.Get(id);
             if (certObject.Id == 0)
@@ -82,7 +82,7 @@ namespace EffectCert.Controllers.Others
 
         public async Task<IActionResult> Delete(int id)
         {
-            ViewData["Title"] = "Удаление объекта сертификации";
+            ViewData["Title"] = "Удаление объекта подтверждения соответствия";
 
             var certObject = await certObjectBLL.Get(id);
             if (certObject.Id == 0)

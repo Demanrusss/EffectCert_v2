@@ -11,6 +11,16 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CertObjects)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CertObjects.Count)
+            @foreach (var certObject in Model.CertObjects)
+            {
+                <div>@Html.DisplayFor(modelItem => certObject.Name)</div>
+            }
+        </dd>
     </dl>
 </div>
 <div>

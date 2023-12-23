@@ -46,6 +46,10 @@ namespace EffectCert.Controllers.Others
         {
             if (ModelState.IsValid)
             {
+                if (schema.CertObjectIds != null)
+                    foreach (var certObject in schema.CertObjectIds)
+                        schema.CertObjects.Add(new CertObjectViewModel() { Id = certObject });
+
                 await schemaBLL.UpdateOrCreate(schema);
                 return RedirectToAction(nameof(Index));
             }
@@ -73,6 +77,10 @@ namespace EffectCert.Controllers.Others
 
             if (ModelState.IsValid)
             {
+                if (schema.CertObjectIds != null)
+                    foreach (var certObject in schema.CertObjectIds)
+                        schema.CertObjects.Add(new CertObjectViewModel() { Id = certObject });
+
                 await schemaBLL.UpdateOrCreate(schema);
                 return RedirectToAction(nameof(Index));
             }

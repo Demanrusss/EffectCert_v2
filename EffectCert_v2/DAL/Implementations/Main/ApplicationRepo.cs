@@ -136,7 +136,12 @@ namespace EffectCert.DAL.Implementations.Main
             foreach (var product in application.Products)
                 appProductsIds.Add(product.Id);
 
+            var appProductQuantitiesIds = new HashSet<int>();
+            foreach (var productQuantity in application.ProductQuantities)
+                appProductQuantitiesIds.Add(productQuantity.Id);
+
             application.Products = new HashSet<Product>();
+            application.ProductQuantities = new HashSet<ProductQuantity>();
             appDBContext.Applications.Update(application);
 
             IEnumerable<int> existedAPProductsIds = appDBContext.ApplicationsProducts.Where(ap => ap.ApplicationId == application.Id).Select(ap => ap.ProductId);
@@ -146,6 +151,14 @@ namespace EffectCert.DAL.Implementations.Main
 
             foreach (var id in existedAPProductsIds.Except(appProductsIds))
                 appDBContext.ApplicationsProducts.Remove(new ApplicationsProducts() { ApplicationId = application.Id, ProductId = id });
+
+            IEnumerable<int> existedAPProductQuantitiesIds = appDBContext.ApplicationsProductQuantities.Where(ap => ap.ApplicationId == application.Id).Select(ap => ap.ProductQuantityId);
+
+            foreach (var productQuantityToAddId in appProductQuantitiesIds.Except(existedAPProductQuantitiesIds))
+                appDBContext.ApplicationsProductQuantities.Add(new ApplicationsProductQuantities() { ApplicationId = application.Id, ProductQuantityId = productQuantityToAddId });
+
+            foreach (var id in existedAPProductQuantitiesIds.Except(appProductQuantitiesIds))
+                appDBContext.ApplicationsProductQuantities.Remove(new ApplicationsProductQuantities() { ApplicationId = application.Id, ProductQuantityId = id });
 
             return await appDBContext.SaveChangesAsync();
         }

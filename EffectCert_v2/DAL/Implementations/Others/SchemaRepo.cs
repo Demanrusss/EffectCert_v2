@@ -16,12 +16,16 @@ namespace EffectCert.DAL.Implementations.Others
 
         public async Task<ICollection<Schema>> GetAll()
         {
-            return await appDBContext.Schemas.ToListAsync();
+            return await appDBContext.Schemas
+                .Include(s => s.CertObjects)
+                .ToListAsync();
         }
 
         public async Task<Schema> Get(int id)
         {
-            return await appDBContext.Schemas.FirstOrDefaultAsync(a => a.Id == id) ?? new Schema();
+            return await appDBContext.Schemas
+                .Include(s => s.CertObjects)
+                .FirstOrDefaultAsync(a => a.Id == id) ?? new Schema();
         }
 
         public async Task<ICollection<Schema>> Find(string searchStr)
@@ -29,8 +33,10 @@ namespace EffectCert.DAL.Implementations.Others
             if (String.IsNullOrWhiteSpace(searchStr))
                 return await GetAll();
 
-            var result = appDBContext.Schemas.Where(c => c.Name.Contains(searchStr));
-            return await result.ToListAsync();
+            return await appDBContext.Schemas
+                .Include(s => s.CertObjects)
+                .Where(c => c.Name.Contains(searchStr))
+                .ToListAsync();
         }
 
         public async Task<int> Create(Schema schema)
@@ -38,7 +44,18 @@ namespace EffectCert.DAL.Implementations.Others
             if (schema == null)
                 return 0;
 
+            var certObjectsIds = new HashSet<int>();
+            foreach (var certObject in schema.CertObjects)
+                certObjectsIds.Add(certObject.Id);
+
+            schema.CertObjects = new HashSet<CertObject>();
+
             appDBContext.Schemas.Add(schema);
+            await appDBContext.SaveChangesAsync();
+
+            foreach (var certObject in certObjectsIds)
+                appDBContext.SchemasCertObjects.Add(new SchemasCertObjects() { SchemaId = schema.Id, CertObjectId = certObject });
+
             return await appDBContext.SaveChangesAsync();
         }
 
@@ -47,7 +64,21 @@ namespace EffectCert.DAL.Implementations.Others
             if (schema == null)
                 return 0;
 
+            var schemaCertObjectsIds = new HashSet<int>();
+            foreach (var certObject in schema.CertObjects)
+                schemaCertObjectsIds.Add(certObject.Id);
+
+            schema.CertObjects = new HashSet<CertObject>();
             appDBContext.Schemas.Update(schema);
+
+            IEnumerable<int> existedSchemaCertObjectsIds = appDBContext.SchemasCertObjects.Where(sco => sco.SchemaId == schema.Id).Select(sco => sco.CertObjectId);
+
+            foreach (var certObjectToAddId in schemaCertObjectsIds.Except(existedSchemaCertObjectsIds))
+                appDBContext.SchemasCertObjects.Add(new SchemasCertObjects() { SchemaId = schema.Id, CertObjectId = certObjectToAddId });
+
+            foreach (var id in existedSchemaCertObjectsIds.Except(schemaCertObjectsIds))
+                appDBContext.SchemasCertObjects.Remove(new SchemasCertObjects() { SchemaId = schema.Id, CertObjectId = id });
+
             return await appDBContext.SaveChangesAsync();
         }
 

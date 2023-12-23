@@ -10,7 +10,8 @@ namespace EffectCert.ViewMappers.Others
             return new Schema()
             {
                 Id = viewModel.Id,
-                Name = viewModel.Name
+                Name = viewModel.Name,
+                CertObjects = ConvertCollection(viewModel.CertObjects)
             };
         }
 
@@ -22,8 +23,29 @@ namespace EffectCert.ViewMappers.Others
             return new SchemaViewModel()
             {
                 Id = model.Id,
-                Name = model.Name
+                Name = model.Name,
+                CertObjects = ConvertCollection(model.CertObjects)
             };
+        }
+
+        private static ICollection<CertObjectViewModel> ConvertCollection(ICollection<CertObject> sourceCollection)
+        {
+            var targetCollection = new List<CertObjectViewModel>(sourceCollection.Count);
+
+            foreach (var element in sourceCollection)
+                targetCollection.Add(CertObjectMapper.MapToViewModel(element));
+
+            return targetCollection;
+        }
+
+        private static ICollection<CertObject> ConvertCollection(ICollection<CertObjectViewModel> sourceCollection)
+        {
+            var targetCollection = new List<CertObject>(sourceCollection.Count);
+
+            foreach (var element in sourceCollection)
+                targetCollection.Add(CertObjectMapper.MapToModel(element));
+
+            return targetCollection;
         }
     }
 }

@@ -4,5 +4,6 @@
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;
+        public ICollection<CertObject> CertObjects { get; set; } = new HashSet<CertObject>();
     }
 }
