@@ -1,6 +1,7 @@
 ﻿using EffectCert.BLL.Interfaces;
 using EffectCert.ViewModels.Others;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
 
 namespace EffectCert.Controllers.Others
 {
@@ -125,13 +126,24 @@ namespace EffectCert.Controllers.Others
                 var schemaItem = new Dictionary<string, string>
                 {
                     { "id", item.Id.ToString() },
-                    { "name", item.Name }
+                    { "name", item.Name },
+                    { "info", GenerateItemsStr(item.CertObjects) }
                 };
 
                 schemasList.Add(schemaItem);
             }
 
             return Json(schemasList);
+        }
+
+        private string GenerateItemsStr(ICollection<CertObjectViewModel> certObjects)
+        {
+            var sb = new StringBuilder();
+
+            foreach (var certObject in certObjects)
+                sb.AppendFormat("{0};", certObject.Name);
+
+            return sb.ToString();
         }
     }
 }

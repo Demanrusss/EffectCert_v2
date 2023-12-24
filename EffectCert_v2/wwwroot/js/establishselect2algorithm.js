@@ -15,10 +15,14 @@
                         results: $.map(data, function (item) {
                             return {
                                 id: item.id,
-                                text: item.name
+                                text: item.name,
+                                info: ''
                             };
                         })
                     };
+                },
+                success: function (data) {
+                    console.log(data[0].info);
                 }
             },
             placeholder: selectElements[i].placeholder
