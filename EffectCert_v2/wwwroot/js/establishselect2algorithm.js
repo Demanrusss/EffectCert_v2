@@ -20,9 +20,6 @@
                             };
                         })
                     };
-                },
-                success: function (data) {
-                    console.log(data[0].info);
                 }
             },
             placeholder: selectElements[i].placeholder

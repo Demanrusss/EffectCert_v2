@@ -65,7 +65,7 @@
                 <label asp-for="Schema" class="control-label"></label>
                 <div class="row justify-content-between">
                     <div class="col-md">
-                        <select asp-for="SchemaId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
+                        <select asp-for="SchemaId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this), hidePartyOrSerial(this)" required>
                             <option></option>
                         </select>
                     </div>
@@ -135,13 +135,22 @@
             establishSelect2Algorithm(selectElements);
         });
 
-        function hidePartyOrSerial(element, info) {
-            if (info == 'Партия продукции;') {
-                alert("Gfhnbz");
-            }
-            else {
-                alert("None");
-            }
+        function hidePartyOrSerial(element) {
+            $.ajax({
+                url: '/Schema/GetSchemaInfo/',
+                method: 'get',
+                dataType: 'json',
+                data: { id: element.selectedOptions[0].value },
+                success: function (data) {
+                    hidePartyOrSerialStart(data);
+                }
+            });
+
+            function hidePartyOrSerialStart(data) {
+                let status = data.info.includes("Серийное");
+                document.querySelector('.party').hidden = status;
+                document.querySelector('.serial').hidden = !status;
+            };
         };
     </script>
 }

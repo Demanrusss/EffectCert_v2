@@ -127,7 +127,7 @@ namespace EffectCert.Controllers.Others
                 {
                     { "id", item.Id.ToString() },
                     { "name", item.Name },
-                    { "info", GenerateItemsStr(item.CertObjects) }
+                    { "info", GenerateItemsStr(item.CertObjects) } // Подумать над парсингом ответа на Вьюшке из ajax
                 };
 
                 schemasList.Add(schemaItem);
@@ -144,6 +144,20 @@ namespace EffectCert.Controllers.Others
                 sb.AppendFormat("{0};", certObject.Name);
 
             return sb.ToString();
+        }
+
+        public async Task<JsonResult> GetSchemaInfo(int id)
+        {
+            var schema = await schemaBLL.Get(id);
+
+            var result = new Dictionary<string, string>();
+            var names = new StringBuilder();
+            foreach (var certObject in schema.CertObjects)
+                names.AppendFormat("{0};", certObject.Name);
+
+            result.Add("info", names.ToString());
+            
+            return Json(result);
         }
     }
 }
