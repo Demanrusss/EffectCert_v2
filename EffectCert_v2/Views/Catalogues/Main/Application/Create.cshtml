@@ -142,14 +142,19 @@
                 dataType: 'json',
                 data: { id: element.selectedOptions[0].value },
                 success: function (data) {
-                    hidePartyOrSerialStart(data);
+                    managePartyOrSerialElements(data);
                 }
             });
 
-            function hidePartyOrSerialStart(data) {
+            function managePartyOrSerialElements(data) {
                 let status = data.info.includes("Серийное");
-                document.querySelector('.party').hidden = status;
-                document.querySelector('.serial').hidden = !status;
+                let partyElement = document.querySelector('.party');
+                let serialElement = document.querySelector('.serial');
+                
+                partyElement.hidden = status;
+                serialElement.hidden = !status;
+
+                // TODO Очистка содержимого в обоих элементах
             };
         };
     </script>
