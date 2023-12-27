@@ -66,7 +66,7 @@
                 <label asp-for="Schema" class="control-label"></label>
                 <div class="row justify-content-between">
                     <div class="col-md">
-                        <select asp-for="SchemaId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this)" required>
+                        <select asp-for="SchemaId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this), hidePartyOrSerial(this)" required>
                             <option value="@Model.Schema?.Id">@Model.Schema?.Name</option>
                         </select>
                     </div>
@@ -79,7 +79,7 @@
                 </div>
                 <span asp-validation-for="SchemaId" class="text-danger" id="SchemaIdWarning"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group serial">
                 <label asp-for="Products" class="control-label"></label>
                 <div class="row justify-content-between">
                     <div class="col-md">
@@ -100,7 +100,7 @@
                 <label asp-for="ProductQuantities" class="control-label"></label>
                 <div class="row justify-content-between">
                     <div class="col-md">
-                        <select asp-for="ProductQuantitiesIds" class="form-control js-example-basic-single">
+                        <select asp-for="ProductQuantitiesIds" class="form-control js-example-basic-single" required>
                         @foreach (var productQuantity in Model.ProductQuantities)
                         {
                             <option value="@productQuantity.Id">@productQuantity.Product?.Name, @productQuantity.Product?.Model, @productQuantity.Quantity, @productQuantity.MeasurementUnit?.ShortName</option>
@@ -140,5 +140,37 @@
 
             establishSelect2Algorithm(selectElements);
         });
+
+        $(document).ready(function() {
+            document.querySelector('.serial').hidden = @Model.Products.Count == 0;
+            document.querySelector('.party').hidden = @Model.ProductQuantities.Count == 0;
+        });
+
+        function hidePartyOrSerial(element) {
+            $.ajax({
+                url: '/Schema/GetSchemaInfo/',
+                method: 'get',
+                dataType: 'json',
+                data: { id: element.selectedOptions[0].value },
+                success: function (data) {
+                    let isSchemaForSerial = data.info.includes("Серийное");
+
+                    if (isSchemaForSerial) {
+
+                        $('#ProductQuantitiesIds option:selected').each(function () {
+                            this.selected = false;
+                        }).trigger('change');
+                    }
+                    else {
+                        $('#ProductsIds option:selected').each(function () {
+                            this.selected = false;
+                        }).trigger('change');
+                    }
+
+                    document.querySelector('.party').hidden = isSchemaForSerial;
+                    document.querySelector('.serial').hidden = !isSchemaForSerial;
+                }
+            });
+        };
     </script>
 }

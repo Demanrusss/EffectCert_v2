@@ -82,7 +82,7 @@
                 <label asp-for="Products" class="control-label"></label>
                 <div class="row justify-content-between">
                     <div class="col-md">
-                        <select asp-for="ProductsIds" class="form-control js-example-basic-multiple">
+                        <select asp-for="ProductsIds" class="form-control js-example-basic-multiple" required>
                             <option></option>
                         </select>
                     </div>
@@ -96,7 +96,7 @@
                 <label asp-for="ProductQuantities" class="control-label"></label>
                 <div class="row justify-content-between">
                     <div class="col-md">
-                        <select asp-for="ProductQuantitiesIds" class="form-control js-example-basic-multiple">
+                        <select asp-for="ProductQuantitiesIds" class="form-control js-example-basic-multiple" required>
                             <option></option>
                         </select>
                     </div>
@@ -142,20 +142,24 @@
                 dataType: 'json',
                 data: { id: element.selectedOptions[0].value },
                 success: function (data) {
-                    managePartyOrSerialElements(data);
+                    let isSchemaForSerial = data.info.includes("Серийное");
+
+                    if (isSchemaForSerial) {
+
+                        $('#ProductQuantitiesIds option:selected').each(function () {
+                            this.selected = false;
+                        }).trigger('change');
+                    }
+                    else {
+                        $('#ProductsIds option:selected').each(function () {
+                            this.selected = false;
+                        }).trigger('change');
+                    }
+
+                    document.querySelector('.party').hidden = isSchemaForSerial;
+                    document.querySelector('.serial').hidden = !isSchemaForSerial;
                 }
             });
-
-            function managePartyOrSerialElements(data) {
-                let status = data.info.includes("Серийное");
-                let partyElement = document.querySelector('.party');
-                let serialElement = document.querySelector('.serial');
-                
-                partyElement.hidden = status;
-                serialElement.hidden = !status;
-
-                // TODO Очистка содержимого в обоих элементах
-            };
         };
     </script>
 }
