@@ -22,6 +22,10 @@ namespace EffectCert.DAL.Implementations.Main
                 .Include(a => a.ContractorLegal)
                 .Include(a => a.Schema)
                 .Include(a => a.Products)
+                .Include(a => a.ProductQuantities)
+                    .ThenInclude(pq => pq.Product)
+                .Include(a => a.ProductQuantities)
+                    .ThenInclude(pq => pq.MeasurementUnit)
                 .Select(a => new Application
                 {
                     Id = a.Id,
@@ -41,6 +45,19 @@ namespace EffectCert.DAL.Implementations.Main
                     {
                         Name = p.Name,
                         Model = p.Model
+                    }).ToList(),
+                    ProductQuantities = a.ProductQuantities.Select(pq => new ProductQuantity
+                    { 
+                        Product = new Product
+                        {
+                            Name = pq.Product.Name,
+                            Model = pq.Product.Model
+                        },
+                        Quantity = pq.Quantity,
+                        MeasurementUnit = new MeasurementUnit
+                        {
+                            ShortName = pq.MeasurementUnit.ShortName
+                        }
                     }).ToList()
                 })
                 .ToListAsync();

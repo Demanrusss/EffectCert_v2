@@ -25,7 +25,8 @@ namespace EffectCert.DAL.Implementations.Others
                     ProductId = pq.ProductId,
                     Product = new Product
                     {
-                        Name = pq.Product.Name
+                        Name = pq.Product.Name,
+                        Model = pq.Product.Model
                     },
                     Quantity = pq.Quantity,
                     MeasurementUnitId = pq.MeasurementUnitId,
@@ -40,7 +41,10 @@ namespace EffectCert.DAL.Implementations.Others
 
         public async Task<ProductQuantity> Get(int id)
         {
-            return await appDBContext.ProductQuantities.FirstOrDefaultAsync(a => a.Id == id) ?? new ProductQuantity();
+            return await appDBContext.ProductQuantities
+                .Include(pq => pq.Product)
+                .Include(pq => pq.MeasurementUnit)
+                .FirstOrDefaultAsync(a => a.Id == id) ?? new ProductQuantity();
         }
 
         public async Task<ICollection<ProductQuantity>> Find(string searchStr)

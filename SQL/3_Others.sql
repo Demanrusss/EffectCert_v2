@@ -57,7 +57,7 @@ CREATE TABLE ProductQuantities
 (
 	[Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     [ProductId] INT NOT NULL,
-	[Quantity] REAL NOT NULL,
+	[Quantity] FLOAT NOT NULL,
 	[MeasurementUnitId] INT NOT NULL,
 	[MadeDate] DATETIME NOT NULL
 )

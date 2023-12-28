@@ -49,7 +49,9 @@ namespace EffectCert.Controllers.Others
                 await productQuantityBLL.UpdateOrCreate(productQuantity);
                 return RedirectToAction(nameof(Index));
             }
-            
+
+            ViewData["Title"] = "Создание количества продукции";
+
             return View("~/Views/Catalogues/Others/ProductQuantity/Create.cshtml", productQuantity);
         }
 
@@ -76,6 +78,8 @@ namespace EffectCert.Controllers.Others
                 await productQuantityBLL.UpdateOrCreate(productQuantity);
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewData["Title"] = "Внесение изменений в количество продукции";
 
             return View("~/Views/Catalogues/Others/ProductQuantity/Edit.cshtml", productQuantity);
         }
@@ -117,7 +121,10 @@ namespace EffectCert.Controllers.Others
                 var productQuantityItem = new Dictionary<string, string>
                 {
                     { "id", item.Id.ToString() },
-                    { "name", String.Format("{0} {1}", item.Product?.Name, item.Quantity.ToString()) }
+                    { "name", String.Format("{0}, {1}, {2} {3}", item.Product?.Name,
+                                                                 item.Product?.Model,
+                                                                 item.Quantity.ToString(), 
+                                                                 item.MeasurementUnit?.ShortName) }
                 };
 
                 productQuantitiesList.Add(productQuantityItem);

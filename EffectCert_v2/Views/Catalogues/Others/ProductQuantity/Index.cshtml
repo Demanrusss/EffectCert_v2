@@ -27,7 +27,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Product!.Name)
+                <div>@Html.DisplayFor(modelItem => item.Product!.Name), @Html.DisplayFor(modelItem => item.Product!.Model)</div>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Quantity)
@@ -36,7 +36,8 @@
                 @Html.DisplayFor(modelItem => item.MeasurementUnit!.ShortName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MadeDate.ToShortDateString())
+                @{ var shortDate = item.MadeDate.ToShortDateString(); }
+                @Html.DisplayFor(modelItem => shortDate)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |

@@ -47,6 +47,10 @@
             {
                 <div>@Html.DisplayFor(modelItem => product.Name), @Html.DisplayFor(modelItem => product.Model)</div>
             }
+            @foreach (var productQuantity in item.ProductQuantities)
+            {
+                <div>@Html.DisplayFor(modelItem => productQuantity.Product!.Name), @Html.DisplayFor(modelItem => productQuantity.Product!.Model), @Html.DisplayFor(modelItem => productQuantity.Quantity) @Html.DisplayFor(modelItem => productQuantity.MeasurementUnit!.ShortName)</div>
+            }
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
