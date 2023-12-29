@@ -12,7 +12,6 @@ namespace EffectCert.ViewMappers.Documents
                 Id = viewModel.Id,
                 Name = viewModel.Name,
                 Number = viewModel.Number,
-                Paragraphs = viewModel.Paragraphs
             };
         }
 
@@ -26,7 +25,6 @@ namespace EffectCert.ViewMappers.Documents
                 Id = model.Id,
                 Name = model.Name,
                 Number = model.Number,
-                Paragraphs = model.Paragraphs
             };
         }
     }

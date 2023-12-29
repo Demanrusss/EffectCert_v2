@@ -21,6 +21,7 @@ CREATE TABLE ApplicationsGovStandards
 (
     [ApplicationId] INT NOT NULL,
 	[GovStandardId] INT NOT NULL,
+    [Paragraphs] NVARCHAR(256) NULL,
     CONSTRAINT PK_ApplicationsGovStandards PRIMARY KEY (ApplicationId, GovStandardId),
     CONSTRAINT FK_ApplicationsGovStandards_ApplicationId FOREIGN KEY (ApplicationId)
 		REFERENCES Applications(Id),
@@ -85,6 +86,7 @@ CREATE TABLE ApplicationsTechRegs
 (
 	[ApplicationId] INT NOT NULL,
 	[TechRegId] INT NOT NULL,
+    [Paragraphs] NVARCHAR(256) NULL,
     CONSTRAINT PK_ApplicationsTechRegs PRIMARY KEY (ApplicationId, TechRegId),
     CONSTRAINT FK_ApplicationsTechRegs_ApplicationId FOREIGN KEY (ApplicationId)
 		REFERENCES Applications(Id),

@@ -29,8 +29,7 @@ namespace EffectCert.DAL.Implementations.Documents
             if (String.IsNullOrWhiteSpace(searchStr))
                 return await GetAll();
 
-            var result = appDBContext.TechRegs.Where(c => c.Number.Contains(searchStr)
-                                                          || c.Name.Contains(searchStr)
+            var result = appDBContext.TechRegs.Where(c => c.Name.Contains(searchStr)
                                                           || c.ShortName.Contains(searchStr));
             return await result.ToListAsync();
         }

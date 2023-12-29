@@ -16,6 +16,7 @@
     {
         public int ApplicationId { get; set; }
         public int GovStandardId { get; set; }
+        public string? Paragraphs { get; set; }
     }
 
     public class ApplicationsGTDs
@@ -58,6 +59,7 @@
     {
         public int ApplicationId { get; set; }
         public int TechRegId { get; set; }
+        public string? Paragraphs { get; set; }
     }
 
     public class ExpertDecisionsTestProtocols

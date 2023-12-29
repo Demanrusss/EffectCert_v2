@@ -6,9 +6,8 @@ namespace EffectCert.ViewModels.Documents
     public class TechRegViewModel
     {
         public int Id { get; set; }
-        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Номер")]
-        public string Number { get; set; } = null!;
+        public string? Number { get; set; }
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Наименование")]
         public string Name { get; set; } = null!;

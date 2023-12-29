@@ -14,7 +14,6 @@ namespace EffectCert.ViewMappers.Documents
                 Name = viewModel.Name,
                 ShortName= viewModel.ShortName,
                 ApprovedByInfo = viewModel.ApprovedByInfo,
-                Paragraphs = viewModel.Paragraphs
             };
         }
 
@@ -30,7 +29,6 @@ namespace EffectCert.ViewMappers.Documents
                 Name = model.Name,
                 ShortName = model.ShortName,
                 ApprovedByInfo = model.ApprovedByInfo,
-                Paragraphs = model.Paragraphs
             };
         }
     }
