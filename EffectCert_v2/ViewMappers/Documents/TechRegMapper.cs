@@ -13,7 +13,7 @@ namespace EffectCert.ViewMappers.Documents
                 Number = viewModel.Number,
                 Name = viewModel.Name,
                 ShortName= viewModel.ShortName,
-                ApprovedByInfo = viewModel.ApprovedByInfo,
+                ApprovedByInfo = viewModel.ApprovedByInfo
             };
         }
 
@@ -28,7 +28,7 @@ namespace EffectCert.ViewMappers.Documents
                 Number = model.Number,
                 Name = model.Name,
                 ShortName = model.ShortName,
-                ApprovedByInfo = model.ApprovedByInfo,
+                ApprovedByInfo = model.ApprovedByInfo
             };
         }
     }

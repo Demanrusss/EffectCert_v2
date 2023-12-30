@@ -47,14 +47,12 @@ namespace EffectCert.Controllers.Main
         {
             if (ModelState.IsValid)
             {
-                if (application.ProductsIds != null)
-                    foreach (var product in application.ProductsIds)
-                        application.Products.Add(new ProductViewModel() { Id = product });
-
                 await applicationBLL.UpdateOrCreate(application);
                 return RedirectToAction(nameof(Index));
             }
-            
+
+            ViewData["Title"] = "Создание заявки";
+
             return View("~/Views/Catalogues/Main/Application/Create.cshtml", application);
         }
 
@@ -78,13 +76,11 @@ namespace EffectCert.Controllers.Main
 
             if (ModelState.IsValid)
             {
-                if (application.ProductsIds != null)
-                    foreach (var productId in application.ProductsIds)
-                        application.Products.Add(new ProductViewModel() { Id = productId });
-
                 await applicationBLL.UpdateOrCreate(application);
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewData["Title"] = "Внесение изменений в заявку";
 
             return View("~/Views/Catalogues/Main/Application/Edit.cshtml", application);
         }

@@ -3,6 +3,7 @@ using EffectCert.DAL.Entities.Main;
 using EffectCert.DAL.Implementations.Main;
 using EffectCert.ViewMappers.Main;
 using EffectCert.ViewModels.Main;
+using EffectCert.ViewModels.Others;
 
 namespace EffectCert.BLL.Main
 {
@@ -24,6 +25,10 @@ namespace EffectCert.BLL.Main
 
         public async Task<int> UpdateOrCreate(ApplicationViewModel applicationVM)
         {
+            if (applicationVM.ProductsIds != null)
+                foreach (var productId in applicationVM.ProductsIds)
+                    applicationVM.Products.Add(new ProductViewModel() { Id = productId });
+
             var application = ApplicationMapper.MapToModel(applicationVM);
 
             return application.Id == 0 

@@ -17,7 +17,5 @@ namespace EffectCert.ViewModels.Documents
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Утверждено (кем, когда, номер, дата)")]
         public string ApprovedByInfo { get; set; } = null!;
-        [DisplayName("Разделы, абзацы, пункты")]
-        public string? Paragraphs { get; set; }
     }
 }

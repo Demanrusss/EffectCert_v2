@@ -12,7 +12,5 @@ namespace EffectCert.ViewModels.Documents
         [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
         [DisplayName("Наименование")]
         public string Name { get; set; } = null!;
-        [DisplayName("Разделы, абзацы, пункты")]
-        public string? Paragraphs { get; set; }
     }
 }

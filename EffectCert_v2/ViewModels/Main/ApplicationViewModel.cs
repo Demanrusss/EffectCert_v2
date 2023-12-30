@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using EffectCert.ViewModels.Contractors;
 using EffectCert.ViewModels.Others;
+using EffectCert.ViewModels.Documents;
 
 namespace EffectCert.ViewModels.Main
 {
@@ -37,5 +38,7 @@ namespace EffectCert.ViewModels.Main
         [DisplayName("Продукция и количество")]
         public ICollection<ProductQuantityViewModel> ProductQuantities { get; set; } = new HashSet<ProductQuantityViewModel>();
         public int[]? ProductQuantitiesIds { get; set; }
+        [DisplayName("Технические регламенты")]
+        public ICollection<TechRegParagraphsViewModel> TechRegParagraphs { get; set; } = new HashSet<TechRegParagraphsViewModel>();
     }
 }
