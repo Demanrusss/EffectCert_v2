@@ -20,9 +20,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.ApprovedByInfo)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Paragraphs)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -38,11 +35,8 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ShortName)
             </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ApprovedByInfo)
-                </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Paragraphs)
+                @Html.DisplayFor(modelItem => item.ApprovedByInfo)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |

@@ -117,7 +117,7 @@ namespace EffectCert.Controllers.Documents
                 var techRegItem = new Dictionary<string, string>
                 {
                     { "id", item.Id.ToString() },
-                    { "name", item?.Number }
+                    { "name", item.ShortName }
                 };
 
                 techRegsList.Add(techRegItem);

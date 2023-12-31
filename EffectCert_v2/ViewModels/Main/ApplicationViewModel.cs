@@ -39,6 +39,6 @@ namespace EffectCert.ViewModels.Main
         public ICollection<ProductQuantityViewModel> ProductQuantities { get; set; } = new HashSet<ProductQuantityViewModel>();
         public int[]? ProductQuantitiesIds { get; set; }
         [DisplayName("Технические регламенты")]
-        public ICollection<TechRegParagraphsViewModel> TechRegParagraphs { get; set; } = new HashSet<TechRegParagraphsViewModel>();
+        public List<TechRegParagraphsViewModel> TechRegParagraphs { get; set; } = new List<TechRegParagraphsViewModel>();
     }
 }
