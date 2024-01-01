@@ -4,30 +4,30 @@
 
 <hr />
 <div class="row">
-    <div class="col-md-5">
+    <div>
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="form-group col-md-5">
                 <label asp-for="Number" class="control-label"></label>
                 <input asp-for="Number" class="form-control" required id="number" />
                 <span asp-validation-for="Number" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-5">
                 <label asp-for="Date" class="control-label"></label>
                 <input asp-for="Date" class="form-control" required id="date" type="date" />
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-5">
                 <label asp-for="ElectronicNumber" class="control-label"></label>
                 <input asp-for="ElectronicNumber" class="form-control" id="electronicNumber" />
                 <span asp-validation-for="ElectronicNumber" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-5">
                 <label asp-for="ElectronicDate" class="control-label"></label>
                 <input asp-for="ElectronicDate" class="form-control" id="electronicdate" type="date" />
                 <span asp-validation-for="ElectronicDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-5">
                 <label asp-for="AssessBody" class="control-label"></label>
                 <div class="row justify-content-between">
                     <div class="col-md">
@@ -44,7 +44,7 @@
                 </div>
                 <span asp-validation-for="AssessBodyId" class="text-danger" id="AssessBodyIdWarning"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-5">
                 <label asp-for="ContractorLegal" class="control-label"></label>
                 <div class="row justify-content-between">
                     <div class="col-md">
@@ -61,7 +61,7 @@
                 </div>
                 <span asp-validation-for="ContractorLegalId" class="text-danger" id="ContractorLegalIdWarning"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-5">
                 <label asp-for="Schema" class="control-label"></label>
                 <div class="row justify-content-between">
                     <div class="col-md">
@@ -78,7 +78,7 @@
                 </div>
                 <span asp-validation-for="SchemaId" class="text-danger" id="SchemaIdWarning"></span>
             </div>
-            <div class="form-group serial">
+            <div class="form-group serial col-md-5">
                 <label asp-for="Products" class="control-label"></label>
                 <div class="row justify-content-between">
                     <div class="col-md">
@@ -92,7 +92,7 @@
                 </div>
                 <span asp-validation-for="ProductsIds" class="text-danger" id="ProductsIdsWarning"></span>
             </div>
-            <div class="form-group party">
+            <div class="form-group party col-md-5">
                 <label asp-for="ProductQuantities" class="control-label"></label>
                 <div class="row justify-content-between">
                     <div class="col-md">
@@ -106,13 +106,12 @@
                 </div>
                 <span asp-validation-for="ProductQuantitiesIds" class="text-danger" id="ProductQuantitiesIdsWarning"></span>
             </div>
-            <div class="form-group">
-                <fieldset>
-                    <legend>@Html.DisplayNameFor(model => model.TechRegParagraphs)</legend>
-                    <label asp-for="TechRegParagraphs[0].TechReg" class="control-label"></label>
-                    <div class="row justify-content-between">
+            <div class="form-group row col-md-12">
+                <div class="col-md-5">
+                    <label asp-for="TechRegParagraphs" class="control-label"></label>
+                    <div class="row">
                         <div class="col-md">
-                            <select id="TechRegParagraphs0TechRegId" asp-for="TechRegParagraphs[0].TechRegId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this), hidePartyOrSerial(this)" required>
+                            <select id="TechRegParagraphs0TechRegId" asp-for="TechRegParagraphs[0].TechRegId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this), setVisibility_paragraphs(this)" required>
                                 <option></option>
                             </select>
                         </div>
@@ -123,15 +122,15 @@
                             <a asp-controller="TechReg" asp-action="Delete" asp-route-id="" id="TechRegParagraphs0TechRegIdDelete" hidden target="_blank" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
                         </div>
                     </div>
-                    <div class="col-md">
-                        <label asp-for="TechRegParagraphs[0].Paragraphs" class="control-label"></label>
-                        <input asp-for="TechRegParagraphs[0].Paragraphs" class="form-control" id="number" />
-                        <span asp-validation-for="TechRegParagraphs[0].Paragraphs" class="text-danger"></span>
-                    </div>
-                </fieldset>
+                </div>
+                <div class="col-md" id="TechRegParagraphs0TechRegIdParagraphs" hidden>
+                    <label asp-for="TechRegParagraphs[0].Paragraphs" class="control-label"></label>
+                    <input asp-for="TechRegParagraphs[0].Paragraphs" class="form-control" id="number" />
+                    <span asp-validation-for="TechRegParagraphs[0].Paragraphs" class="text-danger"></span>
+                </div>
             </div>
             <br>
-            <div class="form-group">
+            <div class="form-group col-md-5">
                 <input type="submit" value="Создать" class="btn btn-primary" />
             </div>
         </form>
@@ -185,6 +184,10 @@
                     document.querySelector('.serial').hidden = !isSchemaForSerial;
                 }
             });
+        };
+
+        function setVisibility_paragraphs(element) {
+            document.getElementById(element.id + 'Paragraphs').hidden = element.value == '';
         };
     </script>
 }
