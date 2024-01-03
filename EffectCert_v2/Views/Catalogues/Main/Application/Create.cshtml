@@ -135,7 +135,7 @@
                         </div>
                         <div class="col-md" id="TechRegParagraphs0TechRegIdParagraphs" hidden>
                             <label asp-for="TechRegParagraphs[0].Paragraphs" class="control-label"></label>
-                            <input asp-for="TechRegParagraphs[0].Paragraphs" class="form-control" />
+                            <input id="TechRegParagraphs0Paragraphs" asp-for="TechRegParagraphs[0].Paragraphs" class="form-control" />
                             <span asp-validation-for="TechRegParagraphs[0].Paragraphs" class="text-danger"></span>
                         </div>
                     </div>
@@ -202,12 +202,40 @@
             document.getElementById(element.id + 'Paragraphs').hidden = element.value == '';
         };
 
+        var techRegIdCounter = 0;
+
         function addTechReg() {
+            ++techRegIdCounter;
             let table = document.getElementById('tableTemplate')
-            let node = document.getElementById('rowTemplate')
+            let node = document.getElementById('rowTemplate');
+            $('#TechRegParagraphs0TechRegId').select2('destroy');
             let clonedNode = node.cloneNode(true);
+            changeIdsIn(clonedNode);
             table.append(clonedNode);
-            $('tableTemplate').find('rowTemplate'); // TODO Реализовать обновление id и переиницализацию select2
-        }
+            let selectElements = [];
+            for (i = 0; i <= techRegIdCounter; i++) {
+                $('TechRegParagraphs' + `${i}` + 'TechRegId').select2('destroy');
+                selectElements.push({ id: '#TechRegParagraphs' + `${i}` + 'TechRegId', url: '/TechReg/GetTechRegs/', placeholder: 'Выберите тех. регламент' });
+            };
+            establishSelect2Algorithm(selectElements);
+        };
+
+        function changeIdsIn(nodes) {
+            nodes.id += techRegIdCounter;
+            let tempElement = nodes.querySelector('#TechRegParagraphs0TechRegId');
+            tempElement.id = tempElement.id.replace(0, techRegIdCounter);
+            tempElement.name = tempElement.name.replace(0, techRegIdCounter);
+            tempElement = nodes.querySelector('#TechRegParagraphs0TechRegIdEdit');
+            tempElement.id = tempElement.id.replace(0, techRegIdCounter);
+            tempElement = nodes.querySelector('#TechRegParagraphs0TechRegIdDetails');
+            tempElement.id = tempElement.id.replace(0, techRegIdCounter);
+            tempElement = nodes.querySelector('#TechRegParagraphs0TechRegIdDelete');
+            tempElement.id = tempElement.id.replace(0, techRegIdCounter);
+            tempElement = nodes.querySelector('#TechRegParagraphs0TechRegIdParagraphs');
+            tempElement.id = tempElement.id.replace(0, techRegIdCounter);
+            tempElement = nodes.querySelector('#TechRegParagraphs0Paragraphs');
+            tempElement.id = tempElement.id.replace(0, techRegIdCounter);
+            tempElement.name = tempElement.name.replace(0, techRegIdCounter);
+        };
     </script>
 }
