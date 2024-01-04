@@ -15,8 +15,7 @@
                         results: $.map(data, function (item) {
                             return {
                                 id: item.id,
-                                text: item.name,
-                                info: ''
+                                text: item.name
                             };
                         })
                     };

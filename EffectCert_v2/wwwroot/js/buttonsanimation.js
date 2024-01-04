@@ -8,12 +8,14 @@ function StopAnimation(element) {
     imgElement.src = imgElement.src.replace('.gif', '.png');
 };
 
-let elems = $('.btn-icons-animation');
-for (let i = 0; i < elems.length; i++) {
-    elems[i].onmouseover = function (event) {
-        StartAnimation(this);
-    };
-    elems[i].onmouseout = function (event) {
-        StopAnimation(this);
+function InitializeBtnAnimation() {
+    let elems = $('.btn-icons-animation');
+    for (let i = 0; i < elems.length; i++) {
+        elems[i].onmouseover = function (event) {
+            StartAnimation(this);
+        };
+        elems[i].onmouseout = function (event) {
+            StopAnimation(this);
+        }
     }
-}
+};
