@@ -106,9 +106,10 @@
                 </div>
                 <span asp-validation-for="ProductQuantitiesIds" class="text-danger" id="ProductQuantitiesIdsWarning"></span>
             </div>
+            <br>
             <div class="form-group row col-md-12" id="tableTemplate">
                 <div class="row align-content-md-start">
-                    <div class="col-md col-md-3">
+                    <div class="col-md col-md-2">
                         <label asp-for="TechRegParagraphs" class="control-label"></label>
                     </div>
                     <div class="col-md-3">
@@ -224,7 +225,9 @@
             node.id += techRegIdCounter;
             changeNodeNames(node);
             setAttributesHiddenTrue(node);
+            clearInputValue(node);
             changeNodeIds(node);
+            addDeleteButton(node);
         };
 
         function changeNodeNames(node) {
@@ -248,7 +251,11 @@
             for (let i = 0; i < idsForChange.length; i++) {
                 tempElement = node.querySelector(idsForChange[i]).hidden = true;
             }
-        }
+        };
+
+        function clearInputValue(node) {
+            node.querySelector('#TechRegParagraphs0Paragraphs').value = '';
+        };
 
         function changeNodeIds(node) {
             let idsForChange = [ '#TechRegParagraphs0TechRegId',
@@ -263,6 +270,19 @@
                 tempElement = node.querySelector(idsForChange[i]);
                 tempElement.id = tempElement.id.replace(0, techRegIdCounter);
             }
+        };
+
+        function addDeleteButton(node) {
+            let child = document.createElement('div');
+            child.setAttribute('class', 'btn btn-close btn-danger col-md-1');
+            child.setAttribute('onmouseover', '');
+            child.setAttribute('style', 'cursor: pointer;');
+            child.setAttribute('onclick', 'deleteRow(this)');
+            node.children[0].children[0].prepend(child);
+        };
+
+        function deleteRow(element) {
+            document.querySelector('#tableTemplate').removeChild(element.parentElement.parentElement.parentElement);
         };
 
         function reInitializationSelect2() {
