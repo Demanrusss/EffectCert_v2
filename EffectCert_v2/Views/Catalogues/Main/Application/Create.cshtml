@@ -287,13 +287,13 @@
 
         function reInitializationSelect2() {
             let selectElements = [];
-            for (let i = 0; i <= techRegIdCounter; i++) {
-                $('TechRegParagraphs' + i + 'TechRegId').select2('destroy');
 
-                selectElements.push({ id: '#TechRegParagraphs' + i + 'TechRegId',
-                                      url: '/TechReg/GetTechRegs/',
-                                      placeholder: 'Выберите тех. регламент' });
-            }
+            selectElements.push({ id: '#TechRegParagraphs' + 0 + 'TechRegId',
+                                  url: '/TechReg/GetTechRegs/',
+                                  placeholder: 'Выберите тех. регламент' });
+            selectElements.push({ id: '#TechRegParagraphs' + techRegIdCounter + 'TechRegId',
+                                  url: '/TechReg/GetTechRegs/',
+                                  placeholder: 'Выберите тех. регламент' });
 
             establishSelect2Algorithm(selectElements);
         };
