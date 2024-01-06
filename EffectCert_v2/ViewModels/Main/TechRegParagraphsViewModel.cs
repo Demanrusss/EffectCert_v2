@@ -8,7 +8,7 @@ namespace EffectCert.ViewModels.Main
     {
         [DisplayName("Технический регламент")]
         public TechRegViewModel? TechReg { get; set; }
-        [Required(ErrorMessage = "Данное поле должно быть заполнено!")]
+        [Required(ErrorMessage = "Данное поле должно быть заполнено!")] 
         public int TechRegId { get; set; }
         [DisplayName("Разделы, пункты, абзацы, и т.п.")]
         public string? Paragraphs { get; set; }
