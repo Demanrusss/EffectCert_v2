@@ -73,7 +73,7 @@ namespace EffectCert.DAL.Implementations.Main
                 .Include(a => a.Schema)
                 .Include(a => a.Products)
                 .Include(a => a.ProductQuantities)
-                .Include(a => a.TechRegs)
+                //.Include(a => a.TechRegs) // TODO: Дописать выборку из связи многие ко многим
                 .FirstOrDefaultAsync(a => a.Id == id) ?? new Application();
         }
 
@@ -127,11 +127,11 @@ namespace EffectCert.DAL.Implementations.Main
             var appProductQuantitiesIds = GetIdsCollectionOf((ICollection<IEntity>)application.ProductQuantities);
             var appTechRegs = new Dictionary<int, string>();
             foreach (var techReg in application.TechRegs)
-                appTechRegs.Add(techReg.TechRegId, techReg.Paragraphs ?? String.Empty);
+                appTechRegs.Add(techReg.Id, techReg.Paragraphs ?? String.Empty);
 
             application.Products = new HashSet<Product>();
             application.ProductQuantities = new HashSet<ProductQuantity>();
-            application.TechRegs = new HashSet<TechRegParagraphs>();
+            application.TechRegs = new HashSet<TechReg>();
 
             appDBContext.Applications.Add(application);
             await appDBContext.SaveChangesAsync();
@@ -157,11 +157,11 @@ namespace EffectCert.DAL.Implementations.Main
             var appProductQuantitiesIds = GetIdsCollectionOf((ICollection<IEntity>)application.ProductQuantities);
             var appTechRegs = new Dictionary<int, string>();
             foreach (var techReg in application.TechRegs)
-                appTechRegs.Add(techReg.TechRegId, techReg.Paragraphs ?? String.Empty);
+                appTechRegs.Add(techReg.Id, techReg.Paragraphs ?? String.Empty);
 
             application.Products = new HashSet<Product>();
             application.ProductQuantities = new HashSet<ProductQuantity>();
-            application.TechRegs = new HashSet<TechRegParagraphs>();
+            application.TechRegs = new HashSet<TechReg>();
             appDBContext.Applications.Update(application);
 
             IEnumerable<int> existedAPProductsIds = appDBContext.ApplicationsProducts
