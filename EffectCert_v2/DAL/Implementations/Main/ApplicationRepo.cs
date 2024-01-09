@@ -73,7 +73,7 @@ namespace EffectCert.DAL.Implementations.Main
                 .Include(a => a.Schema)
                 .Include(a => a.Products)
                 .Include(a => a.ProductQuantities)
-                //.Include(a => a.TechRegs) // TODO: Дописать выборку из связи многие ко многим
+                .Include(a => a.TechRegs) // TODO: Дописать выборку из связи многие ко многим
                 .FirstOrDefaultAsync(a => a.Id == id) ?? new Application();
         }
 
@@ -123,15 +123,15 @@ namespace EffectCert.DAL.Implementations.Main
             if (application == null)
                 return 0;
 
-            var appProductsIds = GetIdsCollectionOf((ICollection<IEntity>)application.Products);
-            var appProductQuantitiesIds = GetIdsCollectionOf((ICollection<IEntity>)application.ProductQuantities);
+            var appProductsIds = GetIdsCollectionOf(application.Products);
+            var appProductQuantitiesIds = GetIdsCollectionOf(application.ProductQuantities);
             var appTechRegs = new Dictionary<int, string>();
             foreach (var techReg in application.TechRegs)
                 appTechRegs.Add(techReg.Id, techReg.Paragraphs ?? String.Empty);
 
             application.Products = new HashSet<Product>();
             application.ProductQuantities = new HashSet<ProductQuantity>();
-            application.TechRegs = new HashSet<TechReg>();
+            application.TechRegs = new HashSet<TechRegParagraphs>();
 
             appDBContext.Applications.Add(application);
             await appDBContext.SaveChangesAsync();
@@ -153,15 +153,15 @@ namespace EffectCert.DAL.Implementations.Main
             if (application == null)
                 return 0;
 
-            var appProductsIds = GetIdsCollectionOf((ICollection<IEntity>)application.Products);
-            var appProductQuantitiesIds = GetIdsCollectionOf((ICollection<IEntity>)application.ProductQuantities);
+            var appProductsIds = GetIdsCollectionOf(application.Products);
+            var appProductQuantitiesIds = GetIdsCollectionOf(application.ProductQuantities);
             var appTechRegs = new Dictionary<int, string>();
             foreach (var techReg in application.TechRegs)
                 appTechRegs.Add(techReg.Id, techReg.Paragraphs ?? String.Empty);
 
             application.Products = new HashSet<Product>();
             application.ProductQuantities = new HashSet<ProductQuantity>();
-            application.TechRegs = new HashSet<TechReg>();
+            application.TechRegs = new HashSet<TechRegParagraphs>();
             appDBContext.Applications.Update(application);
 
             IEnumerable<int> existedAPProductsIds = appDBContext.ApplicationsProducts
@@ -207,7 +207,7 @@ namespace EffectCert.DAL.Implementations.Main
             return await appDBContext.SaveChangesAsync();
         }
 
-        private ICollection<int> GetIdsCollectionOf(ICollection<IEntity> entities)
+        private ICollection<int> GetIdsCollectionOf<T>(ICollection<T> entities) where T : IEntity
         {
             var ids = new HashSet<int>();
             foreach (var entity in entities)

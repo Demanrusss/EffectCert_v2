@@ -1,4 +1,5 @@
 ﻿using EffectCert.DAL.Entities.Main;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EffectCert.DAL.Entities.Documents
 {
@@ -9,8 +10,5 @@ namespace EffectCert.DAL.Entities.Documents
         public string Name { get; set; } = null!;
         public string ShortName { get; set; } = null!;
         public string ApprovedByInfo { get; set; } = null!;
-        public string? Paragraphs { get; set; }
-
-        public ICollection<Application> Applications { get; set; } = new HashSet<Application>();
     }
 }

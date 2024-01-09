@@ -129,11 +129,11 @@
                 @foreach (var techReg in Model.TechRegParagraphs)
                 {
                     string rowTemplate = "rowTemplate" + (techRegCounter == 0 ? String.Empty : techRegCounter.ToString());
-                    string TechRegParagraphs_TechRegId = "TechRegParagraphs" + techRegCounter.ToString() + "TechRegId";
-                    string TechRegParagraphs_TechRegIdEdit = "TechRegParagraphs" + techRegCounter.ToString() + "TechRegIdEdit";
-                    string TechRegParagraphs_TechRegIdDetails = "TechRegParagraphs" + techRegCounter.ToString() + "TechRegIdDetails";
-                    string TechRegParagraphs_TechRegIdDelete = "TechRegParagraphs" + techRegCounter.ToString() + "TechRegIdDelete";
-                    string TechRegParagraphs_TechRegIdParagraphs = "TechRegParagraphs" + techRegCounter.ToString() + "TechRegIdParagraphs";
+                    string TechRegParagraphs_TechRegId = $"TechRegParagraphs{techRegCounter}TechRegId";
+                    string TechRegParagraphs_TechRegIdEdit = $"TechRegParagraphs{techRegCounter}TechRegIdEdit";
+                    string TechRegParagraphs_TechRegIdDetails = $"TechRegParagraphs{techRegCounter}TechRegIdDetails";
+                    string TechRegParagraphs_TechRegIdDelete = $"TechRegParagraphs{techRegCounter}TechRegIdDelete";
+                    string TechRegParagraphs_TechRegIdParagraphs = $"TechRegParagraphs{techRegCounter}TechRegIdParagraphs";
                     <div class="row align-content-between" id="@rowTemplate">
                     <div class="row align-content-between">
                         <div class="col-md-6">

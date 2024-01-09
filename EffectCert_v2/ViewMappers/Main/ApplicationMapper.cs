@@ -1,6 +1,8 @@
-﻿using EffectCert.DAL.Entities.Main;
+﻿using EffectCert.DAL.Entities.Documents;
+using EffectCert.DAL.Entities.Main;
 using EffectCert.DAL.Entities.Others;
 using EffectCert.ViewMappers.Contractors;
+using EffectCert.ViewMappers.Documents;
 using EffectCert.ViewMappers.Others;
 using EffectCert.ViewModels.Main;
 using EffectCert.ViewModels.Others;
@@ -22,7 +24,8 @@ namespace EffectCert.ViewMappers.Main
                 Number = viewModel.Number,
                 Products = ConvertCollection(viewModel.Products),
                 ProductQuantities = ConvertCollection(viewModel.ProductQuantities),
-                SchemaId = viewModel.SchemaId
+                SchemaId = viewModel.SchemaId,
+                TechRegs = ConvertCollection(viewModel.TechRegParagraphs)
             };
         }
 
@@ -82,6 +85,16 @@ namespace EffectCert.ViewMappers.Main
 
             foreach (var element in sourceCollection)
                 targetCollection.Add(ProductQuantityMapper.MapToModel(element));
+
+            return targetCollection;
+        }
+
+        private static ICollection<TechRegParagraphs> ConvertCollection(ICollection<TechRegParagraphsViewModel> sourceCollection)
+        {
+            var targetCollection = new List<TechRegParagraphs>(sourceCollection.Count);
+
+            foreach (var element in sourceCollection)
+                targetCollection.Add(TechRegParagraphsMapper.MapToModel(element));
 
             return targetCollection;
         }
