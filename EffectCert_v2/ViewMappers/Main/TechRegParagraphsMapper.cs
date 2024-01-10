@@ -23,7 +23,7 @@ namespace EffectCert.ViewMappers.Documents
 
             return new TechRegParagraphsViewModel()
             {
-                TechReg = TechRegMapper.MapToViewModel(model.TechReg),
+                TechReg = TechRegMapper.MapToViewModel(model.TechReg!),
                 Paragraphs = model.Paragraphs
             };
         }

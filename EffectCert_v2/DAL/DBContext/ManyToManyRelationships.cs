@@ -1,4 +1,6 @@
-﻿namespace EffectCert.DAL.DBContext
+﻿using EffectCert.DAL.Entities.Documents;
+
+namespace EffectCert.DAL.DBContext
 {
     public class ActionPlansLaboratories
     {
@@ -58,6 +60,7 @@
     public class ApplicationsTechRegs
     {
         public int ApplicationId { get; set; }
+        public TechReg? TechReg { get; set; }
         public int TechRegId { get; set; }
         public string? Paragraphs { get; set; }
     }

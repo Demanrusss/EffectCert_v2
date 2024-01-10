@@ -67,14 +67,32 @@ namespace EffectCert.DAL.Implementations.Main
 
         public async Task<Application> Get(int id)
         {
-            return await appDBContext.Applications
+            var application = await appDBContext.Applications
                 .Include(a => a.AssessBody)
                 .Include(a => a.ContractorLegal)
                 .Include(a => a.Schema)
                 .Include(a => a.Products)
                 .Include(a => a.ProductQuantities)
-                .Include(a => a.TechRegs) // TODO: Дописать выборку из связи многие ко многим
                 .FirstOrDefaultAsync(a => a.Id == id) ?? new Application();
+
+            var techRegParagraphs = await appDBContext.ApplicationsTechRegs
+                .Include(atr => atr.TechReg)
+                .Where(atr => atr.ApplicationId == id)
+                .Select(atr => new TechRegParagraphs
+                {
+                    TechRegId = atr.TechRegId,
+                    TechReg = new TechReg
+                    {
+                        Id = atr.TechReg!.Id,
+                        ShortName = atr.TechReg!.ShortName
+                    },
+                    Paragraphs = atr.Paragraphs
+                })
+                .ToListAsync();
+
+            application.TechRegs = (ICollection<TechRegParagraphs>)techRegParagraphs;
+
+            return application;
         }
 
         public async Task<ICollection<Application>> Find(string searchStr)
@@ -127,7 +145,7 @@ namespace EffectCert.DAL.Implementations.Main
             var appProductQuantitiesIds = GetIdsCollectionOf(application.ProductQuantities);
             var appTechRegs = new Dictionary<int, string>();
             foreach (var techReg in application.TechRegs)
-                appTechRegs.Add(techReg.Id, techReg.Paragraphs ?? String.Empty);
+                appTechRegs.Add(techReg.TechRegId, techReg.Paragraphs ?? String.Empty);
 
             application.Products = new HashSet<Product>();
             application.ProductQuantities = new HashSet<ProductQuantity>();
@@ -157,7 +175,7 @@ namespace EffectCert.DAL.Implementations.Main
             var appProductQuantitiesIds = GetIdsCollectionOf(application.ProductQuantities);
             var appTechRegs = new Dictionary<int, string>();
             foreach (var techReg in application.TechRegs)
-                appTechRegs.Add(techReg.Id, techReg.Paragraphs ?? String.Empty);
+                appTechRegs.Add(techReg.TechRegId, techReg.Paragraphs ?? String.Empty);
 
             application.Products = new HashSet<Product>();
             application.ProductQuantities = new HashSet<ProductQuantity>();

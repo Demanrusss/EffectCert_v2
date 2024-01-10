@@ -45,7 +45,8 @@ namespace EffectCert.ViewMappers.Main
                 Number = model.Number,
                 Products = ConvertCollection(model.Products),
                 ProductQuantities = ConvertCollection(model.ProductQuantities),
-                Schema = SchemaMapper.MapToViewModel(model.Schema)
+                Schema = SchemaMapper.MapToViewModel(model.Schema),
+                TechRegParagraphs = (IList<TechRegParagraphsViewModel>)ConvertCollection(model.TechRegs)
             };
         }
 
@@ -85,6 +86,16 @@ namespace EffectCert.ViewMappers.Main
 
             foreach (var element in sourceCollection)
                 targetCollection.Add(ProductQuantityMapper.MapToModel(element));
+
+            return targetCollection;
+        }
+
+        private static ICollection<TechRegParagraphsViewModel> ConvertCollection(ICollection<TechRegParagraphs> sourceCollection)
+        {
+            var targetCollection = new List<TechRegParagraphsViewModel>(sourceCollection.Count);
+
+            foreach (var element in sourceCollection)
+                targetCollection.Add(TechRegParagraphsMapper.MapToViewModel(element));
 
             return targetCollection;
         }
