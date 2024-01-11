@@ -9,6 +9,6 @@ namespace EffectCert.DAL.Entities.Main
         public int TechRegId { get; set; }
         public string? Paragraphs { get; set; }
 
-        public ICollection<Application> Applications { get; set; } = new HashSet<Application>(); 
+        public ICollection<Application> Applications { get; set; } = new HashSet<Application>();
     }
 }

@@ -140,8 +140,8 @@
                             <label asp-for="TechRegParagraphs[0].TechReg" class="control-label"></label>
                             <div class="row">
                                 <div class="col-md">
-                                    <select id="@TechRegParagraphs_TechRegId" asp-for="@techReg.TechRegId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this), setVisibility_paragraphs(this)" required>
-                                        <option value="@techReg.TechRegId" selected>@techReg.TechReg?.ShortName</option>
+                                    <select id="@TechRegParagraphs_TechRegId" asp-for="@techReg.TechReg" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this), setVisibility_paragraphs(this)" required>
+                                        <option value="@techReg.TechReg?.Id" selected>@techReg.TechReg?.ShortName</option>
                                     </select>
                                 </div>
                                 <div class="col-md-3">

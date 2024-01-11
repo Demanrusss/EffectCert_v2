@@ -34,7 +34,6 @@ namespace EffectCert.DAL.Implementations.Main
                     Id = a.Id,
                     Number = a.Number,
                     Date = a.Date,
-                    ContractorLegalId = a.ContractorLegalId,
                     ContractorLegal = new ContractorLegal
                     {
                         ShortName = a.ContractorLegal.ShortName
@@ -73,6 +72,45 @@ namespace EffectCert.DAL.Implementations.Main
                 .Include(a => a.Schema)
                 .Include(a => a.Products)
                 .Include(a => a.ProductQuantities)
+                .Include(a => a.TechRegs)
+                .Select(a => new Application
+                {
+                    Id = a.Id,
+                    Number = a.Number,
+                    Date = a.Date,
+                    ElectronicNumber = a.ElectronicNumber,
+                    ElectronicDate = a.ElectronicDate,
+                    AssessBody = new AssessBody
+                    {
+                        Id = a.Id,
+                        ShortName = a.AssessBody.ShortName
+                    },
+                    ContractorLegal = new ContractorLegal
+                    {
+                        Id = a.Id,
+                        ShortName = a.ContractorLegal.ShortName
+                    },
+                    Schema = new Schema
+                    {
+                        Id = a.Id,
+                        Name = a.Schema.Name
+                    },
+                    Products = a.Products.Select(p => new Product
+                    {
+                        Id = p.Id,
+                        Name = p.Name,
+                        Model = p.Model
+                    }).ToList(),
+                    ProductQuantities = a.ProductQuantities.Select(pq => new ProductQuantity
+                    {
+                        Id = pq.Id,
+                        Product = new Product
+                        {
+                            Name = pq.Product.Name,
+                            Model = pq.Product.Model
+                        }
+                    }).ToList()
+                })
                 .FirstOrDefaultAsync(a => a.Id == id) ?? new Application();
 
             var techRegParagraphs = await appDBContext.ApplicationsTechRegs
