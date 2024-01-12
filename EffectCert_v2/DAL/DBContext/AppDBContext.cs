@@ -76,7 +76,8 @@ namespace EffectCert.DAL.DBContext
             modelBuilder.Entity<Application>()
                 .HasMany(a => a.TechRegs)
                 .WithMany(tr => tr.Applications)
-                .UsingEntity<ApplicationsTechRegs>();
+                .UsingEntity<ApplicationsTechRegs>()
+                .HasKey(atr => new { atr.ApplicationId, atr.TechRegId });
 
             modelBuilder.Entity<ExpertDecision>()
                 .HasMany(ed => ed.TestProtocols)

@@ -1,4 +1,5 @@
 ﻿using EffectCert.DAL.Entities.Documents;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EffectCert.DAL.DBContext
 {
