@@ -25,7 +25,7 @@ namespace EffectCert.ViewMappers.Main
                 Products = ConvertCollection(viewModel.Products),
                 ProductQuantities = ConvertCollection(viewModel.ProductQuantities),
                 SchemaId = viewModel.SchemaId,
-                TechRegs = ConvertCollection(viewModel.TechRegParagraphs)
+                TechRegsParagraphs = ConvertCollection(viewModel.TechRegParagraphs)
             };
         }
 
@@ -46,7 +46,7 @@ namespace EffectCert.ViewMappers.Main
                 Products = ConvertCollection(model.Products),
                 ProductQuantities = ConvertCollection(model.ProductQuantities),
                 Schema = SchemaMapper.MapToViewModel(model.Schema),
-                TechRegParagraphs = (IList<TechRegParagraphsViewModel>)ConvertCollection(model.TechRegs)
+                TechRegParagraphs = (IList<TechRegParagraphsViewModel>)ConvertCollection(model.TechRegsParagraphs)
             };
         }
 

@@ -1,5 +1,4 @@
 ﻿using EffectCert.DAL.Entities.Documents;
-using EffectCert.DAL.Entities.Main;
 using EffectCert.ViewModels.Documents;
 using EffectCert.ViewModels.Main;
 

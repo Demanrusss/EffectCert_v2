@@ -15,11 +15,10 @@ namespace EffectCert.DAL.DBContext
         public int ContractId { get; set; }
     }
 
-    public class ApplicationsGovStandards
+    public class ApplicationsGovStandardsParagraphs
     {
         public int ApplicationId { get; set; }
-        public int GovStandardId { get; set; }
-        public string? Paragraphs { get; set; }
+        public int GovStandardParagraphsId { get; set; }
     }
 
     public class ApplicationsGTDs
@@ -58,12 +57,10 @@ namespace EffectCert.DAL.DBContext
         public int RequirementId { get; set; }
     }
 
-    public class ApplicationsTechRegs
+    public class ApplicationsTechRegsParagraphs
     {
         public int ApplicationId { get; set; }
-        public TechReg? TechReg { get; set; }
-        public int TechRegId { get; set; }
-        public string? Paragraphs { get; set; }
+        public int TechRegParagraphsId { get; set; }
     }
 
     public class ExpertDecisionsTestProtocols

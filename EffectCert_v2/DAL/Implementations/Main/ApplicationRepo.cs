@@ -4,9 +4,8 @@ using EffectCert.DAL.DBContext;
 using EffectCert.DAL.Entities.Contractors;
 using EffectCert.DAL.Entities.Others;
 using EffectCert.DAL.Entities.Documents;
-using Microsoft.EntityFrameworkCore;
 using EffectCert.DAL.Entities;
-using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace EffectCert.DAL.Implementations.Main
 {
@@ -72,7 +71,7 @@ namespace EffectCert.DAL.Implementations.Main
                 .Include(a => a.Schema)
                 .Include(a => a.Products)
                 .Include(a => a.ProductQuantities)
-                .Include(a => a.TechRegs)
+                .Include(a => a.TechRegsParagraphs)
                 .Select(a => new Application
                 {
                     Id = a.Id,
@@ -109,26 +108,20 @@ namespace EffectCert.DAL.Implementations.Main
                             Name = pq.Product.Name,
                             Model = pq.Product.Model
                         }
+                    }).ToList(),
+                    TechRegsParagraphs = a.TechRegsParagraphs.Select(trp => new TechRegParagraphs
+                    {
+                        Id = trp.Id,
+                        TechRegId = trp.TechRegId,
+                        TechReg = new TechReg
+                        {
+                            Id = trp.TechReg!.Id,
+                            ShortName = trp.TechReg!.ShortName
+                        },
+                        Paragraphs = trp.Paragraphs
                     }).ToList()
                 })
                 .FirstOrDefaultAsync(a => a.Id == id) ?? new Application();
-
-            var techRegParagraphs = await appDBContext.ApplicationsTechRegs
-                .Include(atr => atr.TechReg)
-                .Where(atr => atr.ApplicationId == id)
-                .Select(atr => new TechRegParagraphs
-                {
-                    TechRegId = atr.TechRegId,
-                    TechReg = new TechReg
-                    {
-                        Id = atr.TechReg!.Id,
-                        ShortName = atr.TechReg!.ShortName
-                    },
-                    Paragraphs = atr.Paragraphs
-                })
-                .ToListAsync();
-
-            application.TechRegs = (ICollection<TechRegParagraphs>)techRegParagraphs;
 
             return application;
         }
@@ -174,20 +167,18 @@ namespace EffectCert.DAL.Implementations.Main
                 .ToListAsync();
         }
 
-        public async Task<int> Create(Application application)
+        public async Task<int> Create(Application application) // TODO: Разработать создание заявки, учитывая массив из ТР и его параграфов
         {
             if (application == null)
                 return 0;
 
             var appProductsIds = GetIdsCollectionOf(application.Products);
             var appProductQuantitiesIds = GetIdsCollectionOf(application.ProductQuantities);
-            var appTechRegs = new Dictionary<int, string>();
-            foreach (var techReg in application.TechRegs)
-                appTechRegs.Add(techReg.TechRegId, techReg.Paragraphs ?? String.Empty);
+            var appTechRegs = GetIdsCollectionOf(application.TechRegsParagraphs);
 
             application.Products = new HashSet<Product>();
             application.ProductQuantities = new HashSet<ProductQuantity>();
-            application.TechRegs = new HashSet<TechRegParagraphs>();
+            application.TechRegsParagraphs = new HashSet<TechRegParagraphs>();
 
             appDBContext.Applications.Add(application);
             await appDBContext.SaveChangesAsync();
@@ -199,56 +190,54 @@ namespace EffectCert.DAL.Implementations.Main
                 appDBContext.ApplicationsProductQuantities.Add(new ApplicationsProductQuantities() { ApplicationId = application.Id, ProductQuantityId = productQuantity });
 
             foreach (var techReg in appTechRegs)
-                appDBContext.ApplicationsTechRegs.Add(new ApplicationsTechRegs() { ApplicationId = application.Id, TechRegId = techReg.Key, Paragraphs = techReg.Value });
+                appDBContext.ApplicationsTechRegsParagraphs.Add(new ApplicationsTechRegsParagraphs() { ApplicationId = application.Id, TechRegParagraphsId = techReg });
 
             return await appDBContext.SaveChangesAsync();
         }
 
-        public async Task<int> Update(Application application)
+        public async Task<int> Update(Application application) // TODO: Разработать обновление заявки, учитывая массив из ТР и его параграфов
         {
             if (application == null)
                 return 0;
 
             var appProductsIds = GetIdsCollectionOf(application.Products);
             var appProductQuantitiesIds = GetIdsCollectionOf(application.ProductQuantities);
-            var appTechRegs = new Dictionary<int, string>();
-            foreach (var techReg in application.TechRegs)
-                appTechRegs.Add(techReg.TechRegId, techReg.Paragraphs ?? String.Empty);
+            var appTechRegs = GetIdsCollectionOf(application.TechRegsParagraphs);
 
             application.Products = new HashSet<Product>();
             application.ProductQuantities = new HashSet<ProductQuantity>();
-            application.TechRegs = new HashSet<TechRegParagraphs>();
+            application.TechRegsParagraphs = new HashSet<TechRegParagraphs>();
             appDBContext.Applications.Update(application);
 
             IEnumerable<int> existedAPProductsIds = appDBContext.ApplicationsProducts
                 .Where(ap => ap.ApplicationId == application.Id)
                 .Select(ap => ap.ProductId);
 
-            foreach (var productToAddId in appProductsIds.Except(existedAPProductsIds))
-                appDBContext.ApplicationsProducts.Add(new ApplicationsProducts() { ApplicationId = application.Id, ProductId = productToAddId });
+            foreach (var productIdToAdd in appProductsIds.Except(existedAPProductsIds))
+                appDBContext.ApplicationsProducts.Add(new ApplicationsProducts() { ApplicationId = application.Id, ProductId = productIdToAdd });
 
-            foreach (var id in existedAPProductsIds.Except(appProductsIds))
-                appDBContext.ApplicationsProducts.Remove(new ApplicationsProducts() { ApplicationId = application.Id, ProductId = id });
+            foreach (var productIdToRemove in existedAPProductsIds.Except(appProductsIds))
+                appDBContext.ApplicationsProducts.Remove(new ApplicationsProducts() { ApplicationId = application.Id, ProductId = productIdToRemove });
 
             IEnumerable<int> existedAPProductQuantitiesIds = appDBContext.ApplicationsProductQuantities
                 .Where(ap => ap.ApplicationId == application.Id)
                 .Select(ap => ap.ProductQuantityId);
 
-            foreach (var productQuantityToAddId in appProductQuantitiesIds.Except(existedAPProductQuantitiesIds))
-                appDBContext.ApplicationsProductQuantities.Add(new ApplicationsProductQuantities() { ApplicationId = application.Id, ProductQuantityId = productQuantityToAddId });
+            foreach (var productQuantityIdToAdd in appProductQuantitiesIds.Except(existedAPProductQuantitiesIds))
+                appDBContext.ApplicationsProductQuantities.Add(new ApplicationsProductQuantities() { ApplicationId = application.Id, ProductQuantityId = productQuantityIdToAdd });
 
-            foreach (var id in existedAPProductQuantitiesIds.Except(appProductQuantitiesIds))
-                appDBContext.ApplicationsProductQuantities.Remove(new ApplicationsProductQuantities() { ApplicationId = application.Id, ProductQuantityId = id });
+            foreach (var productQuantityIdToRemove in existedAPProductQuantitiesIds.Except(appProductQuantitiesIds))
+                appDBContext.ApplicationsProductQuantities.Remove(new ApplicationsProductQuantities() { ApplicationId = application.Id, ProductQuantityId = productQuantityIdToRemove });
 
-            IEnumerable<KeyValuePair<int, string>> existedAPTechRegsIds = appDBContext.ApplicationsTechRegs
+            IEnumerable<int> existedAPTechRegsIds = appDBContext.ApplicationsTechRegsParagraphs
                 .Where(ap => ap.ApplicationId == application.Id)
-                .Select(ap => new KeyValuePair<int, string>(ap.TechRegId, ap.Paragraphs ?? String.Empty));
+                .Select(ap => ap.TechRegParagraphsId);
 
-            foreach (var techRegToAdd in appTechRegs.Except(existedAPTechRegsIds))
-                appDBContext.ApplicationsTechRegs.Add(new ApplicationsTechRegs() { ApplicationId = application.Id, TechRegId = techRegToAdd.Key, Paragraphs = techRegToAdd.Value });
+            foreach (var techRegIdToAdd in appTechRegs.Except(existedAPTechRegsIds))
+                appDBContext.ApplicationsTechRegsParagraphs.Add(new ApplicationsTechRegsParagraphs() { ApplicationId = application.Id, TechRegParagraphsId = techRegIdToAdd });
 
-            foreach (var techRegToRemove in existedAPTechRegsIds.Except(appTechRegs))
-                appDBContext.ApplicationsTechRegs.Remove(new ApplicationsTechRegs() { ApplicationId = application.Id, TechRegId = techRegToRemove.Key });
+            foreach (var techRegIdToRemove in existedAPTechRegsIds.Except(appTechRegs))
+                appDBContext.ApplicationsTechRegsParagraphs.Remove(new ApplicationsTechRegsParagraphs() { ApplicationId = application.Id, TechRegParagraphsId = techRegIdToRemove });
 
             return await appDBContext.SaveChangesAsync();
         }

@@ -1,8 +1,8 @@
-﻿using EffectCert.DAL.Entities.Documents;
+﻿using EffectCert.DAL.Entities.Main;
 
-namespace EffectCert.DAL.Entities.Main
+namespace EffectCert.DAL.Entities.Documents
 {
-    public class TechRegParagraphs
+    public class TechRegParagraphs : IEntity
     {
         public int Id { get; set; }
         public TechReg? TechReg { get; set; }

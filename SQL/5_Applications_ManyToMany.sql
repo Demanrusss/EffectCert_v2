@@ -14,23 +14,6 @@ CREATE TABLE ApplicationsContracts
 
 END
 
-IF OBJECT_ID(N'ApplicationsGovStandards', N'U') IS NULL
-BEGIN
-
-CREATE TABLE ApplicationsGovStandards
-(
-    [ApplicationId] INT NOT NULL,
-	[GovStandardId] INT NOT NULL,
-    [Paragraphs] NVARCHAR(256) NULL,
-    CONSTRAINT PK_ApplicationsGovStandards PRIMARY KEY (ApplicationId, GovStandardId),
-    CONSTRAINT FK_ApplicationsGovStandards_ApplicationId FOREIGN KEY (ApplicationId)
-		REFERENCES Applications(Id),
-	CONSTRAINT FK_ApplicationsGovStandards_GovStandardId FOREIGN KEY (GovStandardId)
-		REFERENCES GovStandards(Id)
-)
-
-END
-
 IF OBJECT_ID(N'ApplicationsGTDs', N'U') IS NULL
 BEGIN
 
@@ -75,23 +58,6 @@ CREATE TABLE ApplicationsManufacturerStandards
 		REFERENCES Applications(Id),
 	CONSTRAINT FK_ApplicationsManufacturerStandards_ManufacturerStandardId FOREIGN KEY (ManufacturerStandardId)
 		REFERENCES ManufacturerStandards(Id)
-)
-
-END
-
-IF OBJECT_ID(N'ApplicationsTechRegs', N'U') IS NULL
-BEGIN
-
-CREATE TABLE ApplicationsTechRegs
-(
-	[ApplicationId] INT NOT NULL,
-	[TechRegId] INT NOT NULL,
-    [Paragraphs] NVARCHAR(256) NULL,
-    CONSTRAINT PK_ApplicationsTechRegs PRIMARY KEY (ApplicationId, TechRegId),
-    CONSTRAINT FK_ApplicationsTechRegs_ApplicationId FOREIGN KEY (ApplicationId)
-		REFERENCES Applications(Id),
-	CONSTRAINT FK_ApplicationsTechRegs_TechRegId FOREIGN KEY (TechRegId)
-		REFERENCES TechRegs(Id)
 )
 
 END

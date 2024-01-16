@@ -34,6 +34,7 @@ namespace EffectCert.DAL.DBContext
         public DbSet<Attestate> Attestates { get; set; }
         public DbSet<ManufacturerStandard> ManufacturerStandards { get; set; }
         public DbSet<TechReg> TechRegs { get; set; }
+        public DbSet<TechRegParagraphs> TechRegsParagraphs { get; set; }
         public DbSet<TestProtocol> TestProtocols { get; set; }
 
         // Others
@@ -59,7 +60,7 @@ namespace EffectCert.DAL.DBContext
         public DbSet<ApplicationsProducts> ApplicationsProducts { get; set; }
         public DbSet<ApplicationsProductQuantities> ApplicationsProductQuantities { get; set; }
         public DbSet<SchemasCertObjects> SchemasCertObjects { get; set; }
-        public DbSet<ApplicationsTechRegs> ApplicationsTechRegs { get; set; }
+        public DbSet<ApplicationsTechRegsParagraphs> ApplicationsTechRegsParagraphs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -74,9 +75,9 @@ namespace EffectCert.DAL.DBContext
                 .UsingEntity<ApplicationsProductQuantities>();
 
             modelBuilder.Entity<Application>()
-                .HasMany(a => a.TechRegs)
+                .HasMany(a => a.TechRegsParagraphs)
                 .WithMany(tr => tr.Applications)
-                .UsingEntity<ApplicationsTechRegs>(atr => atr.HasKey(a => new { a.ApplicationId, a.TechRegId }));
+                .UsingEntity<ApplicationsTechRegsParagraphs>();
 
             modelBuilder.Entity<ExpertDecision>()
                 .HasMany(ed => ed.TestProtocols)
