@@ -6,6 +6,7 @@ using EffectCert.DAL.Entities.Others;
 using EffectCert.DAL.Entities.Documents;
 using EffectCert.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
+using EffectCert.DAL.Implementations.Documents;
 
 namespace EffectCert.DAL.Implementations.Main
 {
@@ -81,17 +82,17 @@ namespace EffectCert.DAL.Implementations.Main
                     ElectronicDate = a.ElectronicDate,
                     AssessBody = new AssessBody
                     {
-                        Id = a.Id,
+                        Id = a.AssessBody.Id,
                         ShortName = a.AssessBody.ShortName
                     },
                     ContractorLegal = new ContractorLegal
                     {
-                        Id = a.Id,
+                        Id = a.ContractorLegal.Id,
                         ShortName = a.ContractorLegal.ShortName
                     },
                     Schema = new Schema
                     {
-                        Id = a.Id,
+                        Id = a.Schema.Id,
                         Name = a.Schema.Name
                     },
                     Products = a.Products.Select(p => new Product
@@ -167,14 +168,16 @@ namespace EffectCert.DAL.Implementations.Main
                 .ToListAsync();
         }
 
-        public async Task<int> Create(Application application) // TODO: Разработать создание заявки, учитывая массив из ТР и его параграфов
+        public async Task<int> Create(Application application)
         {
             if (application == null)
                 return 0;
 
             var appProductsIds = GetIdsCollectionOf(application.Products);
             var appProductQuantitiesIds = GetIdsCollectionOf(application.ProductQuantities);
-            var appTechRegs = GetIdsCollectionOf(application.TechRegsParagraphs);
+
+            UpdateSubEntitiesWithIds(application.TechRegsParagraphs);
+            var appTechRegsParagraphs = GetIdsCollectionOf(application.TechRegsParagraphs);
 
             application.Products = new HashSet<Product>();
             application.ProductQuantities = new HashSet<ProductQuantity>();
@@ -189,20 +192,22 @@ namespace EffectCert.DAL.Implementations.Main
             foreach (var productQuantity in appProductQuantitiesIds)
                 appDBContext.ApplicationsProductQuantities.Add(new ApplicationsProductQuantities() { ApplicationId = application.Id, ProductQuantityId = productQuantity });
 
-            foreach (var techReg in appTechRegs)
+            foreach (var techReg in appTechRegsParagraphs)
                 appDBContext.ApplicationsTechRegsParagraphs.Add(new ApplicationsTechRegsParagraphs() { ApplicationId = application.Id, TechRegParagraphsId = techReg });
 
             return await appDBContext.SaveChangesAsync();
         }
 
-        public async Task<int> Update(Application application) // TODO: Разработать обновление заявки, учитывая массив из ТР и его параграфов
+        public async Task<int> Update(Application application)
         {
             if (application == null)
                 return 0;
 
             var appProductsIds = GetIdsCollectionOf(application.Products);
             var appProductQuantitiesIds = GetIdsCollectionOf(application.ProductQuantities);
-            var appTechRegs = GetIdsCollectionOf(application.TechRegsParagraphs);
+
+            UpdateSubEntitiesWithIds(application.TechRegsParagraphs);
+            var appTechRegsParagraphs = GetIdsCollectionOf(application.TechRegsParagraphs);
 
             application.Products = new HashSet<Product>();
             application.ProductQuantities = new HashSet<ProductQuantity>();
@@ -233,10 +238,10 @@ namespace EffectCert.DAL.Implementations.Main
                 .Where(ap => ap.ApplicationId == application.Id)
                 .Select(ap => ap.TechRegParagraphsId);
 
-            foreach (var techRegIdToAdd in appTechRegs.Except(existedAPTechRegsIds))
+            foreach (var techRegIdToAdd in appTechRegsParagraphs.Except(existedAPTechRegsIds))
                 appDBContext.ApplicationsTechRegsParagraphs.Add(new ApplicationsTechRegsParagraphs() { ApplicationId = application.Id, TechRegParagraphsId = techRegIdToAdd });
 
-            foreach (var techRegIdToRemove in existedAPTechRegsIds.Except(appTechRegs))
+            foreach (var techRegIdToRemove in existedAPTechRegsIds.Except(appTechRegsParagraphs))
                 appDBContext.ApplicationsTechRegsParagraphs.Remove(new ApplicationsTechRegsParagraphs() { ApplicationId = application.Id, TechRegParagraphsId = techRegIdToRemove });
 
             return await appDBContext.SaveChangesAsync();
@@ -259,6 +264,17 @@ namespace EffectCert.DAL.Implementations.Main
                 ids.Add(entity.Id);
 
             return ids;
+        }
+
+        private void UpdateSubEntitiesWithIds(ICollection<TechRegParagraphs> subEntities)
+        {
+            var techRegParagraphsRepo = new TechRegParagraphsRepo(appDBContext);
+
+            foreach (var item in subEntities)
+            {
+                var techRegParagraphs = techRegParagraphsRepo.FindBy(item.TechRegId, item.Paragraphs).Result.FirstOrDefault();
+                item.Id = techRegParagraphs == null ? techRegParagraphsRepo.Create(item).Result : techRegParagraphs.Id;
+            }
         }
     }
 }

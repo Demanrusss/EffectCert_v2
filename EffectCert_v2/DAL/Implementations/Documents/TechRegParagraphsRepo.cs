@@ -44,35 +44,35 @@ namespace EffectCert.DAL.Implementations.Documents
             return await appDBContext.TechRegsParagraphs
                 .Include(trp => trp.TechReg)
                 .Where(c => c.TechRegId == techRegId)
-                .Where(c => c.Paragraphs != null && c.Paragraphs.Equals(searchStr))
+                .Where(c => c.Paragraphs.Equals(searchStr ?? String.Empty))
                 .ToListAsync();
         }
 
-        public async Task<int> Create(TechRegParagraphs techReg)
+        public async Task<int> Create(TechRegParagraphs techRegParagraphs)
         {
-            if (techReg == null)
+            if (techRegParagraphs == null)
                 return 0;
 
-            appDBContext.TechRegsParagraphs.Add(techReg);
+            appDBContext.TechRegsParagraphs.Add(techRegParagraphs);
             return await appDBContext.SaveChangesAsync();
         }
 
-        public async Task<int> Update(TechRegParagraphs techReg)
+        public async Task<int> Update(TechRegParagraphs techRegParagraphs)
         {
-            if (techReg == null)
+            if (techRegParagraphs == null)
                 return 0;
 
-            appDBContext.TechRegsParagraphs.Update(techReg);
+            appDBContext.TechRegsParagraphs.Update(techRegParagraphs);
             return await appDBContext.SaveChangesAsync();
         }
 
         public async Task<int> Delete(int id)
         {
-            TechRegParagraphs? techReg = await appDBContext.TechRegsParagraphs.FindAsync(id);
-            if (techReg == null)
+            TechRegParagraphs? techRegParagraphs = await appDBContext.TechRegsParagraphs.FindAsync(id);
+            if (techRegParagraphs == null)
                 return 0;
 
-            appDBContext.TechRegsParagraphs.Remove(techReg);
+            appDBContext.TechRegsParagraphs.Remove(techRegParagraphs);
             return await appDBContext.SaveChangesAsync();
         }
     }

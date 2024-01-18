@@ -11,7 +11,7 @@ namespace EffectCert.ViewMappers.Documents
             return new TechRegParagraphs()
             {
                 TechRegId = viewModel.TechRegId,
-                Paragraphs = viewModel.Paragraphs
+                Paragraphs = viewModel.Paragraphs ?? String.Empty,
             };
         }
 

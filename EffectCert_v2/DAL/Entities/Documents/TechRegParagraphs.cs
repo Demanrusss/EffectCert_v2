@@ -7,7 +7,7 @@ namespace EffectCert.DAL.Entities.Documents
         public int Id { get; set; }
         public TechReg? TechReg { get; set; }
         public int TechRegId { get; set; }
-        public string? Paragraphs { get; set; }
+        public string Paragraphs { get; set; } = null!;
 
         public ICollection<Application> Applications { get; set; } = new HashSet<Application>();
     }
