@@ -203,46 +203,10 @@ namespace EffectCert.DAL.Implementations.Main
             if (application == null)
                 return 0;
 
-            var appProductsIds = GetIdsCollectionOf(application.Products);
-            var appProductQuantitiesIds = GetIdsCollectionOf(application.ProductQuantities);
-
-            UpdateSubEntitiesWithIds(application.TechRegsParagraphs);
-            var appTechRegsParagraphs = GetIdsCollectionOf(application.TechRegsParagraphs);
-
-            application.Products = new HashSet<Product>();
-            application.ProductQuantities = new HashSet<ProductQuantity>();
-            application.TechRegsParagraphs = new HashSet<TechRegParagraphs>();
-            appDBContext.Applications.Update(application);
-
-            IEnumerable<int> existedAPProductsIds = appDBContext.ApplicationsProducts
-                .Where(ap => ap.ApplicationId == application.Id)
-                .Select(ap => ap.ProductId);
-
-            foreach (var productIdToAdd in appProductsIds.Except(existedAPProductsIds))
-                appDBContext.ApplicationsProducts.Add(new ApplicationsProducts() { ApplicationId = application.Id, ProductId = productIdToAdd });
-
-            foreach (var productIdToRemove in existedAPProductsIds.Except(appProductsIds))
-                appDBContext.ApplicationsProducts.Remove(new ApplicationsProducts() { ApplicationId = application.Id, ProductId = productIdToRemove });
-
-            IEnumerable<int> existedAPProductQuantitiesIds = appDBContext.ApplicationsProductQuantities
-                .Where(ap => ap.ApplicationId == application.Id)
-                .Select(ap => ap.ProductQuantityId);
-
-            foreach (var productQuantityIdToAdd in appProductQuantitiesIds.Except(existedAPProductQuantitiesIds))
-                appDBContext.ApplicationsProductQuantities.Add(new ApplicationsProductQuantities() { ApplicationId = application.Id, ProductQuantityId = productQuantityIdToAdd });
-
-            foreach (var productQuantityIdToRemove in existedAPProductQuantitiesIds.Except(appProductQuantitiesIds))
-                appDBContext.ApplicationsProductQuantities.Remove(new ApplicationsProductQuantities() { ApplicationId = application.Id, ProductQuantityId = productQuantityIdToRemove });
-
-            IEnumerable<int> existedAPTechRegsIds = appDBContext.ApplicationsTechRegsParagraphs
-                .Where(ap => ap.ApplicationId == application.Id)
-                .Select(ap => ap.TechRegParagraphsId);
-
-            foreach (var techRegIdToAdd in appTechRegsParagraphs.Except(existedAPTechRegsIds))
-                appDBContext.ApplicationsTechRegsParagraphs.Add(new ApplicationsTechRegsParagraphs() { ApplicationId = application.Id, TechRegParagraphsId = techRegIdToAdd });
-
-            foreach (var techRegIdToRemove in existedAPTechRegsIds.Except(appTechRegsParagraphs))
-                appDBContext.ApplicationsTechRegsParagraphs.Remove(new ApplicationsTechRegsParagraphs() { ApplicationId = application.Id, TechRegParagraphsId = techRegIdToRemove });
+            UpdateApplicationsProducts(application);
+            UpdateApplicationsProductQuantities(application);
+            UpdateApplicationsTechRegsParagraphs(application);
+            UpdateApplications(application);
 
             return await appDBContext.SaveChangesAsync();
         }
@@ -266,15 +230,98 @@ namespace EffectCert.DAL.Implementations.Main
             return ids;
         }
 
+        
+
+        private void UpdateApplicationsProducts(Application application)
+        {
+            var appProductsIds = GetIdsCollectionOf(application.Products);
+
+            IEnumerable<int> existedAPProductsIds = appDBContext.ApplicationsProducts
+                .Where(ap => ap.ApplicationId == application.Id)
+                .Select(ap => ap.ProductId);
+
+            foreach (var productIdToAdd in appProductsIds.Except(existedAPProductsIds))
+                appDBContext.ApplicationsProducts.Add(new ApplicationsProducts() 
+                { 
+                    ApplicationId = application.Id, 
+                    ProductId = productIdToAdd 
+                });
+
+            foreach (var productIdToRemove in existedAPProductsIds.Except(appProductsIds))
+                appDBContext.ApplicationsProducts.Remove(new ApplicationsProducts() 
+                { 
+                    ApplicationId = application.Id, 
+                    ProductId = productIdToRemove 
+                });
+        }
+
+        private void UpdateApplicationsProductQuantities(Application application)
+        {
+            var appProductQuantitiesIds = GetIdsCollectionOf(application.ProductQuantities);
+
+            IEnumerable<int> existedAPProductQuantitiesIds = appDBContext.ApplicationsProductQuantities
+                .Where(ap => ap.ApplicationId == application.Id)
+                .Select(ap => ap.ProductQuantityId);
+
+            foreach (var productQuantityIdToAdd in appProductQuantitiesIds.Except(existedAPProductQuantitiesIds))
+                appDBContext.ApplicationsProductQuantities.Add(new ApplicationsProductQuantities() 
+                { 
+                    ApplicationId = application.Id, 
+                    ProductQuantityId = productQuantityIdToAdd 
+                });
+
+            foreach (var productQuantityIdToRemove in existedAPProductQuantitiesIds.Except(appProductQuantitiesIds))
+                appDBContext.ApplicationsProductQuantities.Remove(new ApplicationsProductQuantities() 
+                { 
+                    ApplicationId = application.Id, 
+                    ProductQuantityId = productQuantityIdToRemove 
+                });
+        }
+
+        private void UpdateApplicationsTechRegsParagraphs(Application application)
+        {
+            UpdateSubEntitiesWithIds(application.TechRegsParagraphs);
+            var appTechRegsParagraphs = GetIdsCollectionOf(application.TechRegsParagraphs);
+
+            IEnumerable<int> existedAPTechRegsIds = appDBContext.ApplicationsTechRegsParagraphs
+                .Where(ap => ap.ApplicationId == application.Id)
+                .Select(ap => ap.TechRegParagraphsId);
+
+            foreach (var techRegIdToAdd in appTechRegsParagraphs.Except(existedAPTechRegsIds))
+                appDBContext.ApplicationsTechRegsParagraphs.Add(new ApplicationsTechRegsParagraphs()
+                {
+                    ApplicationId = application.Id,
+                    TechRegParagraphsId = techRegIdToAdd
+                });
+
+            foreach (var techRegIdToRemove in existedAPTechRegsIds.Except(appTechRegsParagraphs))
+                appDBContext.ApplicationsTechRegsParagraphs.Remove(new ApplicationsTechRegsParagraphs()
+                {
+                    ApplicationId = application.Id,
+                    TechRegParagraphsId = techRegIdToRemove
+                });
+        }
+
         private void UpdateSubEntitiesWithIds(ICollection<TechRegParagraphs> subEntities)
         {
             var techRegParagraphsRepo = new TechRegParagraphsRepo(appDBContext);
 
             foreach (var item in subEntities)
             {
-                var techRegParagraphs = techRegParagraphsRepo.FindBy(item.TechRegId, item.Paragraphs).Result.FirstOrDefault();
+                var techRegParagraphs = techRegParagraphsRepo
+                    .FindBy(item.TechRegId, item.Paragraphs)
+                    .Result
+                    .FirstOrDefault();
                 item.Id = techRegParagraphs == null ? techRegParagraphsRepo.Create(item).Result : techRegParagraphs.Id;
             }
+        }
+
+        private void UpdateApplications(Application application)
+        {
+            application.Products = new HashSet<Product>();
+            application.ProductQuantities = new HashSet<ProductQuantity>();
+            application.TechRegsParagraphs = new HashSet<TechRegParagraphs>();
+            appDBContext.Applications.Update(application);
         }
     }
 }
