@@ -140,6 +140,10 @@
                         <div class="row align-content-between" id="@rowTemplate">
                         <div class="row align-content-between">
                             <div class="col-md-6">
+                            @if(techRegCounter > 0)
+                            {
+                                <div class="btn btn-close btn-danger col-md-1" onmouseover="" style="cursor: pointer;" onclick="deleteRow(this)"></div>
+                            }
                                 <label name="TechRegParagraphs[0].TechReg" class="control-label"></label>
                                 <div class="row">
                                     <div class="col-md">
@@ -188,7 +192,6 @@
                 { id: '#ContractorLegalId', url: '/ContractorLegal/GetContractorLegals/', placeholder: 'Выберите юр.лицо' },
                 { id: '#SchemaId', url: '/Schema/GetSchemas/', placeholder: 'Выберите схему' },
                 { id: '#ProductsIds', url: '/Product/GetProducts/', placeholder: 'Выберите продукцию' },
-                { id: '#ProductQuantitiesIds', url: '/ProductQuantity/GetProductQuantities/', placeholder: 'Выберите партию продукции' },
                 @{
                     int techRegCounter = 0;
 
@@ -198,14 +201,19 @@
                     foreach (var techReg in Model.TechRegParagraphs)
                     {
                         string element = "{ id: '#TechRegParagraphs" + techRegCounter.ToString() + "TechRegId', url: '/TechReg/GetTechRegs/', placeholder: 'Выберите тех. регламент' },";
-                        @Json.Serialize(element);
+                        @Html.Raw(element);
                         ++techRegCounter;
                     }
                 }
+                { id: '#ProductQuantitiesIds', url: '/ProductQuantity/GetProductQuantities/', placeholder: 'Выберите партию продукции' }
             ];
 
             establishSelect2Algorithm(selectElements);
             InitializeBtnAnimation();
+        });
+
+        $(document).ready(function() {
+            reInitializationSelect2();
         });
 
         function hidePartyOrSerial(element) {

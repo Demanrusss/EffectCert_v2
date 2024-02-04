@@ -230,8 +230,6 @@ namespace EffectCert.DAL.Implementations.Main
             return ids;
         }
 
-        
-
         private void UpdateApplicationsProducts(Application application)
         {
             var appProductsIds = GetIdsCollectionOf(application.Products);
