@@ -79,7 +79,7 @@
                 </div>
                 <span asp-validation-for="SchemaId" class="text-danger" id="SchemaIdWarning"></span>
             </div>
-            <div class="form-group serial col-md-5">
+            <div class="form-group serial col-md-5" @Html.Raw(Model.Products.Count > 0 ? String.Empty : "hidden")>
                 <label asp-for="Products" class="control-label"></label>
                 <div class="row justify-content-between">
                     <div class="col-md">
@@ -96,7 +96,7 @@
                 </div>
                 <span asp-validation-for="ProductsIds" class="text-danger" id="ProductsIdsWarning"></span>
             </div>
-            <div class="form-group party col-md-5">
+            <div class="form-group party col-md-5" @Html.Raw(Model.ProductQuantities.Count > 0 ? String.Empty : "hidden")>
                 <label asp-for="ProductQuantities" class="control-label"></label>
                 <div class="row justify-content-between">
                     <div class="col-md">
@@ -138,34 +138,34 @@
                         string TechRegParagraphs_TechRegIdDelete = $"TechRegParagraphs{techRegCounter}TechRegIdDelete";
                         string TechRegParagraphs_TechRegIdParagraphs = $"TechRegParagraphs{techRegCounter}TechRegIdParagraphs";
                         <div class="row align-content-between" id="@rowTemplate">
-                        <div class="row align-content-between">
-                            <div class="col-md-6">
-                            @if(techRegCounter > 0)
-                            {
-                                <div class="btn btn-close btn-danger col-md-1" onmouseover="" style="cursor: pointer;" onclick="deleteRow(this)"></div>
-                            }
-                                <label name="TechRegParagraphs[0].TechReg" class="control-label"></label>
-                                <div class="row">
-                                    <div class="col-md">
-                                        <select id="@TechRegParagraphs_TechRegId" name="TechRegParagraphs[0].TechRegId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this), setVisibility_paragraphs(this)" required>
-                                            <option value="@techReg.TechReg?.Id" selected>@techReg.TechReg?.ShortName</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <a asp-controller="TechReg" asp-action="Create" target="_blank" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
-                                        <a asp-controller="TechReg" asp-action="Edit" asp-route-id="@techReg.TechReg?.Id" id="@TechRegParagraphs_TechRegIdEdit" target="_blank" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
-                                        <a asp-controller="TechReg" asp-action="Details" asp-route-id="@techReg.TechReg?.Id" id="@TechRegParagraphs_TechRegIdDetails" target="_blank" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
-                                        <a asp-controller="TechReg" asp-action="Delete" asp-route-id="@techReg.TechReg?.Id" id="@TechRegParagraphs_TechRegIdDelete" target="_blank" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                            <div class="row align-content-between">
+                                <div class="col-md-6">
+                                @if(techRegCounter > 0)
+                                {
+                                    <div class="btn btn-close btn-danger col-md-1" onmouseover="" style="cursor: pointer;" onclick="deleteRow(this)"></div>
+                                }
+                                    <label name="TechRegParagraphs[0].TechReg" class="control-label"></label>
+                                    <div class="row">
+                                        <div class="col-md">
+                                            <select id="@TechRegParagraphs_TechRegId" name="TechRegParagraphs[0].TechRegId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this), setVisibility_paragraphs(this)" required>
+                                                <option value="@techReg.TechReg?.Id" selected>@techReg.TechReg?.ShortName</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <a asp-controller="TechReg" asp-action="Create" target="_blank" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                                            <a asp-controller="TechReg" asp-action="Edit" asp-route-id="@techReg.TechReg?.Id" id="@TechRegParagraphs_TechRegIdEdit" target="_blank" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                                            <a asp-controller="TechReg" asp-action="Details" asp-route-id="@techReg.TechReg?.Id" id="@TechRegParagraphs_TechRegIdDetails" target="_blank" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                                            <a asp-controller="TechReg" asp-action="Delete" asp-route-id="@techReg.TechReg?.Id" id="@TechRegParagraphs_TechRegIdDelete" target="_blank" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md" id="@TechRegParagraphs_TechRegIdParagraphs">
-                                <label name="TechRegParagraphs[0].Paragraphs" class="control-label"></label>
-                                <input id="TechRegParagraphs0Paragraphs" name="TechRegParagraphs[0].Paragraphs" value="@techReg.Paragraphs" class="form-control" />
-                                <span asp-validation-for="@techReg.Paragraphs" class="text-danger"></span>
+                                <div class="col-md" id="@TechRegParagraphs_TechRegIdParagraphs">
+                                    <label name="TechRegParagraphs[0].Paragraphs" class="control-label"></label>
+                                    <input id="TechRegParagraphs0Paragraphs" name="TechRegParagraphs[0].Paragraphs" value="@techReg.Paragraphs" class="form-control" />
+                                    <span asp-validation-for="@techReg.Paragraphs" class="text-danger"></span>
+                                </div>
                             </div>
                         </div>
-                    </div>
                         ++techRegCounter;
                     }
                 }
