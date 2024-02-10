@@ -283,6 +283,32 @@
 
         function deleteRow(element) {
             document.querySelector('#tableTemplate').removeChild(element.parentElement.parentElement.parentElement);
+            renameIds();
+            reInitializationSelect2();
+        };
+
+        function renameIds() {
+            let nodes = document.querySelectorAll("div[id^='rowTemplate']");
+            for (let i = 1; i < nodes.length; i++) {
+                let oldNumber = nodes[i].id.replace(nodes[0].id, '');
+                nodes[i].id = nodes[i].id.replace(oldNumber, i);
+
+                let ids = nodes[i].querySelectorAll("[id^='TechRegParagraphs']");
+                for (let j = 0; j < ids.length; j++) {
+                    ids[j].id = ids[j].id.replace(oldNumber, i);
+                }
+
+                let names = nodes[i].querySelectorAll("[name^='TechRegParagraphs']");
+                for (let j = 0; j < names.length; j++) {
+                    names[j].name = names[j].name.replace(oldNumber, i);
+                }
+
+                //let ariaLabelledbyArray = nodes[i].querySelectorAll("[aria-labelledby^='select2-TechRegParagraphs']");
+                //for (let j = 0; j < names.length; j++) {
+                //    ariaLabelledbyArray[j].[aria-labelledby] = ariaLabelledbyArray[j].[aria-labelledby].replace(oldNumber, i);
+                //}
+            }
+            techRegIdCounter = nodes.length - 1;
         };
 
         function reInitializationSelect2() {
