@@ -159,7 +159,7 @@
     @{await Html.RenderPartialAsync("_CreateScriptsPartial");}
     @{await Html.RenderPartialAsync("_MainViewScripts");}
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             let selectElements = [
                 { id: '#AssessBodyId', url: '/AssessBody/GetAssessBodies/', placeholder: 'Выберите ОПС' },
                 { id: '#ContractorLegalId', url: '/ContractorLegal/GetContractorLegals/', placeholder: 'Выберите юр.лицо' },
@@ -183,13 +183,12 @@
                     let isSchemaForSerial = data.info.includes("Серийное");
 
                     if (isSchemaForSerial) {
-
-                        $('#ProductQuantitiesIds option:selected').each(function () {
+                        $('#ProductQuantitiesIds option:selected').each(function() {
                             this.selected = false;
                         }).trigger('change');
                     }
                     else {
-                        $('#ProductsIds option:selected').each(function () {
+                        $('#ProductsIds option:selected').each(function() {
                             this.selected = false;
                         }).trigger('change');
                     }
@@ -231,8 +230,10 @@
         };
 
         function changeNodeNames(node) {
-            let idsForChange = ['#TechRegParagraphs0TechRegId',
-                                '#TechRegParagraphs0Paragraphs' ];
+            let idsForChange = [
+                '#TechRegParagraphs0TechRegId',
+                '#TechRegParagraphs0Paragraphs'
+            ];
 
             let tempElement;
             for (let i = 0; i < idsForChange.length; i++) {
@@ -242,10 +243,12 @@
         };
 
         function setAttributesHiddenTrue(node) {
-            let idsForChange = [ '#TechRegParagraphs0TechRegIdEdit',
-                                 '#TechRegParagraphs0TechRegIdDetails',
-                                 '#TechRegParagraphs0TechRegIdDelete',
-                                 '#TechRegParagraphs0TechRegIdParagraphs' ];
+            let idsForChange = [
+                '#TechRegParagraphs0TechRegIdEdit',
+                '#TechRegParagraphs0TechRegIdDetails',
+                '#TechRegParagraphs0TechRegIdDelete',
+                '#TechRegParagraphs0TechRegIdParagraphs'
+            ];
 
             let tempElement;
             for (let i = 0; i < idsForChange.length; i++) {
@@ -258,12 +261,14 @@
         };
 
         function changeNodeIds(node) {
-            let idsForChange = [ '#TechRegParagraphs0TechRegId',
-                                 '#TechRegParagraphs0TechRegIdEdit',
-                                 '#TechRegParagraphs0TechRegIdDetails',
-                                 '#TechRegParagraphs0TechRegIdDelete',
-                                 '#TechRegParagraphs0TechRegIdParagraphs',
-                                 '#TechRegParagraphs0Paragraphs' ];
+            let idsForChange = [
+                '#TechRegParagraphs0TechRegId',
+                '#TechRegParagraphs0TechRegIdEdit',
+                '#TechRegParagraphs0TechRegIdDetails',
+                '#TechRegParagraphs0TechRegIdDelete',
+                '#TechRegParagraphs0TechRegIdParagraphs',
+                '#TechRegParagraphs0Paragraphs'
+            ];
 
             let tempElement;
             for (let i = 0; i < idsForChange.length; i++) {
@@ -309,12 +314,17 @@
         function reInitializationSelect2() {
             let selectElements = [];
 
-            selectElements.push({ id: '#TechRegParagraphs' + 0 + 'TechRegId',
-                                  url: '/TechReg/GetTechRegs/',
-                                  placeholder: 'Выберите тех. регламент' });
-            selectElements.push({ id: '#TechRegParagraphs' + techRegIdCounter + 'TechRegId',
-                                  url: '/TechReg/GetTechRegs/',
-                                  placeholder: 'Выберите тех. регламент' });
+            selectElements.push({ 
+                id: '#TechRegParagraphs' + 0 + 'TechRegId',
+                url: '/TechReg/GetTechRegs/',
+                placeholder: 'Выберите тех. регламент'
+            });
+
+            selectElements.push({ 
+                id: '#TechRegParagraphs' + techRegIdCounter + 'TechRegId',
+                url: '/TechReg/GetTechRegs/',
+                placeholder: 'Выберите тех. регламент'
+            });
 
             establishSelect2Algorithm(selectElements);
         };

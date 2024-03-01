@@ -186,7 +186,7 @@
     @{await Html.RenderPartialAsync("_CreateScriptsPartial");}
     @{await Html.RenderPartialAsync("_MainViewScripts");}
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             let selectElements = [
                 { id: '#AssessBodyId', url: '/AssessBody/GetAssessBodies/', placeholder: 'Выберите ОПС' },
                 { id: '#ContractorLegalId', url: '/ContractorLegal/GetContractorLegals/', placeholder: 'Выберите юр.лицо' },
@@ -222,17 +222,16 @@
                 method: 'get',
                 dataType: 'json',
                 data: { id: element.selectedOptions[0].value },
-                success: function (data) {
+                success: function(data) {
                     let isSchemaForSerial = data.info.includes("Серийное");
 
                     if (isSchemaForSerial) {
-
-                        $('#ProductQuantitiesIds option:selected').each(function () {
+                        $('#ProductQuantitiesIds option:selected').each(function() {
                             this.selected = false;
                         }).trigger('change');
                     }
                     else {
-                        $('#ProductsIds option:selected').each(function () {
+                        $('#ProductsIds option:selected').each(function() {
                             this.selected = false;
                         }).trigger('change');
                     }
@@ -274,8 +273,10 @@
         };
 
         function changeNodeNames(node) {
-            let idsForChange = ['#TechRegParagraphs0TechRegId',
-                '#TechRegParagraphs0Paragraphs'];
+            let idsForChange = [
+                '#TechRegParagraphs0TechRegId',
+                '#TechRegParagraphs0Paragraphs'
+            ];
 
             let tempElement;
             for (let i = 0; i < idsForChange.length; i++) {
@@ -285,10 +286,12 @@
         };
 
         function setAttributesHiddenTrue(node) {
-            let idsForChange = ['#TechRegParagraphs0TechRegIdEdit',
+            let idsForChange = [
+                '#TechRegParagraphs0TechRegIdEdit',
                 '#TechRegParagraphs0TechRegIdDetails',
                 '#TechRegParagraphs0TechRegIdDelete',
-                '#TechRegParagraphs0TechRegIdParagraphs'];
+                '#TechRegParagraphs0TechRegIdParagraphs'
+            ];
 
             let tempElement;
             for (let i = 0; i < idsForChange.length; i++) {
@@ -301,12 +304,14 @@
         };
 
         function changeNodeIds(node) {
-            let idsForChange = ['#TechRegParagraphs0TechRegId',
+            let idsForChange = [
+                '#TechRegParagraphs0TechRegId',
                 '#TechRegParagraphs0TechRegIdEdit',
                 '#TechRegParagraphs0TechRegIdDetails',
                 '#TechRegParagraphs0TechRegIdDelete',
                 '#TechRegParagraphs0TechRegIdParagraphs',
-                '#TechRegParagraphs0Paragraphs'];
+                '#TechRegParagraphs0Paragraphs'
+            ];
 
             let tempElement;
             for (let i = 0; i < idsForChange.length; i++) {
@@ -326,6 +331,27 @@
 
         function deleteRow(element) {
             document.querySelector('#tableTemplate').removeChild(element.parentElement.parentElement.parentElement);
+            renameIds();
+            reInitializationSelect2();
+        };
+
+        function renameIds() {
+            let nodes = document.querySelectorAll("div[id^='rowTemplate']");
+            for (let i = 1; i < nodes.length; i++) {
+                let oldNumber = nodes[i].id.replace(nodes[0].id, '');
+                nodes[i].id = nodes[i].id.replace(oldNumber, i);
+
+                let ids = nodes[i].querySelectorAll("[id^='TechRegParagraphs']");
+                for (let j = 0; j < ids.length; j++) {
+                    ids[j].id = ids[j].id.replace(oldNumber, i);
+                }
+
+                let names = nodes[i].querySelectorAll("[name^='TechRegParagraphs']");
+                for (let j = 0; j < names.length; j++) {
+                    names[j].name = names[j].name.replace(oldNumber, i);
+                }
+            }
+            techRegIdCounter = nodes.length - 1;
         };
 
         function reInitializationSelect2() {
@@ -336,6 +362,7 @@
                 url: '/TechReg/GetTechRegs/',
                 placeholder: 'Выберите тех. регламент'
             });
+
             selectElements.push({
                 id: '#TechRegParagraphs' + techRegIdCounter + 'TechRegId',
                 url: '/TechReg/GetTechRegs/',
