@@ -144,10 +144,10 @@
                                 {
                                     <div class="btn btn-close btn-danger col-md-1" onmouseover="" style="cursor: pointer;" onclick="deleteRow(this)"></div>
                                 }
-                                    <label name="TechRegParagraphs[0].TechReg" class="control-label"></label>
+                                    <label asp-for="TechRegParagraphs[0].TechReg" class="control-label"></label>
                                     <div class="row">
                                         <div class="col-md">
-                                            <select id="@TechRegParagraphs_TechRegId" name="TechRegParagraphs[0].TechRegId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this), setVisibility_paragraphs(this)" required>
+                                            <select id="@TechRegParagraphs_TechRegId" asp-for="TechRegParagraphs[techRegCounter].TechRegId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this), setVisibility_paragraphs(this)" required>
                                                 <option value="@techReg.TechReg?.Id" selected>@techReg.TechReg?.ShortName</option>
                                             </select>
                                         </div>
@@ -160,8 +160,8 @@
                                     </div>
                                 </div>
                                 <div class="col-md" id="@TechRegParagraphs_TechRegIdParagraphs">
-                                    <label name="TechRegParagraphs[0].Paragraphs" class="control-label"></label>
-                                    <input id="TechRegParagraphs0Paragraphs" name="TechRegParagraphs[0].Paragraphs" value="@techReg.Paragraphs" class="form-control" />
+                                    <label asp-for="TechRegParagraphs[0].Paragraphs" class="control-label"></label>
+                                    <input id="TechRegParagraphs0Paragraphs" asp-for="TechRegParagraphs[techRegCounter].Paragraphs" value="@techReg.Paragraphs" class="form-control" />
                                     <span asp-validation-for="@techReg.Paragraphs" class="text-danger"></span>
                                 </div>
                             </div>
