@@ -107,12 +107,12 @@ function addDeleteButton(node) {
     child.setAttribute('class', 'btn btn-close btn-danger col-md-1');
     child.setAttribute('onmouseover', '');
     child.setAttribute('style', 'cursor: pointer;');
-    child.setAttribute('onclick', 'deleteRow(this)');
+    child.setAttribute('onclick', 'deleteElement(this)');
     node.children[0].children[0].prepend(child);
 };
 
-function deleteRow(element) {
-    document.querySelector('#tableTemplate').removeChild(element.parentElement.parentElement.parentElement);
+function deleteElement(elem) {
+    document.querySelector('#tableTemplate').removeChild(elem.parentElement.parentElement.parentElement);
     renameIds();
     reInitializationSelect2();
 };
