@@ -40,5 +40,7 @@ namespace EffectCert.ViewModels.Main
         public int[]? ProductQuantitiesIds { get; set; }
         [DisplayName("Технические регламенты")]
         public IList<TechRegParagraphsViewModel> TechRegParagraphs { get; set; } = new List<TechRegParagraphsViewModel>();
+        [DisplayName("ГОСТы")]
+        public IList<GovStandardParagraphsViewModel> GovStandardParagraphs { get; set; } = new List<GovStandardParagraphsViewModel>();
     }
 }

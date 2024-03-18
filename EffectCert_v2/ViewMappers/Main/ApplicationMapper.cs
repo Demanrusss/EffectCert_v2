@@ -25,7 +25,8 @@ namespace EffectCert.ViewMappers.Main
                 Products = ConvertCollection(viewModel.Products),
                 ProductQuantities = ConvertCollection(viewModel.ProductQuantities),
                 SchemaId = viewModel.SchemaId,
-                TechRegsParagraphs = ConvertCollection(viewModel.TechRegParagraphs)
+                TechRegsParagraphs = ConvertCollection(viewModel.TechRegParagraphs),
+                GovStandardsParagraphs = ConvertCollection(viewModel.GovStandardParagraphs)
             };
         }
 
@@ -46,7 +47,8 @@ namespace EffectCert.ViewMappers.Main
                 Products = ConvertCollection(model.Products),
                 ProductQuantities = ConvertCollection(model.ProductQuantities),
                 Schema = SchemaMapper.MapToViewModel(model.Schema),
-                TechRegParagraphs = (IList<TechRegParagraphsViewModel>)ConvertCollection(model.TechRegsParagraphs)
+                TechRegParagraphs = (IList<TechRegParagraphsViewModel>)ConvertCollection(model.TechRegsParagraphs),
+                GovStandardParagraphs = (IList<GovStandardParagraphsViewModel>)ConvertCollection(model.GovStandardsParagraphs)
             };
         }
 
@@ -106,6 +108,16 @@ namespace EffectCert.ViewMappers.Main
 
             foreach (var element in sourceCollection)
                 targetCollection.Add(TechRegParagraphsMapper.MapToModel(element));
+
+            return targetCollection;
+        }
+
+        private static ICollection<GovStandardParagraphs> ConvertCollection(ICollection<GovStandardParagraphsViewModel> sourceCollection)
+        {
+            var targetCollection = new List<GovStandardParagraphs>(sourceCollection.Count);
+
+            foreach (var element in sourceCollection)
+                targetCollection.Add(GovStandardParagraphsMapper.MapToModel(element));
 
             return targetCollection;
         }

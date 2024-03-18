@@ -29,6 +29,7 @@ namespace EffectCert.DAL.DBContext
         public DbSet<Contract> Contracts { get; set; }
         public DbSet<Declaration> Declarations { get; set; }
         public DbSet<GovStandard> GovStandards { get; set; }
+        public DbSet<GovStandardParagraphs> GovStandardsParagraphs { get; set; }
         public DbSet<GTD> GTDs { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<Attestate> Attestates { get; set; }
@@ -61,6 +62,7 @@ namespace EffectCert.DAL.DBContext
         public DbSet<ApplicationsProductQuantities> ApplicationsProductQuantities { get; set; }
         public DbSet<SchemasCertObjects> SchemasCertObjects { get; set; }
         public DbSet<ApplicationsTechRegsParagraphs> ApplicationsTechRegsParagraphs { get; set; }
+        public DbSet<ApplicationsGovStandardsParagraphs> ApplicationsGovStandardsParagraphs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -78,6 +80,11 @@ namespace EffectCert.DAL.DBContext
                 .HasMany(a => a.TechRegsParagraphs)
                 .WithMany(tr => tr.Applications)
                 .UsingEntity<ApplicationsTechRegsParagraphs>();
+
+            modelBuilder.Entity<Application>()
+                .HasMany(a => a.GovStandardsParagraphs)
+                .WithMany(gs => gs.Applications)
+                .UsingEntity<ApplicationsGovStandardsParagraphs>();
 
             modelBuilder.Entity<ExpertDecision>()
                 .HasMany(ed => ed.TestProtocols)

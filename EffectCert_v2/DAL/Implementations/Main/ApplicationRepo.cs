@@ -73,6 +73,7 @@ namespace EffectCert.DAL.Implementations.Main
                 .Include(a => a.Products)
                 .Include(a => a.ProductQuantities)
                 .Include(a => a.TechRegsParagraphs)
+                .Include(a => a.GovStandardsParagraphs)
                 .Select(a => new Application
                 {
                     Id = a.Id,
@@ -120,6 +121,17 @@ namespace EffectCert.DAL.Implementations.Main
                             ShortName = trp.TechReg!.ShortName
                         },
                         Paragraphs = trp.Paragraphs
+                    }).ToList(),
+                    GovStandardsParagraphs = a.GovStandardsParagraphs.Select(gsp => new GovStandardParagraphs
+                    {
+                        Id = gsp.Id,
+                        GovStandardId = gsp.GovStandardId,
+                        GovStandard = new GovStandard
+                        {
+                            Id = gsp.GovStandard!.Id,
+                            Number = gsp.GovStandard!.Number
+                        },
+                        Paragraphs = gsp.Paragraphs
                     }).ToList()
                 })
                 .FirstOrDefaultAsync(a => a.Id == id) ?? new Application();
@@ -179,9 +191,10 @@ namespace EffectCert.DAL.Implementations.Main
             UpdateSubEntitiesWithIds(application.TechRegsParagraphs);
             var appTechRegsParagraphs = GetIdsCollectionOf(application.TechRegsParagraphs);
 
-            application.Products = new HashSet<Product>();
-            application.ProductQuantities = new HashSet<ProductQuantity>();
-            application.TechRegsParagraphs = new HashSet<TechRegParagraphs>();
+            UpdateSubEntitiesWithIds(application.GovStandardsParagraphs);
+            var appGovStandardsParagraphs = GetIdsCollectionOf(application.GovStandardsParagraphs);
+
+            CleanCollections(application);
 
             appDBContext.Applications.Add(application);
             await appDBContext.SaveChangesAsync();
@@ -195,6 +208,9 @@ namespace EffectCert.DAL.Implementations.Main
             foreach (var techReg in appTechRegsParagraphs)
                 appDBContext.ApplicationsTechRegsParagraphs.Add(new ApplicationsTechRegsParagraphs() { ApplicationId = application.Id, TechRegParagraphsId = techReg });
 
+            foreach (var govStandard in appGovStandardsParagraphs)
+                appDBContext.ApplicationsGovStandardsParagraphs.Add(new ApplicationsGovStandardsParagraphs() { ApplicationId = application.Id, GovStandardParagraphsId = govStandard });
+
             return await appDBContext.SaveChangesAsync();
         }
 
@@ -206,6 +222,7 @@ namespace EffectCert.DAL.Implementations.Main
             UpdateApplicationsProducts(application);
             UpdateApplicationsProductQuantities(application);
             UpdateApplicationsTechRegsParagraphs(application);
+            UpdateApplicationsGovStandardsParagraphs(application);
             UpdateApplications(application);
 
             return await appDBContext.SaveChangesAsync();
@@ -300,6 +317,30 @@ namespace EffectCert.DAL.Implementations.Main
                 });
         }
 
+        private void UpdateApplicationsGovStandardsParagraphs(Application application)
+        {
+            UpdateSubEntitiesWithIds(application.GovStandardsParagraphs);
+            var appGovStandardsParagraphs = GetIdsCollectionOf(application.GovStandardsParagraphs);
+
+            IEnumerable<int> existedAPGovStandardsIds = appDBContext.ApplicationsGovStandardsParagraphs
+                .Where(ap => ap.ApplicationId == application.Id)
+                .Select(ap => ap.GovStandardParagraphsId);
+
+            foreach (var govStandardIdToAdd in appGovStandardsParagraphs.Except(existedAPGovStandardsIds))
+                appDBContext.ApplicationsGovStandardsParagraphs.Add(new ApplicationsGovStandardsParagraphs()
+                {
+                    ApplicationId = application.Id,
+                    GovStandardParagraphsId = govStandardIdToAdd
+                });
+
+            foreach (var govStandardIdToRemove in existedAPGovStandardsIds.Except(appGovStandardsParagraphs))
+                appDBContext.ApplicationsGovStandardsParagraphs.Remove(new ApplicationsGovStandardsParagraphs()
+                {
+                    ApplicationId = application.Id,
+                    GovStandardParagraphsId = govStandardIdToRemove
+                });
+        }
+
         private void UpdateSubEntitiesWithIds(ICollection<TechRegParagraphs> subEntities)
         {
             var techRegParagraphsRepo = new TechRegParagraphsRepo(appDBContext);
@@ -314,12 +355,32 @@ namespace EffectCert.DAL.Implementations.Main
             }
         }
 
+        private void UpdateSubEntitiesWithIds(ICollection<GovStandardParagraphs> subEntities)
+        {
+            var govStandardParagraphsRepo = new GovStandardParagraphsRepo(appDBContext);
+
+            foreach (var item in subEntities)
+            {
+                var govStandardParagraphs = govStandardParagraphsRepo
+                    .FindBy(item.GovStandardId, item.Paragraphs)
+                    .Result
+                    .FirstOrDefault();
+                item.Id = govStandardParagraphs == null ? govStandardParagraphsRepo.Create(item).Result : govStandardParagraphs.Id;
+            }
+        }
+
         private void UpdateApplications(Application application)
+        {
+            CleanCollections(application);
+            appDBContext.Applications.Update(application);
+        }
+
+        private void CleanCollections(Application application)
         {
             application.Products = new HashSet<Product>();
             application.ProductQuantities = new HashSet<ProductQuantity>();
             application.TechRegsParagraphs = new HashSet<TechRegParagraphs>();
-            appDBContext.Applications.Update(application);
+            application.GovStandardsParagraphs = new HashSet<GovStandardParagraphs>();
         }
     }
 }
