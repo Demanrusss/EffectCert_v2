@@ -112,6 +112,16 @@ namespace EffectCert.ViewMappers.Main
             return targetCollection;
         }
 
+        private static ICollection<GovStandardParagraphsViewModel> ConvertCollection(ICollection<GovStandardParagraphs> sourceCollection)
+        {
+            var targetCollection = new List<GovStandardParagraphsViewModel>(sourceCollection.Count);
+
+            foreach (var element in sourceCollection)
+                targetCollection.Add(GovStandardParagraphsMapper.MapToViewModel(element));
+
+            return targetCollection;
+        }
+
         private static ICollection<GovStandardParagraphs> ConvertCollection(ICollection<GovStandardParagraphsViewModel> sourceCollection)
         {
             var targetCollection = new List<GovStandardParagraphs>(sourceCollection.Count);

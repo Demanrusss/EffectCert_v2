@@ -114,7 +114,7 @@
                 <span asp-validation-for="ProductQuantitiesIds" class="text-danger" id="ProductQuantitiesIdsWarning"></span>
             </div>
             <br>
-            <div class="form-group row col-md-12" id="tableTemplate">
+            <div class="form-group row col-md-12" id="tableTemplateTechReg">
                 <div class="row align-content-md-start">
                     <div class="col-md col-md-2">
                         <label asp-for="TechRegParagraphs" class="control-label"></label>
@@ -131,7 +131,7 @@
 
                     foreach (var techReg in Model.TechRegParagraphs)
                     {
-                        string rowTemplate = "rowTemplate" + (techRegCounter == 0 ? String.Empty : techRegCounter.ToString());
+                        string rowTemplate = "rowTemplateTechReg" + (techRegCounter == 0 ? String.Empty : techRegCounter.ToString());
                         string TechRegParagraphs_TechRegId = $"TechRegParagraphs{techRegCounter}TechRegId";
                         string TechRegParagraphs_TechRegIdEdit = $"TechRegParagraphs{techRegCounter}TechRegIdEdit";
                         string TechRegParagraphs_TechRegIdDetails = $"TechRegParagraphs{techRegCounter}TechRegIdDetails";
@@ -142,7 +142,7 @@
                                 <div class="col-md-6">
                                 @if(techRegCounter > 0)
                                 {
-                                    <div class="btn btn-close btn-danger col-md-1" onmouseover="" style="cursor: pointer;" onclick="deleteRow(this)"></div>
+                                    <div class="btn btn-close btn-danger col-md-1" onmouseover="" style="cursor: pointer;" onclick="deleteElement(this)"></div>
                                 }
                                     <label asp-for="TechRegParagraphs[0].TechReg" class="control-label"></label>
                                     <div class="row">

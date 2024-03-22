@@ -107,7 +107,7 @@
                 <span asp-validation-for="ProductQuantitiesIds" class="text-danger" id="ProductQuantitiesIdsWarning"></span>
             </div>
             <br>
-            <div class="form-group row col-md-12" id="tableTemplate">
+            <div class="form-group row col-md-12" id="tableTemplateTechReg">
                 <div class="row align-content-md-start">
                     <div class="col-md col-md-2">
                         <label asp-for="TechRegParagraphs" class="control-label"></label>
@@ -116,7 +116,7 @@
                         <div class="btn-sm btn-success col-md-3" onclick="addTechReg()" onmouseover="" style="cursor: pointer;">Добавить</div>
                     </div>
                 </div>
-                <div class="row align-content-between" id="rowTemplate">
+                <div class="row align-content-between" id="rowTemplateTechReg">
                     <div class="row align-content-between">
                         <div class="col-md-6">
                             <label asp-for="TechRegParagraphs[0].TechReg" class="control-label"></label>
@@ -138,6 +138,42 @@
                             <label asp-for="TechRegParagraphs[0].Paragraphs" class="control-label"></label>
                             <input id="TechRegParagraphs0Paragraphs" asp-for="TechRegParagraphs[0].Paragraphs" class="form-control" />
                             <span asp-validation-for="TechRegParagraphs[0].Paragraphs" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="form-group row col-md-12" id="tableTemplateGovStandard">
+                <div class="row align-content-md-start">
+                    <div class="col-md col-md-2">
+                        <label asp-for="GovStandardParagraphs" class="control-label"></label>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="btn-sm btn-success col-md-3" onclick="addGovStandard()" onmouseover="" style="cursor: pointer;">Добавить</div>
+                    </div>
+                </div>
+                <div class="row align-content-between" id="rowTemplateGovStandard">
+                    <div class="row align-content-between">
+                        <div class="col-md-6">
+                            <label asp-for="GovStandardParagraphs[0].GovStandard" class="control-label"></label>
+                            <div class="row">
+                                <div class="col-md">
+                                    <select id="GovStandardParagraphs0GovStandardId" asp-for="GovStandardParagraphs[0].GovStandardId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this), setVisibility_paragraphs(this)" required>
+                                        <option></option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <a asp-controller="GovStandard" asp-action="Create" target="_blank" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                                    <a asp-controller="GovStandard" asp-action="Edit" asp-route-id="" id="GovStandardParagraphs0GovStandardIdEdit" hidden target="_blank" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                                    <a asp-controller="GovStandard" asp-action="Details" asp-route-id="" id="GovStandardParagraphs0GovStandardIdDetails" hidden target="_blank" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                                    <a asp-controller="GovStandard" asp-action="Delete" asp-route-id="" id="GovStandardParagraphs0GovStandardIdDelete" hidden target="_blank" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md" id="GovStandardParagraphs0GovStandardIdParagraphs" hidden>
+                            <label asp-for="GovStandardParagraphs[0].Paragraphs" class="control-label"></label>
+                            <input id="GovStandardParagraphs0Paragraphs" asp-for="GovStandardParagraphs[0].Paragraphs" class="form-control" />
+                            <span asp-validation-for="GovStandardParagraphs[0].Paragraphs" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
@@ -167,7 +203,8 @@
                 { id: '#SchemaId', url: '/Schema/GetSchemas/', placeholder: 'Выберите схему' },
                 { id: '#ProductsIds', url: '/Product/GetProducts/', placeholder: 'Выберите продукцию' },
                 { id: '#ProductQuantitiesIds', url: '/ProductQuantity/GetProductQuantities/', placeholder: 'Выберите партию продукции' },
-                { id: '#TechRegParagraphs0TechRegId', url: '/TechReg/GetTechRegs/', placeholder: 'Выберите тех. регламент' }
+                { id: '#TechRegParagraphs0TechRegId', url: '/TechReg/GetTechRegs/', placeholder: 'Выберите тех. регламент' },
+                { id: '#GovStandardParagraphs0GovStandardId', url: '/GovStandard/GetGovStandards/', placeholder: 'Выберите ГОСТ' }
             ];
 
             establishSelect2Algorithm(selectElements);

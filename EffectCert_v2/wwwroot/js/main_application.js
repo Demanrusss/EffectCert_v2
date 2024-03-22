@@ -29,16 +29,17 @@ function setVisibility_paragraphs(element) {
 };
 
 var techRegIdCounter = 0;
+var govStandardIdCounter = 0;
 
 function addTechReg() {
     ++techRegIdCounter;
 
-    let node = document.getElementById('rowTemplate');
+    let node = document.getElementById('rowTemplateTechReg');
     $('#TechRegParagraphs0TechRegId').select2('destroy');
     let clonedNode = node.cloneNode(true);
     prepareNode(clonedNode);
 
-    let table = document.getElementById('tableTemplate');
+    let table = document.getElementById('tableTemplateTechReg');
     table.append(clonedNode);
 
     reInitializationSelect2();
@@ -112,13 +113,13 @@ function addDeleteButton(node) {
 };
 
 function deleteElement(elem) {
-    document.querySelector('#tableTemplate').removeChild(elem.parentElement.parentElement.parentElement);
+    document.querySelector('#tableTemplateTechReg').removeChild(elem.parentElement.parentElement.parentElement);
     renameIds();
     reInitializationSelect2();
 };
 
 function renameIds() {
-    let nodes = document.querySelectorAll("div[id^='rowTemplate']");
+    let nodes = document.querySelectorAll("div[id^='rowTemplateTechReg']");
     for (let i = 1; i < nodes.length; i++) {
         let oldNumber = nodes[i].id.replace(nodes[0].id, '');
         nodes[i].id = nodes[i].id.replace(oldNumber, i);
@@ -136,20 +137,135 @@ function renameIds() {
     techRegIdCounter = nodes.length - 1;
 };
 
+function addGovStandard() {
+    ++govStandardIdCounter;
+
+    let node = document.getElementById('rowTemplateGovStandard');
+    $('#GovStandardParagraphs0GovStandardId').select2('destroy');
+    let clonedNode = node.cloneNode(true);
+    prepareGovStandardNode(clonedNode);
+
+    let table = document.getElementById('tableTemplateGovStandard');
+    table.append(clonedNode);
+
+    reInitializationSelect2();
+    InitializeBtnAnimation();
+};
+
+function prepareGovStandardNode(node) {
+    node.id += govStandardIdCounter;
+    changeGovStandardNodeNames(node);
+    setGovStandardAttributesHiddenTrue(node);
+    clearGovStandardInputValue(node);
+    changeGovStandardNodeIds(node);
+    addGovStandardDeleteButton(node);
+};
+
+function changeGovStandardNodeNames(node) {
+    let idsForChange = [
+        '#GovStandardParagraphs0GovStandardId',
+        '#GovStandardParagraphs0Paragraphs'
+    ];
+
+    let tempElement;
+    for (let i = 0; i < idsForChange.length; i++) {
+        tempElement = node.querySelector(idsForChange[i]);
+        tempElement.name = tempElement.name.replace(0, govStandardIdCounter);
+    }
+};
+
+function setGovStandardAttributesHiddenTrue(node) {
+    let idsForChange = [
+        '#GovStandardParagraphs0GovStandardIdEdit',
+        '#GovStandardParagraphs0GovStandardIdDetails',
+        '#GovStandardParagraphs0GovStandardIdDelete',
+        '#GovStandardParagraphs0GovStandardIdParagraphs'
+    ];
+
+    let tempElement;
+    for (let i = 0; i < idsForChange.length; i++) {
+        tempElement = node.querySelector(idsForChange[i]).hidden = true;
+    }
+};
+
+function clearGovStandardInputValue(node) {
+    node.querySelector('#GovStandardParagraphs0Paragraphs').value = '';
+};
+
+function changeGovStandardNodeIds(node) {
+    let idsForChange = [
+        '#GovStandardParagraphs0GovStandardId',
+        '#GovStandardParagraphs0GovStandardIdEdit',
+        '#GovStandardParagraphs0GovStandardIdDetails',
+        '#GovStandardParagraphs0GovStandardIdDelete',
+        '#GovStandardParagraphs0GovStandardIdParagraphs',
+        '#GovStandardParagraphs0Paragraphs'
+    ];
+
+    let tempElement;
+    for (let i = 0; i < idsForChange.length; i++) {
+        tempElement = node.querySelector(idsForChange[i]);
+        tempElement.id = tempElement.id.replace(0, govStandardIdCounter);
+    }
+};
+
+function addGovStandardDeleteButton(node) {
+    let child = document.createElement('div');
+    child.setAttribute('class', 'btn btn-close btn-danger col-md-1');
+    child.setAttribute('onmouseover', '');
+    child.setAttribute('style', 'cursor: pointer;');
+    child.setAttribute('onclick', 'deleteGovStandardElement(this)');
+    node.children[0].children[0].prepend(child);
+};
+
+function deleteGovStandardElement(elem) {
+    document.querySelector('#tableTemplateGovStandard').removeChild(elem.parentElement.parentElement.parentElement);
+    renameGovStandardIds();
+    reInitializationSelect2();
+};
+
+function renameGovStandardIds() {
+    let nodes = document.querySelectorAll("div[id^='rowTemplateGovStandard']");
+    for (let i = 1; i < nodes.length; i++) {
+        let oldNumber = nodes[i].id.replace(nodes[0].id, '');
+        nodes[i].id = nodes[i].id.replace(oldNumber, i);
+
+        let ids = nodes[i].querySelectorAll("[id^='GovStandardParagraphs']");
+        for (let j = 0; j < ids.length; j++) {
+            ids[j].id = ids[j].id.replace(oldNumber, i);
+        }
+
+        let names = nodes[i].querySelectorAll("[name^='GovStandardParagraphs']");
+        for (let j = 0; j < names.length; j++) {
+            names[j].name = names[j].name.replace(oldNumber, i);
+        }
+    }
+    govStandardIdCounter = nodes.length - 1;
+};
+
 function reInitializationSelect2() {
     let selectElements = [];
 
-    selectElements.push({
-        id: '#TechRegParagraphs' + 0 + 'TechRegId',
-        url: '/TechReg/GetTechRegs/',
-        placeholder: 'Выберите тех. регламент'
-    });
-
-    selectElements.push({
-        id: '#TechRegParagraphs' + techRegIdCounter + 'TechRegId',
-        url: '/TechReg/GetTechRegs/',
-        placeholder: 'Выберите тех. регламент'
-    });
+    pushTechRegToElements(selectElements, 0);
+    pushTechRegToElements(selectElements, techRegIdCounter);
+    pushGovStandardToElements(selectElements, 0);
+    pushGovStandardToElements(selectElements, govStandardIdCounter);
 
     establishSelect2Algorithm(selectElements);
+};
+
+function pushTechRegToElements(selectElements, elementIndex) {
+    selectElements.push({
+        id: '#TechRegParagraphs' + elementIndex + 'TechRegId',
+        url: '/TechReg/GetTechRegs/',
+        placeholder: 'Выберите тех. регламент'
+    });
+};
+
+function pushGovStandardToElements(selectElements, elementIndex) {
+    selectElements.push({
+        id: '#GovStandardParagraphs' + elementIndex + 'GovStandardId',
+        url: '/GovStandard/GetGovStandards/',
+        placeholder: 'Выберите ГОСТ'
+    });
 };
