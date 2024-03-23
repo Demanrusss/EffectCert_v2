@@ -34,47 +34,64 @@ var govStandardIdCounter = 0;
 
 function addTechReg() {
     ++techRegIdCounter;
+    addElement('TechReg', techRegIdCounter);
+};
 
-    let node = document.getElementById('rowTemplateTechReg');
-    $('#TechRegParagraphs0TechRegId').select2('destroy');
+function addGovStandard() {
+    ++govStandardIdCounter;
+    addElement('GovStandard', govStandardIdCounter);
+};
+
+function addElement(elemStr, counter) {
+    let node = document.getElementById('rowTemplate' + elemStr);
+    $(`#${elemStr}Paragraphs0${elemStr}Id`).select2('destroy');
     let clonedNode = node.cloneNode(true);
-    prepareNode(clonedNode);
+    prepareNode(clonedNode, elemStr, counter);
 
-    let table = document.getElementById('tableTemplateTechReg');
+    let table = document.getElementById('tableTemplate' + elemStr);
     table.append(clonedNode);
 
     reInitializationSelect2();
     InitializeBtnAnimation();
 };
 
-function prepareNode(node) {
-    node.id += techRegIdCounter;
-    clearInputValue(node);
-    changeNodeNames(node);
-    setAttributesHiddenTrue(node);
-    changeNodeIds(node);
-    addDeleteButton(node);
+function prepareNode(node, elemStr, counter) {
+    node.id += counter;
+    clearInputValue(node, elemStr);
+    changeNodeNames(node, elemStr, counter);
+    setAttributesHiddenTrue(node, elemStr, counter);
+    changeNodeIds(node, elemStr, counter);
+    addDeleteButton(node, elemStr, counter);
 };
 
-function changeNodeNames(node) {
+function clearInputValue(node, elemStr) {
+    node.querySelector(`#${elemStr}Paragraphs0Paragraphs`).value = '';
+    let selectElement = node.querySelector(`#${elemStr}Paragraphs0${elemStr}Id`);
+    selectElement.value = '';
+    selectElement.options[0].value = '';
+    selectElement.options[0].innerHTML = '';
+};
+
+function changeNodeNames(node, elemStr, counter) {
     let idsForChange = [
-        '#TechRegParagraphs0TechRegId',
-        '#TechRegParagraphs0Paragraphs'
+        `#${elemStr}Paragraphs0${elemStr}Id`,
+        `#${elemStr}Paragraphs0Paragraphs`
     ];
 
     let tempElement;
     for (let i = 0; i < idsForChange.length; i++) {
         tempElement = node.querySelector(idsForChange[i]);
-        tempElement.name = tempElement.name.replace(0, techRegIdCounter);
+        tempElement.name = tempElement.name.replace(0, counter);
     }
 };
 
-function setAttributesHiddenTrue(node) {
+function setAttributesHiddenTrue(node, elemStr) {
+    let fullElemStr = `#${elemStr}Paragraphs0${elemStr}Id`;
     let idsForChange = [
-        '#TechRegParagraphs0TechRegIdEdit',
-        '#TechRegParagraphs0TechRegIdDetails',
-        '#TechRegParagraphs0TechRegIdDelete',
-        '#TechRegParagraphs0TechRegIdParagraphs'
+        `${fullElemStr}Edit`,
+        `${fullElemStr}Details`,
+        `${fullElemStr}Delete`,
+        `${fullElemStr}Paragraphs`
     ];
 
     let tempElement;
@@ -83,34 +100,28 @@ function setAttributesHiddenTrue(node) {
     }
 };
 
-function clearInputValue(node) {
-    node.querySelector('#TechRegParagraphs0Paragraphs').value = '';
-    let selectElement = node.querySelector('#TechRegParagraphs0TechRegId');
-    selectElement.value = '';
-    selectElement.options[0].value = '';
-    selectElement.options[0].innerHTML = '';
-};
-
-function changeNodeIds(node) {
+function changeNodeIds(node, elemStr, counter) {
+    let fullElemStr = `#${elemStr}Paragraphs0${elemStr}Id`;
     let idsForChange = [
-        '#TechRegParagraphs0TechRegId',
-        '#TechRegParagraphs0TechRegIdEdit',
-        '#TechRegParagraphs0TechRegIdDetails',
-        '#TechRegParagraphs0TechRegIdDelete',
-        '#TechRegParagraphs0TechRegIdParagraphs',
-        '#TechRegParagraphs0Paragraphs'
+        `${fullElemStr}`,
+        `${fullElemStr}Edit`,
+        `${fullElemStr}Details`,
+        `${fullElemStr}Delete`,
+        `${fullElemStr}Paragraphs`,
+        `#${elemStr}Paragraphs0Paragraphs`
     ];
 
     let tempElement;
     for (let i = 0; i < idsForChange.length; i++) {
         tempElement = node.querySelector(idsForChange[i]);
-        tempElement.id = tempElement.id.replace(0, techRegIdCounter);
+        tempElement.id = tempElement.id.replace(0, counter);
     }
 };
 
-function addDeleteButton(node) {
+function addDeleteButton(node, elemStr, counter) {
     let child = document.createElement('div');
     child.setAttribute('class', 'btn btn-close btn-danger col-md-1');
+    child.setAttribute('deletebtnptr', `${elemStr}DeleteBtn`)
     child.setAttribute('onmouseover', '');
     child.setAttribute('style', 'cursor: pointer;');
     child.setAttribute('onclick', 'deleteElement(this)');
@@ -118,138 +129,45 @@ function addDeleteButton(node) {
 };
 
 function deleteElement(elem) {
-    document.querySelector('#tableTemplateTechReg').removeChild(elem.parentElement.parentElement.parentElement);
-    renameIds();
+    let elemStr = elem.getAttribute('deletebtnptr').replace('DeleteBtn', '');
+    while (true) {
+        if (elem.id.includes('rowTemplate')) {
+            break;
+        }
+        elem = elem.parentElement;
+    }
+    document.querySelector(`#tableTemplate${elemStr}`).removeChild(elem);
+    renameIds(elemStr);
     reInitializationSelect2();
 };
 
-function renameIds() {
-    let nodes = document.querySelectorAll("div[id^='rowTemplateTechReg']");
+function renameIds(elemStr) {
+    let nodes = document.querySelectorAll(`div[id^='rowTemplate${elemStr}']`);
     for (let i = 1; i < nodes.length; i++) {
         let oldNumber = nodes[i].id.replace(nodes[0].id, '');
         nodes[i].id = nodes[i].id.replace(oldNumber, i);
 
-        let ids = nodes[i].querySelectorAll("[id^='TechRegParagraphs']");
+        let ids = nodes[i].querySelectorAll(`[id^='${elemStr}Paragraphs']`);
         for (let j = 0; j < ids.length; j++) {
             ids[j].id = ids[j].id.replace(oldNumber, i);
         }
 
-        let names = nodes[i].querySelectorAll("[name^='TechRegParagraphs']");
+        let names = nodes[i].querySelectorAll(`[name^='${elemStr}Paragraphs']`);
         for (let j = 0; j < names.length; j++) {
             names[j].name = names[j].name.replace(oldNumber, i);
         }
     }
-    techRegIdCounter = nodes.length - 1;
-};
 
-function addGovStandard() {
-    ++govStandardIdCounter;
-
-    let node = document.getElementById('rowTemplateGovStandard');
-    $('#GovStandardParagraphs0GovStandardId').select2('destroy');
-    let clonedNode = node.cloneNode(true);
-    prepareGovStandardNode(clonedNode);
-
-    let table = document.getElementById('tableTemplateGovStandard');
-    table.append(clonedNode);
-
-    reInitializationSelect2();
-    InitializeBtnAnimation();
-};
-
-function prepareGovStandardNode(node) {
-    node.id += govStandardIdCounter;
-    clearGovStandardInputValue(node);
-    changeGovStandardNodeNames(node);
-    setGovStandardAttributesHiddenTrue(node);
-    changeGovStandardNodeIds(node);
-    addGovStandardDeleteButton(node);
-};
-
-function changeGovStandardNodeNames(node) {
-    let idsForChange = [
-        '#GovStandardParagraphs0GovStandardId',
-        '#GovStandardParagraphs0Paragraphs'
-    ];
-
-    let tempElement;
-    for (let i = 0; i < idsForChange.length; i++) {
-        tempElement = node.querySelector(idsForChange[i]);
-        tempElement.name = tempElement.name.replace(0, govStandardIdCounter);
+    switch (elemStr) {
+        case 'TechReg':
+            techRegIdCounter = nodes.length - 1;
+            break;
+        case 'GovStandard':
+            govStandardIdCounter = nodes.length - 1;
+            break;
+        default:
+            break;
     }
-};
-
-function setGovStandardAttributesHiddenTrue(node) {
-    let idsForChange = [
-        '#GovStandardParagraphs0GovStandardIdEdit',
-        '#GovStandardParagraphs0GovStandardIdDetails',
-        '#GovStandardParagraphs0GovStandardIdDelete',
-        '#GovStandardParagraphs0GovStandardIdParagraphs'
-    ];
-
-    let tempElement;
-    for (let i = 0; i < idsForChange.length; i++) {
-        tempElement = node.querySelector(idsForChange[i]).style.display = 'none';
-    }
-};
-
-function clearGovStandardInputValue(node) {
-    node.querySelector('#GovStandardParagraphs0Paragraphs').value = '';
-    let selectElement = node.querySelector('#GovStandardParagraphs0GovStandardId');
-    selectElement.value = '';
-    selectElement.options[0].value = '';
-    selectElement.options[0].innerHTML = '';
-};
-
-function changeGovStandardNodeIds(node) {
-    let idsForChange = [
-        '#GovStandardParagraphs0GovStandardId',
-        '#GovStandardParagraphs0GovStandardIdEdit',
-        '#GovStandardParagraphs0GovStandardIdDetails',
-        '#GovStandardParagraphs0GovStandardIdDelete',
-        '#GovStandardParagraphs0GovStandardIdParagraphs',
-        '#GovStandardParagraphs0Paragraphs'
-    ];
-
-    let tempElement;
-    for (let i = 0; i < idsForChange.length; i++) {
-        tempElement = node.querySelector(idsForChange[i]);
-        tempElement.id = tempElement.id.replace(0, govStandardIdCounter);
-    }
-};
-
-function addGovStandardDeleteButton(node) {
-    let child = document.createElement('div');
-    child.setAttribute('class', 'btn btn-close btn-danger col-md-1');
-    child.setAttribute('onmouseover', '');
-    child.setAttribute('style', 'cursor: pointer;');
-    child.setAttribute('onclick', 'deleteGovStandardElement(this)');
-    node.children[0].children[0].prepend(child);
-};
-
-function deleteGovStandardElement(elem) {
-    document.querySelector('#tableTemplateGovStandard').removeChild(elem.parentElement.parentElement.parentElement);
-    renameGovStandardIds();
-    reInitializationSelect2();
-};
-
-function renameGovStandardIds() {
-    let nodes = document.querySelectorAll("div[id^='rowTemplateGovStandard']");
-    for (let i = 1; i < nodes.length; i++) {
-        let oldNumber = nodes[i].id.replace(nodes[0].id, '');
-        nodes[i].id = nodes[i].id.replace(oldNumber, i);
-
-        let ids = nodes[i].querySelectorAll("[id^='GovStandardParagraphs']");
-        for (let j = 0; j < ids.length; j++) {
-            ids[j].id = ids[j].id.replace(oldNumber, i);
-        }
-
-        let names = nodes[i].querySelectorAll("[name^='GovStandardParagraphs']");
-        for (let j = 0; j < names.length; j++) {
-            names[j].name = names[j].name.replace(oldNumber, i);
-        }
-    }
-    govStandardIdCounter = nodes.length - 1;
 };
 
 function reInitializationSelect2() {
