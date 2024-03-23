@@ -131,13 +131,13 @@
 
                     foreach (var techReg in Model.TechRegParagraphs)
                     {
-                        string rowTemplate = "rowTemplateTechReg" + (techRegCounter == 0 ? String.Empty : techRegCounter.ToString());
+                        string rowTemplateTechReg = "rowTemplateTechReg" + (techRegCounter == 0 ? String.Empty : techRegCounter.ToString());
                         string TechRegParagraphs_TechRegId = $"TechRegParagraphs{techRegCounter}TechRegId";
                         string TechRegParagraphs_TechRegIdEdit = $"TechRegParagraphs{techRegCounter}TechRegIdEdit";
                         string TechRegParagraphs_TechRegIdDetails = $"TechRegParagraphs{techRegCounter}TechRegIdDetails";
                         string TechRegParagraphs_TechRegIdDelete = $"TechRegParagraphs{techRegCounter}TechRegIdDelete";
                         string TechRegParagraphs_TechRegIdParagraphs = $"TechRegParagraphs{techRegCounter}TechRegIdParagraphs";
-                        <div class="row align-content-between" id="@rowTemplate">
+                        <div class="row align-content-between" id="@rowTemplateTechReg">
                             <div class="row align-content-between">
                                 <div class="col-md-6">
                                 @if(techRegCounter > 0)
@@ -153,13 +153,13 @@
                                         </div>
                                         <div class="col-md-3">
                                             <a asp-controller="TechReg" asp-action="Create" target="_blank" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
-                                            <a asp-controller="TechReg" asp-action="Edit" asp-route-id="@techReg.TechReg?.Id" id="@TechRegParagraphs_TechRegIdEdit" target="_blank" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
-                                            <a asp-controller="TechReg" asp-action="Details" asp-route-id="@techReg.TechReg?.Id" id="@TechRegParagraphs_TechRegIdDetails" target="_blank" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
-                                            <a asp-controller="TechReg" asp-action="Delete" asp-route-id="@techReg.TechReg?.Id" id="@TechRegParagraphs_TechRegIdDelete" target="_blank" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                                            <a asp-controller="TechReg" asp-action="Edit" asp-route-id="@techReg.TechReg?.Id" id="@TechRegParagraphs_TechRegIdEdit" target="_blank" class="btn-icons-animation" target="_blank" style="@Html.Raw("display: " + (techReg.TechReg == null || techReg.TechReg.Id == 0 ? "none;" : "inline;"))"><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                                            <a asp-controller="TechReg" asp-action="Details" asp-route-id="@techReg.TechReg?.Id" id="@TechRegParagraphs_TechRegIdDetails" target="_blank" class="btn-icons-animation" target="_blank" style="@Html.Raw("display: " + (techReg.TechReg == null || techReg.TechReg.Id == 0 ? "none;" : "inline;"))"><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                                            <a asp-controller="TechReg" asp-action="Delete" asp-route-id="@techReg.TechReg?.Id" id="@TechRegParagraphs_TechRegIdDelete" target="_blank" class="btn-icons-animation" target="_blank" style="@Html.Raw("display: " + (techReg.TechReg == null || techReg.TechReg.Id == 0 ? "none;" : "inline;"))"><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md" id="@TechRegParagraphs_TechRegIdParagraphs">
+                                <div class="col-md" id="@TechRegParagraphs_TechRegIdParagraphs" style="@Html.Raw("display: " + (String.IsNullOrWhiteSpace(techReg.Paragraphs) ? "none;" : "inline;"))">
                                     <label asp-for="TechRegParagraphs[0].Paragraphs" class="control-label"></label>
                                     <input id="TechRegParagraphs0Paragraphs" asp-for="TechRegParagraphs[techRegCounter].Paragraphs" value="@techReg.Paragraphs" class="form-control" />
                                     <span asp-validation-for="@techReg.Paragraphs" class="text-danger"></span>
@@ -167,6 +167,63 @@
                             </div>
                         </div>
                         ++techRegCounter;
+                    }
+                }
+            </div>
+            <br>
+            <div class="form-group row col-md-12" id="tableTemplateGovStandard">
+                <div class="row align-content-md-start">
+                    <div class="col-md col-md-2">
+                        <label asp-for="GovStandardParagraphs" class="control-label"></label>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="btn-sm btn-success col-md-3" onclick="addGovStandard()" onmouseover="" style="cursor: pointer;">Добавить</div>
+                    </div>
+                </div>
+                @{
+                    int govStandardCounter = 0;
+
+                    if (Model.GovStandardParagraphs.Count == 0)
+                        Model.GovStandardParagraphs.Add(new EffectCert.ViewModels.Main.GovStandardParagraphsViewModel());
+
+                    foreach (var govStandard in Model.GovStandardParagraphs)
+                    {
+                        string rowTemplateGovStandard = "rowTemplateGovStandard" + (govStandardCounter == 0 ? String.Empty : govStandardCounter.ToString());
+                        string GovStandardParagraphs_GovStandardId = $"GovStandardParagraphs{govStandardCounter}GovStandardId";
+                        string GovStandardParagraphs_GovStandardIdEdit = $"GovStandardParagraphs{govStandardCounter}GovStandardIdEdit";
+                        string GovStandardParagraphs_GovStandardIdDetails = $"GovStandardParagraphs{govStandardCounter}GovStandardIdDetails";
+                        string GovStandardParagraphs_GovStandardIdDelete = $"GovStandardParagraphs{govStandardCounter}GovStandardIdDelete";
+                        string GovStandardParagraphs_GovStandardIdParagraphs = $"GovStandardParagraphs{govStandardCounter}GovStandardIdParagraphs";
+                        <div class="row align-content-between" id="@rowTemplateGovStandard">
+                            <div class="row align-content-between">
+                                <div class="col-md-6">
+                                    @if (govStandardCounter > 0)
+                                    {
+                                        <div class="btn btn-close btn-danger col-md-1" onmouseover="" style="cursor: pointer;" onclick="deleteElement(this)"></div>
+                                    }
+                                    <label asp-for="GovStandardParagraphs[0].GovStandard" class="control-label"></label>
+                                    <div class="row">
+                                        <div class="col-md">
+                                            <select id="@GovStandardParagraphs_GovStandardId" asp-for="GovStandardParagraphs[govStandardCounter].GovStandardId" class="form-control js-example-basic-single" onchange="changeref(this), setVisibilityButtons(this), setVisibility_paragraphs(this)" required>
+                                                <option value="@govStandard.GovStandard?.Id" selected>@govStandard.GovStandard?.Number</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <a asp-controller="GovStandard" asp-action="Create" target="_blank" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                                            <a asp-controller="GovStandard" asp-action="Edit" asp-route-id="@govStandard.GovStandard?.Id" id="@GovStandardParagraphs_GovStandardIdEdit" target="_blank" class="btn-icons-animation" target="_blank" style="@Html.Raw("display: " + (govStandard.GovStandard == null || govStandard.GovStandard.Id == 0 ? "none;" : "inline;"))"><img src="~/icons/icons8-pencil.png" height="24" width="24" /></a>
+                                            <a asp-controller="GovStandard" asp-action="Details" asp-route-id="@govStandard.GovStandard?.Id" id="@GovStandardParagraphs_GovStandardIdDetails" target="_blank" class="btn-icons-animation" target="_blank" style="@Html.Raw("display: " + (govStandard.GovStandard == null || govStandard.GovStandard.Id == 0 ? "none;" : "inline;"))"><img src="~/icons/icons8-info.png" height="24" width="24" /></a>
+                                            <a asp-controller="GovStandard" asp-action="Delete" asp-route-id="@govStandard.GovStandard?.Id" id="@GovStandardParagraphs_GovStandardIdDelete" target="_blank" class="btn-icons-animation" target="_blank" style="@Html.Raw("display: " + (govStandard.GovStandard == null || govStandard.GovStandard.Id == 0 ? "none;" : "inline;"))"><img src="~/icons/icons8-trash.png" height="24" width="24" /></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md" id="@GovStandardParagraphs_GovStandardIdParagraphs" style="@Html.Raw("display: " + (String.IsNullOrWhiteSpace(govStandard.Paragraphs) ? "none;" : "inline;"))">
+                                    <label asp-for="GovStandardParagraphs[0].Paragraphs" class="control-label"></label>
+                                    <input id="GovStandardParagraphs0Paragraphs" asp-for="GovStandardParagraphs[govStandardCounter].Paragraphs" value="@govStandard.Paragraphs" class="form-control" />
+                                    <span asp-validation-for="@govStandard.Paragraphs" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        ++govStandardCounter;
                     }
                 }
             </div>

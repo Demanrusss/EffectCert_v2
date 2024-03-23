@@ -11,9 +11,9 @@ function changeVisibilityDiv(groupDivId, checkElement) {
 
 function setVisibilityButtons(element) {
     let status = element.selectedIndex == 0 && element.options[0].value == '';
-    document.getElementById(element.id + 'Edit').hidden = status;
-    document.getElementById(element.id + 'Details').hidden = status;
-    document.getElementById(element.id + 'Delete').hidden = status;
+    document.getElementById(element.id + 'Edit').style.display = status ? 'none' : 'inline';
+    document.getElementById(element.id + 'Details').style.display = status ? 'none' : 'inline';
+    document.getElementById(element.id + 'Delete').style.display = status ? 'none' : 'inline';
 };
 
 function setRequired(fieldId, checkElement) {

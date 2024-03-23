@@ -25,7 +25,8 @@
 };
 
 function setVisibility_paragraphs(element) {
-    document.getElementById(element.id + 'Paragraphs').hidden = element.value == '';
+    let displayStatus = element.value == '' ? 'none' : 'inline';
+    document.getElementById(element.id + 'Paragraphs').style.display = displayStatus;
 };
 
 var techRegIdCounter = 0;
@@ -48,9 +49,9 @@ function addTechReg() {
 
 function prepareNode(node) {
     node.id += techRegIdCounter;
+    clearInputValue(node);
     changeNodeNames(node);
     setAttributesHiddenTrue(node);
-    clearInputValue(node);
     changeNodeIds(node);
     addDeleteButton(node);
 };
@@ -78,12 +79,16 @@ function setAttributesHiddenTrue(node) {
 
     let tempElement;
     for (let i = 0; i < idsForChange.length; i++) {
-        tempElement = node.querySelector(idsForChange[i]).hidden = true;
+        tempElement = node.querySelector(idsForChange[i]).style.display = 'none';
     }
 };
 
 function clearInputValue(node) {
     node.querySelector('#TechRegParagraphs0Paragraphs').value = '';
+    let selectElement = node.querySelector('#TechRegParagraphs0TechRegId');
+    selectElement.value = '';
+    selectElement.options[0].value = '';
+    selectElement.options[0].innerHTML = '';
 };
 
 function changeNodeIds(node) {
@@ -154,9 +159,9 @@ function addGovStandard() {
 
 function prepareGovStandardNode(node) {
     node.id += govStandardIdCounter;
+    clearGovStandardInputValue(node);
     changeGovStandardNodeNames(node);
     setGovStandardAttributesHiddenTrue(node);
-    clearGovStandardInputValue(node);
     changeGovStandardNodeIds(node);
     addGovStandardDeleteButton(node);
 };
@@ -184,12 +189,16 @@ function setGovStandardAttributesHiddenTrue(node) {
 
     let tempElement;
     for (let i = 0; i < idsForChange.length; i++) {
-        tempElement = node.querySelector(idsForChange[i]).hidden = true;
+        tempElement = node.querySelector(idsForChange[i]).style.display = 'none';
     }
 };
 
 function clearGovStandardInputValue(node) {
     node.querySelector('#GovStandardParagraphs0Paragraphs').value = '';
+    let selectElement = node.querySelector('#GovStandardParagraphs0GovStandardId');
+    selectElement.value = '';
+    selectElement.options[0].value = '';
+    selectElement.options[0].innerHTML = '';
 };
 
 function changeGovStandardNodeIds(node) {
