@@ -106,6 +106,48 @@
                 </div>
                 <span asp-validation-for="ProductQuantitiesIds" class="text-danger" id="ProductQuantitiesIdsWarning"></span>
             </div>
+            <div class="form-group party col-md-5">
+                <label asp-for="Contracts" class="control-label"></label>
+                <div class="row justify-content-between">
+                    <div class="col-md">
+                        <select asp-for="ContractsIds" class="form-control js-example-basic-multiple" required>
+                            <option></option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <a asp-controller="Contract" asp-action="Create" target="_blank" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                    </div>
+                </div>
+                <span asp-validation-for="ContractsIds" class="text-danger" id="ContractsIdsWarning"></span>
+            </div>
+            <div class="form-group party col-md-5">
+                <label asp-for="GTDs" class="control-label"></label>
+                <div class="row justify-content-between">
+                    <div class="col-md">
+                        <select asp-for="GTDsIds" class="form-control js-example-basic-multiple" required>
+                            <option></option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <a asp-controller="GTD" asp-action="Create" target="_blank" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                    </div>
+                </div>
+                <span asp-validation-for="GTDsIds" class="text-danger" id="GTDsIdsWarning"></span>
+            </div>
+            <div class="form-group party col-md-5">
+                <label asp-for="Invoices" class="control-label"></label>
+                <div class="row justify-content-between">
+                    <div class="col-md">
+                        <select asp-for="InvoicesIds" class="form-control js-example-basic-multiple" required>
+                            <option></option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <a asp-controller="Invoice" asp-action="Create" target="_blank" class="btn-icons-animation" target="_blank"><img src="~/icons/icons8-plus.png" height="24" width="24" /></a>
+                    </div>
+                </div>
+                <span asp-validation-for="InvoicesIds" class="text-danger" id="InvoicesIdsWarning"></span>
+            </div>
             <br>
             <div class="form-group row col-md-12" id="tableTemplateTechReg">
                 <div class="row align-content-md-start">
@@ -203,6 +245,9 @@
                 { id: '#SchemaId', url: '/Schema/GetSchemas/', placeholder: 'Выберите схему' },
                 { id: '#ProductsIds', url: '/Product/GetProducts/', placeholder: 'Выберите продукцию' },
                 { id: '#ProductQuantitiesIds', url: '/ProductQuantity/GetProductQuantities/', placeholder: 'Выберите партию продукции' },
+                { id: '#ContractsIds', url: '/Contract/GetContracts/', placeholder: 'Выберите контракт' },
+                { id: '#GTDsIds', url: '/GTD/GetGTDs/', placeholder: 'Выберите ГТД' },
+                { id: '#InvoicesIds', url: '/Invoice/GetInvoices/', placeholder: 'Выберите инвойс' },
                 { id: '#TechRegParagraphs0TechRegId', url: '/TechReg/GetTechRegs/', placeholder: 'Выберите тех. регламент' },
                 { id: '#GovStandardParagraphs0GovStandardId', url: '/GovStandard/GetGovStandards/', placeholder: 'Выберите ГОСТ' }
             ];

@@ -72,6 +72,9 @@ namespace EffectCert.DAL.Implementations.Main
                 .Include(a => a.Schema)
                 .Include(a => a.Products)
                 .Include(a => a.ProductQuantities)
+                .Include(a => a.Contracts)
+                .Include(a => a.GTDs)
+                .Include(a => a.Invoices)
                 .Include(a => a.TechRegsParagraphs)
                 .Include(a => a.GovStandardsParagraphs)
                 .Select(a => new Application
@@ -110,6 +113,23 @@ namespace EffectCert.DAL.Implementations.Main
                             Name = pq.Product.Name,
                             Model = pq.Product.Model
                         }
+                    }).ToList(),
+                    Contracts = a.Contracts.Select(c => new Contract
+                    {
+                        Id = c.Id,
+                        Number = c.Number,
+                        Date = c.Date
+                    }).ToList(),
+                    GTDs = a.GTDs.Select(gtd => new GTD
+                    {
+                        Id = gtd.Id,
+                        Number = gtd.Number
+                    }).ToList(),
+                    Invoices = a.Invoices.Select(inv => new Invoice
+                    {
+                        Id = inv.Id,
+                        Number = inv.Number,
+                        Date = inv.Date
                     }).ToList(),
                     TechRegsParagraphs = a.TechRegsParagraphs.Select(trp => new TechRegParagraphs
                     {

@@ -4,6 +4,7 @@ using EffectCert.DAL.Entities.Others;
 using EffectCert.ViewMappers.Contractors;
 using EffectCert.ViewMappers.Documents;
 using EffectCert.ViewMappers.Others;
+using EffectCert.ViewModels.Documents;
 using EffectCert.ViewModels.Main;
 using EffectCert.ViewModels.Others;
 
@@ -25,6 +26,9 @@ namespace EffectCert.ViewMappers.Main
                 Products = ConvertCollection(viewModel.Products),
                 ProductQuantities = ConvertCollection(viewModel.ProductQuantities),
                 SchemaId = viewModel.SchemaId,
+                Contracts = ConvertCollection(viewModel.Contracts),
+                GTDs = ConvertCollection(viewModel.GTDs),
+                Invoices = ConvertCollection(viewModel.Invoices),
                 TechRegsParagraphs = ConvertCollection(viewModel.TechRegParagraphs),
                 GovStandardsParagraphs = ConvertCollection(viewModel.GovStandardParagraphs)
             };
@@ -47,6 +51,9 @@ namespace EffectCert.ViewMappers.Main
                 Products = ConvertCollection(model.Products),
                 ProductQuantities = ConvertCollection(model.ProductQuantities),
                 Schema = SchemaMapper.MapToViewModel(model.Schema),
+                Contracts = ConvertCollection(model.Contracts),
+                GTDs = ConvertCollection(model.GTDs),
+                Invoices = ConvertCollection(model.Invoices),
                 TechRegParagraphs = (IList<TechRegParagraphsViewModel>)ConvertCollection(model.TechRegsParagraphs),
                 GovStandardParagraphs = (IList<GovStandardParagraphsViewModel>)ConvertCollection(model.GovStandardsParagraphs)
             };
@@ -128,6 +135,66 @@ namespace EffectCert.ViewMappers.Main
 
             foreach (var element in sourceCollection)
                 targetCollection.Add(GovStandardParagraphsMapper.MapToModel(element));
+
+            return targetCollection;
+        }
+
+        private static ICollection<ContractViewModel> ConvertCollection(ICollection<Contract> sourceCollection)
+        {
+            var targetCollection = new List<ContractViewModel>(sourceCollection.Count);
+
+            foreach (var element in sourceCollection)
+                targetCollection.Add(ContractMapper.MapToViewModel(element));
+
+            return targetCollection;
+        }
+
+        private static ICollection<Contract> ConvertCollection(ICollection<ContractViewModel> sourceCollection)
+        {
+            var targetCollection = new List<Contract>(sourceCollection.Count);
+
+            foreach (var element in sourceCollection)
+                targetCollection.Add(ContractMapper.MapToModel(element));
+
+            return targetCollection;
+        }
+
+        private static ICollection<GTDViewModel> ConvertCollection(ICollection<GTD> sourceCollection)
+        {
+            var targetCollection = new List<GTDViewModel>(sourceCollection.Count);
+
+            foreach (var element in sourceCollection)
+                targetCollection.Add(GTDMapper.MapToViewModel(element));
+
+            return targetCollection;
+        }
+
+        private static ICollection<GTD> ConvertCollection(ICollection<GTDViewModel> sourceCollection)
+        {
+            var targetCollection = new List<GTD>(sourceCollection.Count);
+
+            foreach (var element in sourceCollection)
+                targetCollection.Add(GTDMapper.MapToModel(element));
+
+            return targetCollection;
+        }
+
+        private static ICollection<InvoiceViewModel> ConvertCollection(ICollection<Invoice> sourceCollection)
+        {
+            var targetCollection = new List<InvoiceViewModel>(sourceCollection.Count);
+
+            foreach (var element in sourceCollection)
+                targetCollection.Add(InvoiceMapper.MapToViewModel(element));
+
+            return targetCollection;
+        }
+
+        private static ICollection<Invoice> ConvertCollection(ICollection<InvoiceViewModel> sourceCollection)
+        {
+            var targetCollection = new List<Invoice>(sourceCollection.Count);
+
+            foreach (var element in sourceCollection)
+                targetCollection.Add(InvoiceMapper.MapToModel(element));
 
             return targetCollection;
         }

@@ -38,6 +38,15 @@ namespace EffectCert.ViewModels.Main
         [DisplayName("Продукция и количество")]
         public ICollection<ProductQuantityViewModel> ProductQuantities { get; set; } = new HashSet<ProductQuantityViewModel>();
         public int[]? ProductQuantitiesIds { get; set; }
+        [DisplayName("Контракты на поставку")]
+        public ICollection<ContractViewModel> Contracts { get; set; } = new HashSet<ContractViewModel>();
+        public int[]? ContractsIds { get; set; }
+        [DisplayName("ГТД")]
+        public ICollection<GTDViewModel> GTDs { get; set; } = new HashSet<GTDViewModel>();
+        public int[]? GTDsIds { get; set; }
+        [DisplayName("Инвойсы/счета-фактуры")]
+        public ICollection<InvoiceViewModel> Invoices { get; set; } = new HashSet<InvoiceViewModel>();
+        public int[]? InvoicesIds { get; set; }
         [DisplayName("Технические регламенты")]
         public IList<TechRegParagraphsViewModel> TechRegParagraphs { get; set; } = new List<TechRegParagraphsViewModel>();
         [DisplayName("ГОСТы")]

@@ -20,6 +20,9 @@ namespace EffectCert.DAL.Entities.Main
 
         public ICollection<Product> Products { get; set; } = new HashSet<Product>();
         public ICollection<ProductQuantity> ProductQuantities { get; set; } = new HashSet<ProductQuantity>();
+        public ICollection<Invoice> Invoices { get; set; } = new HashSet<Invoice>();
+        public ICollection<Contract> Contracts { get; set; } = new HashSet<Contract>();
+        public ICollection<GTD> GTDs { get; set; } = new HashSet<GTD>();
         public ICollection<TechRegParagraphs> TechRegsParagraphs { get; set; } = new HashSet<TechRegParagraphs>();
         public ICollection<GovStandardParagraphs> GovStandardsParagraphs { get; set; } = new HashSet<GovStandardParagraphs>();
     }

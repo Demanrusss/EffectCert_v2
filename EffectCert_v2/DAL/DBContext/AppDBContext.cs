@@ -61,6 +61,9 @@ namespace EffectCert.DAL.DBContext
         public DbSet<ApplicationsProducts> ApplicationsProducts { get; set; }
         public DbSet<ApplicationsProductQuantities> ApplicationsProductQuantities { get; set; }
         public DbSet<SchemasCertObjects> SchemasCertObjects { get; set; }
+        public DbSet<ApplicationsContracts> ApplicationsContracts { get; set; }
+        public DbSet<ApplicationsGTDs> ApplicationsGTDs { get; set; }
+        public DbSet<ApplicationsInvoices> ApplicationsInvoices { get; set; }
         public DbSet<ApplicationsTechRegsParagraphs> ApplicationsTechRegsParagraphs { get; set; }
         public DbSet<ApplicationsGovStandardsParagraphs> ApplicationsGovStandardsParagraphs { get; set; }
 
@@ -75,6 +78,21 @@ namespace EffectCert.DAL.DBContext
                 .HasMany(a => a.ProductQuantities)
                 .WithMany(pq => pq.Applications)
                 .UsingEntity<ApplicationsProductQuantities>();
+
+            modelBuilder.Entity<Application>()
+                .HasMany(a => a.Contracts)
+                .WithMany(c => c.Applications)
+                .UsingEntity<ApplicationsContracts>();
+
+            modelBuilder.Entity<Application>()
+                .HasMany(a => a.GTDs)
+                .WithMany(c => c.Applications)
+                .UsingEntity<ApplicationsGTDs>();
+
+            modelBuilder.Entity<Application>()
+                .HasMany(a => a.Invoices)
+                .WithMany(c => c.Applications)
+                .UsingEntity<ApplicationsInvoices>();
 
             modelBuilder.Entity<Application>()
                 .HasMany(a => a.TechRegsParagraphs)
