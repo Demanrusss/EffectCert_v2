@@ -259,6 +259,18 @@
                         @Html.Raw(element);
                         ++techRegCounter;
                     }
+
+                    int govStandardCounter = 0;
+
+                    if (Model.GovStandardParagraphs.Count == 0)
+                        Model.GovStandardParagraphs.Add(new EffectCert.ViewModels.Main.GovStandardParagraphsViewModel());
+
+                    foreach (var techReg in Model.GovStandardParagraphs)
+                    {
+                        string element = "{ id: '#GovStandardParagraphs" + govStandardCounter.ToString() + "GovStandardId', url: '/GovStandard/GetGovStandards/', placeholder: 'Выберите ГОСТ' },";
+                        @Html.Raw(element);
+                        ++govStandardCounter;
+                    }
                 }
                 { id: '#ProductQuantitiesIds', url: '/ProductQuantity/GetProductQuantities/', placeholder: 'Выберите партию продукции' }
             ];
@@ -272,5 +284,6 @@
         });
 
         techRegIdCounter = @techRegCounter - 1;
+        govStandardIdCounter = @govStandardCounter - 1;
     </script>
 }

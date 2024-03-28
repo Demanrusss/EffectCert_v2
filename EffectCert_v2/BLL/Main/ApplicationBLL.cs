@@ -58,6 +58,11 @@ namespace EffectCert.BLL.Main
             return await applicationDAL.Delete(id);
         }
 
+        public async Task<int> Count()
+        {
+            return await applicationDAL.Count();
+        }
+
         private ICollection<ApplicationViewModel> ConvertCollection(ICollection<Application> collection)
         {
             var collectionVM = new List<ApplicationViewModel>(collection.Count);

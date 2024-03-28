@@ -61,6 +61,8 @@ namespace EffectCert.DAL.Implementations.Main
                         }
                     }).ToList()
                 })
+                .OrderByDescending(a => a.Date)
+                .Take(10)
                 .ToListAsync();
         }
 
@@ -256,6 +258,11 @@ namespace EffectCert.DAL.Implementations.Main
 
             appDBContext.Applications.Remove(application);
             return await appDBContext.SaveChangesAsync();
+        }
+
+        public async Task<int> Count()
+        {
+            return await appDBContext.Applications.CountAsync();
         }
 
         private ICollection<int> GetIdsCollectionOf<T>(ICollection<T> entities) where T : IEntity

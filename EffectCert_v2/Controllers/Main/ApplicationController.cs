@@ -130,5 +130,10 @@ namespace EffectCert.Controllers.Main
 
             return Json(applicationsList);
         }
+
+        public async Task<int> GetQuantity()
+        {
+            return await applicationBLL.Count();
+        }
     }
 }

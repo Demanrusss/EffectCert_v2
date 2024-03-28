@@ -2,9 +2,16 @@
 
 <h3>@ViewBag.Title</h3>
 
-<p>
-    <a asp-action="Create">Создать новый</a>
-</p>
+<div class="row justify-content-md-between">
+    <div class="col-md-3">
+        <p>
+            <a asp-action="Create">Создать новый</a>
+        </p>
+    </div>
+    <div class="col-md-2 text-md-end">
+        <p id="applications_quantity"></p>
+    </div>
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -61,3 +68,19 @@
 }
     </tbody>
 </table>
+
+@section Scripts {
+    <script>
+        $(document).ready(async function () {
+            let response = await fetch('/Application/GetQuantity', { method: 'GET'});
+
+            if (response.ok) {
+                let quantity = await response.text();
+                document.querySelector('#applications_quantity').innerText = `Всего записей ${quantity}`;
+            }
+            else {
+                alert('Something went wrong...');
+            }
+        });
+    </script>
+}

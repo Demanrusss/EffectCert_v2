@@ -4,6 +4,6 @@ namespace EffectCert.BLL.Interfaces
 {
     public interface IApplicationBLL : ICommonBLL<ApplicationViewModel>
     {
-
+        Task<int> Count();
     }
 }
